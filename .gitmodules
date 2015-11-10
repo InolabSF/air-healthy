@@ -1,0 +1,3 @@
+[submodule "air-health/Classes/SwiftyJSON"]
+	path = air-health/Classes/SwiftyJSON
+	url = https://github.com/SwiftyJSON/SwiftyJSON.git

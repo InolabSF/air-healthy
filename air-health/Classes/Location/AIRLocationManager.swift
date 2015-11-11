@@ -4,6 +4,15 @@ import CoreLocation
 /// MARK: - AIRLocationManager
 class AIRLocationManager: NSObject {
 
+    /// MARK: - constant
+    static let IntervalToStartUpdatingLocation = 3.0 // seconds to update location
+    static let DistanceToUpdateLocation: CLLocationDistance = 20.0 // distance to update location
+    static let ComfirmingCountToUpdateLocation = 3 // comfirming count to update location
+    //static let IntervalToStartUpdatingLocation = 1.0 // seconds to update location
+    //static let DistanceToUpdateLocation: CLLocationDistance = 1.0 // distance to update location
+    //static let ComfirmingCountToUpdateLocation = 3 // comfirming count to update location
+
+
     /// MARK: - property
     static let sharedInstance = AIRLocationManager()
 
@@ -49,6 +58,8 @@ class AIRLocationManager: NSObject {
     func stopUpdatingLocation() {
         self.locationManager.stopUpdatingLocation()
 
+        AIRLocation.save(locations: self.locations)
+/*
         var alertMessage = "[\n"
         for var i = 1; i < self.locations.count; i++ {
             let location = self.locations[i-1]
@@ -76,7 +87,7 @@ class AIRLocationManager: NSObject {
             do { try alertMessage.writeToFile(path, atomically: false, encoding: NSUTF8StringEncoding) }
             catch {}
         }
-
+*/
 /*
         AIRGoogleMapClient.sharedInstance.getLocatoinNearBySearch(
             location: newLocation,
@@ -103,10 +114,10 @@ class AIRLocationManager: NSObject {
             self.locations.append(newLocation)
         }
         // updating location
-        else if distance >= AIRLocation.DistanceToUpdateLocation && // did move?
+        else if distance >= AIRLocationManager.DistanceToUpdateLocation && // did move?
             (newLocation.timestamp.compare(self.lastLocation!.timestamp) == NSComparisonResult.OrderedDescending) // is really new?
         {
-            if self.comfirmingCountToUpdateLastLocation >= AIRLocation.ComfirmingCountToUpdateLocation {
+            if self.comfirmingCountToUpdateLastLocation >= AIRLocationManager.ComfirmingCountToUpdateLocation {
                 self.lastLocation = newLocation
                 self.locations.append(newLocation)
                 self.comfirmingCountToUpdateLastLocation = 0
@@ -125,7 +136,7 @@ extension AIRLocationManager: CLLocationManagerDelegate {
 
     func locationManager(manager: CLLocationManager, didUpdateToLocation newLocation: CLLocation, fromLocation oldLocation: CLLocation) {
         dispatch_after(
-            dispatch_time(DISPATCH_TIME_NOW, Int64(AIRLocation.IntervalToStartUpdatingLocation * Double(NSEC_PER_SEC))),
+            dispatch_time(DISPATCH_TIME_NOW, Int64(AIRLocationManager.IntervalToStartUpdatingLocation * Double(NSEC_PER_SEC))),
             dispatch_get_main_queue(),
             { (void) in
                 self.updateLocation(newLocation: newLocation, oldLocation: oldLocation)

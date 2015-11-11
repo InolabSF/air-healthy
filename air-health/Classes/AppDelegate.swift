@@ -11,6 +11,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     /// MARK: - life cycle
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        GMSServices.provideAPIKey(AIRGoogleMap.APIKey)
+
         return true
     }
 

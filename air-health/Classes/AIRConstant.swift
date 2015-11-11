@@ -28,19 +28,6 @@ func AIRNSStringFromClass(classType:AnyClass) -> String {
 }
 
 
-/// MARK: - Location
-
-struct AIRLocation {
-    /// seconds to update location
-    static let IntervalToStartUpdatingLocation = 3.0
-
-    /// distance to update location
-    static let DistanceToUpdateLocation: CLLocationDistance = 20.0
-
-    /// comfirming count to update location
-    static let ComfirmingCountToUpdateLocation = 3
-}
-
 /// MARK: - Google Map
 
 /// Base URI
@@ -70,5 +57,8 @@ struct AIRGoogleMap {
         static let RequestDenied =          "REQUEST_DENIED"
         static let UnknownError =           "UNKNOWN_ERROR"
     }
+
+    /// zoom
+    static let Zoom: Float =            13.0
 
 }

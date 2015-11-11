@@ -56,6 +56,7 @@ class AIRViewController: UIViewController {
             else if title == stopTitle {
                 self.rightBarButton.setTitle(startTitle, forState: .Normal)
                 AIRLocationManager.sharedInstance.stopUpdatingLocation()
+                self.performSegueWithIdentifier(AIRNSStringFromClass(AIRMapViewController), sender: nil)
             }
         }
     }

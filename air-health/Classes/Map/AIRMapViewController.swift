@@ -4,17 +4,14 @@ class AIRMapViewController: UIViewController {
     /// MARK: - property
     @IBOutlet weak var mapView: AIRMapView!
 
-    var locations: [CLLocation] = []
+    var stops: [CLLocation] = []
+    var passes: [CLLocation] = []
 
 
     /// MARK: - life cycle
 
     override func loadView() {
         super.loadView()
-
-        // locations that you passed
-        self.locations = AIRLocation.fetchLocations(date: NSDate())
-
 
         // mapview
         self.mapView.myLocationEnabled = false
@@ -30,7 +27,7 @@ class AIRMapViewController: UIViewController {
         super.viewDidAppear(animated)
 
         // draw
-        self.mapView.draw(locations: self.locations)
+        self.mapView.draw(passes: self.passes, stops: self.stops)
     }
 
     override func didReceiveMemoryWarning() {

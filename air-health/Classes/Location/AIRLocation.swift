@@ -19,14 +19,61 @@ class AIRLocation: NSManagedObject {
     /// MARK: - class method
 
     /**
+     * fetch stop locations
+     * @param date NSDate
+     * @return [CLLocation]
+     **/
+    class func fetchStops(date date: NSDate) -> [CLLocation] {
+        let locations = AIRLocation.fetch(date: date)
+        if locations.count == 0 { return [] }
+        else if locations.count <= 2 { return [locations[0]] }
+
+        let thresholdOfTimeInterval: NSTimeInterval = 300
+        var stops: [CLLocation] = []
+
+        // passing point
+        for var i = 1; i < locations.count-1; i++ {
+            if locations[i].timestamp.timeIntervalSinceDate(locations[i-1].timestamp) > thresholdOfTimeInterval {
+                stops.append(locations[i-1])
+            }
+        }
+        // final point
+        stops.append(locations[locations.count-1])
+
+        return stops
+    }
+
+    /**
+     * fetch start locations
+     * @param date NSDate
+     * @return [CLLocation]
+     **/
+    class func fetchStarts(date date: NSDate) -> [CLLocation] {
+        let locations = AIRLocation.fetch(date: date)
+        if locations.count <= 2 { return [] }
+
+        let thresholdOfTimeInterval: NSTimeInterval = 300
+        var starts: [CLLocation] = []
+
+        // passing point
+        for var i = 1; i < locations.count-1; i++ {
+            if locations[i].timestamp.timeIntervalSinceDate(locations[i-1].timestamp) > thresholdOfTimeInterval {
+                starts.append(locations[i])
+            }
+        }
+
+        return starts
+    }
+
+    /**
      * fetch datas
      * @param date NSDate
      * @return [CLLocation]
      */
-    class func fetchLocations(date date: NSDate) -> [CLLocation] {
+    class func fetch(date date: NSDate) -> [CLLocation] {
         var locations: [CLLocation] = []
 
-        let airLocations = AIRLocation.fetch(date: date)
+        let airLocations = AIRLocation.fetchAirLocations(date: date)
         for var i = 0; i < airLocations.count; i++ {
             let airLocation = airLocations[i]
             let location = CLLocation(
@@ -49,7 +96,7 @@ class AIRLocation: NSManagedObject {
      * @param date NSDate
      * @return [AIRLocation]
      */
-    class func fetch(date date: NSDate) -> [AIRLocation] {
+    class func fetchAirLocations(date date: NSDate) -> [AIRLocation] {
         let context = AIRCoreDataManager.sharedInstance.managedObjectContext
 
         // make fetch request
@@ -81,6 +128,27 @@ class AIRLocation: NSManagedObject {
 
     /**
      * save
+     * @param location CLLocation
+     **/
+    class func save(location location: CLLocation) {
+        let context = AIRCoreDataManager.sharedInstance.managedObjectContext
+
+        let airLocation = NSEntityDescription.insertNewObjectForEntityForName("AIRLocation", inManagedObjectContext: context) as! AIRLocation
+        airLocation.lat = NSNumber(double: location.coordinate.latitude)
+        airLocation.lng = NSNumber(double: location.coordinate.longitude)
+        airLocation.altitude = NSNumber(double: location.altitude)
+        airLocation.course = NSNumber(double: location.course)
+        airLocation.speed = NSNumber(double: location.speed)
+        airLocation.hAccuracy = NSNumber(double: location.horizontalAccuracy)
+        airLocation.vAccuracy = NSNumber(double: location.verticalAccuracy)
+        airLocation.timestamp = location.timestamp
+
+        do { try context.save() }
+        catch { return }
+    }
+
+    /**
+     * save
      * @param locations [CLLocation]
      **/
     class func save(locations locations: [CLLocation]) {
@@ -105,6 +173,5 @@ class AIRLocation: NSManagedObject {
         do { try context.save() }
         catch { return }
     }
-
 
 }

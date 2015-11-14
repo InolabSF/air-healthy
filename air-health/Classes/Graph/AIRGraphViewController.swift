@@ -8,7 +8,6 @@ class AIRGraphViewController: UIViewController {
     @IBOutlet weak var pieChartView: VBPieChart!
 
 
-
     /// MARK: - life cycle
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -16,7 +16,14 @@
 		E62A03C41BF157360046ABE0 /* AIRConstant-Private.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62A03C31BF157360046ABE0 /* AIRConstant-Private.swift */; };
 		E62A03CA1BF15E9F0046ABE0 /* AIRGoogleMapClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62A03C71BF15E9F0046ABE0 /* AIRGoogleMapClient.swift */; };
 		E62A03CB1BF15E9F0046ABE0 /* AIRGoogleMapOperationQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62A03C81BF15E9F0046ABE0 /* AIRGoogleMapOperationQueue.swift */; };
-		E66940341BEAC6E200771F8B /* AIRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E669402C1BEAC6E200771F8B /* AIRViewController.swift */; };
+		E63DB73D1BF57AA8000E3E42 /* AIRTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63DB73C1BF57AA8000E3E42 /* AIRTableViewCell.swift */; };
+		E646AF641BF65AAA00D4A788 /* AIRPieChartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E646AF611BF65AAA00D4A788 /* AIRPieChartTableViewCell.swift */; };
+		E646AF651BF65AAA00D4A788 /* AIRPieChartTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E646AF621BF65AAA00D4A788 /* AIRPieChartTableViewCell.xib */; };
+		E646AF661BF65AAA00D4A788 /* AIRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E646AF631BF65AAA00D4A788 /* AIRViewController.swift */; };
+		E646AF691BF65DB700D4A788 /* AIRLocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E646AF671BF65DB700D4A788 /* AIRLocationTableViewCell.swift */; };
+		E646AF6A1BF65DB700D4A788 /* AIRTripTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E646AF681BF65DB700D4A788 /* AIRTripTableViewCell.swift */; };
+		E646AF6D1BF65E9700D4A788 /* AIRLocationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E646AF6B1BF65E9700D4A788 /* AIRLocationTableViewCell.xib */; };
+		E646AF6E1BF65E9700D4A788 /* AIRTripTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E646AF6C1BF65E9700D4A788 /* AIRTripTableViewCell.xib */; };
 		E66940351BEAC6E200771F8B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E669402D1BEAC6E200771F8B /* AppDelegate.swift */; };
 		E66940361BEAC6E200771F8B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E669402E1BEAC6E200771F8B /* LaunchScreen.storyboard */; };
 		E66940371BEAC6E200771F8B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E669402F1BEAC6E200771F8B /* Main.storyboard */; };
@@ -30,8 +37,6 @@
 		E695DA6D1BF2C32F0060BF66 /* AIRMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E695DA6A1BF2C32F0060BF66 /* AIRMapView.swift */; };
 		E695DA6E1BF2C32F0060BF66 /* AIRMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E695DA6B1BF2C32F0060BF66 /* AIRMapViewController.swift */; };
 		E6AEF7E61BEBFB5C000102E2 /* AIRGraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AEF7E31BEBFB5C000102E2 /* AIRGraphViewController.swift */; };
-		E6AEF7E71BEBFB5C000102E2 /* AIRLineGraphTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AEF7E41BEBFB5C000102E2 /* AIRLineGraphTableViewCell.swift */; };
-		E6AEF7EC1BEBFC69000102E2 /* AIRLineGraphTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6AEF7EB1BEBFC69000102E2 /* AIRLineGraphTableViewCell.xib */; };
 		E6E4B73D1BEADEC6002DEAB1 /* AIRConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E4B73C1BEADEC6002DEAB1 /* AIRConstant.swift */; };
 /* End PBXBuildFile section */
 
@@ -48,7 +53,14 @@
 		E62A03C31BF157360046ABE0 /* AIRConstant-Private.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AIRConstant-Private.swift"; sourceTree = "<group>"; };
 		E62A03C71BF15E9F0046ABE0 /* AIRGoogleMapClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRGoogleMapClient.swift; sourceTree = "<group>"; };
 		E62A03C81BF15E9F0046ABE0 /* AIRGoogleMapOperationQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRGoogleMapOperationQueue.swift; sourceTree = "<group>"; };
-		E669402C1BEAC6E200771F8B /* AIRViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRViewController.swift; sourceTree = "<group>"; };
+		E63DB73C1BF57AA8000E3E42 /* AIRTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRTableViewCell.swift; sourceTree = "<group>"; };
+		E646AF611BF65AAA00D4A788 /* AIRPieChartTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRPieChartTableViewCell.swift; sourceTree = "<group>"; };
+		E646AF621BF65AAA00D4A788 /* AIRPieChartTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AIRPieChartTableViewCell.xib; sourceTree = "<group>"; };
+		E646AF631BF65AAA00D4A788 /* AIRViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRViewController.swift; sourceTree = "<group>"; };
+		E646AF671BF65DB700D4A788 /* AIRLocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRLocationTableViewCell.swift; sourceTree = "<group>"; };
+		E646AF681BF65DB700D4A788 /* AIRTripTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRTripTableViewCell.swift; sourceTree = "<group>"; };
+		E646AF6B1BF65E9700D4A788 /* AIRLocationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AIRLocationTableViewCell.xib; sourceTree = "<group>"; };
+		E646AF6C1BF65E9700D4A788 /* AIRTripTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AIRTripTableViewCell.xib; sourceTree = "<group>"; };
 		E669402D1BEAC6E200771F8B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E669402E1BEAC6E200771F8B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E669402F1BEAC6E200771F8B /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -63,9 +75,7 @@
 		E695DA6A1BF2C32F0060BF66 /* AIRMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRMapView.swift; sourceTree = "<group>"; };
 		E695DA6B1BF2C32F0060BF66 /* AIRMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRMapViewController.swift; sourceTree = "<group>"; };
 		E6AEF7E31BEBFB5C000102E2 /* AIRGraphViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRGraphViewController.swift; sourceTree = "<group>"; };
-		E6AEF7E41BEBFB5C000102E2 /* AIRLineGraphTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRLineGraphTableViewCell.swift; sourceTree = "<group>"; };
 		E6AEF7E81BEBFB89000102E2 /* air-health-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "air-health-Bridging-Header.h"; sourceTree = "<group>"; };
-		E6AEF7EB1BEBFC69000102E2 /* AIRLineGraphTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AIRLineGraphTableViewCell.xib; sourceTree = "<group>"; };
 		E6E4B73C1BEADEC6002DEAB1 /* AIRConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRConstant.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -139,6 +149,28 @@
 			path = Google;
 			sourceTree = "<group>";
 		};
+		E63DB73B1BF57AA8000E3E42 /* UIKit+Extension */ = {
+			isa = PBXGroup;
+			children = (
+				E63DB73C1BF57AA8000E3E42 /* AIRTableViewCell.swift */,
+			);
+			path = "UIKit+Extension";
+			sourceTree = "<group>";
+		};
+		E646AF601BF65AAA00D4A788 /* Root */ = {
+			isa = PBXGroup;
+			children = (
+				E646AF631BF65AAA00D4A788 /* AIRViewController.swift */,
+				E646AF611BF65AAA00D4A788 /* AIRPieChartTableViewCell.swift */,
+				E646AF621BF65AAA00D4A788 /* AIRPieChartTableViewCell.xib */,
+				E646AF671BF65DB700D4A788 /* AIRLocationTableViewCell.swift */,
+				E646AF6B1BF65E9700D4A788 /* AIRLocationTableViewCell.xib */,
+				E646AF681BF65DB700D4A788 /* AIRTripTableViewCell.swift */,
+				E646AF6C1BF65E9700D4A788 /* AIRTripTableViewCell.xib */,
+			);
+			path = Root;
+			sourceTree = "<group>";
+		};
 		E669402B1BEAC6E200771F8B /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -146,12 +178,13 @@
 				E6E4B73C1BEADEC6002DEAB1 /* AIRConstant.swift */,
 				E62A03C31BF157360046ABE0 /* AIRConstant-Private.swift */,
 				E669402D1BEAC6E200771F8B /* AppDelegate.swift */,
-				E669402C1BEAC6E200771F8B /* AIRViewController.swift */,
+				E646AF601BF65AAA00D4A788 /* Root */,
 				E62A03C51BF15E9F0046ABE0 /* Google */,
 				E695DA681BF2C32F0060BF66 /* Map */,
 				E62A03BC1BF1514A0046ABE0 /* Location */,
 				E6AEF7E11BEBFB5C000102E2 /* Graph */,
 				E612614A1BF160C200BE8E91 /* NSFoundation+Extension */,
+				E63DB73B1BF57AA8000E3E42 /* UIKit+Extension */,
 				E6839C721BF2B939007BD219 /* Model */,
 				E669402E1BEAC6E200771F8B /* LaunchScreen.storyboard */,
 				E669402F1BEAC6E200771F8B /* Main.storyboard */,
@@ -226,8 +259,6 @@
 			isa = PBXGroup;
 			children = (
 				E6AEF7E31BEBFB5C000102E2 /* AIRGraphViewController.swift */,
-				E6AEF7E41BEBFB5C000102E2 /* AIRLineGraphTableViewCell.swift */,
-				E6AEF7EB1BEBFC69000102E2 /* AIRLineGraphTableViewCell.xib */,
 			);
 			path = Graph;
 			sourceTree = "<group>";
@@ -297,10 +328,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E6AEF7EC1BEBFC69000102E2 /* AIRLineGraphTableViewCell.xib in Resources */,
 				E66940391BEAC6E200771F8B /* Info.plist in Resources */,
+				E646AF6D1BF65E9700D4A788 /* AIRLocationTableViewCell.xib in Resources */,
 				E66940361BEAC6E200771F8B /* LaunchScreen.storyboard in Resources */,
+				E646AF6E1BF65E9700D4A788 /* AIRTripTableViewCell.xib in Resources */,
 				E66940381BEAC6E200771F8B /* Assets.xcassets in Resources */,
+				E646AF651BF65AAA00D4A788 /* AIRPieChartTableViewCell.xib in Resources */,
 				E66940371BEAC6E200771F8B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -346,22 +379,25 @@
 			buildActionMask = 2147483647;
 			files = (
 				E695DA6E1BF2C32F0060BF66 /* AIRMapViewController.swift in Sources */,
+				E646AF6A1BF65DB700D4A788 /* AIRTripTableViewCell.swift in Sources */,
 				E6AEF7E61BEBFB5C000102E2 /* AIRGraphViewController.swift in Sources */,
 				E62A03CA1BF15E9F0046ABE0 /* AIRGoogleMapClient.swift in Sources */,
+				E63DB73D1BF57AA8000E3E42 /* AIRTableViewCell.swift in Sources */,
 				E6839C771BF2B959007BD219 /* AIRModel.xcdatamodeld in Sources */,
-				E6AEF7E71BEBFB5C000102E2 /* AIRLineGraphTableViewCell.swift in Sources */,
 				E612614E1BF160C200BE8E91 /* NSURL+Queries.swift in Sources */,
+				E646AF641BF65AAA00D4A788 /* AIRPieChartTableViewCell.swift in Sources */,
 				E695DA6D1BF2C32F0060BF66 /* AIRMapView.swift in Sources */,
 				E61261491BF1602300BE8E91 /* SwiftyJSON.swift in Sources */,
 				E612614D1BF160C200BE8E91 /* NSMutableURLRequest+HTTPBody.swift in Sources */,
 				E66940351BEAC6E200771F8B /* AppDelegate.swift in Sources */,
 				E6839C791BF2B974007BD219 /* AIRLocation.swift in Sources */,
 				E62A03C01BF1514A0046ABE0 /* AIRLocationManager.swift in Sources */,
+				E646AF691BF65DB700D4A788 /* AIRLocationTableViewCell.swift in Sources */,
 				E62A03CB1BF15E9F0046ABE0 /* AIRGoogleMapOperationQueue.swift in Sources */,
 				E62A03C41BF157360046ABE0 /* AIRConstant-Private.swift in Sources */,
 				E695DA671BF2BEAB0060BF66 /* NSDate+Ago.swift in Sources */,
-				E66940341BEAC6E200771F8B /* AIRViewController.swift in Sources */,
 				E6839C741BF2B939007BD219 /* AIRCoreDataManager.swift in Sources */,
+				E646AF661BF65AAA00D4A788 /* AIRViewController.swift in Sources */,
 				E6E4B73D1BEADEC6002DEAB1 /* AIRConstant.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

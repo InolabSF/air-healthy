@@ -11,6 +11,7 @@ class AIRCoreDataManager {
         let modelURL = NSBundle.mainBundle().URLForResource("AIRModel", withExtension: "momd")
         return NSManagedObjectModel(contentsOfURL: modelURL!)!
     }
+
     var managedObjectContext: NSManagedObjectContext {
         let coordinator = self.persistentStoreCoordinator
 

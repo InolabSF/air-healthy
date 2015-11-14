@@ -13,4 +13,4 @@ pod 'VBPieChart', :git => 'https://github.com/kenzan8000/VBPieChart.git'
 pod 'GoogleMaps'
 
 # font
-#pod 'ionicons'
+pod 'ionicons'

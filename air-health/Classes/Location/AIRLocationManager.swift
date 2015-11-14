@@ -8,9 +8,6 @@ class AIRLocationManager: NSObject {
     static let IntervalToStartUpdatingLocation = 3.0 // seconds to update location
     static let DistanceToUpdateLocation: CLLocationDistance = 20.0 // distance to update location
     static let ComfirmingCountToUpdateLocation = 3 // comfirming count to update location
-    //static let IntervalToStartUpdatingLocation = 1.0 // seconds to update location
-    //static let DistanceToUpdateLocation: CLLocationDistance = 1.0 // distance to update location
-    //static let ComfirmingCountToUpdateLocation = 3 // comfirming count to update location
 
 
     /// MARK: - property
@@ -20,8 +17,6 @@ class AIRLocationManager: NSObject {
 
     var lastLocation: CLLocation?
     var comfirmingCountToUpdateLastLocation = 0
-
-    var locations: [CLLocation] = []
 
 
     /// MARK: - initialization
@@ -45,7 +40,6 @@ class AIRLocationManager: NSObject {
      * start updating location
      **/
     func startUpdatingLocation() {
-        self.locations = []
         self.lastLocation = nil
         self.comfirmingCountToUpdateLastLocation = 0
 
@@ -58,36 +52,6 @@ class AIRLocationManager: NSObject {
     func stopUpdatingLocation() {
         self.locationManager.stopUpdatingLocation()
 
-        AIRLocation.save(locations: self.locations)
-/*
-        var alertMessage = "[\n"
-        for var i = 1; i < self.locations.count; i++ {
-            let location = self.locations[i-1]
-            let nextLocation = self.locations[i]
-
-            let timeSpent = nextLocation.timestamp.timeIntervalSinceDate(location.timestamp)
-            let direction = nextLocation.course
-            let speed = nextLocation.speed
-            let startCoordinate = location.coordinate
-            let endCoordinate = nextLocation.coordinate
-
-            alertMessage += "{'direction': \(direction), 'speed': \(speed), 'start lat': \(startCoordinate.latitude), 'start lng': \(startCoordinate.longitude), 'end lat': \(endCoordinate.latitude), 'end lng': \(endCoordinate.longitude), 'timestamp': '\(location.timestamp)', 'time spent': \(timeSpent), },\n"
-        }
-        alertMessage += "]"
-
-        let alertView = UIAlertView()
-        alertView.message = alertMessage
-        alertView.addButtonWithTitle("OK")
-        alertView.show()
-
-        // save text
-        let file = "moves.txt"
-        if let dir : NSString = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.AllDomainsMask, true).first {
-            let path = dir.stringByAppendingPathComponent(file);
-            do { try alertMessage.writeToFile(path, atomically: false, encoding: NSUTF8StringEncoding) }
-            catch {}
-        }
-*/
 /*
         AIRGoogleMapClient.sharedInstance.getLocatoinNearBySearch(
             location: newLocation,
@@ -111,19 +75,20 @@ class AIRLocationManager: NSObject {
         // first location
         if self.lastLocation == nil {
             self.lastLocation = newLocation
-            self.locations.append(newLocation)
+            AIRLocation.save(location: newLocation)
         }
         // updating location
         else if distance >= AIRLocationManager.DistanceToUpdateLocation && // did move?
-            (newLocation.timestamp.compare(self.lastLocation!.timestamp) == NSComparisonResult.OrderedDescending) // is really new?
+            newLocation.timestamp.compare(self.lastLocation!.timestamp) == NSComparisonResult.OrderedDescending // is really new?
         {
             if self.comfirmingCountToUpdateLastLocation >= AIRLocationManager.ComfirmingCountToUpdateLocation {
                 self.lastLocation = newLocation
-                self.locations.append(newLocation)
+                AIRLocation.save(location: newLocation)
                 self.comfirmingCountToUpdateLastLocation = 0
             }
             else { self.comfirmingCountToUpdateLastLocation += 1 }
         }
+        else { self.comfirmingCountToUpdateLastLocation = 0 }
 
         self.locationManager.startUpdatingLocation()
     }

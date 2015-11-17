@@ -2,6 +2,9 @@ platform :ios, '7.0'
 
 xcodeproj 'air-health'
 
+# csv
+pod 'CHCSVParser'
+
 # network
 pod 'ISHTTPOperation'
 

@@ -35,11 +35,13 @@ class AIRPieChartTableViewCell: AIRTableViewCell {
 
     /**
      * set datas
+     * @param day String
      * @param airHealth Double
+     * @param animated Bool
      **/
-    func set(airHealth airHealth: Double) {
+    func set(day day: String, airHealth: Double, animated: Bool) {
         // day
-        self.dayLabel.text = "Today"
+        self.dayLabel.text = day
         // air health percentage
         self.airHealthPercentageLabel.text = "\(Int(airHealth))%"
         // pie chart
@@ -53,7 +55,7 @@ class AIRPieChartTableViewCell: AIRTableViewCell {
                 ["name" : "", "value" : NSNumber(double: airHealth), "color" : UIColor(red: 46.0/255.0, green: 204.0/255.0, blue: 113.0/255.0, alpha: 1.0)],
                 ["name" : "", "value" : NSNumber(double: airUnhealth), "color" : UIColor(red: 231.0/255.0, green: 76.0/255.0, blue: 60.0/255.0, alpha: 0.0)],
             ],
-            animation: true,
+            animation: animated,
             duration: 0.8,
             options: [.FanAll, .TimingEaseIn]
         )

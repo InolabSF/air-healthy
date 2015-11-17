@@ -10,6 +10,7 @@ class AIRViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var rightBarButton: UIButton!
 
+    var shouldAnimatePieChart = true
     var locations: [CLLocation] = []
 
     var cellClassNames: [String] {
@@ -21,10 +22,29 @@ class AIRViewController: UIViewController {
         return names
     }
 
+    var locationNames = ["Digital Garage Development LLC", "Place in Parkside"]
+
 
     /// MARK: - life cycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
+
+    override func loadView() {
+        super.loadView()
+
+        // title
+        self.navigationController!.navigationBar.titleTextAttributes = [
+            NSForegroundColorAttributeName: UIColor.darkGrayColor(),
+            NSFontAttributeName: UIFont(name: "AmericanTypewriter-Bold", size: 24)!
+        ]
+
+        // right bar button
+        self.rightBarButton.setImage(
+            IonIcons.imageWithIcon(
+                ion_android_settings,
+                iconColor: UIColor.grayColor(),
+                iconSize: 22,
+                imageSize: CGSizeMake(22, 22)),
+            forState: .Normal
+        )
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -37,7 +57,7 @@ class AIRViewController: UIViewController {
         let calendar = NSCalendar.currentCalendar()
         dateComponents.year = 2015
         dateComponents.month = 11
-        dateComponents.day = 10
+        dateComponents.day = 13
         let date = calendar.dateFromComponents(dateComponents)
 
         var newLocations = AIRLocation.fetchStarts(date: date!) + AIRLocation.fetchStops(date: date!)
@@ -48,6 +68,7 @@ class AIRViewController: UIViewController {
         var doesUpdate = (self.locations.count != newLocations.count)
         doesUpdate = doesUpdate || (self.locations.count > 0 && newLocations.count > 0 && lastLocation!.timestamp.compare(newLastLocation!.timestamp) != .OrderedSame)
         if doesUpdate {
+            self.shouldAnimatePieChart = true
             self.locations = newLocations
             self.tableView.reloadData()
         }
@@ -59,18 +80,25 @@ class AIRViewController: UIViewController {
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == AIRNSStringFromClass(AIRGraphViewController)) {
-            //let graphViewController = segue.destinationViewController as! AIRGraphViewController
-        }
-        if (segue.identifier == AIRNSStringFromClass(AIRMapViewController)) {
-            let mapViewController = segue.destinationViewController as! AIRMapViewController
-
             let dateComponents = NSDateComponents()
             let calendar = NSCalendar.currentCalendar()
             dateComponents.year = 2015
             dateComponents.month = 11
-            dateComponents.day = 10
+            dateComponents.day = 13
             let date = calendar.dateFromComponents(dateComponents)
 
+            let graphViewController = segue.destinationViewController as! AIRGraphViewController
+            graphViewController.passes = AIRLocation.fetch(date: date!)
+        }
+        if (segue.identifier == AIRNSStringFromClass(AIRMapViewController)) {
+            let dateComponents = NSDateComponents()
+            let calendar = NSCalendar.currentCalendar()
+            dateComponents.year = 2015
+            dateComponents.month = 11
+            dateComponents.day = 13
+            let date = calendar.dateFromComponents(dateComponents)
+
+            let mapViewController = segue.destinationViewController as! AIRMapViewController
             mapViewController.passes = AIRLocation.fetch(date: date!)
             mapViewController.stops = AIRLocation.fetchStops(date: date!)
         }
@@ -79,8 +107,13 @@ class AIRViewController: UIViewController {
 
     /// MARK: - event listener
 
+    /**
+     * called when button is touched up inside
+     * @param button UIButton
+     **/
     @IBAction func touchedUpInside(button button: UIButton) {
         if button == self.rightBarButton {
+/*
             let title = self.rightBarButton.titleForState(.Normal)
             let startTitle = "Start"
             let stopTitle = "Stop"
@@ -94,6 +127,7 @@ class AIRViewController: UIViewController {
                 AIRLocationManager.sharedInstance.stopUpdatingLocation()
                 self.performSegueWithIdentifier(AIRNSStringFromClass(AIRMapViewController), sender: nil)
             }
+*/
         }
     }
 
@@ -113,12 +147,16 @@ extension AIRViewController: UITableViewDelegate, UITableViewDataSource {
 
         // design cell
         if name == AIRNSStringFromClass(AIRPieChartTableViewCell) {
-            (cell as! AIRPieChartTableViewCell).set(airHealth: 65.0)
+            (cell as! AIRPieChartTableViewCell).set(day: "Today", airHealth: 65.0, animated: self.shouldAnimatePieChart)
+            self.shouldAnimatePieChart = false
         }
         else if name == AIRNSStringFromClass(AIRLocationTableViewCell) {
+            //(cell as! AIRLocationTableViewCell).set(location: self.locations[indexPath.row-1])
+            (cell as! AIRLocationTableViewCell).locationLabel.text = locationNames[(indexPath.row - 1) / 2]
+            (cell as! AIRLocationTableViewCell).locationImageView.image = UIImage(named: "root_stop.png")
         }
         else if name == AIRNSStringFromClass(AIRTripTableViewCell) {
-            (cell as! AIRTripTableViewCell).set(start: self.locations[indexPath.row-2], end: self.locations[indexPath.row-1])
+            (cell as! AIRTripTableViewCell).set(start: self.locations[indexPath.row-1], end: self.locations[indexPath.row])
         }
 
         return cell
@@ -143,3 +181,5 @@ extension AIRViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
 }
+
+

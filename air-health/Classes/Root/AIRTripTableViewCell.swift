@@ -49,7 +49,7 @@ class AIRTripTableViewCell: AIRTableViewCell {
         else { self.tripLabel.text = "\(min) min" }
 
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "hh:mm"
+        dateFormatter.dateFormat = "HH:mm"
         self.startTimeLabel.text = dateFormatter.stringFromDate(start.timestamp)
         self.endTimeLabel.text = dateFormatter.stringFromDate(end.timestamp)
     }

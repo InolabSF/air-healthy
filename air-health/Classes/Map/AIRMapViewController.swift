@@ -2,6 +2,9 @@
 class AIRMapViewController: UIViewController {
 
     /// MARK: - property
+    @IBOutlet weak var leftBarButton: UIButton!
+    @IBOutlet weak var rightBarButton: UIButton!
+
     @IBOutlet weak var mapView: AIRMapView!
 
     var stops: [CLLocation] = []
@@ -12,6 +15,31 @@ class AIRMapViewController: UIViewController {
 
     override func loadView() {
         super.loadView()
+
+        // title
+        self.navigationController!.navigationBar.titleTextAttributes = [
+            NSForegroundColorAttributeName: UIColor.darkGrayColor(),
+            NSFontAttributeName: UIFont(name: "AmericanTypewriter-Bold", size: 24)!
+        ]
+
+        // left bar button
+        self.leftBarButton.setImage(
+            IonIcons.imageWithIcon(
+                ion_ios_arrow_back,
+                iconColor: UIColor.grayColor(),
+                iconSize: 22,
+                imageSize: CGSizeMake(22, 22)),
+            forState: .Normal
+        )
+        // right bar button
+        self.rightBarButton.setImage(
+            IonIcons.imageWithIcon(
+                ion_android_settings,
+                iconColor: UIColor.grayColor(),
+                iconSize: 22,
+                imageSize: CGSizeMake(22, 22)),
+            forState: .Normal
+        )
 
         // mapview
         self.mapView.myLocationEnabled = false
@@ -32,6 +60,18 @@ class AIRMapViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+
+
+    /// MARK: - event listener
+
+    /**
+     * called when button is touched up inside
+     * @param button UIButton
+     **/
+    @IBAction func touchUpInside(button button: UIButton) {
+        if button == self.leftBarButton { self.navigationController!.popViewControllerAnimated(true) }
+        else if button == self.rightBarButton { }
     }
 
 }

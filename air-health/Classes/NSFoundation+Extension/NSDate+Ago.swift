@@ -30,4 +30,29 @@ extension NSDate {
         return calendar.dateByAddingComponents(dateComponents, toDate: self, options: [])
     }
 
+    /**
+     * get the Date ~ hours ago
+     * @param hours hours
+     * @return NSDate
+     */
+    func air_hoursAgo(hours hours: Int) -> NSDate? {
+        let dateComponents = NSDateComponents()
+        let calendar = NSCalendar.currentCalendar()
+        dateComponents.hour = -hours
+        return calendar.dateByAddingComponents(dateComponents, toDate: self, options: [])
+    }
+
+    /**
+     * get the Date ~ minutes ago
+     * @param minutes minutes
+     * @return NSDate
+     */
+    func air_minutesAgo(minutes minutes: Int) -> NSDate? {
+        let dateComponents = NSDateComponents()
+        let calendar = NSCalendar.currentCalendar()
+        dateComponents.minute = -minutes
+        return calendar.dateByAddingComponents(dateComponents, toDate: self, options: [])
+    }
+
+
 }

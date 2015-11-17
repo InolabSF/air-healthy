@@ -16,7 +16,7 @@ class AIRLocationTableViewCell: AIRTableViewCell {
      * @return cell's height
      **/
     override class func air_height() -> CGFloat {
-        return 72.0
+        return 93.0
     }
 
 
@@ -34,10 +34,11 @@ class AIRLocationTableViewCell: AIRTableViewCell {
 
     /**
      * set datas
-     * @param location AIRLocation
+     * @param location CLLocation
      **/
-    func set(location location: AIRLocation) {
-        self.locationLabel.text = "Place in Parkside"
+    func set(location location: CLLocation) {
+        //self.locationLabel.text = "Place in Parkside"
+        self.locationLabel.text = "\(location)"
     }
 
 }

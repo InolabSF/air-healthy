@@ -24,11 +24,14 @@
 		E646AF6A1BF65DB700D4A788 /* AIRTripTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E646AF681BF65DB700D4A788 /* AIRTripTableViewCell.swift */; };
 		E646AF6D1BF65E9700D4A788 /* AIRLocationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E646AF6B1BF65E9700D4A788 /* AIRLocationTableViewCell.xib */; };
 		E646AF6E1BF65E9700D4A788 /* AIRTripTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E646AF6C1BF65E9700D4A788 /* AIRTripTableViewCell.xib */; };
+		E6655D1A1BFBA70700D6A2AD /* CSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6655D191BFBA70700D6A2AD /* CSV.swift */; };
 		E66940351BEAC6E200771F8B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E669402D1BEAC6E200771F8B /* AppDelegate.swift */; };
 		E66940361BEAC6E200771F8B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E669402E1BEAC6E200771F8B /* LaunchScreen.storyboard */; };
 		E66940371BEAC6E200771F8B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E669402F1BEAC6E200771F8B /* Main.storyboard */; };
 		E66940381BEAC6E200771F8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E66940311BEAC6E200771F8B /* Assets.xcassets */; };
 		E66940391BEAC6E200771F8B /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E66940331BEAC6E200771F8B /* Info.plist */; };
+		E66E26F91BFABC60004E58CB /* vasp.csv in Resources */ = {isa = PBXBuildFile; fileRef = E66E26F71BFABC60004E58CB /* vasp.csv */; };
+		E66E26FA1BFABC60004E58CB /* ZAIRLOCATION.csv in Resources */ = {isa = PBXBuildFile; fileRef = E66E26F81BFABC60004E58CB /* ZAIRLOCATION.csv */; };
 		E6839C711BF2B920007BD219 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6839C701BF2B920007BD219 /* CoreData.framework */; };
 		E6839C741BF2B939007BD219 /* AIRCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6839C731BF2B939007BD219 /* AIRCoreDataManager.swift */; };
 		E6839C771BF2B959007BD219 /* AIRModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E6839C751BF2B959007BD219 /* AIRModel.xcdatamodeld */; };
@@ -61,11 +64,14 @@
 		E646AF681BF65DB700D4A788 /* AIRTripTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRTripTableViewCell.swift; sourceTree = "<group>"; };
 		E646AF6B1BF65E9700D4A788 /* AIRLocationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AIRLocationTableViewCell.xib; sourceTree = "<group>"; };
 		E646AF6C1BF65E9700D4A788 /* AIRTripTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AIRTripTableViewCell.xib; sourceTree = "<group>"; };
+		E6655D191BFBA70700D6A2AD /* CSV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CSV.swift; path = SwiftCSV/SwiftCSV/CSV.swift; sourceTree = "<group>"; };
 		E669402D1BEAC6E200771F8B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E669402E1BEAC6E200771F8B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E669402F1BEAC6E200771F8B /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		E66940311BEAC6E200771F8B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E66940331BEAC6E200771F8B /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E66E26F71BFABC60004E58CB /* vasp.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = vasp.csv; sourceTree = "<group>"; };
+		E66E26F81BFABC60004E58CB /* ZAIRLOCATION.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ZAIRLOCATION.csv; sourceTree = "<group>"; };
 		E6758C6C1BEAC4D5005C1696 /* air-health.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "air-health.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E6839C701BF2B920007BD219 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		E6839C731BF2B939007BD219 /* AIRCoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRCoreDataManager.swift; sourceTree = "<group>"; };
@@ -171,6 +177,14 @@
 			path = Root;
 			sourceTree = "<group>";
 		};
+		E6655D181BFBA6F000D6A2AD /* SwiftCSV */ = {
+			isa = PBXGroup;
+			children = (
+				E6655D191BFBA70700D6A2AD /* CSV.swift */,
+			);
+			name = SwiftCSV;
+			sourceTree = "<group>";
+		};
 		E669402B1BEAC6E200771F8B /* Classes */ = {
 			isa = PBXGroup;
 			children = (
@@ -189,6 +203,7 @@
 				E669402E1BEAC6E200771F8B /* LaunchScreen.storyboard */,
 				E669402F1BEAC6E200771F8B /* Main.storyboard */,
 				E61261461BF1601200BE8E91 /* SwiftyJSON */,
+				E6655D181BFBA6F000D6A2AD /* SwiftCSV */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -197,6 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				E66940311BEAC6E200771F8B /* Assets.xcassets */,
+				E66E26F61BFABC60004E58CB /* CSVs */,
 				E66940321BEAC6E200771F8B /* Plists */,
 			);
 			path = Resources;
@@ -208,6 +224,15 @@
 				E66940331BEAC6E200771F8B /* Info.plist */,
 			);
 			path = Plists;
+			sourceTree = "<group>";
+		};
+		E66E26F61BFABC60004E58CB /* CSVs */ = {
+			isa = PBXGroup;
+			children = (
+				E66E26F71BFABC60004E58CB /* vasp.csv */,
+				E66E26F81BFABC60004E58CB /* ZAIRLOCATION.csv */,
+			);
+			path = CSVs;
 			sourceTree = "<group>";
 		};
 		E6758C631BEAC4D5005C1696 = {
@@ -332,8 +357,10 @@
 				E646AF6D1BF65E9700D4A788 /* AIRLocationTableViewCell.xib in Resources */,
 				E66940361BEAC6E200771F8B /* LaunchScreen.storyboard in Resources */,
 				E646AF6E1BF65E9700D4A788 /* AIRTripTableViewCell.xib in Resources */,
+				E66E26F91BFABC60004E58CB /* vasp.csv in Resources */,
 				E66940381BEAC6E200771F8B /* Assets.xcassets in Resources */,
 				E646AF651BF65AAA00D4A788 /* AIRPieChartTableViewCell.xib in Resources */,
+				E66E26FA1BFABC60004E58CB /* ZAIRLOCATION.csv in Resources */,
 				E66940371BEAC6E200771F8B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -388,6 +415,7 @@
 				E646AF641BF65AAA00D4A788 /* AIRPieChartTableViewCell.swift in Sources */,
 				E695DA6D1BF2C32F0060BF66 /* AIRMapView.swift in Sources */,
 				E61261491BF1602300BE8E91 /* SwiftyJSON.swift in Sources */,
+				E6655D1A1BFBA70700D6A2AD /* CSV.swift in Sources */,
 				E612614D1BF160C200BE8E91 /* NSMutableURLRequest+HTTPBody.swift in Sources */,
 				E66940351BEAC6E200771F8B /* AppDelegate.swift in Sources */,
 				E6839C791BF2B974007BD219 /* AIRLocation.swift in Sources */,

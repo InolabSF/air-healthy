@@ -9,6 +9,9 @@ class AIRLocationManager: NSObject {
     static let DistanceToUpdateLocation: CLLocationDistance = 20.0 // distance to update location
     static let ComfirmingCountToUpdateLocation = 3 // comfirming count to update location
 
+    static let thresholdOfTimeIntervalToStop: NSTimeInterval = 300
+    static let thresholdOfDistanceToStop: CLLocationDistance = 200
+
 
     /// MARK: - property
     static let sharedInstance = AIRLocationManager()
@@ -51,15 +54,35 @@ class AIRLocationManager: NSObject {
      **/
     func stopUpdatingLocation() {
         self.locationManager.stopUpdatingLocation()
+    }
 
-/*
-        AIRGoogleMapClient.sharedInstance.getLocatoinNearBySearch(
-            location: newLocation,
-            completionHandler: { (json) in
-                AIRLOG("\(json)")
+    /**
+     * save demo data
+     **/
+    func saveDemoData() {
+        let path = NSBundle.mainBundle().pathForResource("ZAIRLOCATION", ofType: "csv")!
+        let error: NSErrorPointer = nil
+        if let csv = CSV(contentsOfFile: path, error: error) {
+            var locations: [CLLocation] = []
+
+            let rows = csv.rows
+            for var i = 0; i < rows.count; i++ {
+                let dateFormatter = NSDateFormatter()
+                dateFormatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
+
+                let location = CLLocation(
+                    coordinate: CLLocationCoordinate2D(latitude: Double(rows[i]["lat"]!)!, longitude: Double(rows[i]["lng"]!)!),
+                    altitude: Double(rows[i]["altitude"]!)!,
+                    horizontalAccuracy: Double(rows[i]["hAccuracy"]!)!,
+                    verticalAccuracy: Double(rows[i]["vAccuracy"]!)!,
+                    course: Double(rows[i]["course"]!)!,
+                    speed: Double(rows[i]["speed"]!)!,
+                    timestamp: dateFormatter.dateFromString(rows[i]["timestamp"]!)!.air_daysAgo(days: -1)!
+                )
+                locations.append(location)
             }
-        )
-*/
+            AIRLocation.save(locations: locations)
+        }
     }
 
 
@@ -74,14 +97,16 @@ class AIRLocationManager: NSObject {
         let distance = (self.lastLocation != nil) ? newLocation.distanceFromLocation(self.lastLocation!) : newLocation.distanceFromLocation(oldLocation)
         // first location
         if self.lastLocation == nil {
+            self.saveLocationName(location: newLocation)
             self.lastLocation = newLocation
             AIRLocation.save(location: newLocation)
         }
         // updating location
         else if distance >= AIRLocationManager.DistanceToUpdateLocation && // did move?
-            newLocation.timestamp.compare(self.lastLocation!.timestamp) == NSComparisonResult.OrderedDescending // is really new?
-        {
+            newLocation.timestamp.compare(self.lastLocation!.timestamp) == NSComparisonResult.OrderedDescending { // is really new?
             if self.comfirmingCountToUpdateLastLocation >= AIRLocationManager.ComfirmingCountToUpdateLocation {
+                self.saveLocationNameIfYouStay(newLocation: newLocation, oldLocation: self.lastLocation!)
+
                 self.lastLocation = newLocation
                 AIRLocation.save(location: newLocation)
                 self.comfirmingCountToUpdateLastLocation = 0
@@ -91,6 +116,38 @@ class AIRLocationManager: NSObject {
         else { self.comfirmingCountToUpdateLastLocation = 0 }
 
         self.locationManager.startUpdatingLocation()
+    }
+
+    /**
+     * save location name if you stay
+     * @param newLocation CLLocation
+     **/
+    private func saveLocationName(location location: CLLocation) {
+        // already know the name
+        let name = AIRLocationName.fetch(location: location)
+        if name != nil { return }
+
+        AIRGoogleMapClient.sharedInstance.getLocatoinNearBySearch(
+            location: location,
+            completionHandler: { (json) in
+                if json["status"].string != AIRGoogleMap.Statuses.OK { return }
+                AIRLocationName.save(json: json)
+            }
+        )
+    }
+
+    /**
+     * save location name if you stay
+     * @param newLocation CLLocation
+     * @param oldLocation CLLocation
+     **/
+    private func saveLocationNameIfYouStay(newLocation newLocation: CLLocation, oldLocation: CLLocation) {
+        // stay more than AIRLocationManager.thresholdOfTimeIntervalToStop seconds
+        if newLocation.timestamp.timeIntervalSinceDate(oldLocation.timestamp) < AIRLocationManager.thresholdOfTimeIntervalToStop { return }
+        // distance between 2 places are less than AIRLocationManager.thresholdOfDistanceToStop meters
+        if newLocation.distanceFromLocation(oldLocation) > AIRLocationManager.thresholdOfDistanceToStop { return }
+
+        self.saveLocationName(location: oldLocation)
     }
 
 }

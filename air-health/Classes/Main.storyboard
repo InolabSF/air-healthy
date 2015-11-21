@@ -66,7 +66,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NO2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2lp-bY-Yag">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SO2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2lp-bY-Yag">
                                         <rect key="frame" x="20" y="0.0" width="280" height="64"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
@@ -116,8 +116,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="NO2LineChart" destination="Ecv-vl-RSR" id="VmN-me-WDZ"/>
                         <outlet property="O3LineChart" destination="WVN-0I-gwo" id="G5Y-AE-ZC4"/>
+                        <outlet property="SO2LineChart" destination="Ecv-vl-RSR" id="uXh-1w-c3i"/>
                         <outlet property="leftBarButton" destination="XZi-Mh-eQg" id="McH-im-s3O"/>
                         <outlet property="rightBarButton" destination="cI7-T4-itA" id="6VD-3e-olL"/>
                         <outlet property="scrollView" destination="f9I-G5-Yc9" id="HIX-Mz-igq"/>

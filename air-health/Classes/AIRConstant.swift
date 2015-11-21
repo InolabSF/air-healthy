@@ -40,7 +40,7 @@ func AIRNSStringFromClassString(classString: String) -> String {
 /// MARK: - User Defaults
 
 struct AIRUserDefaults {
-    static let DemoCSV =            "AIRUserDefaults.DemoCSV"
+    static let DemoCSV =            "AIRUserDefaults.DemoCSV_0.1.0_1.0.2"
 }
 
 

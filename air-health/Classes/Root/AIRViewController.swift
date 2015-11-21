@@ -22,8 +22,6 @@ class AIRViewController: UIViewController {
         return names
     }
 
-    var locationNames = ["Digital Garage Development LLC", "Place in Parkside"]
-
 
     /// MARK: - life cycle
 
@@ -53,14 +51,9 @@ class AIRViewController: UIViewController {
         let indexPath = self.tableView.indexPathForSelectedRow
         if indexPath != nil { self.tableView.deselectRowAtIndexPath(indexPath!, animated: true) }
 
-        let dateComponents = NSDateComponents()
-        let calendar = NSCalendar.currentCalendar()
-        dateComponents.year = 2015
-        dateComponents.month = 11
-        dateComponents.day = 13
-        let date = calendar.dateFromComponents(dateComponents)
+        let date = NSDate()
 
-        var newLocations = AIRLocation.fetchStarts(date: date!) + AIRLocation.fetchStops(date: date!)
+        var newLocations = AIRLocation.fetchStarts(date: date) + AIRLocation.fetchStops(date: date)
         newLocations.sortInPlace({ $0.timestamp.compare($1.timestamp) == NSComparisonResult.OrderedAscending })
         // Is there any updates?
         let lastLocation = self.locations.last
@@ -80,27 +73,14 @@ class AIRViewController: UIViewController {
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == AIRNSStringFromClass(AIRGraphViewController)) {
-            let dateComponents = NSDateComponents()
-            let calendar = NSCalendar.currentCalendar()
-            dateComponents.year = 2015
-            dateComponents.month = 11
-            dateComponents.day = 13
-            let date = calendar.dateFromComponents(dateComponents)
-
             let graphViewController = segue.destinationViewController as! AIRGraphViewController
-            graphViewController.passes = AIRLocation.fetch(date: date!)
+            graphViewController.passes = AIRLocation.fetch(date: NSDate())
         }
         if (segue.identifier == AIRNSStringFromClass(AIRMapViewController)) {
-            let dateComponents = NSDateComponents()
-            let calendar = NSCalendar.currentCalendar()
-            dateComponents.year = 2015
-            dateComponents.month = 11
-            dateComponents.day = 13
-            let date = calendar.dateFromComponents(dateComponents)
-
+            let date = NSDate()
             let mapViewController = segue.destinationViewController as! AIRMapViewController
-            mapViewController.passes = AIRLocation.fetch(date: date!)
-            mapViewController.stops = AIRLocation.fetchStops(date: date!)
+            mapViewController.passes = AIRLocation.fetch(date: date)
+            mapViewController.stops = AIRLocation.fetchStops(date: date)
         }
     }
 
@@ -113,21 +93,6 @@ class AIRViewController: UIViewController {
      **/
     @IBAction func touchedUpInside(button button: UIButton) {
         if button == self.rightBarButton {
-/*
-            let title = self.rightBarButton.titleForState(.Normal)
-            let startTitle = "Start"
-            let stopTitle = "Stop"
-
-            if title == startTitle {
-                self.rightBarButton.setTitle(stopTitle, forState: .Normal)
-                AIRLocationManager.sharedInstance.startUpdatingLocation()
-            }
-            else if title == stopTitle {
-                self.rightBarButton.setTitle(startTitle, forState: .Normal)
-                AIRLocationManager.sharedInstance.stopUpdatingLocation()
-                self.performSegueWithIdentifier(AIRNSStringFromClass(AIRMapViewController), sender: nil)
-            }
-*/
         }
     }
 
@@ -147,13 +112,12 @@ extension AIRViewController: UITableViewDelegate, UITableViewDataSource {
 
         // design cell
         if name == AIRNSStringFromClass(AIRPieChartTableViewCell) {
-            (cell as! AIRPieChartTableViewCell).set(day: "Today", airHealth: 65.0, animated: self.shouldAnimatePieChart)
+            let airHealth = AIRSensorManager.healthEvaluation(name: "SO2", date: NSDate())
+            (cell as! AIRPieChartTableViewCell).set(day: "Today", airHealth: airHealth, animated: self.shouldAnimatePieChart)
             self.shouldAnimatePieChart = false
         }
         else if name == AIRNSStringFromClass(AIRLocationTableViewCell) {
-            //(cell as! AIRLocationTableViewCell).set(location: self.locations[indexPath.row-1])
-            (cell as! AIRLocationTableViewCell).locationLabel.text = locationNames[(indexPath.row - 1) / 2]
-            (cell as! AIRLocationTableViewCell).locationImageView.image = UIImage(named: "root_stop.png")
+            (cell as! AIRLocationTableViewCell).set(location: self.locations[indexPath.row-1])
         }
         else if name == AIRNSStringFromClass(AIRTripTableViewCell) {
             (cell as! AIRTripTableViewCell).set(start: self.locations[indexPath.row-1], end: self.locations[indexPath.row])
@@ -163,6 +127,11 @@ extension AIRViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        if self.cellClassNames.count <= 1 {
+            self.tableView.deselectRowAtIndexPath(indexPath, animated: true)
+            return
+        }
+
         let name = AIRNSStringFromClassString(self.cellClassNames[indexPath.row])
 
         // graph view controller
@@ -181,5 +150,3 @@ extension AIRViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
 }
-
-

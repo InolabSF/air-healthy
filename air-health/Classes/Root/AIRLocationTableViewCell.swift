@@ -37,8 +37,15 @@ class AIRLocationTableViewCell: AIRTableViewCell {
      * @param location CLLocation
      **/
     func set(location location: CLLocation) {
-        //self.locationLabel.text = "Place in Parkside"
-        self.locationLabel.text = "\(location)"
+        let name = AIRLocationName.fetch(location: location)
+        if name == nil {
+            self.locationLabel.text = String(format: "(%.2f, %.2f)", location.coordinate.latitude, location.coordinate.longitude)
+        }
+        else {
+            self.locationLabel.text = name!.name
+        }
+
+        self.locationImageView.image = UIImage(named: "root_stop.png")
     }
 
 }

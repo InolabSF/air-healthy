@@ -5,142 +5,189 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
     </dependencies>
     <scenes>
-        <!--Air Health-->
-        <scene sceneID="tne-QT-ifu">
-            <objects>
-                <viewController id="BYZ-38-t0r" customClass="AIRViewController" customModule="air_health" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="256" sectionHeaderHeight="28" sectionFooterHeight="28" id="Dxk-AL-LlL">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="nQM-E9-yYd"/>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="MHz-KL-Mfy"/>
-                                </connections>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Air Health" id="Y95-6u-ZlZ">
-                        <barButtonItem key="leftBarButtonItem" id="WaG-WM-hUc">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="VO6-ft-Alb">
-                                <rect key="frame" x="16" y="7" width="71" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </button>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" id="tEx-jy-fvA">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ThW-5R-c0O">
-                                <rect key="frame" x="233" y="7" width="71" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                                <connections>
-                                    <action selector="touchedUpInsideButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zMj-us-YSv"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="rightBarButton" destination="ThW-5R-c0O" id="Ku5-qH-tGd"/>
-                        <outlet property="tableView" destination="Dxk-AL-LlL" id="hI2-b9-x2w"/>
-                        <segue destination="u5Q-QV-du7" kind="push" identifier="AIRGraphViewController" id="3uT-Ub-OY9"/>
-                        <segue destination="0eM-6L-46W" kind="push" identifier="AIRMapViewController" id="ly7-ca-qGE"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="571" y="1011"/>
-        </scene>
-        <!--Graph View Controller-->
-        <scene sceneID="jUk-xG-MLs">
-            <objects>
-                <viewController id="u5Q-QV-du7" customClass="AIRGraphViewController" customModule="air_health" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="thU-ux-KoO">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="f9I-G5-Yc9">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SO2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2lp-bY-Yag">
-                                        <rect key="frame" x="20" y="0.0" width="280" height="64"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
-                                        <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <view contentMode="scaleToFill" id="Ecv-vl-RSR" customClass="FSLineChart">
-                                        <rect key="frame" x="20" y="64" width="280" height="160"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="O3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6me-sS-GqX">
-                                        <rect key="frame" x="20" y="224" width="280" height="64"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
-                                        <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <view contentMode="scaleToFill" id="WVN-0I-gwo" customClass="FSLineChart">
-                                        <rect key="frame" x="20" y="288" width="280" height="160"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                </subviews>
-                            </scrollView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="B6G-ty-lCd">
-                        <barButtonItem key="leftBarButtonItem" id="N6g-IG-9P7">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="XZi-Mh-eQg">
-                                <rect key="frame" x="16" y="7" width="71" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <connections>
-                                    <action selector="touchUpInsideButton:" destination="u5Q-QV-du7" eventType="touchUpInside" id="Ywh-DW-EPv"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" id="5Qk-mg-Boz">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="cI7-T4-itA">
-                                <rect key="frame" x="233" y="7" width="71" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <connections>
-                                    <action selector="touchUpInsideButton:" destination="u5Q-QV-du7" eventType="touchUpInside" id="EQc-i9-Tyg"/>
-                                </connections>
-                            </button>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="O3LineChart" destination="WVN-0I-gwo" id="G5Y-AE-ZC4"/>
-                        <outlet property="SO2LineChart" destination="Ecv-vl-RSR" id="uXh-1w-c3i"/>
-                        <outlet property="leftBarButton" destination="XZi-Mh-eQg" id="McH-im-s3O"/>
-                        <outlet property="rightBarButton" destination="cI7-T4-itA" id="6VD-3e-olL"/>
-                        <outlet property="scrollView" destination="f9I-G5-Yc9" id="HIX-Mz-igq"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="aLo-MS-axa" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="988" y="1011"/>
-        </scene>
         <!--Delegate-->
         <scene sceneID="uOV-LO-m0M">
             <objects>
-                <viewController id="0eM-6L-46W" customClass="AIRMapViewController" customModule="air_health" sceneMemberID="viewController">
+                <viewController id="0eM-6L-46W" customClass="AIRMapViewController" customModule="air_health" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XKm-7N-CCL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" id="a7Q-ns-4CJ" customClass="AIRMapView" customModule="air_health" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="289" width="320" height="568"/>
+                            <view contentMode="scaleToFill" id="Nhu-VV-PWx" customClass="AIRTimelineView" customModule="air_health" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" id="ZgL-vd-B4S">
+                                        <rect key="frame" x="0.0" y="64" width="320" height="64"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" id="4zm-Ji-Ydm">
+                                                <rect key="frame" x="0.0" y="63" width="320" height="1"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="M6o-ls-KlB">
+                                                <rect key="frame" x="20" y="0.0" width="200" height="64"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <attributedString key="attributedText">
+                                                    <fragment content="Nov">
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <font key="NSFont" size="12" name="HelveticaNeue"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content=" ">
+                                                        <attributes>
+                                                            <color key="NSColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <font key="NSFont" size="18" name="HelveticaNeue"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="21">
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.25098039215686274" green="0.25098039215686274" blue="0.25098039215686274" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <font key="NSFont" size="24" name="HelveticaNeue"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content=" ">
+                                                        <attributes>
+                                                            <color key="NSColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <font key="NSFont" size="18" name="HelveticaNeue"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                    <fragment content="2015">
+                                                        <attributes>
+                                                            <color key="NSColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <font key="NSFont" size="16" name="HelveticaNeue"/>
+                                                            <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                        </attributes>
+                                                    </fragment>
+                                                </attributedString>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10:45" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rSz-DM-AAa">
+                                                <rect key="frame" x="133" y="0.0" width="128" height="64"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="48"/>
+                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" id="a7Q-ns-4CJ" customClass="AIRMapView" customModule="air_health" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="128" width="320" height="344"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="0eM-6L-46W" id="Jx2-Q8-uBk"/>
+                                        </connections>
+                                    </view>
+                                    <view contentMode="scaleToFill" id="wAL-4w-bWL">
+                                        <rect key="frame" x="0.0" y="128" width="320" height="440"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" id="8GN-CN-bbi" customClass="AIRSensorGraphView" customModule="air_health" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="440"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" id="Nj1-Yc-BsG" customClass="VBPieChart">
+                                                        <rect key="frame" x="96" y="36" width="128" height="128"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="KcG-WY-Sg6">
+                                                        <rect key="frame" x="96" y="36" width="128" height="128"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <connections>
+                                                            <action selector="touchUpInsideButton:" destination="8GN-CN-bbi" eventType="touchUpInside" id="nva-4y-qL0"/>
+                                                        </connections>
+                                                    </button>
+                                                    <view contentMode="scaleToFill" id="ypZ-4R-IR7" customClass="VBPieChart">
+                                                        <rect key="frame" x="96" y="200" width="128" height="128"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="S3r-ax-HjK">
+                                                        <rect key="frame" x="96" y="200" width="128" height="128"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <connections>
+                                                            <action selector="touchUpInsideButton:" destination="8GN-CN-bbi" eventType="touchUpInside" id="EQI-I4-TR1"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <connections>
+                                                    <outlet property="O3Button" destination="KcG-WY-Sg6" id="W6o-PC-FTB"/>
+                                                    <outlet property="O3PieChartView" destination="Nj1-Yc-BsG" id="bUP-03-PQj"/>
+                                                    <outlet property="SO2Button" destination="S3r-ax-HjK" id="iLB-cC-Tho"/>
+                                                    <outlet property="SO2PieChartView" destination="ypZ-4R-IR7" id="LOo-fS-ySc"/>
+                                                    <outlet property="delegate" destination="0eM-6L-46W" id="Fcd-tg-4pj"/>
+                                                </connections>
+                                            </view>
+                                            <view hidden="YES" contentMode="scaleToFill" id="VeK-hw-wM3">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="128"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" id="wfd-GG-zZH">
+                                                        <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" id="fU0-9M-1qV" customClass="FSLineChart">
+                                                        <rect key="frame" x="20" y="28" width="222" height="64"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" id="yoB-53-Dex" customClass="GradientSlider" customModule="air_health" customModuleProvider="target">
+                                                        <rect key="frame" x="20" y="70" width="222" height="36"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="value">
+                                                                <real key="value" value="0.0"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="hasRainbow" value="YES"/>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="minimumValue">
+                                                                <real key="value" value="0.0"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="maximumValue">
+                                                                <real key="value" value="1"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="valueChangedWithControl:" destination="Nhu-VV-PWx" eventType="valueChanged" id="ZWS-a8-Lor"/>
+                                                        </connections>
+                                                    </view>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="BHa-8f-ptq">
+                                                        <rect key="frame" x="248" y="32" width="64" height="64"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                        <inset key="contentEdgeInsets" minX="8" minY="8" maxX="8" maxY="8"/>
+                                                        <connections>
+                                                            <action selector="touchUpInsideButton:" destination="Nhu-VV-PWx" eventType="touchUpInside" id="YhT-CD-6r1"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
-                                    <outlet property="delegate" destination="0eM-6L-46W" id="PmE-CL-f87"/>
+                                    <outlet property="closeButton" destination="BHa-8f-ptq" id="DLb-13-a37"/>
+                                    <outlet property="dateLabel" destination="M6o-ls-KlB" id="sw2-0E-zQg"/>
+                                    <outlet property="dateView" destination="ZgL-vd-B4S" id="ZiW-cL-B93"/>
+                                    <outlet property="delegate" destination="0eM-6L-46W" id="4ik-S0-NB1"/>
+                                    <outlet property="timeLabel" destination="rSz-DM-AAa" id="6dh-8c-zLH"/>
+                                    <outlet property="timeSlider" destination="yoB-53-Dex" id="SBi-Jx-CLE"/>
+                                    <outlet property="timeSliderParentView" destination="wAL-4w-bWL" id="C2V-4s-D4X"/>
+                                    <outlet property="timeSliderView" destination="VeK-hw-wM3" id="W2C-BX-x8y"/>
+                                    <outlet property="timelineLineChartView" destination="fU0-9M-1qV" id="D0i-np-9EM"/>
                                 </connections>
                             </view>
                         </subviews>
@@ -170,11 +217,13 @@
                         <outlet property="leftBarButton" destination="8Ui-qS-lhi" id="Rth-AV-U6t"/>
                         <outlet property="mapView" destination="a7Q-ns-4CJ" id="5SU-JS-xUN"/>
                         <outlet property="rightBarButton" destination="J7i-wm-Ytc" id="zZx-sX-teX"/>
+                        <outlet property="sensorGraphView" destination="8GN-CN-bbi" id="1rH-n0-X5x"/>
+                        <outlet property="timelineView" destination="Nhu-VV-PWx" id="q09-DJ-MPR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="npD-Ta-Trc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="988" y="1753"/>
+            <point key="canvasLocation" x="670" y="1755"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="FNz-13-O5q">
@@ -185,12 +234,12 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="uA4-VE-7X8"/>
+                        <segue destination="0eM-6L-46W" kind="relationship" relationship="rootViewController" id="GYb-BG-csg"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="q6d-pG-owd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="162" y="1011"/>
+            <point key="canvasLocation" x="304" y="1755"/>
         </scene>
     </scenes>
 </document>

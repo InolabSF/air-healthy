@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		193161496ABAF9653E7DD381 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C47482B723A41EB63CE00913 /* libPods.a */; };
+		2B8A4E4E4D90C4DD9EA471F5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ECD4F8936C1369720004C2C3 /* libPods.a */; };
 		E61261491BF1602300BE8E91 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = E61261481BF1602300BE8E91 /* SwiftyJSON.swift */; };
 		E612614D1BF160C200BE8E91 /* NSMutableURLRequest+HTTPBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = E612614B1BF160C200BE8E91 /* NSMutableURLRequest+HTTPBody.swift */; };
 		E612614E1BF160C200BE8E91 /* NSURL+Queries.swift in Sources */ = {isa = PBXBuildFile; fileRef = E612614C1BF160C200BE8E91 /* NSURL+Queries.swift */; };
@@ -17,37 +17,31 @@
 		E62A03CA1BF15E9F0046ABE0 /* AIRGoogleMapClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62A03C71BF15E9F0046ABE0 /* AIRGoogleMapClient.swift */; };
 		E62A03CB1BF15E9F0046ABE0 /* AIRGoogleMapOperationQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62A03C81BF15E9F0046ABE0 /* AIRGoogleMapOperationQueue.swift */; };
 		E63DB73D1BF57AA8000E3E42 /* AIRTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63DB73C1BF57AA8000E3E42 /* AIRTableViewCell.swift */; };
-		E646AF641BF65AAA00D4A788 /* AIRPieChartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E646AF611BF65AAA00D4A788 /* AIRPieChartTableViewCell.swift */; };
-		E646AF651BF65AAA00D4A788 /* AIRPieChartTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E646AF621BF65AAA00D4A788 /* AIRPieChartTableViewCell.xib */; };
-		E646AF661BF65AAA00D4A788 /* AIRViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E646AF631BF65AAA00D4A788 /* AIRViewController.swift */; };
-		E646AF691BF65DB700D4A788 /* AIRLocationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E646AF671BF65DB700D4A788 /* AIRLocationTableViewCell.swift */; };
-		E646AF6A1BF65DB700D4A788 /* AIRTripTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E646AF681BF65DB700D4A788 /* AIRTripTableViewCell.swift */; };
-		E646AF6D1BF65E9700D4A788 /* AIRLocationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E646AF6B1BF65E9700D4A788 /* AIRLocationTableViewCell.xib */; };
-		E646AF6E1BF65E9700D4A788 /* AIRTripTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E646AF6C1BF65E9700D4A788 /* AIRTripTableViewCell.xib */; };
 		E647B4771BFBEABB00B2CA4F /* AIRSensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E647B4761BFBEABB00B2CA4F /* AIRSensor.swift */; };
 		E647B4791BFC050F00B2CA4F /* AIRLocationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = E647B4781BFC050F00B2CA4F /* AIRLocationName.swift */; };
 		E6655D1A1BFBA70700D6A2AD /* CSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6655D191BFBA70700D6A2AD /* CSV.swift */; };
 		E66940351BEAC6E200771F8B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E669402D1BEAC6E200771F8B /* AppDelegate.swift */; };
-		E66940361BEAC6E200771F8B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E669402E1BEAC6E200771F8B /* LaunchScreen.storyboard */; };
 		E66940371BEAC6E200771F8B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E669402F1BEAC6E200771F8B /* Main.storyboard */; };
 		E66940381BEAC6E200771F8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E66940311BEAC6E200771F8B /* Assets.xcassets */; };
 		E66E26F91BFABC60004E58CB /* vasp.csv in Resources */ = {isa = PBXBuildFile; fileRef = E66E26F71BFABC60004E58CB /* vasp.csv */; };
 		E66E26FA1BFABC60004E58CB /* ZAIRLOCATION.csv in Resources */ = {isa = PBXBuildFile; fileRef = E66E26F81BFABC60004E58CB /* ZAIRLOCATION.csv */; };
 		E6743ED41BFFF23000068DE7 /* AIRModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E6743ED21BFFF23000068DE7 /* AIRModel.xcdatamodeld */; };
+		E67D11171C01E8430065266D /* GradientSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67D11161C01E8430065266D /* GradientSlider.swift */; };
 		E6839C711BF2B920007BD219 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6839C701BF2B920007BD219 /* CoreData.framework */; };
 		E6839C741BF2B939007BD219 /* AIRCoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6839C731BF2B939007BD219 /* AIRCoreDataManager.swift */; };
 		E6839C791BF2B974007BD219 /* AIRLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6839C781BF2B974007BD219 /* AIRLocation.swift */; };
 		E695DA671BF2BEAB0060BF66 /* NSDate+Ago.swift in Sources */ = {isa = PBXBuildFile; fileRef = E695DA661BF2BEAB0060BF66 /* NSDate+Ago.swift */; };
 		E695DA6D1BF2C32F0060BF66 /* AIRMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E695DA6A1BF2C32F0060BF66 /* AIRMapView.swift */; };
 		E695DA6E1BF2C32F0060BF66 /* AIRMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E695DA6B1BF2C32F0060BF66 /* AIRMapViewController.swift */; };
-		E6AEF7E61BEBFB5C000102E2 /* AIRGraphViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AEF7E31BEBFB5C000102E2 /* AIRGraphViewController.swift */; };
+		E6B10BAA1C039F3600B77A67 /* UIImage+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B10BA91C039F3600B77A67 /* UIImage+UIView.swift */; };
+		E6BC9CED1C03878B004769AD /* AIRTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BC9CEB1C03878B004769AD /* AIRTimelineView.swift */; };
+		E6BC9CF01C039AF6004769AD /* AIRSensorGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BC9CEF1C039AF6004769AD /* AIRSensorGraphView.swift */; };
 		E6D803FD1BFD444C00A55326 /* AIRSensorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D803FC1BFD444C00A55326 /* AIRSensorManager.swift */; };
 		E6E4B73D1BEADEC6002DEAB1 /* AIRConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E4B73C1BEADEC6002DEAB1 /* AIRConstant.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		23E31CF8721E70B566D8D7B1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		C47482B723A41EB63CE00913 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C87B605346AAD2704EEC5D7B /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		E61261471BF1602300BE8E91 /* SwiftyJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SwiftyJSON.h; path = SwiftyJSON/Source/SwiftyJSON.h; sourceTree = "<group>"; };
 		E61261481BF1602300BE8E91 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftyJSON.swift; path = SwiftyJSON/Source/SwiftyJSON.swift; sourceTree = "<group>"; };
@@ -59,34 +53,30 @@
 		E62A03C71BF15E9F0046ABE0 /* AIRGoogleMapClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRGoogleMapClient.swift; sourceTree = "<group>"; };
 		E62A03C81BF15E9F0046ABE0 /* AIRGoogleMapOperationQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRGoogleMapOperationQueue.swift; sourceTree = "<group>"; };
 		E63DB73C1BF57AA8000E3E42 /* AIRTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRTableViewCell.swift; sourceTree = "<group>"; };
-		E646AF611BF65AAA00D4A788 /* AIRPieChartTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRPieChartTableViewCell.swift; sourceTree = "<group>"; };
-		E646AF621BF65AAA00D4A788 /* AIRPieChartTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AIRPieChartTableViewCell.xib; sourceTree = "<group>"; };
-		E646AF631BF65AAA00D4A788 /* AIRViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRViewController.swift; sourceTree = "<group>"; };
-		E646AF671BF65DB700D4A788 /* AIRLocationTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRLocationTableViewCell.swift; sourceTree = "<group>"; };
-		E646AF681BF65DB700D4A788 /* AIRTripTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRTripTableViewCell.swift; sourceTree = "<group>"; };
-		E646AF6B1BF65E9700D4A788 /* AIRLocationTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AIRLocationTableViewCell.xib; sourceTree = "<group>"; };
-		E646AF6C1BF65E9700D4A788 /* AIRTripTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AIRTripTableViewCell.xib; sourceTree = "<group>"; };
 		E647B4761BFBEABB00B2CA4F /* AIRSensor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRSensor.swift; sourceTree = "<group>"; };
 		E647B4781BFC050F00B2CA4F /* AIRLocationName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRLocationName.swift; sourceTree = "<group>"; };
 		E6655D191BFBA70700D6A2AD /* CSV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CSV.swift; path = SwiftCSV/SwiftCSV/CSV.swift; sourceTree = "<group>"; };
 		E669402D1BEAC6E200771F8B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E669402E1BEAC6E200771F8B /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E669402F1BEAC6E200771F8B /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		E66940311BEAC6E200771F8B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E66E26F71BFABC60004E58CB /* vasp.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = vasp.csv; sourceTree = "<group>"; };
 		E66E26F81BFABC60004E58CB /* ZAIRLOCATION.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ZAIRLOCATION.csv; sourceTree = "<group>"; };
 		E6743ED31BFFF23000068DE7 /* AIRModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AIRModel.xcdatamodel; sourceTree = "<group>"; };
 		E6758C6C1BEAC4D5005C1696 /* air-health.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "air-health.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E67D11161C01E8430065266D /* GradientSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GradientSlider.swift; path = GradientSlider/GradientSlider/GradientSlider.swift; sourceTree = "<group>"; };
 		E6839C701BF2B920007BD219 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		E6839C731BF2B939007BD219 /* AIRCoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRCoreDataManager.swift; sourceTree = "<group>"; };
 		E6839C781BF2B974007BD219 /* AIRLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRLocation.swift; sourceTree = "<group>"; };
 		E695DA661BF2BEAB0060BF66 /* NSDate+Ago.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+Ago.swift"; sourceTree = "<group>"; };
 		E695DA6A1BF2C32F0060BF66 /* AIRMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRMapView.swift; sourceTree = "<group>"; };
 		E695DA6B1BF2C32F0060BF66 /* AIRMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRMapViewController.swift; sourceTree = "<group>"; };
-		E6AEF7E31BEBFB5C000102E2 /* AIRGraphViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRGraphViewController.swift; sourceTree = "<group>"; };
 		E6AEF7E81BEBFB89000102E2 /* air-health-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "air-health-Bridging-Header.h"; sourceTree = "<group>"; };
+		E6B10BA91C039F3600B77A67 /* UIImage+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+UIView.swift"; sourceTree = "<group>"; };
+		E6BC9CEB1C03878B004769AD /* AIRTimelineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRTimelineView.swift; sourceTree = "<group>"; };
+		E6BC9CEF1C039AF6004769AD /* AIRSensorGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRSensorGraphView.swift; sourceTree = "<group>"; };
 		E6D803FC1BFD444C00A55326 /* AIRSensorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRSensorManager.swift; sourceTree = "<group>"; };
 		E6E4B73C1BEADEC6002DEAB1 /* AIRConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRConstant.swift; sourceTree = "<group>"; };
+		ECD4F8936C1369720004C2C3 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,7 +86,7 @@
 			files = (
 				E6839C711BF2B920007BD219 /* CoreData.framework in Frameworks */,
 				E62A03C21BF151690046ABE0 /* CoreLocation.framework in Frameworks */,
-				193161496ABAF9653E7DD381 /* libPods.a in Frameworks */,
+				2B8A4E4E4D90C4DD9EA471F5 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,7 +98,7 @@
 			children = (
 				E6839C701BF2B920007BD219 /* CoreData.framework */,
 				E62A03C11BF151690046ABE0 /* CoreLocation.framework */,
-				C47482B723A41EB63CE00913 /* libPods.a */,
+				ECD4F8936C1369720004C2C3 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -163,23 +153,10 @@
 		E63DB73B1BF57AA8000E3E42 /* UIKit+Extension */ = {
 			isa = PBXGroup;
 			children = (
+				E6B10BA91C039F3600B77A67 /* UIImage+UIView.swift */,
 				E63DB73C1BF57AA8000E3E42 /* AIRTableViewCell.swift */,
 			);
 			path = "UIKit+Extension";
-			sourceTree = "<group>";
-		};
-		E646AF601BF65AAA00D4A788 /* Root */ = {
-			isa = PBXGroup;
-			children = (
-				E646AF631BF65AAA00D4A788 /* AIRViewController.swift */,
-				E646AF611BF65AAA00D4A788 /* AIRPieChartTableViewCell.swift */,
-				E646AF621BF65AAA00D4A788 /* AIRPieChartTableViewCell.xib */,
-				E646AF671BF65DB700D4A788 /* AIRLocationTableViewCell.swift */,
-				E646AF6B1BF65E9700D4A788 /* AIRLocationTableViewCell.xib */,
-				E646AF681BF65DB700D4A788 /* AIRTripTableViewCell.swift */,
-				E646AF6C1BF65E9700D4A788 /* AIRTripTableViewCell.xib */,
-			);
-			path = Root;
 			sourceTree = "<group>";
 		};
 		E647B4751BFBEABB00B2CA4F /* Sensor */ = {
@@ -206,18 +183,16 @@
 				E6E4B73C1BEADEC6002DEAB1 /* AIRConstant.swift */,
 				E62A03C31BF157360046ABE0 /* AIRConstant-Private.swift */,
 				E669402D1BEAC6E200771F8B /* AppDelegate.swift */,
-				E646AF601BF65AAA00D4A788 /* Root */,
+				E669402F1BEAC6E200771F8B /* Main.storyboard */,
 				E62A03C51BF15E9F0046ABE0 /* Google */,
 				E695DA681BF2C32F0060BF66 /* Map */,
 				E62A03BC1BF1514A0046ABE0 /* Location */,
 				E647B4751BFBEABB00B2CA4F /* Sensor */,
-				E6AEF7E11BEBFB5C000102E2 /* Graph */,
 				E612614A1BF160C200BE8E91 /* NSFoundation+Extension */,
 				E63DB73B1BF57AA8000E3E42 /* UIKit+Extension */,
 				E6839C721BF2B939007BD219 /* Model */,
-				E669402E1BEAC6E200771F8B /* LaunchScreen.storyboard */,
-				E669402F1BEAC6E200771F8B /* Main.storyboard */,
 				E61261461BF1601200BE8E91 /* SwiftyJSON */,
+				E67D11151C01E82E0065266D /* GradientSlider */,
 				E6655D181BFBA6F000D6A2AD /* SwiftCSV */,
 			);
 			path = Classes;
@@ -276,6 +251,14 @@
 			path = "air-health";
 			sourceTree = "<group>";
 		};
+		E67D11151C01E82E0065266D /* GradientSlider */ = {
+			isa = PBXGroup;
+			children = (
+				E67D11161C01E8430065266D /* GradientSlider.swift */,
+			);
+			name = GradientSlider;
+			sourceTree = "<group>";
+		};
 		E6839C721BF2B939007BD219 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -288,18 +271,12 @@
 		E695DA681BF2C32F0060BF66 /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				E695DA6A1BF2C32F0060BF66 /* AIRMapView.swift */,
 				E695DA6B1BF2C32F0060BF66 /* AIRMapViewController.swift */,
+				E6BC9CEB1C03878B004769AD /* AIRTimelineView.swift */,
+				E6BC9CEF1C039AF6004769AD /* AIRSensorGraphView.swift */,
+				E695DA6A1BF2C32F0060BF66 /* AIRMapView.swift */,
 			);
 			path = Map;
-			sourceTree = "<group>";
-		};
-		E6AEF7E11BEBFB5C000102E2 /* Graph */ = {
-			isa = PBXGroup;
-			children = (
-				E6AEF7E31BEBFB5C000102E2 /* AIRGraphViewController.swift */,
-			);
-			path = Graph;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -367,12 +344,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E646AF6D1BF65E9700D4A788 /* AIRLocationTableViewCell.xib in Resources */,
-				E66940361BEAC6E200771F8B /* LaunchScreen.storyboard in Resources */,
-				E646AF6E1BF65E9700D4A788 /* AIRTripTableViewCell.xib in Resources */,
 				E66E26F91BFABC60004E58CB /* vasp.csv in Resources */,
 				E66940381BEAC6E200771F8B /* Assets.xcassets in Resources */,
-				E646AF651BF65AAA00D4A788 /* AIRPieChartTableViewCell.xib in Resources */,
 				E66E26FA1BFABC60004E58CB /* ZAIRLOCATION.csv in Resources */,
 				E66940371BEAC6E200771F8B /* Main.storyboard in Resources */,
 			);
@@ -419,29 +392,28 @@
 			buildActionMask = 2147483647;
 			files = (
 				E695DA6E1BF2C32F0060BF66 /* AIRMapViewController.swift in Sources */,
-				E646AF6A1BF65DB700D4A788 /* AIRTripTableViewCell.swift in Sources */,
-				E6AEF7E61BEBFB5C000102E2 /* AIRGraphViewController.swift in Sources */,
 				E62A03CA1BF15E9F0046ABE0 /* AIRGoogleMapClient.swift in Sources */,
 				E63DB73D1BF57AA8000E3E42 /* AIRTableViewCell.swift in Sources */,
 				E612614E1BF160C200BE8E91 /* NSURL+Queries.swift in Sources */,
-				E646AF641BF65AAA00D4A788 /* AIRPieChartTableViewCell.swift in Sources */,
 				E695DA6D1BF2C32F0060BF66 /* AIRMapView.swift in Sources */,
 				E61261491BF1602300BE8E91 /* SwiftyJSON.swift in Sources */,
 				E6743ED41BFFF23000068DE7 /* AIRModel.xcdatamodeld in Sources */,
 				E6655D1A1BFBA70700D6A2AD /* CSV.swift in Sources */,
 				E612614D1BF160C200BE8E91 /* NSMutableURLRequest+HTTPBody.swift in Sources */,
 				E66940351BEAC6E200771F8B /* AppDelegate.swift in Sources */,
+				E6BC9CF01C039AF6004769AD /* AIRSensorGraphView.swift in Sources */,
 				E6839C791BF2B974007BD219 /* AIRLocation.swift in Sources */,
+				E6B10BAA1C039F3600B77A67 /* UIImage+UIView.swift in Sources */,
 				E62A03C01BF1514A0046ABE0 /* AIRLocationManager.swift in Sources */,
-				E646AF691BF65DB700D4A788 /* AIRLocationTableViewCell.swift in Sources */,
 				E62A03CB1BF15E9F0046ABE0 /* AIRGoogleMapOperationQueue.swift in Sources */,
 				E62A03C41BF157360046ABE0 /* AIRConstant-Private.swift in Sources */,
 				E6D803FD1BFD444C00A55326 /* AIRSensorManager.swift in Sources */,
+				E67D11171C01E8430065266D /* GradientSlider.swift in Sources */,
 				E695DA671BF2BEAB0060BF66 /* NSDate+Ago.swift in Sources */,
 				E6839C741BF2B939007BD219 /* AIRCoreDataManager.swift in Sources */,
-				E646AF661BF65AAA00D4A788 /* AIRViewController.swift in Sources */,
 				E647B4771BFBEABB00B2CA4F /* AIRSensor.swift in Sources */,
 				E647B4791BFC050F00B2CA4F /* AIRLocationName.swift in Sources */,
+				E6BC9CED1C03878B004769AD /* AIRTimelineView.swift in Sources */,
 				E6E4B73D1BEADEC6002DEAB1 /* AIRConstant.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

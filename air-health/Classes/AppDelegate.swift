@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         let doesLoadDemoCSV = NSUserDefaults().boolForKey(AIRUserDefaults.DemoCSV)
         if !doesLoadDemoCSV {
-            //AIRLocationManager.sharedInstance.saveDemoData()
+            AIRLocationManager.sharedInstance.saveDemoData()
             AIRSensorManager.sharedInstance.saveDemoData()
             NSUserDefaults().setObject(true, forKey: AIRUserDefaults.DemoCSV)
             NSUserDefaults().synchronize()

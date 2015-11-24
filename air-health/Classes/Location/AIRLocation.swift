@@ -18,168 +18,146 @@ class AIRLocation: NSManagedObject {
 
     /// MARK: - class method
 
-    /**
-     * fetch stop locations
-     * @param date NSDate
-     * @return [CLLocation]
-     **/
-    class func fetchStops(date date: NSDate) -> [CLLocation] {
-        let locations = AIRLocation.fetch(date: date)
-        if locations.count == 0 { return [] }
-        else if locations.count <= 2 { return [locations[0]] }
+//    /**
+//     * fetch stop locations
+//     * @param date NSDate
+//     * @return [CLLocation]
+//     **/
+//    class func fetchStops(date date: NSDate) -> [CLLocation] {
+//        let locations = AIRLocation.fetch(date: date)
+//        if locations.count == 0 { return [] }
+//        else if locations.count <= 2 { return [locations.first!] }
+//
+//        // stop points
+//        var stops: [CLLocation] = [locations.first!]
+//        var canBeStop = locations.first!
+//        for var i = 1; i < locations.count; i++ {
+//            if locations[i].distanceFromLocation(canBeStop) <= AIRLocationManager.thresholdOfDistanceToStop { continue }
+//            canBeStop = locations[i]
+//
+//            for var j = i+1; j < locations.count; j++ {
+//                let interval = locations[j].timeIntervalSinceDate(canBeStop.timestamp)
+//                if interval <= AIRLocationManager.thresholdOfTimeIntervalToStop { continue }
+//            }
+//        }
+//
+//        AIRLOG("stops")
+//        for var i = 0; i < stops.count; i++ {
+//            AIRLOG(stops[i].timestamp)
+//        }
+//
+//        return stops
+//
+///*
+//        // stop points
+//        var stops: [CLLocation] = []
+//        var stopEndIndex = -1
+//        var nextIndex = 1
+//        for var i = 0; i < locations.count-2; i = nextIndex {
+//            stopEndIndex = -1
+//            nextIndex = -1
+//            for var j = i+1; j < locations.count-1; j++ {
+//                let interval = locations[j].timestamp.timeIntervalSinceDate(locations[i].timestamp)
+//                let distance = locations[j].distanceFromLocation(locations[i])
+//                if interval > AIRLocationManager.thresholdOfTimeIntervalToStop { stopEndIndex = j }
+//                if distance > AIRLocationManager.thresholdOfDistanceToStop { nextIndex = j; break }
+//            }
+//            if nextIndex < 0 {
+//                if stopEndIndex >= 0 { stops.append(locations[i]) }
+//                break
+//            }
+//            if stopEndIndex < 0 { continue }
+//            stops.append(locations[i])
+//        }
+//        if stops.count == 0 { stops = [locations.first!] }
+//        else if locations.last!.distanceFromLocation(stops.last!) > AIRLocationManager.thresholdOfDistanceToStop {
+//            stops.append(locations.last!)
+//        }
+//
+//        AIRLOG("stops")
+//        for var i = 0; i < stops.count; i++ {
+//            AIRLOG(stops[i].timestamp)
+//        }
+//
+//        return stops
+//*/
+//    }
+//
+//    /**
+//     * fetch starts locations
+//     * @param date NSDate
+//     * @return [CLLocation]
+//     **/
+//    class func fetchStarts(date date: NSDate) -> [CLLocation] {
+//        let locations = AIRLocation.fetch(date: date)
+//        if locations.count <= 2 { return [] }
+///*
+//        // start points
+//        var starts: [CLLocation] = []
+//        var stopEndIndex = -1
+//        //var lastStopIndex = -1
+//        var nextIndex = 1
+//        for var i = 0; i < locations.count-2; i = nextIndex {
+//            stopEndIndex = -1
+//            nextIndex = -1
+//            for var j = i+1; j < locations.count-1; j++ {
+//                let interval = locations[j].timestamp.timeIntervalSinceDate(locations[i].timestamp)
+//                let distance = locations[j].distanceFromLocation(locations[i])
+//                if interval > AIRLocationManager.thresholdOfTimeIntervalToStop { stopEndIndex = j }
+//                if distance > AIRLocationManager.thresholdOfDistanceToStop { nextIndex = j; break }
+//            }
+//            if nextIndex < 0 {
+//                break
+//            }
+//            if stopEndIndex < 0 { continue }
+//            starts.append(locations[stopEndIndex])
+//            //lastStopIndex = i
+//        }
+//
+//        AIRLOG("starts")
+//        for var i = 0; i < starts.count; i++ {
+//            AIRLOG(starts[i].timestamp)
+//        }
+//
+//        return starts
+//*/
+//    }
 
-        // stop points
-        var stops: [CLLocation] = []
-        var stopIndex = -1
-        var endIndex = 1
-        for var i = 0; i < locations.count-2; i = endIndex {
-            stopIndex = -1
-            endIndex = i + 1
-            for var j = i+1; j < locations.count-1; j++ {
-                let interval = locations[j].timestamp.timeIntervalSinceDate(locations[i].timestamp)
-                let distance = locations[j].distanceFromLocation(locations[i])
-                //AIRLOG("\(distance), \(AIRLocationManager.thresholdOfDistanceToStop), \(interval), \(AIRLocationManager.thresholdOfTimeIntervalToStop)")
-                if distance > AIRLocationManager.thresholdOfDistanceToStop { endIndex = j; break }
-                if interval > AIRLocationManager.thresholdOfTimeIntervalToStop { stopIndex = j }
-            }
-            if stopIndex < 0 { break }
-            stops.append(locations[stopIndex-1])
-        }
 
-        if (stops.count == 0 && locations.last!.distanceFromLocation(locations.first!) > AIRLocationManager.thresholdOfDistanceToStop) ||
-           (stops.count == 1 && locations.last!.distanceFromLocation(stops.last!) > AIRLocationManager.thresholdOfDistanceToStop) {
-            stops = [locations.first!, locations.last!]
-        }
-        else if stops.count == 0 {
-            stops = [locations.last!]
-        }
-        else {
-            stops[0] = locations.first!
-        }
-
-        return stops
-/*
-        let locations = AIRLocation.fetch(date: date)
-        if locations.count == 0 { return [] }
-        else if locations.count <= 2 { return [locations[0]] }
-
-        var firstStop = -1
-        var stops: [CLLocation] = []
-        // stop points
-        for var i = 1; i < locations.count-1; i++ {
-            if locations[i].timestamp.timeIntervalSinceDate(locations[i-1].timestamp) > AIRLocationManager.thresholdOfTimeIntervalToStop &&
-               locations[i].distanceFromLocation(locations[i-1]) < AIRLocationManager.thresholdOfDistanceToStop {
-                stops.append(locations[i-1])
-                if firstStop < 0 { firstStop = i-1 }
-            }
-        }
-
-        // first stop
-        if firstStop >= 0 &&
-           locations[0].distanceFromLocation(locations[firstStop]) > AIRLocationManager.thresholdOfDistanceToStop {
-            stops = [locations[0]] + stops
-        }
-        // final stop
-        if stops.count > 1 {
-            stops.append(locations[locations.count-1])
-        }
-
-        return stops
-*/
-/*
-        let locations = AIRLocation.fetch(date: date)
-        if locations.count == 0 { return [] }
-        else if locations.count <= 2 { return [locations[0]] }
-
-        var stops: [CLLocation] = []
-        // stop points
-        for var i = 1; i < locations.count-1; i++ {
-            if locations[i].timestamp.timeIntervalSinceDate(locations[i-1].timestamp) > AIRLocationManager.thresholdOfTimeIntervalToStop &&
-               locations[i].distanceFromLocation(locations[i-1]) < AIRLocationManager.thresholdOfDistanceToStop {
-                stops.append(locations[i-1])
-            }
-        }
-        // final point
-        stops.append(locations[locations.count-1])
-
-        return stops
-*/
-    }
-
-    /**
-     * fetch start locations
-     * @param date NSDate
-     * @return [CLLocation]
-     **/
-    class func fetchStarts(date date: NSDate) -> [CLLocation] {
-        let locations = AIRLocation.fetch(date: date)
-        if locations.count <= 2 { return [] }
-
-        // start points
-        var starts: [CLLocation] = []
-        var stopIndex = -1
-        var endIndex = 1
-        for var i = 0; i < locations.count-2; i = endIndex {
-            stopIndex = -1
-            endIndex = i + 1
-            for var j = i+1; j < locations.count-1; j++ {
-                let interval = locations[j].timestamp.timeIntervalSinceDate(locations[i].timestamp)
-                let distance = locations[j].distanceFromLocation(locations[i])
-                if distance > AIRLocationManager.thresholdOfDistanceToStop { endIndex = j; break }
-                if interval > AIRLocationManager.thresholdOfTimeIntervalToStop { stopIndex = j }
-            }
-            if stopIndex < 0 { break }
-            starts.append(locations[stopIndex])
-        }
-        if (starts.count == 0 && locations.last!.distanceFromLocation(locations.first!) > AIRLocationManager.thresholdOfDistanceToStop) ||
-           (starts.count == 1 && stopIndex >= 0 && locations.last!.distanceFromLocation(locations[stopIndex-1]) > AIRLocationManager.thresholdOfDistanceToStop) {
-            starts = [locations[1]]
-        }
-        else if starts.count == 1 && locations.last!.distanceFromLocation(starts.last!) <= AIRLocationManager.thresholdOfDistanceToStop {
-            starts = []
-        }
-
-        return starts
-/*
-        let locations = AIRLocation.fetch(date: date)
-        if locations.count <= 2 { return [] }
-
-        var firstStop = -1
-        var starts: [CLLocation] = []
-        // start points
-        for var i = 1; i < locations.count-1; i++ {
-            if locations[i].timestamp.timeIntervalSinceDate(locations[i-1].timestamp) > AIRLocationManager.thresholdOfTimeIntervalToStop &&
-               locations[i].distanceFromLocation(locations[i-1]) < AIRLocationManager.thresholdOfDistanceToStop {
-                starts.append(locations[i])
-                if firstStop < 0 { firstStop = i-1 }
-            }
-        }
-
-        // first start
-        if firstStop >= 0 &&
-           locations[0].distanceFromLocation(locations[firstStop]) > AIRLocationManager.thresholdOfDistanceToStop {
-            starts = [locations[1]] + starts
-        }
-        // not move
-        if starts.count == 1 { starts = [] }
-
-        return starts
-*/
-/*
-        let locations = AIRLocation.fetch(date: date)
-        if locations.count <= 2 { return [] }
-
-        var starts: [CLLocation] = []
-        // start points
-        for var i = 1; i < locations.count-1; i++ {
-            if locations[i].timestamp.timeIntervalSinceDate(locations[i-1].timestamp) > AIRLocationManager.thresholdOfTimeIntervalToStop &&
-               locations[i].distanceFromLocation(locations[i-1]) < AIRLocationManager.thresholdOfDistanceToStop {
-                starts.append(locations[i])
-            }
-        }
-        return starts
-*/
-    }
+//    /**
+//     * fetch start locations
+//     * @param date NSDate
+//     * @return [CLLocation]
+//     **/
+//    class func fetchStarts(date date: NSDate) -> [CLLocation] {
+//        let locations = AIRLocation.fetch(date: date)
+//        if locations.count <= 2 { return [] }
+//
+//        // start points
+//        var starts: [CLLocation] = []
+//        var startIndex = -1
+//        var endIndex = 1
+//        for var i = 0; i < locations.count-2; i = endIndex {
+//            startIndex = -1
+//            endIndex = i + 1
+//            for var j = i+1; j < locations.count-1; j++ {
+//                let interval = locations[j].timestamp.timeIntervalSinceDate(locations[i].timestamp)
+//                let distance = locations[j].distanceFromLocation(locations[i])
+//                if distance > AIRLocationManager.thresholdOfDistanceToStop { endIndex = j + 1; break }
+//                if interval > AIRLocationManager.thresholdOfTimeIntervalToStop { startIndex = j }
+//            }
+//            if startIndex < 0 { continue }
+//            starts.append(locations[startIndex])
+//        }
+//
+//        if starts.count == 0 {
+//            if locations.last!.distanceFromLocation(locations.first!) > AIRLocationManager.thresholdOfDistanceToStop {
+//                starts = [locations[1]]
+//            }
+//        }
+//        AIRLOG(starts.count)
+//        return starts
+//    }
 
     /**
      * fetch datas

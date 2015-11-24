@@ -77,10 +77,11 @@ class AIRSensor: NSManagedObject {
             NSSortDescriptor(key: "lng", ascending: true),
         ]
             // make predicates
-        let startDate = date.air_daysAgo(days: 14)
-        let endDate = date.air_daysAgo(days: -14)
+        let startDate = date.air_daysAgo(days: 1)!
+        let endDate = date.air_daysAgo(days: -1)!
         let predicaets = [
-            NSPredicate(format: "(timestamp >= %@) AND (timestamp < %@)", startDate!, endDate!),
+            NSPredicate(format: "name = %@", name),
+            NSPredicate(format: "(timestamp >= %@) AND (timestamp < %@)", startDate, endDate),
             NSPredicate(format: "(lat > %f) AND (lng < %f)", southWest.coordinate.latitude, northEast.coordinate.latitude),
             NSPredicate(format: "(lng > %f) AND (lng < %f)", southWest.coordinate.longitude, northEast.coordinate.longitude),
         ]

@@ -4,6 +4,25 @@ import Foundation
 /// MARK: - NSURL+Ago
 extension NSDate {
 
+    /// MARK: - class method
+
+    /**
+     * get date from Int
+     * @param year Int
+     * @param month Int
+     * @param day Int
+     * @return NSDate?
+     **/
+    class func air_date(year year: Int, month: Int, day: Int) -> NSDate? {
+        let dateComponents = NSDateComponents()
+        let calendar = NSCalendar.currentCalendar()
+        dateComponents.year = year
+        dateComponents.month = month
+        dateComponents.day = day
+        return calendar.dateFromComponents(dateComponents)
+    }
+
+
     /// MARK: - public api
 
     /**
@@ -53,6 +72,5 @@ extension NSDate {
         dateComponents.minute = -minutes
         return calendar.dateByAddingComponents(dateComponents, toDate: self, options: [])
     }
-
 
 }

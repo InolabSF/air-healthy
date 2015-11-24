@@ -4,20 +4,27 @@
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
-    "C861FC00CEE0F6A6BE81FCFF6785FAA78C58EBB3" : 0,
     "8FE5182B8BF3693F01C4922D2A9692341FE5DB17" : 0,
-    "3BF49EDF5038795EBFAFA8578150CD385BA00EB4" : 0
+    "340883B9DF0F7567157D9FDF3AA826EDD0DE698F" : 0,
+    "3BF49EDF5038795EBFAFA8578150CD385BA00EB4" : 0,
+    "C861FC00CEE0F6A6BE81FCFF6785FAA78C58EBB3" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "481781C6-EB65-4C73-9049-90811F3337FE",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "C861FC00CEE0F6A6BE81FCFF6785FAA78C58EBB3" : "iOS\/air-health\/Classes\/SwiftyJSON\/",
     "8FE5182B8BF3693F01C4922D2A9692341FE5DB17" : "iOS\/",
-    "3BF49EDF5038795EBFAFA8578150CD385BA00EB4" : "iOS\/air-health\/Classes\/SwiftCSV\/"
+    "340883B9DF0F7567157D9FDF3AA826EDD0DE698F" : "iOS\/air-health\/Classes\/GradientSlider\/",
+    "3BF49EDF5038795EBFAFA8578150CD385BA00EB4" : "iOS\/air-health\/Classes\/SwiftCSV\/",
+    "C861FC00CEE0F6A6BE81FCFF6785FAA78C58EBB3" : "iOS\/air-health\/Classes\/SwiftyJSON\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "air-health",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
   "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "air-health.xcworkspace",
   "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/jonhull\/GradientSlider.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "340883B9DF0F7567157D9FDF3AA826EDD0DE698F"
+    },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/naoty\/SwiftCSV.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",

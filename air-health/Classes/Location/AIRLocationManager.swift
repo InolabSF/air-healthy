@@ -9,8 +9,9 @@ class AIRLocationManager: NSObject {
     static let DistanceToUpdateLocation: CLLocationDistance = 20.0 // distance to update location
     static let ComfirmingCountToUpdateLocation = 3 // comfirming count to update location
 
-    static let thresholdOfTimeIntervalToStop: NSTimeInterval = 300
-    static let thresholdOfDistanceToStop: CLLocationDistance = 200
+    static let ThresholdOfTimeIntervalToStop: NSTimeInterval = 300
+    static let ThresholdOfDistanceToStop: CLLocationDistance = 200
+    static let ThresholdOfNeighbor = 50.0
 
 
     /// MARK: - property
@@ -142,10 +143,10 @@ class AIRLocationManager: NSObject {
      * @param oldLocation CLLocation
      **/
     private func saveLocationNameIfYouStay(newLocation newLocation: CLLocation, oldLocation: CLLocation) {
-        // stay more than AIRLocationManager.thresholdOfTimeIntervalToStop seconds
-        if newLocation.timestamp.timeIntervalSinceDate(oldLocation.timestamp) < AIRLocationManager.thresholdOfTimeIntervalToStop { return }
-        // distance between 2 places are less than AIRLocationManager.thresholdOfDistanceToStop meters
-        if newLocation.distanceFromLocation(oldLocation) > AIRLocationManager.thresholdOfDistanceToStop { return }
+        // stay more than AIRLocationManager.ThresholdOfTimeIntervalToStop seconds
+        if newLocation.timestamp.timeIntervalSinceDate(oldLocation.timestamp) < AIRLocationManager.ThresholdOfTimeIntervalToStop { return }
+        // distance between 2 places are less than AIRLocationManager.ThresholdOfDistanceToStop meters
+        if newLocation.distanceFromLocation(oldLocation) > AIRLocationManager.ThresholdOfDistanceToStop { return }
 
         self.saveLocationName(location: oldLocation)
     }

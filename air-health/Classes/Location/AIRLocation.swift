@@ -32,12 +32,12 @@ class AIRLocation: NSManagedObject {
 //        var stops: [CLLocation] = [locations.first!]
 //        var canBeStop = locations.first!
 //        for var i = 1; i < locations.count; i++ {
-//            if locations[i].distanceFromLocation(canBeStop) <= AIRLocationManager.thresholdOfDistanceToStop { continue }
+//            if locations[i].distanceFromLocation(canBeStop) <= AIRLocationManager.ThresholdOfDistanceToStop { continue }
 //            canBeStop = locations[i]
 //
 //            for var j = i+1; j < locations.count; j++ {
 //                let interval = locations[j].timeIntervalSinceDate(canBeStop.timestamp)
-//                if interval <= AIRLocationManager.thresholdOfTimeIntervalToStop { continue }
+//                if interval <= AIRLocationManager.ThresholdOfTimeIntervalToStop { continue }
 //            }
 //        }
 //
@@ -59,8 +59,8 @@ class AIRLocation: NSManagedObject {
 //            for var j = i+1; j < locations.count-1; j++ {
 //                let interval = locations[j].timestamp.timeIntervalSinceDate(locations[i].timestamp)
 //                let distance = locations[j].distanceFromLocation(locations[i])
-//                if interval > AIRLocationManager.thresholdOfTimeIntervalToStop { stopEndIndex = j }
-//                if distance > AIRLocationManager.thresholdOfDistanceToStop { nextIndex = j; break }
+//                if interval > AIRLocationManager.ThresholdOfTimeIntervalToStop { stopEndIndex = j }
+//                if distance > AIRLocationManager.ThresholdOfDistanceToStop { nextIndex = j; break }
 //            }
 //            if nextIndex < 0 {
 //                if stopEndIndex >= 0 { stops.append(locations[i]) }
@@ -70,7 +70,7 @@ class AIRLocation: NSManagedObject {
 //            stops.append(locations[i])
 //        }
 //        if stops.count == 0 { stops = [locations.first!] }
-//        else if locations.last!.distanceFromLocation(stops.last!) > AIRLocationManager.thresholdOfDistanceToStop {
+//        else if locations.last!.distanceFromLocation(stops.last!) > AIRLocationManager.ThresholdOfDistanceToStop {
 //            stops.append(locations.last!)
 //        }
 //
@@ -103,8 +103,8 @@ class AIRLocation: NSManagedObject {
 //            for var j = i+1; j < locations.count-1; j++ {
 //                let interval = locations[j].timestamp.timeIntervalSinceDate(locations[i].timestamp)
 //                let distance = locations[j].distanceFromLocation(locations[i])
-//                if interval > AIRLocationManager.thresholdOfTimeIntervalToStop { stopEndIndex = j }
-//                if distance > AIRLocationManager.thresholdOfDistanceToStop { nextIndex = j; break }
+//                if interval > AIRLocationManager.ThresholdOfTimeIntervalToStop { stopEndIndex = j }
+//                if distance > AIRLocationManager.ThresholdOfDistanceToStop { nextIndex = j; break }
 //            }
 //            if nextIndex < 0 {
 //                break
@@ -143,15 +143,15 @@ class AIRLocation: NSManagedObject {
 //            for var j = i+1; j < locations.count-1; j++ {
 //                let interval = locations[j].timestamp.timeIntervalSinceDate(locations[i].timestamp)
 //                let distance = locations[j].distanceFromLocation(locations[i])
-//                if distance > AIRLocationManager.thresholdOfDistanceToStop { endIndex = j + 1; break }
-//                if interval > AIRLocationManager.thresholdOfTimeIntervalToStop { startIndex = j }
+//                if distance > AIRLocationManager.ThresholdOfDistanceToStop { endIndex = j + 1; break }
+//                if interval > AIRLocationManager.ThresholdOfTimeIntervalToStop { startIndex = j }
 //            }
 //            if startIndex < 0 { continue }
 //            starts.append(locations[startIndex])
 //        }
 //
 //        if starts.count == 0 {
-//            if locations.last!.distanceFromLocation(locations.first!) > AIRLocationManager.thresholdOfDistanceToStop {
+//            if locations.last!.distanceFromLocation(locations.first!) > AIRLocationManager.ThresholdOfDistanceToStop {
 //                starts = [locations[1]]
 //            }
 //        }
@@ -330,5 +330,67 @@ class AIRLocation: NSManagedObject {
         if distancePerOneDegree <= 0 { return 0 }
         return meter / distancePerOneDegree
     }
+
+    /**
+     * get southWest location
+     * @param locations CLLocation
+     * @return CLLocation
+     **/
+    class func southWest(locations locations: [CLLocation]) -> CLLocation {
+        // get locations rect
+        var minLat = 90.0
+        var minLng = 180.0
+        for location in locations {
+            let lat = location.coordinate.latitude
+            let lng = location.coordinate.longitude
+            if minLat > lat { minLat = lat }
+            if minLng > lng { minLng = lng }
+        }
+        return CLLocation(latitude: minLat, longitude: minLng)
+    }
+
+    /**
+     * get northEast location
+     * @param locations CLLocation
+     * @return CLLocation
+     **/
+    class func northEast(locations locations: [CLLocation]) -> CLLocation {
+        var maxLat = -90.0
+        var maxLng = -180.0
+        for location in locations {
+            let lat = location.coordinate.latitude
+            let lng = location.coordinate.longitude
+            if maxLat < lat { maxLat = lat }
+            if maxLng < lng { maxLng = lng }
+        }
+        return CLLocation(latitude: maxLat, longitude: maxLng)
+    }
+
+    /**
+     * get southWest location
+     * @param locations CLLocation
+     * @param offset meters Double
+     * @return CLLocation
+     **/
+    class func southWest(locations locations: [CLLocation], offsetMeters: Double) -> CLLocation {
+        let location = AIRLocation.southWest(locations: locations)
+        let latOffset = AIRLocation.degree(meter: offsetMeters, latlng: "lat", location: location)
+        let lngOffset = AIRLocation.degree(meter: offsetMeters, latlng: "lng", location: location)
+        return CLLocation(latitude: location.coordinate.latitude-latOffset, longitude: location.coordinate.longitude-lngOffset)
+    }
+
+    /**
+     * get northEast location
+     * @param locations CLLocation
+     * @param offset meters Double
+     * @return CLLocation
+     **/
+    class func northEast(locations locations: [CLLocation], offsetMeters: Double) -> CLLocation {
+        let location = AIRLocation.northEast(locations: locations)
+        let latOffset = AIRLocation.degree(meter: offsetMeters, latlng: "lat", location: location)
+        let lngOffset = AIRLocation.degree(meter: offsetMeters, latlng: "lng", location: location)
+        return CLLocation(latitude: location.coordinate.latitude+latOffset, longitude: location.coordinate.longitude+lngOffset)
+    }
+
 
 }

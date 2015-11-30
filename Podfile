@@ -8,6 +8,9 @@ pod 'CHCSVParser'
 # network
 pod 'ISHTTPOperation'
 
+# parse
+pod 'Parse'
+
 # graph
 pod 'FSLineChart'
 pod 'VBPieChart', :git => 'https://github.com/kenzan8000/VBPieChart.git'
@@ -19,3 +22,4 @@ pod 'GoogleMaps'
 pod 'ionicons'
 
 # UI
+pod 'TTTAttributedLabel'

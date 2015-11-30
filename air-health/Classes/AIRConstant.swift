@@ -41,6 +41,13 @@ func AIRNSStringFromClassString(classString: String) -> String {
 
 struct AIRUserDefaults {
     static let DemoCSV =            "AIRUserDefaults.DemoCSV_0.1.0_1.0.2"
+    static let SensorDate =         "AIRUserDefaults.SensorDate"
+}
+
+
+/// MARK: - NotificationCenter
+struct AIRNotificationCenter {
+    static let UpdateSensorValues =       "AIRNotificationCenter.UpdateSensorValues"
 }
 
 
@@ -76,5 +83,16 @@ struct AIRGoogleMap {
 
     /// zoom
     static let Zoom: Float =            13.0
+
+}
+
+
+/// MARK: - Parse
+
+struct AIRParse {
+
+    /// API key
+    static let ApplicationID =                 kAIRParseApplicationID
+    static let ClientKey =                     kAIRParseClientKey
 
 }

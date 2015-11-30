@@ -30,8 +30,8 @@ class AIRLocationName: NSManagedObject {
         fetchRequest.fetchLimit = 1
         fetchRequest.returnsObjectsAsFaults = false
             // make predicates
-        let latOffset = AIRLocation.degree(meter: 50, latlng: "lat", location: location)
-        let lngOffset = AIRLocation.degree(meter: 50, latlng: "lng", location: location)
+        let latOffset = AIRLocation.degree(meter: AIRLocationManager.ThresholdOfNeighbor, latlng: "lat", location: location)
+        let lngOffset = AIRLocation.degree(meter: AIRLocationManager.ThresholdOfNeighbor, latlng: "lng", location: location)
         let predicaets = [
             NSPredicate(format: "(lat > %f) AND (lat < %f)", location.coordinate.latitude-latOffset, location.coordinate.latitude+latOffset),
             NSPredicate(format: "(lng > %f) AND (lng < %f)", location.coordinate.longitude-lngOffset, location.coordinate.longitude+lngOffset),

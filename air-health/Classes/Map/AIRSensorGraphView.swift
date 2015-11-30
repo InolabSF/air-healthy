@@ -61,6 +61,7 @@ class AIRSensorGraphView: UIView {
         var airHealth = [0.0]
 
         airHealth = [0.0, 0.0, 0.0]
+        if SO2AverageSensorValues.count == 0 { airHealth = [1.0, 0.0, 0.0] }
         for var i = 0; i < SO2AverageSensorValues.count; i++ {
             let value = SO2AverageSensorValues[i]
             if value < AIRSensorManager.WHOBasementSO2_1 { airHealth[0] += 1.0 }
@@ -70,6 +71,7 @@ class AIRSensorGraphView: UIView {
         self.setPieChart(self.SO2PieChartView, airHealth: airHealth, animated: true)
 
         airHealth = [0.0, 0.0, 0.0]
+        if O3AverageSensorValues.count == 0 { airHealth = [1.0, 0.0, 0.0] }
         for var i = 0; i < O3AverageSensorValues.count; i++ {
             let value = O3AverageSensorValues[i]
             if value < AIRSensorManager.WHOBasementOzone_S_1 { airHealth[0] += 1.0 }

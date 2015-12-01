@@ -13,6 +13,7 @@
 /// graph
 #import "FSLineChart.h"
 #import "VBPieChart.h"
+#import "JTChartView.h"
 
 /// font
 #import "IonIcons.h"

@@ -31,9 +31,9 @@ class AIRMapViewController: UIViewController {
         // status bar
         UIApplication.sharedApplication().statusBarStyle = .LightContent
         // navigation bar
-        self.navigationController!.navigationBar.barTintColor = UIColor(red: 44.0/255.0, green: 52.0/255.0, blue: 80.0/255.0, alpha: 1.0)
+        self.navigationController!.navigationBar.barTintColor = UIColor(red: 16.0/255.0, green: 16.0/255.0, blue: 16.0/255.0, alpha: 1.0)
         self.navigationController!.navigationBar.titleTextAttributes = [
-            NSFontAttributeName: UIFont(name: "AmericanTypewriter-Bold", size: 24)!,
+            NSFontAttributeName: UIFont(name: "HelveticaNeue-Bold", size: 22)!,
             NSForegroundColorAttributeName: UIColor.whiteColor()
         ]
         // left bar button
@@ -67,6 +67,9 @@ class AIRMapViewController: UIViewController {
             longitude: -122.4167,
             zoom: 13.0
         )
+
+        //self.timelineView.setUp()
+        //self.sensorGraphView.setUp()
 
         // notification
         NSNotificationCenter.defaultCenter().addObserver(
@@ -274,8 +277,9 @@ extension AIRMapViewController: AIRSensorGraphViewDelegate {
         if passes.count < 1 { return }
 
         self.selectedSensorButton = button
-        if self.selectedSensorButton == self.sensorGraphView.SO2Button { self.title = "SO2" }
-        else if self.selectedSensorButton == self.sensorGraphView.O3Button { self.title = "O3" }
+        var gas = ""
+        if self.selectedSensorButton == self.sensorGraphView.SO2Button { gas = "SO2" }
+        else if self.selectedSensorButton == self.sensorGraphView.O3Button { gas = "O3" }
 
         // timeline
         self.timelineView.timeSlider.value = 0
@@ -286,7 +290,8 @@ extension AIRMapViewController: AIRSensorGraphViewDelegate {
         self.timelineView.setLineChart(
             passes: self.passes,
             valuesPerMinute: values,
-            color: UIColor(red: 52.0/255.0, green: 152.0/255.0, blue: 219.0/255.0, alpha: 1.0)
+            sensorBasements: basements,
+            title: gas
         )
 
         // draw map
@@ -312,8 +317,6 @@ extension AIRMapViewController: AIRSensorGraphViewDelegate {
 extension AIRMapViewController: AIRTimelineViewDelegate {
 
     func touchedUpInside(timelineView timelineView: AIRTimelineView, closeButton: UIButton) {
-        self.title = "Air Health"
-
         // animation
         self.sensorGraphView.alpha = 0.0
         self.timelineView.toggleTimeSlider(

@@ -31,10 +31,18 @@ class AIRTimelineView: UIView {
     @IBOutlet weak var timeLabel: UILabel!
 
     @IBOutlet weak var timeSliderParentView: UIView!
+    @IBOutlet weak var timeSliderTitleView: UIView!
     @IBOutlet weak var timeSliderView: UIView!
-    @IBOutlet weak var timelineLineChartView: FSLineChart!
+    @IBOutlet weak var timelineLineChartBackgroundView: UIView!
+    @IBOutlet weak var greenView: UIView!
+    @IBOutlet weak var yellowView: UIView!
+    @IBOutlet weak var redView: UIView!
+    var timelineLineChartView: JTChartView?
+    @IBOutlet weak var timeIndicatorView: UIView!
     @IBOutlet weak var timeSlider: GradientSlider!
     @IBOutlet weak var closeButton: UIButton!
+    @IBOutlet weak var startTimeLabel: UILabel!
+    @IBOutlet weak var endTimeLabel: UILabel!
 
 
     /// MARK: - life cycle
@@ -42,15 +50,7 @@ class AIRTimelineView: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        self.closeButton.setImage(
-            IonIcons.imageWithIcon(
-                ion_chevron_up,
-                iconColor: UIColor.darkGrayColor(),
-                iconSize: 144, imageSize: CGSizeMake(144, 144)
-            ),
-            forState: .Normal
-        )
-        self.setDate(NSDate())
+        self.setUp()
     }
 
 
@@ -136,16 +136,76 @@ class AIRTimelineView: UIView {
         self.timeLabel.text = time
         // color
         self.timeLabel.textColor = color
-        self.timeSlider.thumbColor = color
+
+        self.timeIndicatorView.frame = CGRectMake(
+            1.0 + (self.timelineLineChartBackgroundView.frame.width - 3.0) * self.timeSlider.value / self.timeSlider.maximumValue, self.timeIndicatorView.frame.origin.y,
+            self.timeIndicatorView.frame.width, self.timeIndicatorView.frame.height
+        )
     }
 
     /**
      * set line chart
      * @param lineChart line chart
-     * @param valuesPerMinute [CGFloat]
-     * @param color UIColor
+     * @param valuesPerMinute [Double]
+     * @param sensorBasements [Double]
+     * @param title String
      **/
-    func setLineChart(passes passes: [CLLocation], valuesPerMinute: [CGFloat], color: UIColor) {
+    func setLineChart(passes passes: [CLLocation], valuesPerMinute: [Double], sensorBasements: [Double], title: String) {
+        self.closeButton.setTitle(title, forState: .Normal)
+
+        if self.timelineLineChartView != nil {
+            self.timelineLineChartView!.removeFromSuperview()
+            self.timelineLineChartView = nil
+        }
+        if passes.count < 1 { return }
+
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        self.startTimeLabel.text = dateFormatter.stringFromDate(passes.first!.timestamp)
+        self.endTimeLabel.text = dateFormatter.stringFromDate(passes.last!.timestamp)
+
+        // max value
+        var maxValue = 0.001
+        var values: [NSNumber] = []
+        for var i = 0; i < valuesPerMinute.count; i++ {
+            let value = valuesPerMinute[i]
+            if value > maxValue { maxValue = value }
+        }
+        // values
+        if maxValue < sensorBasements.last! { maxValue = sensorBasements.last! }
+        for var i = 0; i < valuesPerMinute.count; i++ {
+            let value = valuesPerMinute[i] / maxValue * 100.0
+            values.append(NSNumber(double: value))
+        }
+
+        // color view
+        var topY = CGFloat(0.0)
+        var bottomY = self.timelineLineChartBackgroundView.frame.height
+        let colorViews = [self.greenView, self.yellowView, self.redView,]
+        for var i = 0; i < colorViews.count; i++ {
+            if i >= sensorBasements.count || sensorBasements[i] > maxValue { topY = CGFloat(0.0) }
+            else { topY = self.timelineLineChartBackgroundView.frame.height * CGFloat(1.0 - sensorBasements[i] / maxValue) }
+            colorViews[i].frame = CGRectMake(
+                colorViews[i].frame.origin.x, topY,
+                colorViews[i].frame.width, bottomY - topY
+            )
+            bottomY = topY
+        }
+
+        // line chart
+        self.timelineLineChartView = JTChartView(
+            frame: CGRectMake(0, 0, self.timelineLineChartBackgroundView.frame.width, self.timelineLineChartBackgroundView.frame.height),
+            values: values,
+            curveColor: UIColor.darkGrayColor(),
+            curveWidth: 2.0,
+            topGradientColor: UIColor.clearColor(),
+            bottomGradientColor: UIColor.clearColor(),
+            minY: 0.0,
+            maxY: 1.0,
+            topPadding: 0
+        )
+        self.timelineLineChartBackgroundView.addSubview(self.timelineLineChartView!)
+/*
         self.timelineLineChartView.frame = CGRectMake(
             self.timeSlider.frame.origin.x, self.timelineLineChartView.frame.origin.y,
             self.timeSlider.frame.width, self.timelineLineChartView.frame.height
@@ -153,11 +213,6 @@ class AIRTimelineView: UIView {
 
         self.timelineLineChartView.clearChartData()
         if passes.count == 0 { return }
-/*
-        let timestamp = passes.first!.timestamp
-        let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "HH:mm"
-*/
 
         self.timelineLineChartView.margin = 0
         self.timelineLineChartView.verticalGridStep = 1
@@ -182,10 +237,49 @@ class AIRTimelineView: UIView {
         if allValuesAreNotZero {
             self.timelineLineChartView.setChartData(valuesPerMinute)
         }
+*/
     }
 
 
     /// MARK: - private api
+
+    /**
+     * set up
+     **/
+    private func setUp() {
+        self.dateView.layer.shadowOffset = CGSizeMake(0, 0)
+        self.dateView.layer.shadowOpacity = 0.1
+
+        self.timeSliderTitleView.layer.cornerRadius = 18.0
+        self.timeSliderTitleView.layer.masksToBounds = true
+        self.timeSliderTitleView.clipsToBounds = true
+        self.timeSliderView.layer.shadowOffset = CGSizeMake(0, 0)
+        self.timeSliderView.layer.shadowOpacity = 0.3
+        self.timeSliderView.layer.shadowRadius = 2.0
+        self.timeSliderView.layer.shadowPath = UIBezierPath(
+            roundedRect: CGRectMake(self.timeSliderView.bounds.origin.x, self.timeSliderView.bounds.origin.y, UIScreen.mainScreen().bounds.width, self.timeSliderView.bounds.height),
+            cornerRadius: 18.0
+        ).CGPath
+
+        self.closeButton.setImage(
+            IonIcons.imageWithIcon(
+                ion_chevron_up,
+                iconColor: UIColor.darkGrayColor(),
+                iconSize: 32, imageSize: CGSizeMake(32, 32)
+            ),
+            forState: .Normal
+        )
+        self.closeButton.setImage(
+            IonIcons.imageWithIcon(
+                ion_chevron_up,
+                iconColor: UIColor(red: 170.0/255.0, green: 170.0/255.0, blue: 170.0/255.0, alpha: 1.0),
+                iconSize: 32, imageSize: CGSizeMake(32, 32)
+            ),
+            forState: .Highlighted
+        )
+
+        self.setDate(NSDate())
+    }
 
     /**
      * set date

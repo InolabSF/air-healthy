@@ -39,6 +39,7 @@
 		E6BC9CF01C039AF6004769AD /* AIRSensorGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BC9CEF1C039AF6004769AD /* AIRSensorGraphView.swift */; };
 		E6D803FD1BFD444C00A55326 /* AIRSensorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D803FC1BFD444C00A55326 /* AIRSensorManager.swift */; };
 		E6E4B73D1BEADEC6002DEAB1 /* AIRConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E4B73C1BEADEC6002DEAB1 /* AIRConstant.swift */; };
+		E6F4DCDA1C0DB72A00F8DA0F /* String+Justified.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6F4DCD91C0DB72A00F8DA0F /* String+Justified.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,6 +79,7 @@
 		E6BC9CEF1C039AF6004769AD /* AIRSensorGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRSensorGraphView.swift; sourceTree = "<group>"; };
 		E6D803FC1BFD444C00A55326 /* AIRSensorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRSensorManager.swift; sourceTree = "<group>"; };
 		E6E4B73C1BEADEC6002DEAB1 /* AIRConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRConstant.swift; sourceTree = "<group>"; };
+		E6F4DCD91C0DB72A00F8DA0F /* String+Justified.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Justified.swift"; sourceTree = "<group>"; };
 		ECD4F8936C1369720004C2C3 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -126,6 +128,7 @@
 		E612614A1BF160C200BE8E91 /* NSFoundation+Extension */ = {
 			isa = PBXGroup;
 			children = (
+				E6F4DCD91C0DB72A00F8DA0F /* String+Justified.swift */,
 				E695DA661BF2BEAB0060BF66 /* NSDate+Ago.swift */,
 				E612614B1BF160C200BE8E91 /* NSMutableURLRequest+HTTPBody.swift */,
 				E612614C1BF160C200BE8E91 /* NSURL+Queries.swift */,
@@ -294,6 +297,7 @@
 				E6758C691BEAC4D5005C1696 /* Frameworks */,
 				E6758C6A1BEAC4D5005C1696 /* Resources */,
 				259C51E67BB50DB6E3DEA243 /* Copy Pods Resources */,
+				64F14E7E99495F950E66D97D /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -372,6 +376,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		64F14E7E99495F950E66D97D /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		CAACF38CCD4FCC9F3EE3E407 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -418,6 +437,7 @@
 				E647B4791BFC050F00B2CA4F /* AIRLocationName.swift in Sources */,
 				E68654BF1C05281300E10E10 /* AIRSensorClient.swift in Sources */,
 				E6BC9CED1C03878B004769AD /* AIRTimelineView.swift in Sources */,
+				E6F4DCDA1C0DB72A00F8DA0F /* String+Justified.swift in Sources */,
 				E6E4B73D1BEADEC6002DEAB1 /* AIRConstant.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

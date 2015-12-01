@@ -18,11 +18,17 @@ class AIRSensorGraphView: UIView {
 
     @IBOutlet weak var delegate: AnyObject?
 
+    @IBOutlet weak var O3View: UIView!
     @IBOutlet weak var O3PieChartView: VBPieChart!
     @IBOutlet weak var O3Button: UIButton!
 
+    @IBOutlet weak var SO2View: UIView!
     @IBOutlet weak var SO2PieChartView: VBPieChart!
     @IBOutlet weak var SO2Button: UIButton!
+
+    @IBOutlet weak var summaryView: UIView!
+    @IBOutlet weak var summaryIconView: UIView!
+    @IBOutlet weak var summaryLabel: UILabel!
 
 
     /// MARK: - life cycle
@@ -30,10 +36,7 @@ class AIRSensorGraphView: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        self.O3Button.layer.cornerRadius = self.O3Button.frame.size.width / 2.0
-        self.O3Button.layer.masksToBounds = true
-        self.SO2Button.layer.cornerRadius = self.SO2Button.frame.size.width / 2.0
-        self.SO2Button.layer.masksToBounds = true
+        self.setUp()
     }
 
 
@@ -83,6 +86,42 @@ class AIRSensorGraphView: UIView {
 
 
     /// MARK: - private api
+
+    /**
+     * set up
+     **/
+    private func setUp() {
+        let paragraph = "You had some negative exposure to O3 and SO2. Long exposure to these harmful gas can lead to asthma. Find an alternative route next time or leave after the rush hour to avoid these harmful gas."
+        self.summaryLabel.attributedText = paragraph.air_justifiedString(font: self.summaryLabel.font)
+        self.summaryLabel.textAlignment = NSTextAlignment.Justified
+        self.summaryLabel.preferredMaxLayoutWidth = self.summaryLabel.frame.width
+
+        let chartViews = [self.O3PieChartView, self.SO2PieChartView]
+        for chartView in chartViews {
+            chartView.layer.cornerRadius = chartView.frame.size.width / 2.0
+            chartView.layer.masksToBounds = true
+            chartView.clipsToBounds = true
+        }
+        let containerViews = [self.O3View, self.SO2View]
+        for containerView in containerViews {
+            containerView.layer.shadowOffset = CGSizeMake(0, 0)
+            containerView.layer.shadowOpacity = 0.15
+            containerView.layer.shadowRadius = 2.0
+            containerView.layer.shadowPath = UIBezierPath(roundedRect: containerView.bounds, cornerRadius: containerView.bounds.width/2.0).CGPath
+        }
+
+        self.summaryIconView.layer.cornerRadius = 18.0
+        self.summaryIconView.layer.masksToBounds = true
+        self.summaryIconView.clipsToBounds = true
+        self.summaryView.layer.shadowOffset = CGSizeMake(0, 0)
+        self.summaryView.layer.shadowOpacity = 0.3
+        self.summaryView.layer.shadowRadius = 2.0
+        self.summaryView.layer.shadowPath = UIBezierPath(
+            roundedRect: CGRectMake(self.summaryView.bounds.origin.x, self.summaryView.bounds.origin.y, UIScreen.mainScreen().bounds.width, self.summaryView.bounds.height),
+            cornerRadius: 18.0
+        ).CGPath
+    }
+
 
     /**
      * set datas

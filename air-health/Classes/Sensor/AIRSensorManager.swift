@@ -5,15 +5,15 @@ import CoreLocation
 class AIRSensorManager: NSObject {
 
     /// MARK: - constant
-//    static let WHOBasementOzone_S_1 =           80.0
-//    static let WHOBasementOzone_S_2 =           100.0
-//    static let WHOBasementSO2_1 =               350.0
-//    static let WHOBasementSO2_2 =               500.0
+    static let WHOBasementOzone_S_1 =           80.0
+    static let WHOBasementOzone_S_2 =           100.0
+    static let WHOBasementSO2_1 =               350.0
+    static let WHOBasementSO2_2 =               500.0
 
-    static let WHOBasementOzone_S_1 =           48.5
-    static let WHOBasementOzone_S_2 =           49.0
-    static let WHOBasementSO2_1 =               292.0
-    static let WHOBasementSO2_2 =               294.0
+//    static let WHOBasementOzone_S_1 =           48.5
+//    static let WHOBasementOzone_S_2 =           49.0
+//    static let WHOBasementSO2_1 =               292.0
+//    static let WHOBasementSO2_2 =               294.0
 
     static let DaysAgo =                        3
 
@@ -144,22 +144,55 @@ class AIRSensorManager: NSObject {
         return UIColor(red: 46.0/255.0, green: 204.0/255.0, blue: 113.0/255.0, alpha: 1.0)
     }
 
+//    /**
+//     * return sensor values per minutes
+//     * @param pass locations you passed
+//     * @param averageSensorValues [Double]
+//     * @param sensorBasements [Double]
+//     * @return sensor values per minutes [CGFloat]
+//     **/
+//    class func valuesPerMinute(passes passes: [CLLocation], averageSensorValues: [Double], sensorBasements: [Double]) -> [CGFloat] {
+//        if passes.count == 0 { return [0.0] }
+//        let allMinutes = Int(passes.last!.timestamp.timeIntervalSinceDate(passes.first!.timestamp) / 60)
+//
+//        var values: [CGFloat] = []
+//        for var i = 0; i <= allMinutes; i++ { values.append(0.0) }
+//
+//        for var i = 0; i < passes.count-1; i++ {
+//            let value = CGFloat(averageSensorValues[i])
+//
+//            let startLocation = passes[i]
+//            let endLocation = passes[i+1]
+//
+//            let startMinute = startLocation.timestamp.timeIntervalSinceDate(passes[0].timestamp) / 60.0
+//            let endMinute = endLocation.timestamp.timeIntervalSinceDate(passes[0].timestamp) / 60.0
+//            let start = Int(startMinute)
+//            let end = Int(endMinute)
+//            for var i = start+1; i < end; i++ {
+//                values[i] = value
+//            }
+//            values[start] += CGFloat(Double(start+1) - startMinute) * value
+//            values[end] += CGFloat(endMinute - Double(end)) * value
+//        }
+//
+//        return values
+//    }
     /**
      * return sensor values per minutes
      * @param pass locations you passed
      * @param averageSensorValues [Double]
      * @param sensorBasements [Double]
-     * @return sensor values per minutes [CGFloat]
+     * @return sensor values per minutes [Double]
      **/
-    class func valuesPerMinute(passes passes: [CLLocation], averageSensorValues: [Double], sensorBasements: [Double]) -> [CGFloat] {
+    class func valuesPerMinute(passes passes: [CLLocation], averageSensorValues: [Double], sensorBasements: [Double]) -> [Double] {
         if passes.count == 0 { return [0.0] }
         let allMinutes = Int(passes.last!.timestamp.timeIntervalSinceDate(passes.first!.timestamp) / 60)
 
-        var values: [CGFloat] = []
+        var values: [Double] = []
         for var i = 0; i <= allMinutes; i++ { values.append(0.0) }
 
         for var i = 0; i < passes.count-1; i++ {
-            let value = CGFloat(averageSensorValues[i])
+            let value = averageSensorValues[i]
 
             let startLocation = passes[i]
             let endLocation = passes[i+1]
@@ -171,12 +204,12 @@ class AIRSensorManager: NSObject {
             for var i = start+1; i < end; i++ {
                 values[i] = value
             }
-            values[start] += CGFloat(Double(start+1) - startMinute) * value
-            values[end] += CGFloat(endMinute - Double(end)) * value
+            values[start] += (Double(start+1) - startMinute) * value
+            values[end] += (endMinute - Double(end)) * value
         }
-
         return values
     }
+
 
     /**
      * locations are healthy?

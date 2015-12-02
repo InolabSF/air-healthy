@@ -17,8 +17,8 @@ class AIRLocationManager: NSObject {
     /// MARK: - property
     static let sharedInstance = AIRLocationManager()
 
+    //var follower = Follower()
     var locationManager = CLLocationManager()
-
     var lastLocation: CLLocation?
     var comfirmingCountToUpdateLastLocation = 0
 
@@ -46,8 +46,10 @@ class AIRLocationManager: NSObject {
     func startUpdatingLocation() {
         self.lastLocation = nil
         self.comfirmingCountToUpdateLastLocation = 0
-
         self.locationManager.startUpdatingLocation()
+
+//        self.follower.delegate = self
+//        self.follower.beginRouteTracking()
     }
 
     /**
@@ -55,6 +57,8 @@ class AIRLocationManager: NSObject {
      **/
     func stopUpdatingLocation() {
         self.locationManager.stopUpdatingLocation()
+
+//        self.follower.endRouteTracking()
     }
 
     /**
@@ -116,7 +120,9 @@ class AIRLocationManager: NSObject {
         }
         else { self.comfirmingCountToUpdateLastLocation = 0 }
 
-        self.locationManager.startUpdatingLocation()
+         self.locationManager.startUpdatingLocation()
+//        self.follower.endRouteTracking()
+//        self.follower.beginRouteTracking()
     }
 
     /**
@@ -177,3 +183,19 @@ extension AIRLocationManager: CLLocationManagerDelegate {
         }
     }
 }
+
+
+/*
+/// MARK: - FollowerDelegate
+extension AIRLocationManager: FollowerDelegate {
+
+    func followerDidUpdate(follower: Follower) {
+        let location = self.follower.routeLocations.lastObject as! CLLocation
+        if self.lastLocation != nil {
+            self.updateLocation(newLocation: location, oldLocation: self.lastLocation!)
+        }
+        self.lastLocation = location
+    }
+
+}
+*/

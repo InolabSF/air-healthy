@@ -19,7 +19,8 @@ class AIRMapView: GMSMapView {
             path.addCoordinate(location.coordinate)
         }
         let bounds = GMSCoordinateBounds(path: path)
-        self.moveCamera(GMSCameraUpdate.fitBounds(bounds, withEdgeInsets: UIEdgeInsetsMake(140.0, 40.0, 120.0, 80.0)))
+        //self.moveCamera(GMSCameraUpdate.fitBounds(bounds, withEdgeInsets: UIEdgeInsetsMake(140.0, 40.0, 120.0, 80.0)))
+        self.moveCamera(GMSCameraUpdate.fitBounds(bounds, withEdgeInsets: UIEdgeInsetsMake(20.0, 20.0, 20.0, 20.0)))
     }
 
     /**
@@ -45,7 +46,7 @@ class AIRMapView: GMSMapView {
             p.addCoordinate(start.coordinate)
             p.addCoordinate(end.coordinate)
             let polyline = GMSPolyline(path: p)
-            polyline.strokeWidth = 2
+            polyline.strokeWidth = 4
             let value = (averageSensorValues[i-1] + averageSensorValues[i]) / 2.0
             if value < sensorBasements[0] {
                 polyline.strokeColor = UIColor(red: 46.0/255.0, green: 204.0/255.0, blue: 113.0/255.0, alpha: 1.0)

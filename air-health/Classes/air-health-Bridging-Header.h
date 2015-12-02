@@ -9,9 +9,9 @@
 
 /// map
 #import <GoogleMaps/GoogleMaps.h>
+//#import "Follower.h"
 
 /// graph
-#import "FSLineChart.h"
 #import "VBPieChart.h"
 #import "JTChartView.h"
 

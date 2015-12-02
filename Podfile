@@ -12,12 +12,12 @@ pod 'ISHTTPOperation'
 pod 'Parse'
 
 # graph
-pod 'FSLineChart'
 pod 'VBPieChart', :git => 'https://github.com/kenzan8000/VBPieChart.git'
 pod 'JTChartView'
 
 # map
 pod 'GoogleMaps'
+#pod 'Follower'
 
 # font
 pod 'ionicons'

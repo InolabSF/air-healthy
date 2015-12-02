@@ -59,9 +59,12 @@ class AIRMapViewController: UIViewController {
         self.mapView.myLocationEnabled = false
         self.mapView.settings.myLocationButton = false
         self.mapView.frame = CGRectMake(
+            //self.mapView.frame.origin.x, self.timelineView.dateView.frame.origin.y + self.timelineView.dateView.frame.height,
+            //self.mapView.frame.width, self.view.frame.height - (self.timelineView.dateView.frame.origin.y + self.timelineView.dateView.frame.height)
             self.mapView.frame.origin.x, self.timelineView.dateView.frame.origin.y + self.timelineView.dateView.frame.height,
-            self.mapView.frame.width, self.view.frame.height - (self.timelineView.dateView.frame.origin.y + self.timelineView.dateView.frame.height)
+            self.mapView.frame.width, self.view.frame.height - (self.timelineView.dateView.frame.origin.y + self.timelineView.dateView.frame.height + self.timelineView.timeSliderView.frame.height) + 36.0
         )
+
         self.mapView.camera = GMSCameraPosition.cameraWithLatitude(
             37.7833,
             longitude: -122.4167,

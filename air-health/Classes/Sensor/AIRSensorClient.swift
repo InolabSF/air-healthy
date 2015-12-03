@@ -31,8 +31,8 @@ class AIRSensorClient: AnyObject {
         let today = dateFormatter.dateFromString(dateString + " 00:00:00")!
 
         // get data from parse
-        let southWest = AIRLocation.southWest(locations: locations, offsetMeters: AIRLocationManager.ThresholdOfNeighbor)
-        let northEast = AIRLocation.northEast(locations: locations, offsetMeters: AIRLocationManager.ThresholdOfNeighbor)
+        let southWest = AIRLocation.southWest(locations: locations, offsetMeters: AIRLocationManager.ThresholdOfSensorNeighbor)
+        let northEast = AIRLocation.northEast(locations: locations, offsetMeters: AIRLocationManager.ThresholdOfSensorNeighbor)
         let query = PFQuery(className: "testData")
         query.limit = 300
         query.orderByAscending("createdAt")

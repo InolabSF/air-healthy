@@ -12,6 +12,7 @@ class AIRLocationManager: NSObject {
     static let ThresholdOfTimeIntervalToStop: NSTimeInterval = 300
     static let ThresholdOfDistanceToStop: CLLocationDistance = 200
     static let ThresholdOfNeighbor = 50.0
+    static let ThresholdOfSensorNeighbor = 5000.0
 
 
     /// MARK: - property
@@ -120,7 +121,7 @@ class AIRLocationManager: NSObject {
         }
         else { self.comfirmingCountToUpdateLastLocation = 0 }
 
-         self.locationManager.startUpdatingLocation()
+        self.locationManager.startUpdatingLocation()
 //        self.follower.endRouteTracking()
 //        self.follower.beginRouteTracking()
     }

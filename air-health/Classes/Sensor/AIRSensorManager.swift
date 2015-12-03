@@ -144,6 +144,23 @@ class AIRSensorManager: NSObject {
         return UIColor(red: 46.0/255.0, green: 204.0/255.0, blue: 113.0/255.0, alpha: 1.0)
     }
 
+    /**
+     * return sensor color
+     * @param value Double
+     * @param sensorBasements [Double]
+     * @return UIColor
+     **/
+    class func sensorColor(value value: Double, sensorBasements: [Double]) -> UIColor {
+        if value < sensorBasements[0] {
+            return UIColor(red: 46.0/255.0, green: 204.0/255.0, blue: 113.0/255.0, alpha: 1.0)
+        }
+        else if value < sensorBasements[1] {
+            return UIColor(red: 243.0/255.0, green: 156.0/255.0, blue: 18.0/255.0, alpha: 1.0)
+        }
+        return UIColor(red: 231.0/255.0, green: 76.0/255.0, blue: 60.0/255.0, alpha: 1.0)
+    }
+
+
 //    /**
 //     * return sensor values per minutes
 //     * @param pass locations you passed

@@ -34,6 +34,7 @@
 		E695DA671BF2BEAB0060BF66 /* NSDate+Ago.swift in Sources */ = {isa = PBXBuildFile; fileRef = E695DA661BF2BEAB0060BF66 /* NSDate+Ago.swift */; };
 		E695DA6D1BF2C32F0060BF66 /* AIRMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E695DA6A1BF2C32F0060BF66 /* AIRMapView.swift */; };
 		E695DA6E1BF2C32F0060BF66 /* AIRMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E695DA6B1BF2C32F0060BF66 /* AIRMapViewController.swift */; };
+		E6A6B7621C0FB4740085C291 /* AIRSensorCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A6B7611C0FB4740085C291 /* AIRSensorCircle.swift */; };
 		E6B10BAA1C039F3600B77A67 /* UIImage+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B10BA91C039F3600B77A67 /* UIImage+UIView.swift */; };
 		E6BC9CED1C03878B004769AD /* AIRTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BC9CEB1C03878B004769AD /* AIRTimelineView.swift */; };
 		E6BC9CF01C039AF6004769AD /* AIRSensorGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BC9CEF1C039AF6004769AD /* AIRSensorGraphView.swift */; };
@@ -73,6 +74,7 @@
 		E695DA661BF2BEAB0060BF66 /* NSDate+Ago.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+Ago.swift"; sourceTree = "<group>"; };
 		E695DA6A1BF2C32F0060BF66 /* AIRMapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRMapView.swift; sourceTree = "<group>"; };
 		E695DA6B1BF2C32F0060BF66 /* AIRMapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRMapViewController.swift; sourceTree = "<group>"; };
+		E6A6B7611C0FB4740085C291 /* AIRSensorCircle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRSensorCircle.swift; sourceTree = "<group>"; };
 		E6AEF7E81BEBFB89000102E2 /* air-health-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "air-health-Bridging-Header.h"; sourceTree = "<group>"; };
 		E6B10BA91C039F3600B77A67 /* UIImage+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+UIView.swift"; sourceTree = "<group>"; };
 		E6BC9CEB1C03878B004769AD /* AIRTimelineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRTimelineView.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				E647B4761BFBEABB00B2CA4F /* AIRSensor.swift */,
 				E6D803FC1BFD444C00A55326 /* AIRSensorManager.swift */,
 				E68654BE1C05281300E10E10 /* AIRSensorClient.swift */,
+				E6A6B7611C0FB4740085C291 /* AIRSensorCircle.swift */,
 			);
 			path = Sensor;
 			sourceTree = "<group>";
@@ -423,6 +426,7 @@
 				E6655D1A1BFBA70700D6A2AD /* CSV.swift in Sources */,
 				E612614D1BF160C200BE8E91 /* NSMutableURLRequest+HTTPBody.swift in Sources */,
 				E66940351BEAC6E200771F8B /* AppDelegate.swift in Sources */,
+				E6A6B7621C0FB4740085C291 /* AIRSensorCircle.swift in Sources */,
 				E6BC9CF01C039AF6004769AD /* AIRSensorGraphView.swift in Sources */,
 				E6839C791BF2B974007BD219 /* AIRLocation.swift in Sources */,
 				E6B10BAA1C039F3600B77A67 /* UIImage+UIView.swift in Sources */,

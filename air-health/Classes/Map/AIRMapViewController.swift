@@ -14,6 +14,8 @@ class AIRMapViewController: UIViewController {
     var selectedSensorButton: UIButton?
     var SO2AverageSensorValues: [Double] = []
     var O3AverageSensorValues: [Double] = []
+    //var SO2Sensors: [AIRSensor] = []
+    //var O3Sensors: [AIRSensor] = []
 
 
     /// MARK: - destruction
@@ -120,6 +122,20 @@ class AIRMapViewController: UIViewController {
 
     /// MARK: - private api
 
+//    /**
+//     * return sensors
+//     * @return sensors [AIRSensor]
+//     **/
+//    private func sensors() -> [AIRSensor] {
+//        if self.selectedSensorButton == self.sensorGraphView.SO2Button {
+//            return self.SO2Sensors
+//        }
+//        else if self.selectedSensorButton == self.sensorGraphView.O3Button {
+//            return self.O3Sensors
+//        }
+//        return []
+//    }
+
     /**
      * return averageSensorValues
      * @return averageSensorValues [Double]
@@ -156,10 +172,12 @@ class AIRMapViewController: UIViewController {
     private func drawMap() {
         let averages = self.averageSensorValues()
         let basements = self.sensorBasements()
+
         self.mapView.draw(
             passes: self.passes,
             intervalFromStart: Double(self.timelineView.timeSlider.value),
             averageSensorValues: averages,
+            //sensors: self.sensors(),
             sensorBasements: basements
         )
     }
@@ -230,9 +248,15 @@ class AIRMapViewController: UIViewController {
      **/
     private func setSensorValues() {
         let today = NSDate()
-        let sensorDate = today.air_daysAgo(days: AIRSensorManager.DaysAgo)!
-        self.SO2AverageSensorValues = AIRSensorManager.averageSensorValues(name: "SO2", date: sensorDate, locations: self.passes)
-        self.O3AverageSensorValues = AIRSensorManager.averageSensorValues(name: "Ozone_S", date: sensorDate, locations: self.passes)
+        //let sensorDate = today.air_daysAgo(days: AIRSensorManager.DaysAgo)!
+        self.SO2AverageSensorValues = AIRSensorManager.averageSensorValues(name: "SO2", date: today, locations: self.passes)
+        self.O3AverageSensorValues = AIRSensorManager.averageSensorValues(name: "Ozone_S", date: today, locations: self.passes)
+
+        //let southWest = AIRLocation.southWest(locations: self.passes, offsetMeters: AIRLocationManager.ThresholdOfNeighbor)
+        //let northEast = AIRLocation.northEast(locations: self.passes, offsetMeters: AIRLocationManager.ThresholdOfNeighbor)
+        //self.SO2Sensors = AIRSensor.fetch(name: "SO2", date: today, southWest: southWest, northEast: northEast)
+        //self.O3Sensors = AIRSensor.fetch(name: "Ozone_S", date: today, southWest: southWest, northEast: northEast)
+
         // timeline
         if self.passes.count > 0 {
             let allInterval = self.passes.last!.timestamp.timeIntervalSinceDate(self.passes.first!.timestamp)

@@ -7,7 +7,7 @@ class AIRSensorManager: NSObject {
     /// MARK: - constant
     static let WHOBasementOzone_S_1 =           50.0
     static let WHOBasementOzone_S_2 =           100.0
-    static let WHOBasementSO2_1 =               295.0
+    static let WHOBasementSO2_1 =               350.0
     static let WHOBasementSO2_2 =               500.0
 
     static let DaysAgo =                        3

@@ -24,7 +24,8 @@ class AIRSensorCircle: GMSCircle {
         let circle = AIRSensorCircle()
         circle.position = CLLocationCoordinate2D(latitude: sensor.lat.doubleValue, longitude: sensor.lng.doubleValue)
         circle.radius = radius
-        circle.fillColor = color!.colorWithAlphaComponent(0.5)
+        //circle.fillColor = color!.colorWithAlphaComponent(0.5)
+        circle.fillColor = color
         circle.strokeWidth = 0.0
         //circle.strokeColor = color!.colorWithAlphaComponent(0.3)
         return circle

@@ -32,7 +32,7 @@ class AIRMapView: GMSMapView {
         self.clear()
 
         // sensor
-        for sensor in sensors { self.drawSensor(sensor) }
+        self.drawSensors(sensors)
 
         if passes.count == 0 { return }
 
@@ -43,7 +43,7 @@ class AIRMapView: GMSMapView {
             let start = passes[i-1]
             let end = passes[i]
 
-            //
+            // path
             self.drawPolyline(start: start, end: end, color: color)
 
             // user location
@@ -73,7 +73,7 @@ class AIRMapView: GMSMapView {
         p.addCoordinate(start.coordinate)
         p.addCoordinate(end.coordinate)
         let polyline = GMSPolyline(path: p)
-        polyline.strokeWidth = 4
+        polyline.strokeWidth = 2
         if color != nil { polyline.strokeColor = color! }
         polyline.map = self
     }
@@ -90,6 +90,33 @@ class AIRMapView: GMSMapView {
         marker.position = location.coordinate
         marker.draggable = false
         marker.map = self
+    }
+
+    /**
+     * draw sensors
+     * @param sensors [AIRSensor]
+     **/
+    private func drawSensors(sensors: [AIRSensor]) {
+/*
+        let distance = 200.0
+        var drawnSensors: [AIRSensor] = []
+        var nextIndex = 1
+        for var i = 0; i < sensors.count; i = nextIndex {
+            var sensor = sensors[i]
+            let locationI = CLLocation(latitude: sensors[i].lat.doubleValue, longitude: sensors[i].lng.doubleValue)
+
+            for var j = i+1; j < sensors.count; j++ {
+                let locationJ = CLLocation(latitude: sensors[j].lat.doubleValue, longitude: sensors[j].lng.doubleValue)
+                if locationI.distanceFromLocation(locationJ) > distance { nextIndex = j; break }
+                if sensors[j].value.doubleValue < sensors[i].value.doubleValue { sensor = sensors[j] }
+                if j == sensors.count - 1 { nextIndex = sensors.count; break }
+            }
+
+            drawnSensors.append(sensor)
+        }
+        for sensor in drawnSensors { self.drawSensor(sensor) }
+*/
+        for sensor in sensors { self.drawSensor(sensor) }
     }
 
     /**

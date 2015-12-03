@@ -12,7 +12,7 @@ class AIRLocationManager: NSObject {
     static let ThresholdOfTimeIntervalToStop: NSTimeInterval = 300
     static let ThresholdOfDistanceToStop: CLLocationDistance = 200
     static let ThresholdOfNeighbor = 50.0
-    static let ThresholdOfSensorNeighbor = 5000.0
+    static let ThresholdOfSensorNeighbor = 10000.0
 
 
     /// MARK: - property

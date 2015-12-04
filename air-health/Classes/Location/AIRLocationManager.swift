@@ -45,6 +45,9 @@ class AIRLocationManager: NSObject {
      * start updating location
      **/
     func startUpdatingLocation() {
+        let GPSIsOff = NSUserDefaults().boolForKey(AIRUserDefaults.GPSIsOff)
+        if GPSIsOff { return }
+
         self.lastLocation = nil
         self.comfirmingCountToUpdateLastLocation = 0
         self.locationManager.startUpdatingLocation()
@@ -121,6 +124,8 @@ class AIRLocationManager: NSObject {
         }
         else { self.comfirmingCountToUpdateLastLocation = 0 }
 
+        let GPSIsOff = NSUserDefaults().boolForKey(AIRUserDefaults.GPSIsOff)
+        if GPSIsOff { return }
         self.locationManager.startUpdatingLocation()
 //        self.follower.endRouteTracking()
 //        self.follower.beginRouteTracking()
@@ -175,6 +180,9 @@ extension AIRLocationManager: CLLocationManagerDelegate {
     }
 
     func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+        let GPSIsOff = NSUserDefaults().boolForKey(AIRUserDefaults.GPSIsOff)
+        if GPSIsOff { return }
+
         self.locationManager.startUpdatingLocation()
     }
 

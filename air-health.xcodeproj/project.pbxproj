@@ -39,6 +39,7 @@
 		E6BC9CED1C03878B004769AD /* AIRTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BC9CEB1C03878B004769AD /* AIRTimelineView.swift */; };
 		E6BC9CF01C039AF6004769AD /* AIRSensorGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BC9CEF1C039AF6004769AD /* AIRSensorGraphView.swift */; };
 		E6D803FD1BFD444C00A55326 /* AIRSensorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D803FC1BFD444C00A55326 /* AIRSensorManager.swift */; };
+		E6DBB81D1C1223430008A821 /* AIRSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6DBB81C1C1223430008A821 /* AIRSettingViewController.swift */; };
 		E6E4B73D1BEADEC6002DEAB1 /* AIRConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E4B73C1BEADEC6002DEAB1 /* AIRConstant.swift */; };
 		E6F4DCDA1C0DB72A00F8DA0F /* String+Justified.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6F4DCD91C0DB72A00F8DA0F /* String+Justified.swift */; };
 /* End PBXBuildFile section */
@@ -80,6 +81,7 @@
 		E6BC9CEB1C03878B004769AD /* AIRTimelineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRTimelineView.swift; sourceTree = "<group>"; };
 		E6BC9CEF1C039AF6004769AD /* AIRSensorGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRSensorGraphView.swift; sourceTree = "<group>"; };
 		E6D803FC1BFD444C00A55326 /* AIRSensorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRSensorManager.swift; sourceTree = "<group>"; };
+		E6DBB81C1C1223430008A821 /* AIRSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRSettingViewController.swift; sourceTree = "<group>"; };
 		E6E4B73C1BEADEC6002DEAB1 /* AIRConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRConstant.swift; sourceTree = "<group>"; };
 		E6F4DCD91C0DB72A00F8DA0F /* String+Justified.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Justified.swift"; sourceTree = "<group>"; };
 		ECD4F8936C1369720004C2C3 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -197,6 +199,7 @@
 				E695DA681BF2C32F0060BF66 /* Map */,
 				E62A03BC1BF1514A0046ABE0 /* Location */,
 				E647B4751BFBEABB00B2CA4F /* Sensor */,
+				E6DBB81B1C1223430008A821 /* Setting */,
 				E612614A1BF160C200BE8E91 /* NSFoundation+Extension */,
 				E63DB73B1BF57AA8000E3E42 /* UIKit+Extension */,
 				E6839C721BF2B939007BD219 /* Model */,
@@ -286,6 +289,14 @@
 				E695DA6A1BF2C32F0060BF66 /* AIRMapView.swift */,
 			);
 			path = Map;
+			sourceTree = "<group>";
+		};
+		E6DBB81B1C1223430008A821 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				E6DBB81C1C1223430008A821 /* AIRSettingViewController.swift */,
+			);
+			path = Setting;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -442,6 +453,7 @@
 				E68654BF1C05281300E10E10 /* AIRSensorClient.swift in Sources */,
 				E6BC9CED1C03878B004769AD /* AIRTimelineView.swift in Sources */,
 				E6F4DCDA1C0DB72A00F8DA0F /* String+Justified.swift in Sources */,
+				E6DBB81D1C1223430008A821 /* AIRSettingViewController.swift in Sources */,
 				E6E4B73D1BEADEC6002DEAB1 /* AIRConstant.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

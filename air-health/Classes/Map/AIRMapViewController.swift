@@ -115,8 +115,6 @@ class AIRMapViewController: UIViewController {
      * @param button UIButton
      **/
     @IBAction func touchUpInside(button button: UIButton) {
-        if button == self.leftBarButton { self.navigationController!.popViewControllerAnimated(true) }
-        else if button == self.rightBarButton { }
     }
 
 

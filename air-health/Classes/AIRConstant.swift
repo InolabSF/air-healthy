@@ -42,6 +42,7 @@ func AIRNSStringFromClassString(classString: String) -> String {
 struct AIRUserDefaults {
     static let DemoCSV =            "AIRUserDefaults.DemoCSV_0.1.0_1.0.2"
     static let SensorDate =         "AIRUserDefaults.SensorDate"
+    static let GPSIsOff =            "AIRUserDefaults.GPSIsOff"
 }
 
 

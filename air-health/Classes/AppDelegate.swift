@@ -18,6 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Parse.setApplicationId(AIRParse.ApplicationID, clientKey: AIRParse.ClientKey)
         PFUser.enableAutomaticUser()
         PFACL.setDefaultACL(PFACL(), withAccessForCurrentUser: true)
+
 /*
         let doesLoadDemoCSV = NSUserDefaults().boolForKey(AIRUserDefaults.DemoCSV)
         if !doesLoadDemoCSV {
@@ -28,11 +29,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
 */
 
+        AIRLocationManager.sharedInstance.startUpdatingLocation()
+
 //        AIRLOG(AIRSensor.convertOzone_S(value: 508.0, temperature: 18.0))
 //        AIRLOG(AIRSensor.convertSO2(value: 548.0, temperature: 18.0))
-
-
-        AIRLocationManager.sharedInstance.startUpdatingLocation()
 
         return true
     }

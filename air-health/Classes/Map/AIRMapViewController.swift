@@ -282,25 +282,25 @@ extension AIRMapViewController: GMSMapViewDelegate {
 extension AIRMapViewController: AIRSensorGraphViewDelegate {
 
     func touchedUpInside(sensorGraphView sensorGraphView: AIRSensorGraphView, button: UIButton) {
-        if passes.count < 1 { return }
-
         self.selectedSensorButton = button
         var gas = ""
         if self.selectedSensorButton == self.sensorGraphView.SO2Button { gas = "SO2" }
         else if self.selectedSensorButton == self.sensorGraphView.O3Button { gas = "O3" }
 
         // timeline
-        self.timelineView.timeSlider.value = 0
-        self.setTimeline()
-        let averages = self.averageSensorValues()
-        let basements = AIRSensorManager.sensorBasements(name: self.selectedSensorName())
-        let values = AIRSensorManager.valuesPerMinute(passes: self.passes, averageSensorValues: averages, sensorBasements: basements)
-        self.timelineView.setLineChart(
-            passes: self.passes,
-            valuesPerMinute: values,
-            sensorBasements: basements,
-            title: gas
-        )
+        if passes.count >= 2 {
+            self.timelineView.timeSlider.value = 0
+            self.setTimeline()
+            let averages = self.averageSensorValues()
+            let basements = AIRSensorManager.sensorBasements(name: self.selectedSensorName())
+            let values = AIRSensorManager.valuesPerMinute(passes: self.passes, averageSensorValues: averages, sensorBasements: basements)
+            self.timelineView.setLineChart(
+                passes: self.passes,
+                valuesPerMinute: values,
+                sensorBasements: basements,
+                title: gas
+            )
+        }
 
         // draw map
         self.drawMap()

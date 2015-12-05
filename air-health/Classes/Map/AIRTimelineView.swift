@@ -157,7 +157,7 @@ class AIRTimelineView: UIView {
             self.timelineLineChartView!.removeFromSuperview()
             self.timelineLineChartView = nil
         }
-        if passes.count < 1 { return }
+        if passes.count < 2 { return }
 
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "HH:mm"

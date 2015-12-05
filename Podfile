@@ -24,3 +24,4 @@ pod 'ionicons'
 
 # UI
 pod 'TTTAttributedLabel'
+pod 'Toast'

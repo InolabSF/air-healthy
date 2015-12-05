@@ -11,7 +11,7 @@ class AIRMapView: GMSMapView {
      * @param passes [CLLocation]
      **/
     func moveCamera(passes passes: [CLLocation]) {
-        if passes.count == 0 { return }
+        if passes.count < 2 { return }
         // camera
         let path = GMSMutablePath()
         for var i = 0; i < passes.count; i++ {
@@ -34,7 +34,7 @@ class AIRMapView: GMSMapView {
         // sensor
         self.drawSensors(sensors)
 
-        if passes.count == 0 { return }
+        if passes.count < 2 { return }
 
         let userDate = passes.first!.timestamp.dateByAddingTimeInterval(intervalFromStart)
         let color = UIColor.darkGrayColor()

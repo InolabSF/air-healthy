@@ -32,6 +32,7 @@ class AIRTimelineView: UIView {
 
     @IBOutlet weak var timeSliderParentView: UIView!
     @IBOutlet weak var timeSliderTitleView: UIView!
+    @IBOutlet weak var timeSliderContentView: UIView!
     @IBOutlet weak var timeSliderView: UIView!
     @IBOutlet weak var timelineLineChartBackgroundView: UIView!
     @IBOutlet weak var greenView: UIView!

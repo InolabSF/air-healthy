@@ -289,6 +289,7 @@ extension AIRMapViewController: AIRSensorGraphViewDelegate {
 
         // timeline
         if passes.count >= 2 {
+            self.timelineView.timeSliderContentView.hidden = false
             self.timelineView.timeSlider.value = 0
             self.setTimeline()
             let averages = self.averageSensorValues()
@@ -300,6 +301,9 @@ extension AIRMapViewController: AIRSensorGraphViewDelegate {
                 sensorBasements: basements,
                 title: gas
             )
+        }
+        else {
+            self.timelineView.timeSliderContentView.hidden = true
         }
 
         // draw map

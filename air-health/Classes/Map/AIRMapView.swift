@@ -3,7 +3,6 @@ class AIRMapView: GMSMapView {
 
     /// MARK: - property
 
-
     /// MARK: - public api
 
     /**
@@ -25,10 +24,11 @@ class AIRMapView: GMSMapView {
     /**
      * draw
      * @param pass locations you passed
+     * @param color UIColor
      * @param intervalFromStart Double
      * @param sensors [AIRSensor]
      **/
-    func draw(passes passes: [CLLocation], intervalFromStart: Double, sensors: [AIRSensor]) {
+    func draw(passes passes: [CLLocation], intervalFromStart: Double, color color: UIColor, sensors: [AIRSensor]) {
         self.clear()
 
         // sensor
@@ -37,14 +37,14 @@ class AIRMapView: GMSMapView {
         if passes.count < 2 { return }
 
         let userDate = passes.first!.timestamp.dateByAddingTimeInterval(intervalFromStart)
-        let color = UIColor.darkGrayColor()
+        let lineColor = UIColor.darkGrayColor()
 
         for var i = 1; i < passes.count; i++ {
             let start = passes[i-1]
             let end = passes[i]
 
             // path
-            self.drawPolyline(start: start, end: end, color: color)
+            self.drawPolyline(start: start, end: end, color: lineColor)
 
             // user location
             if userDate.compare(start.timestamp) != .OrderedAscending && userDate.compare(end.timestamp) != .OrderedDescending {
@@ -52,7 +52,8 @@ class AIRMapView: GMSMapView {
                 let lat = (end.coordinate.latitude - start.coordinate.latitude) * ratio + start.coordinate.latitude
                 let lng = (end.coordinate.longitude - start.coordinate.longitude) * ratio + start.coordinate.longitude
                 let location = CLLocation(latitude: lat, longitude: lng)
-                self.drawMarker(location: location, color: nil)
+
+                self.drawMarker(location: location, color: color)
             }
 
         }
@@ -97,36 +98,35 @@ class AIRMapView: GMSMapView {
      * @param sensors [AIRSensor]
      **/
     private func drawSensors(sensors: [AIRSensor]) {
-/*
-        let distance = 200.0
-        var drawnSensors: [AIRSensor] = []
-        var nextIndex = 1
-        for var i = 0; i < sensors.count; i = nextIndex {
-            var sensor = sensors[i]
-            let locationI = CLLocation(latitude: sensors[i].lat.doubleValue, longitude: sensors[i].lng.doubleValue)
+        let maxDrawingCount = 100
+        var locations: [CLLocation] = []
+        var drawingCount = 0
 
-            for var j = i+1; j < sensors.count; j++ {
-                let locationJ = CLLocation(latitude: sensors[j].lat.doubleValue, longitude: sensors[j].lng.doubleValue)
-                if locationI.distanceFromLocation(locationJ) > distance { nextIndex = j; break }
-                if sensors[j].value.doubleValue < sensors[i].value.doubleValue { sensor = sensors[j] }
-                if j == sensors.count - 1 { nextIndex = sensors.count; break }
+        for sensor in sensors {
+            let location = CLLocation(latitude: sensor.lat.doubleValue, longitude: sensor.lng.doubleValue)
+            var willDraw = true
+            for l in locations {
+                if location.distanceFromLocation(l) < AIRSensorCircle.MaxRadius { willDraw = false; break }
             }
+            if !willDraw { continue }
 
-            drawnSensors.append(sensor)
+            if self.drawSensor(sensor) {
+                drawingCount++
+                locations.append(location)
+            }
+            if drawingCount >= maxDrawingCount { break }
         }
-        for sensor in drawnSensors { self.drawSensor(sensor) }
-*/
-        for sensor in sensors { self.drawSensor(sensor) }
     }
 
     /**
      * draw sensor
      * @param sensor AIRSensor
      **/
-    private func drawSensor(sensor: AIRSensor) {
+    private func drawSensor(sensor: AIRSensor) -> Bool {
         let sensorCircle = AIRSensorCircle.createSensorCircle(sensor: sensor)
-        if sensorCircle == nil { return }
+        if sensorCircle == nil { return false }
         sensorCircle!.map = self
+        return true
     }
 
 }

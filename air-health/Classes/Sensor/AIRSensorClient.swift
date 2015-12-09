@@ -34,9 +34,10 @@ class AIRSensorClient: AnyObject {
         let southWest = AIRLocation.southWest(locations: locations, offsetMeters: AIRLocationManager.ThresholdOfSensorNeighbor)
         let northEast = AIRLocation.northEast(locations: locations, offsetMeters: AIRLocationManager.ThresholdOfSensorNeighbor)
         let query = PFQuery(className: "testData")
-        query.limit = 300
+        query.limit = 1000
         query.orderByAscending("createdAt")
-        query.whereKey("createdAt", greaterThan: today.air_daysAgo(days: 1)!)
+
+        query.whereKey("createdAt", greaterThan: today.air_daysAgo(days: AIRSensorManager.DaysAgo)!)
         query.whereKey("latitude", greaterThan: NSNumber(double: southWest.coordinate.latitude))
         query.whereKey("latitude", lessThan: NSNumber(double: northEast.coordinate.latitude))
         query.whereKey("longitude", greaterThan: NSNumber(double: southWest.coordinate.longitude))

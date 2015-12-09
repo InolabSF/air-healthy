@@ -6,16 +6,17 @@ class AIRMapViewController: UIViewController {
     @IBOutlet weak var leftBarButton: UIButton!
     @IBOutlet weak var rightBarButton: UIButton!
 
+    @IBOutlet weak var loadingView: AIRLoadingView!
     @IBOutlet weak var timelineView: AIRTimelineView!
     @IBOutlet weak var sensorGraphView: AIRSensorGraphView!
     @IBOutlet weak var mapView: AIRMapView!
 
     var passes: [CLLocation] = []
-    var selectedSensorButton: UIButton?
-    var SO2AverageSensorValues: [Double] = []
-    var O3AverageSensorValues: [Double] = []
-    var SO2Sensors: [AIRSensor] = []
-    var O3Sensors: [AIRSensor] = []
+    var values: [Double] = []
+    var sensors: [AIRSensor] = []
+
+    var SO2ValuePerMinutes: [Double] = []
+    var O3ValuePerMinutes: [Double] = []
 
 
     /// MARK: - destruction
@@ -30,6 +31,46 @@ class AIRMapViewController: UIViewController {
     override func loadView() {
         super.loadView()
 
+        self.timelineView.timeSliderContentView.hidden = true
+        self.setUp()
+
+        let today = NSDate()
+        // passes and sensor datas
+        let newLocations = AIRLocation.fetch(date: today)
+        // should update passes?
+        if self.passes.count == 0 || self.passes.last!.timestamp.compare(newLocations.last!.timestamp) != .OrderedSame {
+            self.passes = newLocations
+        }
+        self.setSensorValues()
+        // get new sensor values
+        self.getSensorValues()
+    }
+
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+
+
+    /// MARK: - event listener
+
+    /**
+     * called when button is touched up inside
+     * @param button UIButton
+     **/
+    @IBAction func touchUpInside(button button: UIButton) {
+    }
+
+
+    /// MARK: - private api
+
+    /**
+     * set up
+     **/
+    private func setUp() {
         // status bar
         UIApplication.sharedApplication().statusBarStyle = .LightContent
         // navigation bar
@@ -61,20 +102,14 @@ class AIRMapViewController: UIViewController {
         self.mapView.myLocationEnabled = false
         self.mapView.settings.myLocationButton = false
         self.mapView.frame = CGRectMake(
-            //self.mapView.frame.origin.x, self.timelineView.dateView.frame.origin.y + self.timelineView.dateView.frame.height,
-            //self.mapView.frame.width, self.view.frame.height - (self.timelineView.dateView.frame.origin.y + self.timelineView.dateView.frame.height)
             self.mapView.frame.origin.x, self.timelineView.dateView.frame.origin.y + self.timelineView.dateView.frame.height,
             self.mapView.frame.width, self.view.frame.height - (self.timelineView.dateView.frame.origin.y + self.timelineView.dateView.frame.height + self.timelineView.timeSliderView.frame.height) + 36.0
         )
-
         self.mapView.camera = GMSCameraPosition.cameraWithLatitude(
             37.7833,
             longitude: -122.4167,
             zoom: 13.0
         )
-
-        //self.timelineView.setUp()
-        //self.sensorGraphView.setUp()
 
         // notification
         NSNotificationCenter.defaultCenter().addObserver(
@@ -85,73 +120,6 @@ class AIRMapViewController: UIViewController {
         )
     }
 
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-
-        //AIRSensor.deleteAll()
-
-        let today = NSDate()
-
-        // passes and sensor datas
-        let newLocations = AIRLocation.fetch(date: today)
-        // should update passes?
-        if self.passes.count == 0 || self.passes.last!.timestamp.compare(newLocations.last!.timestamp) != .OrderedSame {
-            self.passes = newLocations
-        }
-        self.setSensorValues()
-
-        self.getSensorValues()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-
-
-    /// MARK: - event listener
-
-    /**
-     * called when button is touched up inside
-     * @param button UIButton
-     **/
-    @IBAction func touchUpInside(button button: UIButton) {
-    }
-
-
-    /// MARK: - private api
-
-    /**
-     * selected sensor name
-     * @return selected sensor name
-     **/
-    private func selectedSensorName() -> String {
-        if self.selectedSensorButton == self.sensorGraphView.SO2Button { return "SO2" }
-        else if self.selectedSensorButton == self.sensorGraphView.O3Button { return "Ozone_S" }
-        return ""
-    }
-
-    /**
-     * return sensors
-     * @return sensors [AIRSensor]
-     **/
-    private func sensors() -> [AIRSensor] {
-        let name = self.selectedSensorName()
-        if name == "SO2" { return self.SO2Sensors }
-        if name == "Ozone_S" { return self.O3Sensors }
-        return []
-    }
-
-    /**
-     * return averageSensorValues
-     * @return averageSensorValues [Double]
-     **/
-    private func averageSensorValues() -> [Double] {
-        let name = self.selectedSensorName()
-        if name == "SO2" { return self.SO2AverageSensorValues }
-        if name == "Ozone_S" { return self.O3AverageSensorValues }
-        return [0.001]
-    }
-
     /**
      * draw map
      **/
@@ -159,7 +127,8 @@ class AIRMapViewController: UIViewController {
         self.mapView.draw(
             passes: self.passes,
             intervalFromStart: Double(self.timelineView.timeSlider.value),
-            sensors: self.sensors()
+            color: self.currentLocationColor(),
+            sensors: self.sensors
         )
     }
 
@@ -169,8 +138,6 @@ class AIRMapViewController: UIViewController {
      **/
     private func setTimeline() {
         let intervalFromStart = Double(self.timelineView.timeSlider.value)
-        let averages = self.averageSensorValues()
-        let basements = AIRSensorManager.sensorBasements(name: self.selectedSensorName())
 
         // time
         var time = ""
@@ -182,14 +149,27 @@ class AIRMapViewController: UIViewController {
             dateFormatter.dateFormat = "HH:mm"
             time = dateFormatter.stringFromDate(date)
         }
+
+        self.timelineView.setTimeline(time: time, color: self.currentLocationColor())
+    }
+
+    /**
+     * get current location's color
+     * @return UIColor
+     **/
+    private func currentLocationColor() -> UIColor {
         // color
-        let color = AIRSensorManager.sensorColor(
-            passes: self.passes,
-            intervalFromStart: intervalFromStart,
-            averageSensorValues: averages,
-            sensorBasements: basements
-        )
-        self.timelineView.setTimeline(time: time, color: color)
+        var color = UIColor.darkGrayColor()
+        if self.sensorGraphView.gaugeView.value < AIRSensorGraphView.Basement_1 {
+            color = UIColor(red: 46.0/255.0, green: 204.0/255.0, blue: 113.0/255.0, alpha: 1.0)
+        }
+        else if self.sensorGraphView.gaugeView.value < AIRSensorGraphView.Basement_2 {
+            color = UIColor(red: 243.0/255.0, green: 156.0/255.0, blue: 18.0/255.0, alpha: 1.0)
+        }
+        else {
+            color = UIColor(red: 231.0/255.0, green: 76.0/255.0, blue: 60.0/255.0, alpha: 1.0)
+        }
+        return color
     }
 
     /**
@@ -201,6 +181,7 @@ class AIRMapViewController: UIViewController {
         AIRSensorClient.sharedInstance.getSensorValues(
             locations: self.passes,
             completionHandler: { [unowned self] (objects: [PFObject]?, error: NSError?) -> Void in
+                AIRSensor.deleteAll()
                 AIRSensor.save(objects: objects)
                 self.setSensorValues()
             }
@@ -220,7 +201,7 @@ class AIRMapViewController: UIViewController {
             self.passes = newLocations
             self.setSensorValues()
         }
-
+        // get new sensor values
         self.getSensorValues()
     }
 
@@ -228,23 +209,71 @@ class AIRMapViewController: UIViewController {
      * set sensor datas
      **/
     private func setSensorValues() {
-        let today = NSDate()
-        //let sensorDate = today.air_daysAgo(days: AIRSensorManager.DaysAgo)!
-        self.SO2AverageSensorValues = AIRSensorManager.averageSensorValues(name: "SO2", date: today, locations: self.passes)
-        self.O3AverageSensorValues = AIRSensorManager.averageSensorValues(name: "Ozone_S", date: today, locations: self.passes)
+        self.loadingView.startAnimation()
 
+        dispatch_after(
+            dispatch_time(DISPATCH_TIME_NOW, Int64(Double(NSEC_PER_SEC) / 10.0)),
+            dispatch_get_main_queue(),
+            { [unowned self] () in
+
+
+
+        let today = NSDate()
+
+        // sensors
         let southWest = AIRLocation.southWest(locations: self.passes, offsetMeters: AIRLocationManager.ThresholdOfNeighbor)
         let northEast = AIRLocation.northEast(locations: self.passes, offsetMeters: AIRLocationManager.ThresholdOfNeighbor)
-        self.SO2Sensors = AIRSensor.fetch(name: "SO2", date: today, southWest: southWest, northEast: northEast)
-        self.O3Sensors = AIRSensor.fetch(name: "Ozone_S", date: today, southWest: southWest, northEast: northEast)
+        //self.sensors = AIRSensor.fetch(name: "Ozone_S", date: today, southWest: southWest, northEast: northEast)
+        //self.sensors += AIRSensor.fetch(name: "SO2", date: today, southWest: southWest, northEast: northEast)
+        self.sensors = AIRSensor.fetch(date: today, southWest: southWest, northEast: northEast)
 
         // timeline
         if self.passes.count > 0 {
             let allInterval = self.passes.last!.timestamp.timeIntervalSinceDate(self.passes.first!.timestamp)
             self.timelineView.timeSlider.maximumValue = CGFloat(allInterval)
         }
-        // sensor graph view
-        self.sensorGraphView.setSensorValues(SO2AverageSensorValues: self.SO2AverageSensorValues, O3AverageSensorValues: self.O3AverageSensorValues)
+
+        // values
+        self.SO2ValuePerMinutes = AIRSensorManager.valuesPerMinute(
+            passes: self.passes,
+            averageSensorValues: AIRSensorManager.averageSensorValues(name: "SO2", date: today, locations: self.passes),
+            sensorBasements: AIRSensorManager.sensorBasements(name: "SO2")
+        )
+        self.O3ValuePerMinutes = AIRSensorManager.valuesPerMinute(
+            passes: self.passes,
+            averageSensorValues: AIRSensorManager.averageSensorValues(name: "Ozone_S", date: today, locations: self.passes),
+            sensorBasements: AIRSensorManager.sensorBasements(name: "Ozone_S")
+        )
+        self.values = []
+        for var i = 0; i < self.SO2ValuePerMinutes.count; i++ {
+            let so2 = abs(self.SO2ValuePerMinutes[i] / AIRSensorManager.WHOBasementSO2_2)
+            let o3 = abs(self.O3ValuePerMinutes[i] / AIRSensorManager.WHOBasementOzone_S_2)
+            let value = so2 + o3
+            self.values.append(value)
+        }
+
+        // graph
+        self.sensorGraphView.gaugeView.value = 0.0
+        if self.values.count > 0 {
+            self.sensorGraphView.gaugeView.value = CGFloat(self.values[0])
+            self.sensorGraphView.sensorLabel.text = String(format: "SO2: %.1f\nO3: %.1f", self.SO2ValuePerMinutes[0], self.O3ValuePerMinutes[0])
+        }
+
+        // timeline
+        self.timelineView.setLineChart(
+            passes: self.passes,
+            valuesPerMinute: self.values,
+            sensorBasements: AIRSensorManager.sensorBasements()
+        )
+        self.setTimeline()
+
+        self.loadingView.stopAnimation()
+
+
+
+
+            }
+        )
     }
 
 }
@@ -278,70 +307,45 @@ extension AIRMapViewController: GMSMapViewDelegate {
 }
 
 
-/// MARK: - AIRSensorGraphViewDelegate
-extension AIRMapViewController: AIRSensorGraphViewDelegate {
-
-    func touchedUpInside(sensorGraphView sensorGraphView: AIRSensorGraphView, button: UIButton) {
-        self.selectedSensorButton = button
-        var gas = ""
-        if self.selectedSensorButton == self.sensorGraphView.SO2Button { gas = "SO2" }
-        else if self.selectedSensorButton == self.sensorGraphView.O3Button { gas = "O3" }
-
-        // timeline
-        if passes.count >= 2 {
-            self.timelineView.timeSliderContentView.hidden = false
-            self.timelineView.timeSlider.value = 0
-            self.setTimeline()
-            let averages = self.averageSensorValues()
-            let basements = AIRSensorManager.sensorBasements(name: self.selectedSensorName())
-            let values = AIRSensorManager.valuesPerMinute(passes: self.passes, averageSensorValues: averages, sensorBasements: basements)
-            self.timelineView.setLineChart(
-                passes: self.passes,
-                valuesPerMinute: values,
-                sensorBasements: basements,
-                title: gas
-            )
-        }
-        else {
-            self.timelineView.timeSliderContentView.hidden = true
-        }
-
-        // draw map
-        self.drawMap()
-        self.mapView.moveCamera(passes: self.passes)
-
-        // animation
-        self.sensorGraphView.alpha = 1.0
-        self.timelineView.toggleTimeSlider(
-            hidden: false,
-            animationHandler: { [unowned self] in
-                self.sensorGraphView.alpha = 0.0
-            },
-            completionHandler:{ () in
-            }
-        )
-    }
-
-}
-
-
 /// MARK: - AIRTimelineViewDelegate
 extension AIRMapViewController: AIRTimelineViewDelegate {
 
-    func touchedUpInside(timelineView timelineView: AIRTimelineView, closeButton: UIButton) {
-        // animation
-        self.sensorGraphView.alpha = 0.0
-        self.timelineView.toggleTimeSlider(
+    func touchedUpInside(timelineView timelineView: AIRTimelineView, openButton: UIButton) {
+        self.drawMap()
+        self.mapView.moveCamera(passes: self.passes)
+
+        self.sensorGraphView.toggle(
             hidden: true,
-            animationHandler: { [unowned self] in
-                self.sensorGraphView.alpha = 1.0
-            },
-            completionHandler:{ () in
-            }
+            animationHandler: { () in },
+            completionHandler:{ () in }
+        )
+    }
+
+    func touchedUpInside(timelineView timelineView: AIRTimelineView, closeButton: UIButton) {
+        self.sensorGraphView.toggle(
+            hidden: false,
+            animationHandler: { () in },
+            completionHandler:{ () in }
         )
     }
 
     func valueChanged(timelineView timelineView: AIRTimelineView, control: GradientSlider) {
+        if self.passes.count >= 2 {
+            var index = -1
+            let userDate = self.passes.first!.timestamp.dateByAddingTimeInterval(Double(control.value))
+            for var i = 1; i < passes.count; i++ {
+                let start = passes[i-1]
+                let end = passes[i]
+                if userDate.compare(start.timestamp) != .OrderedAscending && userDate.compare(end.timestamp) != .OrderedDescending {
+                    index = Int(control.value / 60)
+                }
+            }
+            if index >= 0 && index < self.values.count {
+                self.sensorGraphView.gaugeView.value = CGFloat(self.values[index])
+                self.sensorGraphView.sensorLabel.text = String(format: "SO2: %.1f\nO3: %.1f", self.SO2ValuePerMinutes[index], self.O3ValuePerMinutes[index])
+            }
+        }
+
         self.drawMap() // draw map
         self.setTimeline() // timeline
     }

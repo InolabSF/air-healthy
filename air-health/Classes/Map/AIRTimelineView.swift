@@ -4,6 +4,13 @@
     /**
      * called when button is touched up inside
      * @param timelineView AIRTimelineView
+     * @param openButton UIButton
+     */
+    func touchedUpInside(timelineView timelineView: AIRTimelineView, openButton: UIButton)
+
+    /**
+     * called when button is touched up inside
+     * @param timelineView AIRTimelineView
      * @param closeButton UIButton
      */
     func touchedUpInside(timelineView timelineView: AIRTimelineView, closeButton: UIButton)
@@ -18,7 +25,6 @@
 }
 
 
-
 /// MARK: - AIRTimelineView
 class AIRTimelineView: UIView {
 
@@ -30,20 +36,22 @@ class AIRTimelineView: UIView {
     @IBOutlet weak var dateButton: UIButton!
     @IBOutlet weak var timeLabel: UILabel!
 
-    @IBOutlet weak var timeSliderParentView: UIView!
-    @IBOutlet weak var timeSliderTitleView: UIView!
-    @IBOutlet weak var timeSliderContentView: UIView!
     @IBOutlet weak var timeSliderView: UIView!
+
+    @IBOutlet weak var timeSliderTitleView: UIView!
+    @IBOutlet weak var openButton: UIButton!
+    @IBOutlet weak var closeButton: UIButton!
+
+    @IBOutlet weak var timeSliderContentView: UIView!
+    var timelineLineChartView: JTChartView?
     @IBOutlet weak var timelineLineChartBackgroundView: UIView!
+    @IBOutlet weak var timeSlider: GradientSlider!
+    @IBOutlet weak var timeIndicatorView: UIView!
+    @IBOutlet weak var startTimeLabel: UILabel!
+    @IBOutlet weak var endTimeLabel: UILabel!
     @IBOutlet weak var greenView: UIView!
     @IBOutlet weak var yellowView: UIView!
     @IBOutlet weak var redView: UIView!
-    var timelineLineChartView: JTChartView?
-    @IBOutlet weak var timeIndicatorView: UIView!
-    @IBOutlet weak var timeSlider: GradientSlider!
-    @IBOutlet weak var closeButton: UIButton!
-    @IBOutlet weak var startTimeLabel: UILabel!
-    @IBOutlet weak var endTimeLabel: UILabel!
 
 
     /// MARK: - life cycle
@@ -62,10 +70,19 @@ class AIRTimelineView: UIView {
      * @param button UIButton
      **/
     @IBAction func touchUpInside(button button: UIButton) {
-        if button == self.closeButton {
+        if button == self.openButton {
+            if self.delegate != nil {
+                (self.delegate as! AIRTimelineViewDelegate).touchedUpInside(timelineView: self, openButton: button)
+            }
+            self.openButton.hidden = true
+            self.closeButton.hidden = false
+        }
+        else if button == self.closeButton {
             if self.delegate != nil {
                 (self.delegate as! AIRTimelineViewDelegate).touchedUpInside(timelineView: self, closeButton: button)
             }
+            self.openButton.hidden = false
+            self.closeButton.hidden = true
         }
         else if button == self.dateButton {
         }
@@ -85,49 +102,6 @@ class AIRTimelineView: UIView {
     /// MARK: - public api
 
     /**
-     * show or hide time slider
-     * @param hidden Bool
-     * @param animationHandler blocks
-     * @param completionHandler blocks
-     **/
-    func toggleTimeSlider(hidden hidden: Bool, animationHandler: () -> Void, completionHandler: () -> Void) {
-        // position
-        let hiddenDestination = CGRectMake(
-            self.timeSliderParentView.frame.origin.x, self.frame.height - self.timeSliderParentView.frame.height,
-            self.timeSliderParentView.frame.width, self.timeSliderParentView.frame.height
-        )
-        let shownDestination = CGRectMake(
-            self.timeSliderParentView.frame.origin.x, self.frame.height - self.timeSliderView.frame.height,
-            self.timeSliderParentView.frame.width, self.timeSliderParentView.frame.height
-        )
-
-        // start setting
-        self.timeSliderView.hidden = false
-        self.timeSliderView.alpha = (hidden) ? 1 : 0
-        self.timeSliderParentView.frame = (hidden) ? shownDestination : hiddenDestination
-        self.timeLabel.hidden = false
-        self.timeLabel.alpha = (hidden) ? 1 : 0
-
-        // animation
-        UIView.animateWithDuration(
-            (hidden) ? 0.20 : 0.25,
-            delay: 0.0,
-            options: .CurveEaseOut,
-            animations: { [unowned self] in
-                animationHandler()
-                self.timeSliderView.alpha = (hidden) ? 0 : 1
-                self.timeSliderParentView.frame = (hidden) ? hiddenDestination : shownDestination
-                self.timeLabel.alpha = (hidden) ? 0 : 1
-            },
-            completion: { [unowned self] finished in
-                completionHandler()
-                self.timeSliderView.hidden = hidden
-                self.timeLabel.hidden = hidden
-            }
-        )
-    }
-
-    /**
      * set timeline value
      * @param time String
      * @param color UIColor
@@ -138,6 +112,7 @@ class AIRTimelineView: UIView {
         // color
         self.timeLabel.textColor = color
 
+        if self.timeSlider.maximumValue == 0.0 { self.timeSlider.maximumValue = 1.0 }
         self.timeIndicatorView.frame = CGRectMake(
             1.0 + (self.timelineLineChartBackgroundView.frame.width - 3.0) * self.timeSlider.value / self.timeSlider.maximumValue, self.timeIndicatorView.frame.origin.y,
             self.timeIndicatorView.frame.width, self.timeIndicatorView.frame.height
@@ -149,10 +124,12 @@ class AIRTimelineView: UIView {
      * @param lineChart line chart
      * @param valuesPerMinute [Double]
      * @param sensorBasements [Double]
-     * @param title String
      **/
-    func setLineChart(passes passes: [CLLocation], valuesPerMinute: [Double], sensorBasements: [Double], title: String) {
-        self.closeButton.setTitle(title, forState: .Normal)
+    func setLineChart(passes passes: [CLLocation], valuesPerMinute: [Double], sensorBasements: [Double]) {
+        self.startTimeLabel.text = ""
+        self.endTimeLabel.text = ""
+        self.timeLabel.text = ""
+        self.timeSliderContentView.hidden = true
 
         if self.timelineLineChartView != nil {
             self.timelineLineChartView!.removeFromSuperview()
@@ -160,10 +137,13 @@ class AIRTimelineView: UIView {
         }
         if passes.count < 2 { return }
 
+        self.timeSliderContentView.hidden = false
+
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "HH:mm"
         self.startTimeLabel.text = dateFormatter.stringFromDate(passes.first!.timestamp)
         self.endTimeLabel.text = dateFormatter.stringFromDate(passes.last!.timestamp)
+        self.timeLabel.text = self.startTimeLabel.text
 
         // max value
         var maxValue = 0.001
@@ -206,39 +186,6 @@ class AIRTimelineView: UIView {
             topPadding: 0
         )
         self.timelineLineChartBackgroundView.addSubview(self.timelineLineChartView!)
-/*
-        self.timelineLineChartView.frame = CGRectMake(
-            self.timeSlider.frame.origin.x, self.timelineLineChartView.frame.origin.y,
-            self.timeSlider.frame.width, self.timelineLineChartView.frame.height
-        )
-
-        self.timelineLineChartView.clearChartData()
-        if passes.count == 0 { return }
-
-        self.timelineLineChartView.margin = 0
-        self.timelineLineChartView.verticalGridStep = 1
-        self.timelineLineChartView.horizontalGridStep = 1
-        self.timelineLineChartView.labelForIndex = { (item) in
-            //return dateFormatter.stringFromDate(timestamp.air_minutesAgo(minutes: -Int(item))!)
-            return ""
-        }
-        self.timelineLineChartView.labelForValue = { (value) in
-            //return "\(value)"
-            return ""
-        }
-        self.timelineLineChartView.lineWidth = 2
-        self.timelineLineChartView.color = color
-        self.timelineLineChartView.fillColor = UIColor.clearColor()
-
-        var allValuesAreNotZero = false
-        for value in valuesPerMinute {
-            allValuesAreNotZero = (allValuesAreNotZero || value > 0.0)
-            if allValuesAreNotZero { break }
-        }
-        if allValuesAreNotZero {
-            self.timelineLineChartView.setChartData(valuesPerMinute)
-        }
-*/
     }
 
 
@@ -248,9 +195,7 @@ class AIRTimelineView: UIView {
      * set up
      **/
     private func setUp() {
-        self.dateView.layer.shadowOffset = CGSizeMake(0, 0)
-        self.dateView.layer.shadowOpacity = 0.1
-
+        // slider
         self.timeSliderTitleView.layer.cornerRadius = 18.0
         self.timeSliderTitleView.layer.masksToBounds = true
         self.timeSliderTitleView.clipsToBounds = true
@@ -262,23 +207,32 @@ class AIRTimelineView: UIView {
             cornerRadius: 18.0
         ).CGPath
 
-        self.closeButton.setImage(
-            IonIcons.imageWithIcon(
-                ion_chevron_up,
-                iconColor: UIColor.darkGrayColor(),
-                iconSize: 32, imageSize: CGSizeMake(32, 32)
-            ),
-            forState: .Normal
-        )
-        self.closeButton.setImage(
-            IonIcons.imageWithIcon(
-                ion_chevron_up,
-                iconColor: UIColor(red: 170.0/255.0, green: 170.0/255.0, blue: 170.0/255.0, alpha: 1.0),
-                iconSize: 32, imageSize: CGSizeMake(32, 32)
-            ),
-            forState: .Highlighted
-        )
+        // open and close button
+        let buttons = [self.openButton, self.closeButton]
+        let iconNames = [ion_chevron_down, ion_chevron_up]
+        for var i = 0; i < buttons.count; i++ {
+            buttons[i].setImage(
+                IonIcons.imageWithIcon(
+                    iconNames[i],
+                    iconColor: UIColor.darkGrayColor(),
+                    iconSize: 32, imageSize: CGSizeMake(32, 32)
+                ),
+                forState: .Normal
+            )
+            buttons[i].setImage(
+                IonIcons.imageWithIcon(
+                    iconNames[i],
+                    iconColor: UIColor(red: 170.0/255.0, green: 170.0/255.0, blue: 170.0/255.0, alpha: 1.0),
+                    iconSize: 32, imageSize: CGSizeMake(32, 32)
+                ),
+                forState: .Highlighted
+            )
+        }
+        self.closeButton.hidden = true
 
+        // date view
+        self.dateView.layer.shadowOffset = CGSizeMake(0, 0)
+        self.dateView.layer.shadowOpacity = 0.1
         self.setDate(NSDate())
     }
 

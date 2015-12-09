@@ -57,6 +57,45 @@ class AIRSensor: NSManagedObject {
 
     /**
      * fetch
+     * @param date NSDate
+     * @param southWest CLLocation
+     * @param northEast CLLocation
+     * @return [AIRSensor]
+     */
+    class func fetch(date date: NSDate, southWest: CLLocation, northEast: CLLocation) -> [AIRSensor] {
+        let context = AIRCoreDataManager.sharedInstance.managedObjectContext
+
+        // make fetch request
+        let fetchRequest = NSFetchRequest()
+        let entity = NSEntityDescription.entityForName("AIRSensor", inManagedObjectContext:context)
+        fetchRequest.entity = entity
+        fetchRequest.fetchBatchSize = 20
+        fetchRequest.returnsObjectsAsFaults = false
+/*
+        fetchRequest.sortDescriptors = [
+            NSSortDescriptor(key: "lat", ascending: true),
+            NSSortDescriptor(key: "lng", ascending: true),
+        ]
+*/
+            // make predicates
+        let startDate = date.air_daysAgo(days: AIRSensorManager.DaysAgo)!
+        let endDate = date
+        let predicaets = [
+            NSPredicate(format: "(timestamp >= %@) AND (timestamp < %@)", startDate, endDate),
+            NSPredicate(format: "(lat > %f) AND (lng < %f)", southWest.coordinate.latitude, northEast.coordinate.latitude),
+            NSPredicate(format: "(lng > %f) AND (lng < %f)", southWest.coordinate.longitude, northEast.coordinate.longitude),
+        ]
+        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicaets)
+
+        // return locations
+        var sensors: [AIRSensor]? = []
+        do { sensors = try context.executeFetchRequest(fetchRequest) as? [AIRSensor] }
+        catch { return [] }
+        return sensors!
+    }
+
+    /**
+     * fetch
      * @param name String
      * @param date NSDate
      * @param southWest CLLocation
@@ -72,10 +111,12 @@ class AIRSensor: NSManagedObject {
         fetchRequest.entity = entity
         fetchRequest.fetchBatchSize = 20
         fetchRequest.returnsObjectsAsFaults = false
+/*
         fetchRequest.sortDescriptors = [
             NSSortDescriptor(key: "lat", ascending: true),
             NSSortDescriptor(key: "lng", ascending: true),
         ]
+*/
             // make predicates
         let startDate = date.air_daysAgo(days: AIRSensorManager.DaysAgo)!
         let endDate = date
@@ -133,37 +174,31 @@ class AIRSensor: NSManagedObject {
         let context = AIRCoreDataManager.sharedInstance.managedObjectContext
 
         for s in objects! {
-            //for name in names {
-            //    let sensor = NSEntityDescription.insertNewObjectForEntityForName("AIRSensor", inManagedObjectContext: context) as! AIRSensor
-            //    sensor.value = (s.objectForKey(name) as! NSNumber)
-            //    sensor.lat = (s.objectForKey("latitude") as! NSNumber)
-            //    sensor.lng = (s.objectForKey("longitude") as! NSNumber)
-            //    sensor.name = name
-            //    sensor.timestamp = NSDate(timeIntervalSince1970: s["time"].doubleValue)
-            //}
-
-            var name = "Ozone_S"
-
-            var sensor = NSEntityDescription.insertNewObjectForEntityForName("AIRSensor", inManagedObjectContext: context) as! AIRSensor
-            sensor.value = NSNumber(double: AIRSensor.convertOzone_S(value: (s.objectForKey(name) as! NSNumber).doubleValue, temperature: (s.objectForKey("Temp_C") as! NSNumber).doubleValue))
-            sensor.lat = (s.objectForKey("latitude") as! NSNumber)
-            sensor.lng = (s.objectForKey("longitude") as! NSNumber)
-            sensor.name = name
-            sensor.timestamp = NSDate(timeIntervalSince1970: s["time"].doubleValue)
-
-            name = "SO2"
-            sensor = NSEntityDescription.insertNewObjectForEntityForName("AIRSensor", inManagedObjectContext: context) as! AIRSensor
-            sensor.value = NSNumber(double: AIRSensor.convertSO2(value: (s.objectForKey(name) as! NSNumber).doubleValue, temperature: (s.objectForKey("Temp_C") as! NSNumber).doubleValue))
+            let name = "Ozone_S"
+            let sensor = NSEntityDescription.insertNewObjectForEntityForName("AIRSensor", inManagedObjectContext: context) as! AIRSensor
+            sensor.value = NSNumber(double: abs(AIRSensor.convertOzone_S(value: (s.objectForKey(name) as! NSNumber).doubleValue, temperature: (s.objectForKey("Temp_C") as! NSNumber).doubleValue)))
             sensor.lat = (s.objectForKey("latitude") as! NSNumber)
             sensor.lng = (s.objectForKey("longitude") as! NSNumber)
             sensor.name = name
             sensor.timestamp = NSDate(timeIntervalSince1970: s["time"].doubleValue)
         }
+
+        for s in objects! {
+            let name = "SO2"
+            let sensor = NSEntityDescription.insertNewObjectForEntityForName("AIRSensor", inManagedObjectContext: context) as! AIRSensor
+            sensor.value = NSNumber(double: abs(AIRSensor.convertSO2(value: (s.objectForKey(name) as! NSNumber).doubleValue, temperature: (s.objectForKey("Temp_C") as! NSNumber).doubleValue)))
+            sensor.lat = (s.objectForKey("latitude") as! NSNumber)
+            sensor.lng = (s.objectForKey("longitude") as! NSNumber)
+            sensor.name = name
+            sensor.timestamp = NSDate(timeIntervalSince1970: s["time"].doubleValue)
+        }
+
         do { try context.save() }
         catch { return }
 
         let dateFormatter = NSDateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
+        //dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let todayString = dateFormatter.stringFromDate(NSDate())
         NSUserDefaults().setObject(todayString, forKey: AIRUserDefaults.SensorDate)
         NSUserDefaults().synchronize()
@@ -175,12 +210,26 @@ class AIRSensor: NSManagedObject {
      **/
     class func hasSensors() -> Bool {
 //        return false
+/*
         // today
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let todayString = dateFormatter.stringFromDate(NSDate())
         let sensorDate = NSUserDefaults().stringForKey(AIRUserDefaults.SensorDate)
         return (todayString == sensorDate)
+*/
+        // today
+        let today = NSDate()
+
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let sensorDateString = NSUserDefaults().stringForKey(AIRUserDefaults.SensorDate)
+        if sensorDateString == nil { return false }
+        let sensorDate = dateFormatter.dateFromString(sensorDateString!)
+        if sensorDate == nil { return false }
+
+        let hour = Int(today.timeIntervalSinceDate(sensorDate!)) / 60 / 60
+        return (hour <= 0)
     }
 
     /**
@@ -215,6 +264,7 @@ class AIRSensor: NSManagedObject {
      **/
     class func PPMToMGQM(ppm ppm: Double, molecularMass: Double, temperature: Double) -> Double {
         let molarVolumeOfAir = (273.0 + temperature) / 273.0 * 22.4
+        if molarVolumeOfAir == 0 { return 0 }
         return (ppm * molecularMass / molarVolumeOfAir)
     }
 
@@ -254,6 +304,7 @@ class AIRSensor: NSManagedObject {
         let m = code * tiaSO2 * 10e-6
         let mc = m * (1.0 + tcSO2 * (20.0 - temperature))
         let vgas = value / 1024.0 * 3.3
+        if mc == 0 { return 0 }
         let c = 1.0 / mc * (vgas - verfSO2 - voffsetSO2)
         return AIRSensor.PPMToMGQM(ppm: c, molecularMass: 64.066, temperature: temperature) * 10.0
     }

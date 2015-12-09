@@ -41,6 +41,8 @@
 		E6D803FD1BFD444C00A55326 /* AIRSensorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D803FC1BFD444C00A55326 /* AIRSensorManager.swift */; };
 		E6DBB81D1C1223430008A821 /* AIRSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6DBB81C1C1223430008A821 /* AIRSettingViewController.swift */; };
 		E6E4B73D1BEADEC6002DEAB1 /* AIRConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E4B73C1BEADEC6002DEAB1 /* AIRConstant.swift */; };
+		E6E8AF961C17C49D00605151 /* BLMultiColorLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E8AF951C17C49D00605151 /* BLMultiColorLoader.m */; };
+		E6E8AF981C17C4E000605151 /* AIRLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E8AF971C17C4E000605151 /* AIRLoadingView.swift */; };
 		E6F4DCDA1C0DB72A00F8DA0F /* String+Justified.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6F4DCD91C0DB72A00F8DA0F /* String+Justified.swift */; };
 /* End PBXBuildFile section */
 
@@ -83,6 +85,9 @@
 		E6D803FC1BFD444C00A55326 /* AIRSensorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRSensorManager.swift; sourceTree = "<group>"; };
 		E6DBB81C1C1223430008A821 /* AIRSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRSettingViewController.swift; sourceTree = "<group>"; };
 		E6E4B73C1BEADEC6002DEAB1 /* AIRConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRConstant.swift; sourceTree = "<group>"; };
+		E6E8AF941C17C49D00605151 /* BLMultiColorLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLMultiColorLoader.h; sourceTree = "<group>"; };
+		E6E8AF951C17C49D00605151 /* BLMultiColorLoader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BLMultiColorLoader.m; sourceTree = "<group>"; };
+		E6E8AF971C17C4E000605151 /* AIRLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRLoadingView.swift; sourceTree = "<group>"; };
 		E6F4DCD91C0DB72A00F8DA0F /* String+Justified.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Justified.swift"; sourceTree = "<group>"; };
 		ECD4F8936C1369720004C2C3 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -203,6 +208,7 @@
 				E612614A1BF160C200BE8E91 /* NSFoundation+Extension */,
 				E63DB73B1BF57AA8000E3E42 /* UIKit+Extension */,
 				E6839C721BF2B939007BD219 /* Model */,
+				E6E8AF931C17C49D00605151 /* BLMultiColorLoader */,
 				E61261461BF1601200BE8E91 /* SwiftyJSON */,
 				E67D11151C01E82E0065266D /* GradientSlider */,
 				E6655D181BFBA6F000D6A2AD /* SwiftCSV */,
@@ -286,6 +292,7 @@
 				E695DA6B1BF2C32F0060BF66 /* AIRMapViewController.swift */,
 				E6BC9CEB1C03878B004769AD /* AIRTimelineView.swift */,
 				E6BC9CEF1C039AF6004769AD /* AIRSensorGraphView.swift */,
+				E6E8AF971C17C4E000605151 /* AIRLoadingView.swift */,
 				E695DA6A1BF2C32F0060BF66 /* AIRMapView.swift */,
 			);
 			path = Map;
@@ -297,6 +304,15 @@
 				E6DBB81C1C1223430008A821 /* AIRSettingViewController.swift */,
 			);
 			path = Setting;
+			sourceTree = "<group>";
+		};
+		E6E8AF931C17C49D00605151 /* BLMultiColorLoader */ = {
+			isa = PBXGroup;
+			children = (
+				E6E8AF941C17C49D00605151 /* BLMultiColorLoader.h */,
+				E6E8AF951C17C49D00605151 /* BLMultiColorLoader.m */,
+			);
+			path = BLMultiColorLoader;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -443,6 +459,8 @@
 				E6B10BAA1C039F3600B77A67 /* UIImage+UIView.swift in Sources */,
 				E62A03C01BF1514A0046ABE0 /* AIRLocationManager.swift in Sources */,
 				E62A03CB1BF15E9F0046ABE0 /* AIRGoogleMapOperationQueue.swift in Sources */,
+				E6E8AF981C17C4E000605151 /* AIRLoadingView.swift in Sources */,
+				E6E8AF961C17C49D00605151 /* BLMultiColorLoader.m in Sources */,
 				E62A03C41BF157360046ABE0 /* AIRConstant-Private.swift in Sources */,
 				E6D803FD1BFD444C00A55326 /* AIRSensorManager.swift in Sources */,
 				E67D11171C01E8430065266D /* GradientSlider.swift in Sources */,

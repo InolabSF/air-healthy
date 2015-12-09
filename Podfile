@@ -14,6 +14,7 @@ pod 'Parse'
 # graph
 pod 'VBPieChart', :git => 'https://github.com/kenzan8000/VBPieChart.git'
 pod 'JTChartView'
+pod 'LMGaugeView'
 
 # map
 pod 'GoogleMaps'
@@ -24,4 +25,3 @@ pod 'ionicons'
 
 # UI
 pod 'TTTAttributedLabel'
-pod 'Toast'

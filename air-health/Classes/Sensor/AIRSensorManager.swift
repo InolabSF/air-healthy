@@ -5,6 +5,8 @@ import CoreLocation
 class AIRSensorManager: NSObject {
 
     /// MARK: - constant
+    static let Basement_1 =           1.2
+    static let Basement_2 =           2.0
     static let WHOBasementOzone_S_1 =           50.0
     static let WHOBasementOzone_S_2 =           100.0
     static let WHOBasementSO2_1 =               350.0
@@ -21,6 +23,14 @@ class AIRSensorManager: NSObject {
 
     /**
      * return sensorBasements
+     * @return sensorBasements [Double]
+     **/
+    class func sensorBasements() -> [Double] {
+        return [Basement_1, Basement_2]
+    }
+
+    /**
+     * return sensorBasements
      * @param name sensor's name
      * @return sensorBasements [Double]
      **/
@@ -29,7 +39,6 @@ class AIRSensorManager: NSObject {
         if name == "Ozone_S" { return [AIRSensorManager.WHOBasementOzone_S_1, AIRSensorManager.WHOBasementOzone_S_2] }
         return [0.001]
     }
-
 
     /**
      * average sensor value at the location

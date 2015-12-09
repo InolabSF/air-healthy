@@ -14,10 +14,11 @@
 /// graph
 #import "VBPieChart.h"
 #import "JTChartView.h"
+#import "LMGaugeView.h"
 
 /// font
 #import "IonIcons.h"
 
 // UI
 #import "TTTAttributedLabel.h"
-#import "UIView+Toast.h"
+#import "BLMultiColorLoader.h"

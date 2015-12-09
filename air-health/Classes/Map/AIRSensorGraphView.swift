@@ -1,34 +1,19 @@
-/// MARK: - AIRSensorGraphViewDelegate
-@objc protocol AIRSensorGraphViewDelegate {
-
-    /**
-     * called when button is touched up inside
-     * @param sensorGraphView AIRSensorGraphView
-     * @param button UIButton
-     */
-    func touchedUpInside(sensorGraphView sensorGraphView: AIRSensorGraphView, button: UIButton)
-
-}
-
-
 /// MARK: - AIRSensorGraphView
 class AIRSensorGraphView: UIView {
 
+    /// MARK: - constant
+
+    static let Basement_1: CGFloat =           1.2
+    static let Basement_2: CGFloat =           2.0
+
+
     /// MARK: - property
 
-    @IBOutlet weak var delegate: AnyObject?
+    var initialY: CGFloat = 0.0
 
-    @IBOutlet weak var O3View: UIView!
-    @IBOutlet weak var O3PieChartView: VBPieChart!
-    @IBOutlet weak var O3Button: UIButton!
-
-    @IBOutlet weak var SO2View: UIView!
-    @IBOutlet weak var SO2PieChartView: VBPieChart!
-    @IBOutlet weak var SO2Button: UIButton!
-
-    @IBOutlet weak var summaryView: UIView!
-    @IBOutlet weak var summaryIconView: UIView!
-    @IBOutlet weak var summaryLabel: UILabel!
+    @IBOutlet weak var sensorLabel: UILabel!
+    @IBOutlet weak var gaugeView: LMGaugeView!
+    @IBOutlet weak var gaugeImageView: UIImageView!
 
 
     /// MARK: - life cycle
@@ -37,53 +22,14 @@ class AIRSensorGraphView: UIView {
         super.awakeFromNib()
 
         self.setUp()
+        self.initialY = self.frame.origin.y
     }
 
 
     /// MARK: - event listener
 
-    /**
-     * called when button is touched up inside
-     * @param button UIButton
-     **/
-    @IBAction func touchUpInside(button button: UIButton) {
-        if self.delegate != nil {
-            (self.delegate as! AIRSensorGraphViewDelegate).touchedUpInside(sensorGraphView: self, button: button)
-        }
-    }
-
 
     /// MARK: - public api
-
-    /**
-     * set sensor values to pie chart
-     * @param SO2AverageSensorValues
-     * @param O3AverageSensorValues
-     **/
-    func setSensorValues(SO2AverageSensorValues SO2AverageSensorValues: [Double], O3AverageSensorValues: [Double]) {
-        var airHealth = [0.0]
-
-        airHealth = [0.0, 0.0, 0.0]
-        if SO2AverageSensorValues.count == 0 { airHealth = [1.0, 0.0, 0.0] }
-        for var i = 0; i < SO2AverageSensorValues.count; i++ {
-            let value = SO2AverageSensorValues[i]
-            if value < AIRSensorManager.WHOBasementSO2_1 { airHealth[0] += 1.0 }
-            else if value < AIRSensorManager.WHOBasementSO2_2 { airHealth[1] += 1.0 }
-            else { airHealth[2] += 1.0 }
-        }
-        self.setPieChart(self.SO2PieChartView, airHealth: airHealth, animated: true)
-
-        airHealth = [0.0, 0.0, 0.0]
-        if O3AverageSensorValues.count == 0 { airHealth = [1.0, 0.0, 0.0] }
-        for var i = 0; i < O3AverageSensorValues.count; i++ {
-            let value = O3AverageSensorValues[i]
-            if value < AIRSensorManager.WHOBasementOzone_S_1 { airHealth[0] += 1.0 }
-            else if value < AIRSensorManager.WHOBasementOzone_S_2 { airHealth[1] += 1.0 }
-            else { airHealth[2] += 1.0 }
-        }
-        self.setPieChart(self.O3PieChartView, airHealth: airHealth, animated: true)
-    }
-
 
     /// MARK: - private api
 
@@ -91,85 +37,67 @@ class AIRSensorGraphView: UIView {
      * set up
      **/
     private func setUp() {
-        let paragraph = "You had some negative exposure to O3 and SO2. Long exposure to these harmful gas can lead to asthma. Find an alternative route next time or leave after the rush hour to avoid these harmful gas."
-        self.summaryLabel.attributedText = paragraph.air_justifiedString(font: self.summaryLabel.font)
-        self.summaryLabel.textAlignment = NSTextAlignment.Justified
-        self.summaryLabel.preferredMaxLayoutWidth = self.summaryLabel.frame.width
-
-        let chartViews = [self.O3PieChartView, self.SO2PieChartView]
-        for chartView in chartViews {
-            chartView.layer.cornerRadius = chartView.frame.size.width / 2.0
-            chartView.layer.masksToBounds = true
-            chartView.clipsToBounds = true
-        }
-        let containerViews = [self.O3View, self.SO2View]
-        for containerView in containerViews {
-            containerView.layer.shadowOffset = CGSizeMake(0, 0)
-            containerView.layer.shadowOpacity = 0.15
-            containerView.layer.shadowRadius = 2.0
-            containerView.layer.shadowPath = UIBezierPath(roundedRect: containerView.bounds, cornerRadius: containerView.bounds.width/2.0).CGPath
-        }
-
-        self.summaryIconView.layer.cornerRadius = 18.0
-        self.summaryIconView.layer.masksToBounds = true
-        self.summaryIconView.clipsToBounds = true
-        self.summaryView.layer.shadowOffset = CGSizeMake(0, 0)
-        self.summaryView.layer.shadowOpacity = 0.3
-        self.summaryView.layer.shadowRadius = 2.0
-        self.summaryView.layer.shadowPath = UIBezierPath(
-            roundedRect: CGRectMake(self.summaryView.bounds.origin.x, self.summaryView.bounds.origin.y, UIScreen.mainScreen().bounds.width, self.summaryView.bounds.height),
-            cornerRadius: 18.0
-        ).CGPath
+        self.gaugeView.showUnitOfMeasurement = false
+        self.gaugeView.showLimitDot = false
+        self.gaugeView.valueTextColor = UIColor.clearColor()
+        self.gaugeView.backgroundColor = UIColor.clearColor()
+        self.gaugeView.minValue = 0.0
+        self.gaugeView.maxValue = 5.0
     }
-
 
     /**
-     * set datas
-     * @param pieChartView VBPieChart
-     * @param airHealth [Double]
-     * @param animated Bool
+     * show or hide
+     * @param hidden Bool
+     * @param animationHandler blocks
+     * @param completionHandler blocks
      **/
-    func setPieChart(pieChartView: VBPieChart, airHealth: [Double], animated: Bool) {
-        // button
-        self.O3Button.setImage(nil, forState: .Normal)
-        self.SO2Button.setImage(nil, forState: .Normal)
-
-        // pie chart
-        pieChartView.enableStrokeColor = true
-        pieChartView.holeRadiusPrecent = 0.5
-        pieChartView.labelsPosition = VBLabelsPosition.OnChart
-        pieChartView.startAngle = Float(M_PI / 2.0 * 3.0)
-
-        let values = [
-            [ // healthy
-                "name" : "",
-                "value" : NSNumber(double: airHealth[0]),
-                "color" : UIColor(red: 46.0/255.0, green: 204.0/255.0, blue: 113.0/255.0, alpha: 1.0)
-            ],
-            [ // warning
-                "name" : "",
-                "value" : NSNumber(double: airHealth[1]),
-                "color" : UIColor(red: 243.0/255.0, green: 156.0/255.0, blue: 18.0/255.0, alpha: 1.0)
-            ],
-            [ // unhealthy
-                "name" : "",
-                "value" : NSNumber(double: airHealth[2]),
-                "color" : UIColor(red: 231.0/255.0, green: 76.0/255.0, blue: 60.0/255.0, alpha: 1.0)
-            ],
-        ]
-        pieChartView.setChartValues(
-            values,
-            animation: animated,
-            duration: 0.8,
-            options: [.FanAll, .TimingEaseIn]
+    func toggle(hidden hidden: Bool, animationHandler: () -> Void, completionHandler: () -> Void) {
+        // position
+        let hiddenDestination = CGRectMake(
+            self.frame.origin.x, self.frame.height,
+            self.frame.width, self.frame.height
+        )
+        let shownDestination = CGRectMake(
+            self.frame.origin.x, self.initialY,
+            self.frame.width, self.frame.height
         )
 
-        // button
-        let after = dispatch_time(DISPATCH_TIME_NOW, Int64(2.0 * Double(NSEC_PER_SEC)))
-        dispatch_after(after, dispatch_get_main_queue(), { [unowned self] in
-            self.O3Button.setImage(UIImage.imageFromView(self.O3PieChartView), forState: .Normal)
-            self.SO2Button.setImage(UIImage.imageFromView(self.SO2PieChartView), forState: .Normal)
-        })
+        // start setting
+        self.frame = (hidden) ? shownDestination : hiddenDestination
+        self.hidden = false
+
+        // animation
+        UIView.animateWithDuration(
+            (hidden) ? 0.25 : 0.20,
+            delay: 0.0,
+            options: .CurveEaseOut,
+            animations: { [unowned self] in
+                animationHandler()
+                self.frame = (hidden) ? hiddenDestination : shownDestination
+            },
+            completion: { [unowned self] finished in
+                completionHandler()
+                self.hidden = hidden
+            }
+        )
     }
 
+
+}
+
+
+/// MARK: - AIRSensorGraphView
+extension AIRSensorGraphView: LMGaugeViewDelegate {
+    func gaugeView(gaugeView: LMGaugeView, ringStokeColorForValue value: CGFloat) -> UIColor {
+        if value < AIRSensorGraphView.Basement_1 {
+            self.gaugeImageView.image = UIImage(named: "home_icon_good")
+            return UIColor(red: 46.0/255.0, green: 204.0/255.0, blue: 113.0/255.0, alpha: 1.0)
+        }
+        else if value < AIRSensorGraphView.Basement_2 {
+            self.gaugeImageView.image = UIImage(named: "home_icon_normal")
+            return UIColor(red: 243.0/255.0, green: 156.0/255.0, blue: 18.0/255.0, alpha: 1.0)
+        }
+        self.gaugeImageView.image = UIImage(named: "home_icon_bad")
+        return UIColor(red: 231.0/255.0, green: 76.0/255.0, blue: 60.0/255.0, alpha: 1.0)
+    }
 }

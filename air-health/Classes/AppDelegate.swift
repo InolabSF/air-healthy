@@ -34,6 +34,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        AIRLOG(AIRSensor.convertOzone_S(value: 508.0, temperature: 18.0))
 //        AIRLOG(AIRSensor.convertSO2(value: 548.0, temperature: 18.0))
 
+        if #available(iOS 8.0, *) {
+            application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Badge, .Sound, .Alert,], categories: nil))
+        }
+        if launchOptions != nil && launchOptions![UIApplicationLaunchOptionsLocalNotificationKey] != nil {
+            dispatch_after(
+                dispatch_time(DISPATCH_TIME_NOW, Int64(NSEC_PER_SEC)),
+                dispatch_get_main_queue(),
+                { () in
+                    // notification
+                    NSNotificationCenter.defaultCenter().postNotificationName(
+                        AIRNotificationCenter.LaunchFromBadAirWarning,
+                        object: nil,
+                        userInfo: [:]
+                    )
+                }
+            )
+        }
+
         return true
     }
 
@@ -58,5 +76,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
     }
 
+    func application(application: UIApplication, didReceiveLocalNotification notification: UILocalNotification) {
+        if application.applicationState == .Inactive {
+            // notification
+            NSNotificationCenter.defaultCenter().postNotificationName(
+                AIRNotificationCenter.LaunchFromBadAirWarning,
+                object: nil,
+                userInfo: [:]
+            )
+        }
+    }
 
 }

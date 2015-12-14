@@ -16,6 +16,7 @@
 		E62A03C41BF157360046ABE0 /* AIRConstant-Private.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62A03C31BF157360046ABE0 /* AIRConstant-Private.swift */; };
 		E62A03CA1BF15E9F0046ABE0 /* AIRGoogleMapClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62A03C71BF15E9F0046ABE0 /* AIRGoogleMapClient.swift */; };
 		E62A03CB1BF15E9F0046ABE0 /* AIRGoogleMapOperationQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62A03C81BF15E9F0046ABE0 /* AIRGoogleMapOperationQueue.swift */; };
+		E62A34581C1A3038009A04CA /* AIRCurrentLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62A34571C1A3038009A04CA /* AIRCurrentLocationView.swift */; };
 		E63DB73D1BF57AA8000E3E42 /* AIRTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63DB73C1BF57AA8000E3E42 /* AIRTableViewCell.swift */; };
 		E647B4771BFBEABB00B2CA4F /* AIRSensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E647B4761BFBEABB00B2CA4F /* AIRSensor.swift */; };
 		E647B4791BFC050F00B2CA4F /* AIRLocationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = E647B4781BFC050F00B2CA4F /* AIRLocationName.swift */; };
@@ -58,6 +59,7 @@
 		E62A03C31BF157360046ABE0 /* AIRConstant-Private.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "AIRConstant-Private.swift"; sourceTree = "<group>"; };
 		E62A03C71BF15E9F0046ABE0 /* AIRGoogleMapClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRGoogleMapClient.swift; sourceTree = "<group>"; };
 		E62A03C81BF15E9F0046ABE0 /* AIRGoogleMapOperationQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRGoogleMapOperationQueue.swift; sourceTree = "<group>"; };
+		E62A34571C1A3038009A04CA /* AIRCurrentLocationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRCurrentLocationView.swift; sourceTree = "<group>"; };
 		E63DB73C1BF57AA8000E3E42 /* AIRTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRTableViewCell.swift; sourceTree = "<group>"; };
 		E647B4761BFBEABB00B2CA4F /* AIRSensor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRSensor.swift; sourceTree = "<group>"; };
 		E647B4781BFC050F00B2CA4F /* AIRLocationName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRLocationName.swift; sourceTree = "<group>"; };
@@ -290,6 +292,7 @@
 			isa = PBXGroup;
 			children = (
 				E695DA6B1BF2C32F0060BF66 /* AIRMapViewController.swift */,
+				E62A34571C1A3038009A04CA /* AIRCurrentLocationView.swift */,
 				E6BC9CEB1C03878B004769AD /* AIRTimelineView.swift */,
 				E6BC9CEF1C039AF6004769AD /* AIRSensorGraphView.swift */,
 				E6E8AF971C17C4E000605151 /* AIRLoadingView.swift */,
@@ -350,6 +353,7 @@
 				TargetAttributes = {
 					E6758C6B1BEAC4D5005C1696 = {
 						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = RZSN6RVCLX;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -461,6 +465,7 @@
 				E62A03CB1BF15E9F0046ABE0 /* AIRGoogleMapOperationQueue.swift in Sources */,
 				E6E8AF981C17C4E000605151 /* AIRLoadingView.swift in Sources */,
 				E6E8AF961C17C49D00605151 /* BLMultiColorLoader.m in Sources */,
+				E62A34581C1A3038009A04CA /* AIRCurrentLocationView.swift in Sources */,
 				E62A03C41BF157360046ABE0 /* AIRConstant-Private.swift in Sources */,
 				E6D803FD1BFD444C00A55326 /* AIRSensorManager.swift in Sources */,
 				E67D11171C01E8430065266D /* GradientSlider.swift in Sources */,
@@ -591,6 +596,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = "air-health/Resources/Plists/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;

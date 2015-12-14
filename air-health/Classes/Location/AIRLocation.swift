@@ -186,6 +186,58 @@ class AIRLocation: NSManagedObject {
     }
 
     /**
+     * fetch last location
+     * @param date NSDate
+     * @return CLLocation?
+     */
+    class func fetchLast(date date: NSDate) -> CLLocation? {
+        let context = AIRCoreDataManager.sharedInstance.managedObjectContext
+
+        // make fetch request
+        let fetchRequest = NSFetchRequest()
+        let entity = NSEntityDescription.entityForName("AIRLocation", inManagedObjectContext:context)
+        fetchRequest.entity = entity
+        fetchRequest.fetchBatchSize = 1
+        fetchRequest.fetchLimit = 1
+        fetchRequest.returnsObjectsAsFaults = false
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: false),]
+            // make predicates
+        var startDate = date
+        var endDate = startDate.air_daysAgo(days: -1)
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let startDateString = dateFormatter.stringFromDate(startDate)
+        let endDateString = dateFormatter.stringFromDate(endDate!)
+        dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
+        startDate = dateFormatter.dateFromString(startDateString+" 00:00:00")!
+        endDate = dateFormatter.dateFromString(endDateString+" 00:00:00")!
+        let predicaets = [ NSPredicate(format: "(timestamp >= %@) AND (timestamp < %@)", startDate, endDate!), ]
+        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicaets)
+
+        // locations
+        var locations: [AIRLocation]? = []
+        do { locations = try context.executeFetchRequest(fetchRequest) as? [AIRLocation] }
+        catch { locations = [] }
+        if locations!.count == 0 {
+            return nil
+        }
+
+        // location
+        let airLocation = locations![0]
+        let location = CLLocation(
+            coordinate: CLLocationCoordinate2D(latitude: airLocation.lat.doubleValue, longitude: airLocation.lng.doubleValue),
+            altitude: airLocation.altitude.doubleValue,
+            horizontalAccuracy: airLocation.hAccuracy.doubleValue,
+            verticalAccuracy: airLocation.vAccuracy.doubleValue,
+            course: airLocation.course.doubleValue,
+            speed: airLocation.speed.doubleValue,
+            timestamp: airLocation.timestamp
+        )
+        return location
+    }
+
+
+    /**
      * fetch datas
      * @param date NSDate
      * @return [AIRLocation]

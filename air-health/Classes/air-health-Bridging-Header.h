@@ -9,7 +9,7 @@
 
 /// map
 #import <GoogleMaps/GoogleMaps.h>
-//#import "Follower.h"
+#import "Follower.h"
 
 /// graph
 #import "VBPieChart.h"

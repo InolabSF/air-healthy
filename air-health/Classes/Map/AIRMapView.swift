@@ -22,13 +22,28 @@ class AIRMapView: GMSMapView {
     }
 
     /**
+     * move camera position to my location
+     **/
+    func moveCameraToMyLocation() {
+        let location = self.myLocation
+        if location == nil { return }
+
+        self.camera = GMSCameraPosition.cameraWithLatitude(
+            location!.coordinate.latitude,
+            longitude: location!.coordinate.longitude,
+            zoom: 14.0
+        )
+
+    }
+
+    /**
      * draw
      * @param pass locations you passed
      * @param color UIColor
      * @param intervalFromStart Double
      * @param sensors [AIRSensor]
      **/
-    func draw(passes passes: [CLLocation], intervalFromStart: Double, color color: UIColor, sensors: [AIRSensor]) {
+    func draw(passes passes: [CLLocation], intervalFromStart: Double, color: UIColor, sensors: [AIRSensor]) {
         self.clear()
 
         // sensor

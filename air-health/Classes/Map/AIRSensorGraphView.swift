@@ -10,6 +10,7 @@ class AIRSensorGraphView: UIView {
     /// MARK: - property
 
     var initialY: CGFloat = 0.0
+    var gaugeColor = UIColor.clearColor()
 
     @IBOutlet weak var sensorLabel: UILabel!
     @IBOutlet weak var gaugeView: LMGaugeView!
@@ -29,7 +30,11 @@ class AIRSensorGraphView: UIView {
     /// MARK: - event listener
 
 
+    /// MARK: - notification
+
+
     /// MARK: - public api
+
 
     /// MARK: - private api
 
@@ -82,22 +87,25 @@ class AIRSensorGraphView: UIView {
         )
     }
 
-
 }
 
 
 /// MARK: - AIRSensorGraphView
 extension AIRSensorGraphView: LMGaugeViewDelegate {
     func gaugeView(gaugeView: LMGaugeView, ringStokeColorForValue value: CGFloat) -> UIColor {
+        self.gaugeColor = UIColor.clearColor()
         if value < AIRSensorGraphView.Basement_1 {
             self.gaugeImageView.image = UIImage(named: "home_icon_good")
-            return UIColor(red: 46.0/255.0, green: 204.0/255.0, blue: 113.0/255.0, alpha: 1.0)
+            self.gaugeColor = UIColor(red: 46.0/255.0, green: 204.0/255.0, blue: 113.0/255.0, alpha: 1.0)
         }
         else if value < AIRSensorGraphView.Basement_2 {
             self.gaugeImageView.image = UIImage(named: "home_icon_normal")
-            return UIColor(red: 243.0/255.0, green: 156.0/255.0, blue: 18.0/255.0, alpha: 1.0)
+            self.gaugeColor = UIColor(red: 243.0/255.0, green: 156.0/255.0, blue: 18.0/255.0, alpha: 1.0)
         }
-        self.gaugeImageView.image = UIImage(named: "home_icon_bad")
-        return UIColor(red: 231.0/255.0, green: 76.0/255.0, blue: 60.0/255.0, alpha: 1.0)
+        else {
+            self.gaugeImageView.image = UIImage(named: "home_icon_bad")
+            self.gaugeColor = UIColor(red: 231.0/255.0, green: 76.0/255.0, blue: 60.0/255.0, alpha: 1.0)
+        }
+        return self.gaugeColor
     }
 }

@@ -5,9 +5,9 @@ import CoreLocation
 class AIRSensorManager: NSObject {
 
     /// MARK: - constant
-    static let Basement_1 =           1.2
-    static let Basement_2 =           2.0
-    static let WHOBasementOzone_S_1 =           50.0
+    static let Basement_1 =                     1.5
+    static let Basement_2 =                     2.0
+    static let WHOBasementOzone_S_1 =           75.0
     static let WHOBasementOzone_S_2 =           100.0
     static let WHOBasementSO2_1 =               350.0
     static let WHOBasementSO2_2 =               500.0

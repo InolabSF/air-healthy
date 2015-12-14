@@ -20,7 +20,17 @@ class AIRLocationManager: NSObject {
 
     //var follower = Follower()
     var locationManager = CLLocationManager()
-    var lastLocation: CLLocation?
+//    var lastLocation: CLLocation? {
+//        didSet {
+//            if self.lastLocation == nil { return }
+//            // notification
+//            NSNotificationCenter.defaultCenter().postNotificationName(
+//                AIRNotificationCenter.UpdateLocation,
+//                object: nil,
+//                userInfo: ["location":self.lastLocation!]
+//            )
+//        }
+//    }
     var comfirmingCountToUpdateLastLocation = 0
 
 
@@ -48,7 +58,7 @@ class AIRLocationManager: NSObject {
         let GPSIsOff = NSUserDefaults().boolForKey(AIRUserDefaults.GPSIsOff)
         if GPSIsOff { return }
 
-        self.lastLocation = nil
+//        self.lastLocation = nil
         self.comfirmingCountToUpdateLastLocation = 0
         self.locationManager.startUpdatingLocation()
 
@@ -63,6 +73,22 @@ class AIRLocationManager: NSObject {
         self.locationManager.stopUpdatingLocation()
 
 //        self.follower.endRouteTracking()
+    }
+
+    /**
+     * save location name
+     * @param location CLLocation
+     * @param completionHandler called when location name is saved
+     **/
+    func saveLocationName(location location: CLLocation, completionHandler: () -> Void) {
+        AIRGoogleMapClient.sharedInstance.getLocatoinNearBySearch(
+            location: location,
+            completionHandler: { (json) in
+                if json["status"].string != AIRGoogleMap.Statuses.OK { return }
+                AIRLocationName.save(json: json)
+                completionHandler()
+            }
+        )
     }
 
     /**
@@ -103,10 +129,34 @@ class AIRLocationManager: NSObject {
      * @param oldLocation CLLocation
      **/
     private func updateLocation(newLocation newLocation: CLLocation, oldLocation: CLLocation) {
+        let lastLocation = AIRLocation.fetchLast(date: NSDate())
+        let distance = (lastLocation != nil) ? newLocation.distanceFromLocation(lastLocation!) : newLocation.distanceFromLocation(oldLocation)
+
+        // first location
+        if lastLocation == nil {
+            AIRLocation.save(location: newLocation)
+            self.postPollutedNotification(location: newLocation)
+        }
+        // updating location
+        else if distance >= AIRLocationManager.DistanceToUpdateLocation && // did move?
+            newLocation.timestamp.compare(lastLocation!.timestamp) == NSComparisonResult.OrderedDescending { // is really new?
+            if self.comfirmingCountToUpdateLastLocation >= AIRLocationManager.ComfirmingCountToUpdateLocation {
+                AIRLocation.save(location: newLocation)
+                self.postPollutedNotification(location: newLocation)
+                self.comfirmingCountToUpdateLastLocation = 0
+            }
+            else { self.comfirmingCountToUpdateLastLocation += 1 }
+        }
+        else { self.comfirmingCountToUpdateLastLocation = 0 }
+
+        let GPSIsOff = NSUserDefaults().boolForKey(AIRUserDefaults.GPSIsOff)
+        if GPSIsOff { return }
+        self.locationManager.startUpdatingLocation()
+
+/*
         let distance = (self.lastLocation != nil) ? newLocation.distanceFromLocation(self.lastLocation!) : newLocation.distanceFromLocation(oldLocation)
         // first location
         if self.lastLocation == nil {
-            self.saveLocationName(location: newLocation)
             self.lastLocation = newLocation
             AIRLocation.save(location: newLocation)
         }
@@ -114,7 +164,6 @@ class AIRLocationManager: NSObject {
         else if distance >= AIRLocationManager.DistanceToUpdateLocation && // did move?
             newLocation.timestamp.compare(self.lastLocation!.timestamp) == NSComparisonResult.OrderedDescending { // is really new?
             if self.comfirmingCountToUpdateLastLocation >= AIRLocationManager.ComfirmingCountToUpdateLocation {
-                self.saveLocationNameIfYouStay(newLocation: newLocation, oldLocation: self.lastLocation!)
 
                 self.lastLocation = newLocation
                 AIRLocation.save(location: newLocation)
@@ -129,24 +178,48 @@ class AIRLocationManager: NSObject {
         self.locationManager.startUpdatingLocation()
 //        self.follower.endRouteTracking()
 //        self.follower.beginRouteTracking()
+*/
     }
 
     /**
-     * save location name if you stay
-     * @param newLocation CLLocation
+     * post polluted location warning notification
+     * @param location CLLocation
      **/
-    private func saveLocationName(location location: CLLocation) {
-        // already know the name
-        let name = AIRLocationName.fetch(location: location)
-        if name != nil { return }
+    private func postPollutedNotification(location location: CLLocation) {
+        func postPollutedNotification(location location: CLLocation, name: String) {
+            dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                let dateFormatter = NSDateFormatter()
+                dateFormatter.dateFormat = "HH:mm"
+                let time = dateFormatter.stringFromDate(NSDate())
 
-        AIRGoogleMapClient.sharedInstance.getLocatoinNearBySearch(
-            location: location,
-            completionHandler: { (json) in
-                if json["status"].string != AIRGoogleMap.Statuses.OK { return }
-                AIRLocationName.save(json: json)
-            }
-        )
+                let localNotification = UILocalNotification()
+                localNotification.alertBody = "BAD AIR WARNING!\n\(name) \(time)\nRecommended you to stay indoor."
+                localNotification.soundName = UILocalNotificationDefaultSoundName
+                localNotification.timeZone = NSTimeZone.defaultTimeZone()
+                //localNotification.fireDate = NSDate(timeIntervalSinceNow: 1)
+                UIApplication.sharedApplication().presentLocalNotificationNow(localNotification)
+            })
+        }
+
+        let today = NSDate()
+        let o3 = AIRSensorManager.averageSensorValue(name: "Ozone_S", date: today, location: location) / AIRSensorManager.WHOBasementOzone_S_2
+        let so2 = AIRSensorManager.averageSensorValue(name: "SO2", date: today, location: location) / AIRSensorManager.WHOBasementSO2_2
+        let value = CGFloat(o3 + so2)
+        if value < AIRSensorGraphView.Basement_2 { return }
+
+        let name = AIRLocationName.fetch(location: location)
+        if name == nil {
+            AIRLocationManager.sharedInstance.saveLocationName(
+                location: location,
+                completionHandler: { () -> Void in
+                    let n = AIRLocationName.fetch(location: location)
+                    if n != nil { postPollutedNotification(location: location, name: n!.name) }
+                }
+            )
+        }
+        else {
+            postPollutedNotification(location: location, name: name!.name)
+        }
     }
 
     /**
@@ -154,6 +227,7 @@ class AIRLocationManager: NSObject {
      * @param newLocation CLLocation
      * @param oldLocation CLLocation
      **/
+/*
     private func saveLocationNameIfYouStay(newLocation newLocation: CLLocation, oldLocation: CLLocation) {
         // stay more than AIRLocationManager.ThresholdOfTimeIntervalToStop seconds
         if newLocation.timestamp.timeIntervalSinceDate(oldLocation.timestamp) < AIRLocationManager.ThresholdOfTimeIntervalToStop { return }
@@ -162,7 +236,7 @@ class AIRLocationManager: NSObject {
 
         self.saveLocationName(location: oldLocation)
     }
-
+*/
 }
 
 
@@ -208,3 +282,4 @@ extension AIRLocationManager: FollowerDelegate {
 
 }
 */
+

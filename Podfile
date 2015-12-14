@@ -18,7 +18,7 @@ pod 'LMGaugeView'
 
 # map
 pod 'GoogleMaps'
-#pod 'Follower'
+pod 'Follower'
 
 # font
 pod 'ionicons'

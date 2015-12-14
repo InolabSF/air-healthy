@@ -78,7 +78,7 @@ class AIRSensor: NSManagedObject {
         ]
 */
             // make predicates
-        let startDate = date.air_daysAgo(days: AIRSensorManager.DaysAgo)!
+        let startDate = date.air_daysAgo(days: AIRSensorManager.DaysAgo+1)!
         let endDate = date
         let predicaets = [
             NSPredicate(format: "(timestamp >= %@) AND (timestamp < %@)", startDate, endDate),
@@ -118,7 +118,7 @@ class AIRSensor: NSManagedObject {
         ]
 */
             // make predicates
-        let startDate = date.air_daysAgo(days: AIRSensorManager.DaysAgo)!
+        let startDate = date.air_daysAgo(days: AIRSensorManager.DaysAgo+1)!
         let endDate = date
         let predicaets = [
             NSPredicate(format: "name = %@", name),

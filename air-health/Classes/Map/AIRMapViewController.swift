@@ -7,6 +7,9 @@ class AIRMapViewController: UIViewController {
     @IBOutlet weak var rightBarButton: UIButton!
 
     @IBOutlet weak var loadingView: AIRLoadingView!
+    //@IBOutlet weak var scrollView: UIScrollView!
+
+    //@IBOutlet weak var currentLocationView: AIRCurrentLocationView!
     @IBOutlet weak var timelineView: AIRTimelineView!
     @IBOutlet weak var sensorGraphView: AIRSensorGraphView!
     @IBOutlet weak var mapView: AIRMapView!
@@ -31,7 +34,6 @@ class AIRMapViewController: UIViewController {
     override func loadView() {
         super.loadView()
 
-        self.timelineView.timeSliderContentView.hidden = true
         self.setUp()
 
         let today = NSDate()
@@ -65,12 +67,45 @@ class AIRMapViewController: UIViewController {
     }
 
 
+    /// MARK: - notification
+
+    /**
+     * get sensor datas
+     * @param notification NSNotification
+     **/
+    func getSensorValuesNotificatoin(notificatoin: NSNotification) {
+        let today = NSDate()
+        // passes and sensor datas
+        let newLocations = AIRLocation.fetch(date: today)
+        // should update passes?
+        if self.passes.count == 0 || self.passes.last!.timestamp.compare(newLocations.last!.timestamp) != .OrderedSame {
+            self.passes = newLocations
+            self.setSensorValues()
+        }
+        // get new sensor values
+        self.getSensorValues()
+    }
+
+    /**
+     * open map
+     * @param notification NSNotification
+     **/
+    func openMapNotification(notification: NSNotification) {
+        self.timelineView.touchUpInside(button: self.timelineView.openButton)
+        self.mapView.moveCameraToMyLocation()
+    }
+
+
     /// MARK: - private api
 
     /**
      * set up
      **/
     private func setUp() {
+        //self.automaticallyAdjustsScrollViewInsets = false
+        //self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.width * 2, self.scrollView.frame.height)
+        self.timelineView.timeSliderContentView.hidden = true
+
         // status bar
         UIApplication.sharedApplication().statusBarStyle = .LightContent
         // navigation bar
@@ -99,8 +134,9 @@ class AIRMapViewController: UIViewController {
         )
 
         // mapview
-        self.mapView.myLocationEnabled = false
+        self.mapView.myLocationEnabled = true
         self.mapView.settings.myLocationButton = false
+        //self.mapView.trafficEnabled = true
         self.mapView.frame = CGRectMake(
             self.mapView.frame.origin.x, self.timelineView.dateView.frame.origin.y + self.timelineView.dateView.frame.height,
             self.mapView.frame.width, self.view.frame.height - (self.timelineView.dateView.frame.origin.y + self.timelineView.dateView.frame.height + self.timelineView.timeSliderView.frame.height) + 36.0
@@ -118,6 +154,12 @@ class AIRMapViewController: UIViewController {
             name: AIRNotificationCenter.UpdateSensorValues,
             object: nil
         )
+        NSNotificationCenter.defaultCenter().addObserver(
+            self,
+            selector: Selector("openMapNotification:"),
+            name: AIRNotificationCenter.LaunchFromBadAirWarning,
+            object: nil
+        )
     }
 
     /**
@@ -127,7 +169,7 @@ class AIRMapViewController: UIViewController {
         self.mapView.draw(
             passes: self.passes,
             intervalFromStart: Double(self.timelineView.timeSlider.value),
-            color: self.currentLocationColor(),
+            color: self.sensorGraphView.gaugeColor,
             sensors: self.sensors
         )
     }
@@ -150,26 +192,7 @@ class AIRMapViewController: UIViewController {
             time = dateFormatter.stringFromDate(date)
         }
 
-        self.timelineView.setTimeline(time: time, color: self.currentLocationColor())
-    }
-
-    /**
-     * get current location's color
-     * @return UIColor
-     **/
-    private func currentLocationColor() -> UIColor {
-        // color
-        var color = UIColor.darkGrayColor()
-        if self.sensorGraphView.gaugeView.value < AIRSensorGraphView.Basement_1 {
-            color = UIColor(red: 46.0/255.0, green: 204.0/255.0, blue: 113.0/255.0, alpha: 1.0)
-        }
-        else if self.sensorGraphView.gaugeView.value < AIRSensorGraphView.Basement_2 {
-            color = UIColor(red: 243.0/255.0, green: 156.0/255.0, blue: 18.0/255.0, alpha: 1.0)
-        }
-        else {
-            color = UIColor(red: 231.0/255.0, green: 76.0/255.0, blue: 60.0/255.0, alpha: 1.0)
-        }
-        return color
+        self.timelineView.setTimeline(time: time, color: self.sensorGraphView.gaugeColor)
     }
 
     /**
@@ -189,23 +212,6 @@ class AIRMapViewController: UIViewController {
     }
 
     /**
-     * get sensor datas
-     * @param notification NSNotification
-     **/
-    func getSensorValuesNotificatoin(notificatoin: NSNotification) {
-        let today = NSDate()
-        // passes and sensor datas
-        let newLocations = AIRLocation.fetch(date: today)
-        // should update passes?
-        if self.passes.count == 0 || self.passes.last!.timestamp.compare(newLocations.last!.timestamp) != .OrderedSame {
-            self.passes = newLocations
-            self.setSensorValues()
-        }
-        // get new sensor values
-        self.getSensorValues()
-    }
-
-    /**
      * set sensor datas
      **/
     private func setSensorValues() {
@@ -221,8 +227,8 @@ class AIRMapViewController: UIViewController {
         let today = NSDate()
 
         // sensors
-        let southWest = AIRLocation.southWest(locations: self.passes, offsetMeters: AIRLocationManager.ThresholdOfNeighbor)
-        let northEast = AIRLocation.northEast(locations: self.passes, offsetMeters: AIRLocationManager.ThresholdOfNeighbor)
+        let southWest = AIRLocation.southWest(locations: self.passes, offsetMeters: AIRLocationManager.ThresholdOfSensorNeighbor)
+        let northEast = AIRLocation.northEast(locations: self.passes, offsetMeters: AIRLocationManager.ThresholdOfSensorNeighbor)
         //self.sensors = AIRSensor.fetch(name: "Ozone_S", date: today, southWest: southWest, northEast: northEast)
         //self.sensors += AIRSensor.fetch(name: "SO2", date: today, southWest: southWest, northEast: northEast)
         self.sensors = AIRSensor.fetch(date: today, southWest: southWest, northEast: northEast)
@@ -265,6 +271,7 @@ class AIRMapViewController: UIViewController {
             valuesPerMinute: self.values,
             sensorBasements: AIRSensorManager.sensorBasements()
         )
+        self.timelineView.timeSlider.value = self.timelineView.timeSlider.maximumValue
         self.setTimeline()
 
         self.loadingView.stopAnimation()
@@ -275,7 +282,6 @@ class AIRMapViewController: UIViewController {
             }
         )
     }
-
 }
 
 

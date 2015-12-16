@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <scenes>
-        <!--Delegate-->
+        <!--Air delegate-->
         <scene sceneID="uOV-LO-m0M">
             <objects>
                 <viewController id="0eM-6L-46W" customClass="AIRMapViewController" customModule="air_health" customModuleProvider="target" sceneMemberID="viewController">
@@ -20,9 +20,32 @@
                                     <view contentMode="scaleToFill" id="a7Q-ns-4CJ" customClass="AIRMapView" customModule="air_health" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="128" width="320" height="248"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Rci-Ag-7h3">
+                                                <rect key="frame" x="272" y="160" width="48" height="48"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="32"/>
+                                                <state key="normal" title="A"/>
+                                                <connections>
+                                                    <action selector="touchedUpInsideButton:" destination="a7Q-ns-4CJ" eventType="touchUpInside" id="lvx-5Z-t3z"/>
+                                                </connections>
+                                            </button>
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="IPE-jb-zMq">
+                                                <rect key="frame" x="272" y="160" width="48" height="48"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="32"/>
+                                                <state key="normal" title="B"/>
+                                                <connections>
+                                                    <action selector="touchedUpInsideButton:" destination="a7Q-ns-4CJ" eventType="touchUpInside" id="31Q-MW-8ef"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <connections>
+                                            <outlet property="air_delegate" destination="0eM-6L-46W" id="33f-Mx-jpz"/>
+                                            <outlet property="circleButton" destination="Rci-Ag-7h3" id="h2u-ye-gbg"/>
                                             <outlet property="delegate" destination="0eM-6L-46W" id="Jx2-Q8-uBk"/>
+                                            <outlet property="rectButton" destination="IPE-jb-zMq" id="uHC-3Y-Rxk"/>
                                         </connections>
                                     </view>
                                     <view contentMode="scaleToFill" id="8GN-CN-bbi" customClass="AIRSensorGraphView" customModule="air_health" customModuleProvider="target">

@@ -2,6 +2,10 @@ platform :ios, '7.0'
 
 xcodeproj 'air-health'
 
+# crash log
+pod 'Fabric'
+pod 'Crashlytics'
+
 # csv
 pod 'CHCSVParser'
 

@@ -1,4 +1,6 @@
 import UIKit
+import Fabric
+import Crashlytics
 
 
 /// MARK: - AppDelegate
@@ -11,6 +13,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     /// MARK: - life cycle
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        // Crashlytics
+        Fabric.with([Crashlytics.self])
+
         // google maps
         GMSServices.provideAPIKey(AIRGoogleMap.APIKey)
 

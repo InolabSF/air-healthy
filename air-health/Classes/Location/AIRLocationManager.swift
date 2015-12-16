@@ -12,7 +12,8 @@ class AIRLocationManager: NSObject {
     static let ThresholdOfTimeIntervalToStop: NSTimeInterval = 300
     static let ThresholdOfDistanceToStop: CLLocationDistance = 200
     static let ThresholdOfNeighbor = 50.0
-    static let ThresholdOfSensorNeighbor = 10000.0
+    static let ThresholdOfAverageSensorNeighbor = 200.0
+    static let ThresholdOfSensorNeighbor = 50000.0
 
 
     /// MARK: - property
@@ -204,8 +205,10 @@ class AIRLocationManager: NSObject {
         let today = NSDate()
         let o3 = AIRSensorManager.averageSensorValue(name: "Ozone_S", date: today, location: location) / AIRSensorManager.WHOBasementOzone_S_2
         let so2 = AIRSensorManager.averageSensorValue(name: "SO2", date: today, location: location) / AIRSensorManager.WHOBasementSO2_2
-        let value = CGFloat(o3 + so2)
-        if value < AIRSensorGraphView.Basement_2 { return }
+        let value = (o3 + so2)
+        if value < AIRSensorManager.Basement_2 { return }
+
+        AIRBadAirLocation.save(location: location)
 
         let name = AIRLocationName.fetch(location: location)
         if name == nil {

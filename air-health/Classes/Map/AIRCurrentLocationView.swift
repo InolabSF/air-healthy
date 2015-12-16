@@ -85,12 +85,12 @@ class AIRCurrentLocationView: UIView {
         let today = NSDate()
         let o3 = AIRSensorManager.averageSensorValue(name: "Ozone_S", date: today, location: location) / AIRSensorManager.WHOBasementOzone_S_2
         let so2 = AIRSensorManager.averageSensorValue(name: "SO2", date: today, location: location) / AIRSensorManager.WHOBasementSO2_2
-        let value = CGFloat(o3 + so2)
-        if value < AIRSensorGraphView.Basement_1 {
+        let value = (o3 + so2)
+        if value < AIRSensorManager.Basement_1 {
             self.locationImageView.image = UIImage(named: "home_location_good")
             self.statusLabel.text = "Air Status: Good"
         }
-        else if value < AIRSensorGraphView.Basement_2 {
+        else if value < AIRSensorManager.Basement_2 {
             self.locationImageView.image = UIImage(named: "home_location_normal")
             self.statusLabel.text = "Air Status: Normal"
         }

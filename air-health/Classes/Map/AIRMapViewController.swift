@@ -146,6 +146,7 @@ class AIRMapViewController: UIViewController {
             longitude: -122.4167,
             zoom: 13.0
         )
+        self.mapView.air_delegate = self
 
         // notification
         NSNotificationCenter.defaultCenter().addObserver(
@@ -200,6 +201,7 @@ class AIRMapViewController: UIViewController {
      * @param notification NSNotification
      **/
     func getSensorValues() {
+/*
         // get sensor data from server if need
         AIRSensorClient.sharedInstance.getSensorValues(
             locations: self.passes,
@@ -209,6 +211,16 @@ class AIRMapViewController: UIViewController {
                 self.setSensorValues()
             }
         )
+*/
+        AIRSensorClient.sharedInstance.getSensorValues(
+            locations: self.passes,
+            completionHandler: { [unowned self] (json: JSON) -> Void in
+                AIRSensor.deleteAll()
+                AIRSensor.save(json: json)
+                self.setSensorValues()
+            }
+        )
+
     }
 
     /**
@@ -237,6 +249,7 @@ class AIRMapViewController: UIViewController {
         if self.passes.count > 0 {
             let allInterval = self.passes.last!.timestamp.timeIntervalSinceDate(self.passes.first!.timestamp)
             self.timelineView.timeSlider.maximumValue = CGFloat(allInterval)
+            if self.timelineView.timeSlider.maximumValue > 0.0 { self.timelineView.timeSlider.value = self.timelineView.timeSlider.maximumValue }
         }
 
         // values
@@ -261,7 +274,7 @@ class AIRMapViewController: UIViewController {
         // graph
         self.sensorGraphView.gaugeView.value = 0.0
         if self.values.count > 0 {
-            self.sensorGraphView.gaugeView.value = CGFloat(self.values[0])
+            self.sensorGraphView.gaugeView.value = CGFloat(self.values.last!)
             self.sensorGraphView.sensorLabel.text = String(format: "SO2: %.1f\nO3: %.1f", self.SO2ValuePerMinutes[0], self.O3ValuePerMinutes[0])
         }
 
@@ -271,7 +284,6 @@ class AIRMapViewController: UIViewController {
             valuesPerMinute: self.values,
             sensorBasements: AIRSensorManager.sensorBasements()
         )
-        self.timelineView.timeSlider.value = self.timelineView.timeSlider.maximumValue
         self.setTimeline()
 
         self.loadingView.stopAnimation()
@@ -295,6 +307,10 @@ extension AIRMapViewController: GMSMapViewDelegate {
     }
 
     func mapView(mapView: GMSMapView, didTapMarker marker: GMSMarker) -> Bool {
+        if marker.isKindOfClass(AIRBadAirLocationMarker) {
+            (marker as! AIRBadAirLocationMarker).shareSocial(parentViewController: self)
+        }
+
         return true
     }
 
@@ -308,6 +324,16 @@ extension AIRMapViewController: GMSMapViewDelegate {
     }
 
     func mapView(mapView: GMSMapView,  didDragMarker marker:GMSMarker) {
+    }
+
+}
+
+
+// MARK: - AIRMapViewDelegate
+extension AIRMapViewController: AIRMapViewDelegate {
+
+    func touchedUpInside(mapView mapView: AIRMapView, button: UIButton) {
+        self.drawMap()
     }
 
 }

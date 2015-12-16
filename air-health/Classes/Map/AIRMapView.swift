@@ -1,7 +1,55 @@
+// MARK: - AIRMapViewDelegate
+@objc protocol AIRMapViewDelegate {
+
+    /**
+     * called when button is touched up inside
+     * @param mapView AIRMapView
+     * @param openButton UIButton
+     */
+    func touchedUpInside(mapView mapView: AIRMapView, button: UIButton)
+
+}
+
+
 /// MARK: - AIRMapView
 class AIRMapView: GMSMapView {
 
     /// MARK: - property
+
+    @IBOutlet weak var air_delegate: AnyObject?
+
+    @IBOutlet weak var circleButton: UIButton!
+    @IBOutlet weak var rectButton: UIButton!
+
+
+    /// MARK: - life cycle
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+
+        self.bringSubviewToFront(self.circleButton)
+        self.bringSubviewToFront(self.rectButton)
+    }
+
+
+    /// MARK: - event listener
+
+    @IBAction func touchedUpInside(button button: UIButton) {
+        self.rectButton.hidden = true
+        self.circleButton.hidden = true
+
+        if button == self.circleButton {
+            self.rectButton.hidden = false
+        }
+        else if button == self.rectButton {
+            self.circleButton.hidden = false
+        }
+
+        if self.delegate != nil {
+            (self.air_delegate as! AIRMapViewDelegate).touchedUpInside(mapView: self, button: button)
+        }
+    }
+
 
     /// MARK: - public api
 
@@ -48,6 +96,8 @@ class AIRMapView: GMSMapView {
 
         // sensor
         self.drawSensors(sensors)
+
+        self.drawBadAirLocations()
 
         if passes.count < 2 { return }
 
@@ -113,6 +163,9 @@ class AIRMapView: GMSMapView {
      * @param sensors [AIRSensor]
      **/
     private func drawSensors(sensors: [AIRSensor]) {
+
+        if !self.circleButton.hidden {
+
         let maxDrawingCount = 100
         var locations: [CLLocation] = []
         var drawingCount = 0
@@ -125,23 +178,46 @@ class AIRMapView: GMSMapView {
             }
             if !willDraw { continue }
 
-            if self.drawSensor(sensor) {
+            let marker = AIRSensorCircle.marker(sensor: sensor)
+            if marker != nil {
+                marker!.map = self
                 drawingCount++
                 locations.append(location)
             }
             if drawingCount >= maxDrawingCount { break }
         }
+
+        }
+
+        if !self.rectButton.hidden {
+
+        for sensor in sensors {
+            let marker = AIRSensorPolygon.marker(sensor: sensor)
+            marker.map = self
+        }
+
+        }
+
+/*
+        let overlay = GMSGroundOverlay(
+            position: self.projection.coordinateForPoint(CGPointMake(self.frame.size.width / 2.0, self.frame.size.height / 2.0)),
+            icon: UIImage.heatmapImage(map: self, sensors: sensors),
+            zoomLevel: CGFloat(self.camera.zoom)
+        )
+        overlay.bearing = self.camera.bearing
+        overlay.map = self
+*/
     }
 
     /**
-     * draw sensor
-     * @param sensor AIRSensor
+     * draw bad air location
      **/
-    private func drawSensor(sensor: AIRSensor) -> Bool {
-        let sensorCircle = AIRSensorCircle.createSensorCircle(sensor: sensor)
-        if sensorCircle == nil { return false }
-        sensorCircle!.map = self
-        return true
+    private func drawBadAirLocations() {
+        let locations = AIRBadAirLocation.fetch()
+        for location in locations {
+            let marker = AIRBadAirLocationMarker(location: location)
+            marker.map = self
+        }
     }
 
 }

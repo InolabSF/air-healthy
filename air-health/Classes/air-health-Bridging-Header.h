@@ -10,6 +10,7 @@
 /// map
 #import <GoogleMaps/GoogleMaps.h>
 #import "Follower.h"
+#import "AIRHeatmap.h"
 
 /// graph
 #import "VBPieChart.h"

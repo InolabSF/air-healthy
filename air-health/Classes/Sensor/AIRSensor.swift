@@ -143,22 +143,30 @@ class AIRSensor: NSManagedObject {
         let sensors = json.arrayValue
         if sensors.count == 0 { return }
 
-        let names = [/*"CO",*/ "SO2", "Ozone_S",]
+        let names = ["SO2", "Ozone_S",]
         let context = AIRCoreDataManager.sharedInstance.managedObjectContext
 
         for s in sensors {
             for name in names {
                 let sensor = NSEntityDescription.insertNewObjectForEntityForName("AIRSensor", inManagedObjectContext: context) as! AIRSensor
                 sensor.value = s[name].numberValue
-                sensor.lat = s["latitude"].numberValue
-                sensor.lng = s["longitude"].numberValue
+                //sensor.lat = s["latitude"].numberValue
+                //sensor.lng = s["longitude"].numberValue
+                sensor.lat = NSNumber(double: (s["north"].numberValue.doubleValue + s["south"].numberValue.doubleValue) / 2.0)
+                sensor.lng = NSNumber(double: (s["west"].numberValue.doubleValue + s["east"].numberValue.doubleValue) / 2.0)
                 sensor.name = name
-                sensor.timestamp = NSDate(timeIntervalSince1970: s["time"].doubleValue)
+                sensor.timestamp = NSDate().air_daysAgo(days: 1)!//NSDate(timeIntervalSince1970: s["time"].doubleValue)
             }
         }
 
         do { try context.save() }
         catch { return }
+
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let todayString = dateFormatter.stringFromDate(NSDate())
+        NSUserDefaults().setObject(todayString, forKey: AIRUserDefaults.SensorDate)
+        NSUserDefaults().synchronize()
     }
 
     /**

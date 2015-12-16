@@ -3,8 +3,8 @@ class AIRSensorGraphView: UIView {
 
     /// MARK: - constant
 
-    static let Basement_1: CGFloat =           1.2
-    static let Basement_2: CGFloat =           2.0
+//    static let Basement_1: CGFloat =           1.2
+//    static let Basement_2: CGFloat =           2.0
 
 
     /// MARK: - property
@@ -94,11 +94,11 @@ class AIRSensorGraphView: UIView {
 extension AIRSensorGraphView: LMGaugeViewDelegate {
     func gaugeView(gaugeView: LMGaugeView, ringStokeColorForValue value: CGFloat) -> UIColor {
         self.gaugeColor = UIColor.clearColor()
-        if value < AIRSensorGraphView.Basement_1 {
+        if value < CGFloat(AIRSensorManager.Basement_1) {
             self.gaugeImageView.image = UIImage(named: "home_icon_good")
             self.gaugeColor = UIColor(red: 46.0/255.0, green: 204.0/255.0, blue: 113.0/255.0, alpha: 1.0)
         }
-        else if value < AIRSensorGraphView.Basement_2 {
+        else if value < CGFloat(AIRSensorManager.Basement_2) {
             self.gaugeImageView.image = UIImage(named: "home_icon_normal")
             self.gaugeColor = UIColor(red: 243.0/255.0, green: 156.0/255.0, blue: 18.0/255.0, alpha: 1.0)
         }

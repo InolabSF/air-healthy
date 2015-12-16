@@ -78,6 +78,7 @@ class AIRTimelineView: UIView {
             self.closeButton.hidden = false
         }
         else if button == self.closeButton {
+            AIRBadAirLocation.deleteAll()
             if self.delegate != nil {
                 (self.delegate as! AIRTimelineViewDelegate).touchedUpInside(timelineView: self, closeButton: button)
             }

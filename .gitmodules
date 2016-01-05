@@ -7,3 +7,6 @@
 [submodule "air-health/Classes/GradientSlider"]
 	path = air-health/Classes/GradientSlider
 	url = https://github.com/jonhull/GradientSlider.git
+[submodule "air-health/Classes/IOStickyHeader"]
+	path = air-health/Classes/IOStickyHeader
+	url = https://github.com/BenjaminPrieur/IOStickyHeader.git

@@ -6,6 +6,7 @@ class AIRSettingViewController: UIViewController {
     @IBOutlet weak var leftBarButton: UIButton!
     @IBOutlet weak var rightBarButton: UIButton!
     @IBOutlet weak var GPSSwitch: UISwitch!
+    @IBOutlet weak var userSwitch: UISwitch!
 
 
     /// MARK: - life cycle
@@ -40,6 +41,10 @@ class AIRSettingViewController: UIViewController {
         // GPS
         let GPSIsOff = NSUserDefaults().boolForKey(AIRUserDefaults.GPSIsOff)
         self.GPSSwitch.on = !GPSIsOff
+
+        // User
+        let userIsOn = NSUserDefaults().boolForKey(AIRUserDefaults.UserIsOn)
+        self.userSwitch.on = userIsOn
     }
 
     override func viewDidAppear(animated: Bool) {
@@ -74,6 +79,19 @@ class AIRSettingViewController: UIViewController {
             NSUserDefaults().synchronize()
             if GPSIsOff { AIRLocationManager.sharedInstance.stopUpdatingLocation() }
             else { AIRLocationManager.sharedInstance.startUpdatingLocation() }
+        }
+        else if control == self.userSwitch {
+            let userIsOn = self.userSwitch.on
+            NSUserDefaults().setObject(userIsOn, forKey: AIRUserDefaults.UserIsOn)
+            NSUserDefaults().synchronize()
+            if !userIsOn {
+                AIRUserClient.sharedInstance.postUser(
+                    userIsOn: userIsOn,
+                    location: CLLocation(latitude: 0.0, longitude: 0.0),
+                    completionHandler: { (json) in
+                    }
+                )
+            }
         }
     }
 

@@ -1,4 +1,4 @@
-platform :ios, '7.0'
+platform :ios, '8.0'
 
 xcodeproj 'air-health'
 
@@ -7,13 +7,13 @@ pod 'Fabric'
 pod 'Crashlytics'
 
 # csv
-pod 'CHCSVParser'
+#pod 'CHCSVParser'
 
 # network
 pod 'ISHTTPOperation'
 
 # parse
-pod 'Parse'
+#pod 'Parse'
 
 # graph
 pod 'VBPieChart', :git => 'https://github.com/kenzan8000/VBPieChart.git'
@@ -22,10 +22,13 @@ pod 'LMGaugeView'
 
 # map
 pod 'GoogleMaps'
-pod 'Follower'
+#pod 'Follower'
 
 # font
 pod 'ionicons'
 
 # UI
-pod 'TTTAttributedLabel'
+#pod 'TTTAttributedLabel'
+
+# image
+pod 'IGIdenticon'

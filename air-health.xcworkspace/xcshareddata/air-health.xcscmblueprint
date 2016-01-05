@@ -4,6 +4,7 @@
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "41EF1FD2A6311CFA04EBE015214FC85C5B584072" : 0,
     "8FE5182B8BF3693F01C4922D2A9692341FE5DB17" : 0,
     "340883B9DF0F7567157D9FDF3AA826EDD0DE698F" : 0,
     "3BF49EDF5038795EBFAFA8578150CD385BA00EB4" : 0,
@@ -11,6 +12,7 @@
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "481781C6-EB65-4C73-9049-90811F3337FE",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "41EF1FD2A6311CFA04EBE015214FC85C5B584072" : "iOS\/air-health\/Classes\/IOStickyHeader\/",
     "8FE5182B8BF3693F01C4922D2A9692341FE5DB17" : "iOS\/",
     "340883B9DF0F7567157D9FDF3AA826EDD0DE698F" : "iOS\/air-health\/Classes\/GradientSlider\/",
     "3BF49EDF5038795EBFAFA8578150CD385BA00EB4" : "iOS\/air-health\/Classes\/SwiftCSV\/",
@@ -29,6 +31,11 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/naoty\/SwiftCSV.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "3BF49EDF5038795EBFAFA8578150CD385BA00EB4"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/BenjaminPrieur\/IOStickyHeader.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "41EF1FD2A6311CFA04EBE015214FC85C5B584072"
     },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/InolabSF\/air-healthy.git",

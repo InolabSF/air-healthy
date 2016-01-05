@@ -15,15 +15,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Crashlytics
         Fabric.with([Crashlytics.self])
-
         // google maps
         GMSServices.provideAPIKey(AIRGoogleMap.APIKey)
-
+/*
         // parse
         Parse.setApplicationId(AIRParse.ApplicationID, clientKey: AIRParse.ClientKey)
         PFUser.enableAutomaticUser()
         PFACL.setDefaultACL(PFACL(), withAccessForCurrentUser: true)
-
+*/
+        // UUID
+        var UUID = NSUserDefaults().stringForKey(AIRUserDefaults.UUID)
+        if UUID == nil {
+            UUID = NSUUID().UUIDString
+            NSUserDefaults().setObject(UUID!, forKey: AIRUserDefaults.UUID)
+            NSUserDefaults().synchronize()
+        }
 /*
         let doesLoadDemoCSV = NSUserDefaults().boolForKey(AIRUserDefaults.DemoCSV)
         if !doesLoadDemoCSV {
@@ -33,11 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NSUserDefaults().synchronize()
         }
 */
-
         AIRLocationManager.sharedInstance.startUpdatingLocation()
-
-//        AIRLOG(AIRSensor.convertOzone_S(value: 508.0, temperature: 18.0))
-//        AIRLOG(AIRSensor.convertSO2(value: 548.0, temperature: 18.0))
 
         if #available(iOS 8.0, *) {
             application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Badge, .Sound, .Alert,], categories: nil))

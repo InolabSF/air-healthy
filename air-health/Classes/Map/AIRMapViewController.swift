@@ -12,11 +12,16 @@ class AIRMapViewController: UIViewController {
     //@IBOutlet weak var currentLocationView: AIRCurrentLocationView!
     @IBOutlet weak var timelineView: AIRTimelineView!
     @IBOutlet weak var sensorGraphView: AIRSensorGraphView!
+    @IBOutlet weak var summaryView: AIRSummaryView!
     @IBOutlet weak var mapView: AIRMapView!
+
+    @IBOutlet weak var graphButton: UIButton!
+    @IBOutlet weak var summaryButton: UIButton!
 
     var passes: [CLLocation] = []
     var values: [Double] = []
     var sensors: [AIRSensor] = []
+    var users: [AIRUser] = []
 
     var SO2ValuePerMinutes: [Double] = []
     var O3ValuePerMinutes: [Double] = []
@@ -64,6 +69,17 @@ class AIRMapViewController: UIViewController {
      * @param button UIButton
      **/
     @IBAction func touchUpInside(button button: UIButton) {
+        self.graphButton.hidden = true
+        self.summaryButton.hidden = true
+
+        if button == self.graphButton {
+            self.summaryButton.hidden = false
+            self.summaryView.hidden = false
+        }
+        else if button == self.summaryButton {
+            self.graphButton.hidden = false
+            self.summaryView.hidden = true
+        }
     }
 
 
@@ -171,7 +187,8 @@ class AIRMapViewController: UIViewController {
             passes: self.passes,
             intervalFromStart: Double(self.timelineView.timeSlider.value),
             color: self.sensorGraphView.gaugeColor,
-            sensors: self.sensors
+            sensors: self.sensors,
+            users: self.users
         )
     }
 
@@ -271,6 +288,9 @@ class AIRMapViewController: UIViewController {
             self.values.append(value)
         }
 
+        // summary
+        self.summaryView.setValues(self.values)
+
         // graph
         self.sensorGraphView.gaugeView.value = 0.0
         if self.values.count > 0 {
@@ -311,6 +331,8 @@ extension AIRMapViewController: GMSMapViewDelegate {
             (marker as! AIRBadAirLocationMarker).shareSocial(parentViewController: self)
         }
 
+        self.mapView.selectedMarker = marker
+
         return true
     }
 
@@ -345,6 +367,16 @@ extension AIRMapViewController: AIRTimelineViewDelegate {
     func touchedUpInside(timelineView timelineView: AIRTimelineView, openButton: UIButton) {
         self.drawMap()
         self.mapView.moveCamera(passes: self.passes)
+
+        // get users
+        let location = self.mapView.myLocation
+        if location != nil {
+            AIRUserClient.sharedInstance.getUser(location: location!, radius: 5.0, completionHandler: { [unowned self] (json) in
+                    self.users = AIRUser.users(json: json)
+                    self.drawMap()
+                }
+            )
+        }
 
         self.sensorGraphView.toggle(
             hidden: true,

@@ -173,6 +173,7 @@ class AIRSensor: NSManagedObject {
      * save
      * @param objects [PFObject]
      **/
+/*
     class func save(objects objects: [PFObject]?) {
         if objects == nil { return }
         if AIRSensor.hasSensors() { return }
@@ -211,6 +212,7 @@ class AIRSensor: NSManagedObject {
         NSUserDefaults().setObject(todayString, forKey: AIRUserDefaults.SensorDate)
         NSUserDefaults().synchronize()
     }
+*/
 
     /**
      * check if the phone already has sensor data

@@ -42,7 +42,7 @@ class AIRLocationManager: NSObject {
 
         // location manager
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        if #available(iOS 8.0, *) { self.locationManager.requestAlwaysAuthorization() }
+        self.locationManager.requestAlwaysAuthorization()
         if #available(iOS 9.0, *) { self.locationManager.allowsBackgroundLocationUpdates = true }
         self.locationManager.distanceFilter = 100
         self.locationManager.pausesLocationUpdatesAutomatically = false
@@ -137,6 +137,7 @@ class AIRLocationManager: NSObject {
         if lastLocation == nil {
             AIRLocation.save(location: newLocation)
             self.postPollutedNotification(location: newLocation)
+            AIRUserClient.sharedInstance.postUser(location: newLocation, completionHandler: { (json) in })
         }
         // updating location
         else if distance >= AIRLocationManager.DistanceToUpdateLocation && // did move?
@@ -144,6 +145,7 @@ class AIRLocationManager: NSObject {
             if self.comfirmingCountToUpdateLastLocation >= AIRLocationManager.ComfirmingCountToUpdateLocation {
                 AIRLocation.save(location: newLocation)
                 self.postPollutedNotification(location: newLocation)
+                AIRUserClient.sharedInstance.postUser(location: newLocation, completionHandler: { (json) in })
                 self.comfirmingCountToUpdateLastLocation = 0
             }
             else { self.comfirmingCountToUpdateLastLocation += 1 }
@@ -265,7 +267,7 @@ extension AIRLocationManager: CLLocationManagerDelegate {
 
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
         if status == .Denied {
-            if #available(iOS 8.0, *) { self.locationManager.requestAlwaysAuthorization() }
+            self.locationManager.requestAlwaysAuthorization()
         }
     }
 }

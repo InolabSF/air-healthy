@@ -5,11 +5,11 @@
 #import "ISHTTPOperation.h"
 
 /// parse
-#import "Parse.h"
+//#import "Parse.h"
 
 /// map
 #import <GoogleMaps/GoogleMaps.h>
-#import "Follower.h"
+//#import "Follower.h"
 #import "AIRHeatmap.h"
 
 /// graph
@@ -21,5 +21,8 @@
 #import "IonIcons.h"
 
 // UI
-#import "TTTAttributedLabel.h"
+//#import "TTTAttributedLabel.h"
 #import "BLMultiColorLoader.h"
+
+// image
+#import "IGIdenticon.h"

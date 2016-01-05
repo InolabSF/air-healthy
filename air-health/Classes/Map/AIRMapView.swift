@@ -90,14 +90,17 @@ class AIRMapView: GMSMapView {
      * @param color UIColor
      * @param intervalFromStart Double
      * @param sensors [AIRSensor]
+     * @param users [AIRUser]
      **/
-    func draw(passes passes: [CLLocation], intervalFromStart: Double, color: UIColor, sensors: [AIRSensor]) {
+    func draw(passes passes: [CLLocation], intervalFromStart: Double, color: UIColor, sensors: [AIRSensor], users: [AIRUser]) {
         self.clear()
 
         // sensor
         self.drawSensors(sensors)
-
+        // bad air locations
         self.drawBadAirLocations()
+        // users
+        self.drawUsers(users)
 
         if passes.count < 2 { return }
 
@@ -166,35 +169,35 @@ class AIRMapView: GMSMapView {
 
         if !self.circleButton.hidden {
 
-        let maxDrawingCount = 100
-        var locations: [CLLocation] = []
-        var drawingCount = 0
+            let maxDrawingCount = 100
+            var locations: [CLLocation] = []
+            var drawingCount = 0
 
-        for sensor in sensors {
-            let location = CLLocation(latitude: sensor.lat.doubleValue, longitude: sensor.lng.doubleValue)
-            var willDraw = true
-            for l in locations {
-                if location.distanceFromLocation(l) < AIRSensorCircle.MaxRadius { willDraw = false; break }
-            }
-            if !willDraw { continue }
+            for sensor in sensors {
+                let location = CLLocation(latitude: sensor.lat.doubleValue, longitude: sensor.lng.doubleValue)
+                var willDraw = true
+                for l in locations {
+                    if location.distanceFromLocation(l) < AIRSensorCircle.MaxRadius { willDraw = false; break }
+                }
+                if !willDraw { continue }
 
-            let marker = AIRSensorCircle.marker(sensor: sensor)
-            if marker != nil {
-                marker!.map = self
-                drawingCount++
-                locations.append(location)
+                let marker = AIRSensorCircle.marker(sensor: sensor)
+                if marker != nil {
+                    marker!.map = self
+                    drawingCount++
+                    locations.append(location)
+                }
+                if drawingCount >= maxDrawingCount { break }
             }
-            if drawingCount >= maxDrawingCount { break }
-        }
 
         }
 
         if !self.rectButton.hidden {
 
-        for sensor in sensors {
-            let marker = AIRSensorPolygon.marker(sensor: sensor)
-            marker.map = self
-        }
+            for sensor in sensors {
+                let marker = AIRSensorPolygon.marker(sensor: sensor)
+                marker.map = self
+            }
 
         }
 
@@ -216,6 +219,16 @@ class AIRMapView: GMSMapView {
         let locations = AIRBadAirLocation.fetch()
         for location in locations {
             let marker = AIRBadAirLocationMarker(location: location)
+            marker.map = self
+        }
+    }
+
+    /**
+     * draw users
+     **/
+    private func drawUsers(users: [AIRUser]) {
+        for user in users {
+            let marker = AIRUserMarker(user: user)
             marker.map = self
         }
     }

@@ -56,6 +56,7 @@ struct AIRNotificationCenter {
     static let UpdateSensorValues =       "AIRNotificationCenter.UpdateSensorValues"
     static let UpdateLocation =           "AIRNotificationCenter.UpdateLocation"
     static let LaunchFromBadAirWarning =  "AIRNotificationCenter.LaunchFromBadAirWarning"
+    static let SetChemicalButtonImages =  "AIRNotificationCenter.SetChemicalButtonImages"
 }
 
 

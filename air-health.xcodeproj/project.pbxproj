@@ -20,6 +20,8 @@
 		E62A03CA1BF15E9F0046ABE0 /* AIRGoogleMapClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62A03C71BF15E9F0046ABE0 /* AIRGoogleMapClient.swift */; };
 		E62A03CB1BF15E9F0046ABE0 /* AIRGoogleMapOperationQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62A03C81BF15E9F0046ABE0 /* AIRGoogleMapOperationQueue.swift */; };
 		E62A34581C1A3038009A04CA /* AIRCurrentLocationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62A34571C1A3038009A04CA /* AIRCurrentLocationView.swift */; };
+		E62F17071C3C45CE002B501F /* AIRChemicalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62F17061C3C45CE002B501F /* AIRChemicalViewController.swift */; };
+		E62F17091C3C485D002B501F /* AIRChemicalGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62F17081C3C485D002B501F /* AIRChemicalGraphView.swift */; };
 		E63DB73D1BF57AA8000E3E42 /* AIRTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63DB73C1BF57AA8000E3E42 /* AIRTableViewCell.swift */; };
 		E647B4771BFBEABB00B2CA4F /* AIRSensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E647B4761BFBEABB00B2CA4F /* AIRSensor.swift */; };
 		E647B4791BFC050F00B2CA4F /* AIRLocationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = E647B4781BFC050F00B2CA4F /* AIRLocationName.swift */; };
@@ -42,18 +44,12 @@
 		E695DA6E1BF2C32F0060BF66 /* AIRMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E695DA6B1BF2C32F0060BF66 /* AIRMapViewController.swift */; };
 		E699E9251C2B7A8500633449 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E699E9241C2B7A8500633449 /* Assets.xcassets */; };
 		E6A6B7621C0FB4740085C291 /* AIRSensorMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A6B7611C0FB4740085C291 /* AIRSensorMarker.swift */; };
-		E6B0FCFF1C2CA00E00AD9AD5 /* IOStickyHeaderFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B0FCFD1C2CA00E00AD9AD5 /* IOStickyHeaderFlowLayout.swift */; };
-		E6B0FD001C2CA00E00AD9AD5 /* IOStickyHeaderFlowLayoutAttibutes.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B0FCFE1C2CA00E00AD9AD5 /* IOStickyHeaderFlowLayoutAttibutes.swift */; };
-		E6B0FD031C2CA52C00AD9AD5 /* AIRSummaryCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B0FD011C2CA52C00AD9AD5 /* AIRSummaryCollectionCell.swift */; };
-		E6B0FD041C2CA52C00AD9AD5 /* AIRSummaryCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E6B0FD021C2CA52C00AD9AD5 /* AIRSummaryCollectionCell.xib */; };
 		E6B10BAA1C039F3600B77A67 /* UIImage+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B10BA91C039F3600B77A67 /* UIImage+UIView.swift */; };
 		E6BC9CED1C03878B004769AD /* AIRTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BC9CEB1C03878B004769AD /* AIRTimelineView.swift */; };
 		E6BC9CF01C039AF6004769AD /* AIRSensorGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BC9CEF1C039AF6004769AD /* AIRSensorGraphView.swift */; };
 		E6D803FD1BFD444C00A55326 /* AIRSensorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D803FC1BFD444C00A55326 /* AIRSensorManager.swift */; };
 		E6DBB81D1C1223430008A821 /* AIRSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6DBB81C1C1223430008A821 /* AIRSettingViewController.swift */; };
 		E6E173251C20C80500F74F8F /* vasp_mgpqm_0.2mile.csv in Resources */ = {isa = PBXBuildFile; fileRef = E6E173241C20C80500F74F8F /* vasp_mgpqm_0.2mile.csv */; };
-		E6E26A2C1C20D36E00BE26E5 /* AIRHeatmap.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E26A2B1C20D36E00BE26E5 /* AIRHeatmap.m */; };
-		E6E26A2E1C20D41600BE26E5 /* UIImage+AIRHeatmap.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E26A2D1C20D41600BE26E5 /* UIImage+AIRHeatmap.swift */; };
 		E6E26A301C20F91800BE26E5 /* AIRSensorOperationQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E26A2F1C20F91800BE26E5 /* AIRSensorOperationQueue.swift */; };
 		E6E4B73D1BEADEC6002DEAB1 /* AIRConstant.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6E4B73C1BEADEC6002DEAB1 /* AIRConstant.swift */; };
 		E6E8AF961C17C49D00605151 /* BLMultiColorLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = E6E8AF951C17C49D00605151 /* BLMultiColorLoader.m */; };
@@ -81,6 +77,8 @@
 		E62A03C71BF15E9F0046ABE0 /* AIRGoogleMapClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRGoogleMapClient.swift; sourceTree = "<group>"; };
 		E62A03C81BF15E9F0046ABE0 /* AIRGoogleMapOperationQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRGoogleMapOperationQueue.swift; sourceTree = "<group>"; };
 		E62A34571C1A3038009A04CA /* AIRCurrentLocationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRCurrentLocationView.swift; sourceTree = "<group>"; };
+		E62F17061C3C45CE002B501F /* AIRChemicalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRChemicalViewController.swift; sourceTree = "<group>"; };
+		E62F17081C3C485D002B501F /* AIRChemicalGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRChemicalGraphView.swift; sourceTree = "<group>"; };
 		E63DB73C1BF57AA8000E3E42 /* AIRTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRTableViewCell.swift; sourceTree = "<group>"; };
 		E647B4761BFBEABB00B2CA4F /* AIRSensor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRSensor.swift; sourceTree = "<group>"; };
 		E647B4781BFC050F00B2CA4F /* AIRLocationName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRLocationName.swift; sourceTree = "<group>"; };
@@ -105,19 +103,12 @@
 		E699E9241C2B7A8500633449 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E6A6B7611C0FB4740085C291 /* AIRSensorMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRSensorMarker.swift; sourceTree = "<group>"; };
 		E6AEF7E81BEBFB89000102E2 /* air-health-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "air-health-Bridging-Header.h"; sourceTree = "<group>"; };
-		E6B0FCFD1C2CA00E00AD9AD5 /* IOStickyHeaderFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IOStickyHeaderFlowLayout.swift; path = IOStickyHeader/Pod/Classes/IOStickyHeaderFlowLayout.swift; sourceTree = "<group>"; };
-		E6B0FCFE1C2CA00E00AD9AD5 /* IOStickyHeaderFlowLayoutAttibutes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = IOStickyHeaderFlowLayoutAttibutes.swift; path = IOStickyHeader/Pod/Classes/IOStickyHeaderFlowLayoutAttibutes.swift; sourceTree = "<group>"; };
-		E6B0FD011C2CA52C00AD9AD5 /* AIRSummaryCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRSummaryCollectionCell.swift; sourceTree = "<group>"; };
-		E6B0FD021C2CA52C00AD9AD5 /* AIRSummaryCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AIRSummaryCollectionCell.xib; sourceTree = "<group>"; };
 		E6B10BA91C039F3600B77A67 /* UIImage+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+UIView.swift"; sourceTree = "<group>"; };
 		E6BC9CEB1C03878B004769AD /* AIRTimelineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRTimelineView.swift; sourceTree = "<group>"; };
 		E6BC9CEF1C039AF6004769AD /* AIRSensorGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRSensorGraphView.swift; sourceTree = "<group>"; };
 		E6D803FC1BFD444C00A55326 /* AIRSensorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRSensorManager.swift; sourceTree = "<group>"; };
 		E6DBB81C1C1223430008A821 /* AIRSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRSettingViewController.swift; sourceTree = "<group>"; };
 		E6E173241C20C80500F74F8F /* vasp_mgpqm_0.2mile.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = vasp_mgpqm_0.2mile.csv; sourceTree = "<group>"; };
-		E6E26A2A1C20D36E00BE26E5 /* AIRHeatmap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AIRHeatmap.h; sourceTree = "<group>"; };
-		E6E26A2B1C20D36E00BE26E5 /* AIRHeatmap.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AIRHeatmap.m; sourceTree = "<group>"; };
-		E6E26A2D1C20D41600BE26E5 /* UIImage+AIRHeatmap.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+AIRHeatmap.swift"; sourceTree = "<group>"; };
 		E6E26A2F1C20F91800BE26E5 /* AIRSensorOperationQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRSensorOperationQueue.swift; sourceTree = "<group>"; };
 		E6E4B73C1BEADEC6002DEAB1 /* AIRConstant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRConstant.swift; sourceTree = "<group>"; };
 		E6E8AF941C17C49D00605151 /* BLMultiColorLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BLMultiColorLoader.h; sourceTree = "<group>"; };
@@ -207,10 +198,18 @@
 			path = Google;
 			sourceTree = "<group>";
 		};
+		E62F17051C3C45CE002B501F /* Chemical */ = {
+			isa = PBXGroup;
+			children = (
+				E62F17081C3C485D002B501F /* AIRChemicalGraphView.swift */,
+				E62F17061C3C45CE002B501F /* AIRChemicalViewController.swift */,
+			);
+			path = Chemical;
+			sourceTree = "<group>";
+		};
 		E63DB73B1BF57AA8000E3E42 /* UIKit+Extension */ = {
 			isa = PBXGroup;
 			children = (
-				E6E26A2D1C20D41600BE26E5 /* UIImage+AIRHeatmap.swift */,
 				E6B10BA91C039F3600B77A67 /* UIImage+UIView.swift */,
 				E63DB73C1BF57AA8000E3E42 /* AIRTableViewCell.swift */,
 			);
@@ -247,15 +246,15 @@
 				E669402D1BEAC6E200771F8B /* AppDelegate.swift */,
 				E62A03C51BF15E9F0046ABE0 /* Google */,
 				E67376831C2B657A005E822C /* Summary */,
+				E62F17051C3C45CE002B501F /* Chemical */,
 				E695DA681BF2C32F0060BF66 /* Map */,
+				E6DBB81B1C1223430008A821 /* Setting */,
 				E62A03BC1BF1514A0046ABE0 /* Location */,
 				E6FDD4581C237CA4005C3340 /* User */,
 				E647B4751BFBEABB00B2CA4F /* Sensor */,
-				E6DBB81B1C1223430008A821 /* Setting */,
 				E612614A1BF160C200BE8E91 /* NSFoundation+Extension */,
 				E63DB73B1BF57AA8000E3E42 /* UIKit+Extension */,
 				E6839C721BF2B939007BD219 /* Model */,
-				E6B0FCFC1C2C9FF800AD9AD5 /* IOStickyHeader */,
 				E6E8AF931C17C49D00605151 /* BLMultiColorLoader */,
 				E61261461BF1601200BE8E91 /* SwiftyJSON */,
 				E67D11151C01E82E0065266D /* GradientSlider */,
@@ -294,8 +293,6 @@
 		E67376831C2B657A005E822C /* Summary */ = {
 			isa = PBXGroup;
 			children = (
-				E6B0FD011C2CA52C00AD9AD5 /* AIRSummaryCollectionCell.swift */,
-				E6B0FD021C2CA52C00AD9AD5 /* AIRSummaryCollectionCell.xib */,
 				E67376851C2B657A005E822C /* AIRSummary.swift */,
 				E67376861C2B657A005E822C /* AIRSummaryViewController.swift */,
 			);
@@ -349,8 +346,6 @@
 		E695DA681BF2C32F0060BF66 /* Map */ = {
 			isa = PBXGroup;
 			children = (
-				E6E26A2A1C20D36E00BE26E5 /* AIRHeatmap.h */,
-				E6E26A2B1C20D36E00BE26E5 /* AIRHeatmap.m */,
 				E695DA6B1BF2C32F0060BF66 /* AIRMapViewController.swift */,
 				E62A34571C1A3038009A04CA /* AIRCurrentLocationView.swift */,
 				E6BC9CEB1C03878B004769AD /* AIRTimelineView.swift */,
@@ -360,15 +355,6 @@
 				E695DA6A1BF2C32F0060BF66 /* AIRMapView.swift */,
 			);
 			path = Map;
-			sourceTree = "<group>";
-		};
-		E6B0FCFC1C2C9FF800AD9AD5 /* IOStickyHeader */ = {
-			isa = PBXGroup;
-			children = (
-				E6B0FCFD1C2CA00E00AD9AD5 /* IOStickyHeaderFlowLayout.swift */,
-				E6B0FCFE1C2CA00E00AD9AD5 /* IOStickyHeaderFlowLayoutAttibutes.swift */,
-			);
-			name = IOStickyHeader;
 			sourceTree = "<group>";
 		};
 		E6DBB81B1C1223430008A821 /* Setting */ = {
@@ -470,7 +456,6 @@
 				E66E26F91BFABC60004E58CB /* vasp.csv in Resources */,
 				E673768B1C2B69AE005E822C /* Main.storyboard in Resources */,
 				E6E173251C20C80500F74F8F /* vasp_mgpqm_0.2mile.csv in Resources */,
-				E6B0FD041C2CA52C00AD9AD5 /* AIRSummaryCollectionCell.xib in Resources */,
 				E66E26FA1BFABC60004E58CB /* ZAIRLOCATION.csv in Resources */,
 				E699E9251C2B7A8500633449 /* Assets.xcassets in Resources */,
 			);
@@ -567,18 +552,16 @@
 				E62A03C01BF1514A0046ABE0 /* AIRLocationManager.swift in Sources */,
 				E6FDD4601C2386C2005C3340 /* AIRUser.swift in Sources */,
 				E62A03CB1BF15E9F0046ABE0 /* AIRGoogleMapOperationQueue.swift in Sources */,
-				E6B0FD031C2CA52C00AD9AD5 /* AIRSummaryCollectionCell.swift in Sources */,
 				E6E8AF981C17C4E000605151 /* AIRLoadingView.swift in Sources */,
 				E6E8AF961C17C49D00605151 /* BLMultiColorLoader.m in Sources */,
 				E61CFA1B1C1F8D1F00119148 /* AIRBadAirLocationMarker.swift in Sources */,
-				E6E26A2E1C20D41600BE26E5 /* UIImage+AIRHeatmap.swift in Sources */,
 				E67376891C2B657A005E822C /* AIRSummaryViewController.swift in Sources */,
 				E62A34581C1A3038009A04CA /* AIRCurrentLocationView.swift in Sources */,
-				E6E26A2C1C20D36E00BE26E5 /* AIRHeatmap.m in Sources */,
+				E62F17071C3C45CE002B501F /* AIRChemicalViewController.swift in Sources */,
 				E62A03C41BF157360046ABE0 /* AIRConstant-Private.swift in Sources */,
 				E6D803FD1BFD444C00A55326 /* AIRSensorManager.swift in Sources */,
 				E67D11171C01E8430065266D /* GradientSlider.swift in Sources */,
-				E6B0FD001C2CA00E00AD9AD5 /* IOStickyHeaderFlowLayoutAttibutes.swift in Sources */,
+				E62F17091C3C485D002B501F /* AIRChemicalGraphView.swift in Sources */,
 				E695DA671BF2BEAB0060BF66 /* NSDate+Ago.swift in Sources */,
 				E6839C741BF2B939007BD219 /* AIRCoreDataManager.swift in Sources */,
 				E6E26A301C20F91800BE26E5 /* AIRSensorOperationQueue.swift in Sources */,
@@ -589,7 +572,6 @@
 				E6F4DCDA1C0DB72A00F8DA0F /* String+Justified.swift in Sources */,
 				E6DBB81D1C1223430008A821 /* AIRSettingViewController.swift in Sources */,
 				E6E4B73D1BEADEC6002DEAB1 /* AIRConstant.swift in Sources */,
-				E6B0FCFF1C2CA00E00AD9AD5 /* IOStickyHeaderFlowLayout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

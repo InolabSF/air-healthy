@@ -5,430 +5,196 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
     </dependencies>
     <scenes>
-        <!--Air delegate-->
+        <!--Delegate-->
         <scene sceneID="uOV-LO-m0M">
             <objects>
-                <viewController id="0eM-6L-46W" customClass="AIRMapViewController" customModule="air_health" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="0eM-6L-46W" customClass="AIRSummaryViewController" customModule="air_health" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XKm-7N-CCL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" id="Nhu-VV-PWx" customClass="AIRTimelineView" customModule="air_health" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                            <view contentMode="scaleToFill" id="8GN-CN-bbi" customClass="AIRSensorGraphView" customModule="air_health" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" id="a7Q-ns-4CJ" customClass="AIRMapView" customModule="air_health" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="128" width="320" height="248"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                    <view contentMode="scaleToFill" id="84s-o2-Nv0">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="247"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Rci-Ag-7h3">
-                                                <rect key="frame" x="272" y="160" width="48" height="48"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="32"/>
-                                                <state key="normal" title="A"/>
-                                                <connections>
-                                                    <action selector="touchedUpInsideButton:" destination="a7Q-ns-4CJ" eventType="touchUpInside" id="lvx-5Z-t3z"/>
-                                                </connections>
-                                            </button>
-                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="IPE-jb-zMq">
-                                                <rect key="frame" x="272" y="160" width="48" height="48"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="32"/>
-                                                <state key="normal" title="B"/>
-                                                <connections>
-                                                    <action selector="touchedUpInsideButton:" destination="a7Q-ns-4CJ" eventType="touchUpInside" id="31Q-MW-8ef"/>
-                                                </connections>
-                                            </button>
+                                            <view contentMode="scaleToFill" id="Qh3-jM-1cC">
+                                                <rect key="frame" x="64" y="28" width="192" height="192"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" id="mYd-ES-9mJ" customClass="LMGaugeView">
+                                                        <rect key="frame" x="0.0" y="0.0" width="192" height="192"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="8GN-CN-bbi" id="feM-v2-Naw"/>
+                                                        </connections>
+                                                    </view>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="MM3-TE-Hst">
+                                                        <rect key="frame" x="32" y="32" width="128" height="128"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <inset key="contentEdgeInsets" minX="32" minY="32" maxX="32" maxY="32"/>
+                                                        <state key="normal" image="home_icon_good"/>
+                                                    </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Good" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Dpf-0N-4ru">
+                                                        <rect key="frame" x="32" y="110" width="128" height="20"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="10"/>
+                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Xcj-nn-ecx">
+                                                        <rect key="frame" x="32" y="132" width="128" height="48"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            </view>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <connections>
-                                            <outlet property="air_delegate" destination="0eM-6L-46W" id="33f-Mx-jpz"/>
-                                            <outlet property="circleButton" destination="Rci-Ag-7h3" id="h2u-ye-gbg"/>
-                                            <outlet property="delegate" destination="0eM-6L-46W" id="Jx2-Q8-uBk"/>
-                                            <outlet property="rectButton" destination="IPE-jb-zMq" id="uHC-3Y-Rxk"/>
-                                        </connections>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
-                                    <view contentMode="scaleToFill" id="8GN-CN-bbi" customClass="AIRSensorGraphView" customModule="air_health" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="128" width="320" height="440"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                    <view contentMode="scaleToFill" id="4Zo-W0-eCA" customClass="AIRSummaryView" customModule="air_health" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="247"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                         <subviews>
-                                            <view contentMode="scaleToFill" id="84s-o2-Nv0">
+                                            <view contentMode="scaleToFill" id="yCS-SS-KTF">
                                                 <rect key="frame" x="0.0" y="0.0" width="320" height="247"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                                 <subviews>
-                                                    <view contentMode="scaleToFill" id="Qh3-jM-1cC">
+                                                    <view contentMode="scaleToFill" id="8oo-MQ-p3t">
                                                         <rect key="frame" x="64" y="28" width="192" height="192"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                         <subviews>
-                                                            <view contentMode="scaleToFill" id="mYd-ES-9mJ" customClass="LMGaugeView">
-                                                                <rect key="frame" x="0.0" y="0.0" width="192" height="192"/>
+                                                            <view contentMode="scaleToFill" id="3o1-Cs-5FS">
+                                                                <rect key="frame" x="40" y="12" width="112" height="112"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                <connections>
-                                                                    <outlet property="delegate" destination="8GN-CN-bbi" id="feM-v2-Naw"/>
-                                                                </connections>
                                                             </view>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="MM3-TE-Hst">
-                                                                <rect key="frame" x="32" y="32" width="128" height="128"/>
-                                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                <inset key="contentEdgeInsets" minX="32" minY="32" maxX="32" maxY="32"/>
-                                                                <state key="normal" image="home_icon_good"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="zuG-r0-jfT">
+                                                                <rect key="frame" x="40" y="12" width="112" height="112"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                                <state key="normal" image="home_summary_bad"/>
+                                                                <connections>
+                                                                    <action selector="touchedUpInsideButton:" destination="4Zo-W0-eCA" eventType="touchUpInside" id="WgC-5x-IOG"/>
+                                                                </connections>
                                                             </button>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Good" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Dpf-0N-4ru">
-                                                                <rect key="frame" x="32" y="110" width="128" height="20"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bad" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DLB-cU-cdt">
+                                                                <rect key="frame" x="32" y="100" width="128" height="20"/>
                                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="10"/>
+                                                                <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="16"/>
                                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Xcj-nn-ecx">
-                                                                <rect key="frame" x="32" y="132" width="128" height="48"/>
-                                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
+                                                            <view contentMode="scaleToFill" id="pia-hz-0EE">
+                                                                <rect key="frame" x="0.0" y="128" width="96" height="64"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                <subviews>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9Xx-Hc-05h">
+                                                                        <rect key="frame" x="16" y="0.0" width="64" height="64"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                                        <inset key="contentEdgeInsets" minX="16" minY="16" maxX="16" maxY="16"/>
+                                                                        <state key="normal" image="home_summary_mask_bad"/>
+                                                                        <connections>
+                                                                            <action selector="touchedUpInsideButton:" destination="4Zo-W0-eCA" eventType="touchUpInside" id="sWS-yk-ZAH"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wear a mask" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lNs-YP-Fvw">
+                                                                        <rect key="frame" x="0.0" y="50" width="96" height="16"/>
+                                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                                                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" id="p77-xI-pRt">
+                                                                <rect key="frame" x="96" y="128" width="96" height="64"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                <subviews>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5KK-2X-6QE">
+                                                                        <rect key="frame" x="16" y="0.0" width="64" height="64"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                                        <inset key="contentEdgeInsets" minX="16" minY="16" maxX="16" maxY="16"/>
+                                                                        <state key="normal" image="home_summary_sports_bad"/>
+                                                                        <connections>
+                                                                            <action selector="touchedUpInsideButton:" destination="4Zo-W0-eCA" eventType="touchUpInside" id="RSl-Fx-cJ6"/>
+                                                                        </connections>
+                                                                    </button>
+                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't run" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hdp-E4-0W4">
+                                                                        <rect key="frame" x="0.0" y="50" width="96" height="16"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES"/>
+                                                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                                                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        <nil key="highlightedColor"/>
+                                                                    </label>
+                                                                </subviews>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                            </view>
                                                         </subviews>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     </view>
                                                 </subviews>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </view>
-                                            <view contentMode="scaleToFill" id="4Zo-W0-eCA" customClass="AIRSummaryView" customModule="air_health" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="247"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                                <subviews>
-                                                    <view contentMode="scaleToFill" id="yCS-SS-KTF">
-                                                        <rect key="frame" x="0.0" y="0.0" width="320" height="247"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                                        <subviews>
-                                                            <view contentMode="scaleToFill" id="8oo-MQ-p3t">
-                                                                <rect key="frame" x="64" y="28" width="192" height="192"/>
-                                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                                                <subviews>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="zuG-r0-jfT">
-                                                                        <rect key="frame" x="40" y="12" width="112" height="112"/>
-                                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                                                        <state key="normal" image="home_summary_bad"/>
-                                                                        <connections>
-                                                                            <action selector="touchedUpInsideButton:" destination="4Zo-W0-eCA" eventType="touchUpInside" id="WgC-5x-IOG"/>
-                                                                        </connections>
-                                                                    </button>
-                                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bad" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="DLB-cU-cdt">
-                                                                        <rect key="frame" x="32" y="100" width="128" height="20"/>
-                                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                        <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="16"/>
-                                                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                                        <nil key="highlightedColor"/>
-                                                                    </label>
-                                                                    <view contentMode="scaleToFill" id="pia-hz-0EE">
-                                                                        <rect key="frame" x="0.0" y="128" width="96" height="64"/>
-                                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                                        <subviews>
-                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9Xx-Hc-05h">
-                                                                                <rect key="frame" x="16" y="0.0" width="64" height="64"/>
-                                                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                                                                <inset key="contentEdgeInsets" minX="16" minY="16" maxX="16" maxY="16"/>
-                                                                                <state key="normal" image="home_summary_mask_bad"/>
-                                                                                <connections>
-                                                                                    <action selector="touchedUpInsideButton:" destination="4Zo-W0-eCA" eventType="touchUpInside" id="sWS-yk-ZAH"/>
-                                                                                </connections>
-                                                                            </button>
-                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wear a mask" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lNs-YP-Fvw">
-                                                                                <rect key="frame" x="0.0" y="50" width="96" height="16"/>
-                                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                                                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                                                <nil key="highlightedColor"/>
-                                                                            </label>
-                                                                        </subviews>
-                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                                    </view>
-                                                                    <view contentMode="scaleToFill" id="p77-xI-pRt">
-                                                                        <rect key="frame" x="96" y="128" width="96" height="64"/>
-                                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                                        <subviews>
-                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="5KK-2X-6QE">
-                                                                                <rect key="frame" x="16" y="0.0" width="64" height="64"/>
-                                                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                                                                <inset key="contentEdgeInsets" minX="16" minY="16" maxX="16" maxY="16"/>
-                                                                                <state key="normal" image="home_summary_sports_bad"/>
-                                                                                <connections>
-                                                                                    <action selector="touchedUpInsideButton:" destination="4Zo-W0-eCA" eventType="touchUpInside" id="RSl-Fx-cJ6"/>
-                                                                                </connections>
-                                                                            </button>
-                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't run" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hdp-E4-0W4">
-                                                                                <rect key="frame" x="0.0" y="50" width="96" height="16"/>
-                                                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES"/>
-                                                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
-                                                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                                                <nil key="highlightedColor"/>
-                                                                            </label>
-                                                                        </subviews>
-                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                                    </view>
-                                                                </subviews>
-                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                            </view>
-                                                        </subviews>
-                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    </view>
-                                                </subviews>
-                                                <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
-                                                <connections>
-                                                    <outlet property="masksButton" destination="9Xx-Hc-05h" id="p3t-Ji-xxP"/>
-                                                    <outlet property="masksLabel" destination="lNs-YP-Fvw" id="cwu-Pl-WBw"/>
-                                                    <outlet property="masksView" destination="pia-hz-0EE" id="O1r-6x-D9z"/>
-                                                    <outlet property="sportsButton" destination="5KK-2X-6QE" id="pZX-Qr-hyD"/>
-                                                    <outlet property="sportsLabel" destination="hdp-E4-0W4" id="NVh-1g-gBf"/>
-                                                    <outlet property="sportsView" destination="p77-xI-pRt" id="4Rk-cA-MfY"/>
-                                                    <outlet property="summaryButton" destination="zuG-r0-jfT" id="PrS-LL-HYV"/>
-                                                    <outlet property="summaryLabel" destination="DLB-cU-cdt" id="qsG-A9-4fU"/>
-                                                </connections>
-                                            </view>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="lcE-C7-3Zm">
-                                                <rect key="frame" x="272" y="196" width="48" height="48"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="32"/>
-                                                <state key="normal" title="A"/>
-                                                <connections>
-                                                    <action selector="touchUpInsideButton:" destination="0eM-6L-46W" eventType="touchUpInside" id="wiE-EL-cyf"/>
-                                                </connections>
-                                            </button>
-                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="cHF-CL-d2S">
-                                                <rect key="frame" x="272" y="196" width="48" height="48"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="32"/>
-                                                <state key="normal" title="B"/>
-                                                <connections>
-                                                    <action selector="touchUpInsideButton:" destination="0eM-6L-46W" eventType="touchUpInside" id="fRN-fv-O7O"/>
-                                                </connections>
-                                            </button>
                                         </subviews>
-                                        <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
-                                            <outlet property="gaugeButton" destination="MM3-TE-Hst" id="jL2-ft-ZEb"/>
-                                            <outlet property="gaugeLabel" destination="Dpf-0N-4ru" id="oxf-Ft-hhS"/>
-                                            <outlet property="gaugeView" destination="mYd-ES-9mJ" id="RfR-S6-iHc"/>
-                                            <outlet property="sensorLabel" destination="Xcj-nn-ecx" id="kOu-1o-vqF"/>
+                                            <outlet property="delegate" destination="0eM-6L-46W" id="OBF-0c-Bc5"/>
+                                            <outlet property="masksButton" destination="9Xx-Hc-05h" id="p3t-Ji-xxP"/>
+                                            <outlet property="masksLabel" destination="lNs-YP-Fvw" id="cwu-Pl-WBw"/>
+                                            <outlet property="masksView" destination="pia-hz-0EE" id="O1r-6x-D9z"/>
+                                            <outlet property="sportsButton" destination="5KK-2X-6QE" id="pZX-Qr-hyD"/>
+                                            <outlet property="sportsLabel" destination="hdp-E4-0W4" id="NVh-1g-gBf"/>
+                                            <outlet property="sportsView" destination="p77-xI-pRt" id="4Rk-cA-MfY"/>
+                                            <outlet property="summaryButton" destination="zuG-r0-jfT" id="PrS-LL-HYV"/>
+                                            <outlet property="summaryButtonView" destination="3o1-Cs-5FS" id="R90-p4-u6a"/>
+                                            <outlet property="summaryLabel" destination="DLB-cU-cdt" id="qsG-A9-4fU"/>
                                         </connections>
                                     </view>
-                                    <view contentMode="scaleToFill" id="VeK-hw-wM3">
-                                        <rect key="frame" x="0.0" y="376" width="320" height="192"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" id="bHH-Wv-pDS">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="192"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="APg-Fh-kdD">
-                                                        <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
-                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="16" maxY="0.0"/>
-                                                        <state key="normal" title=" Map">
-                                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <state key="highlighted">
-                                                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="touchUpInsideButton:" destination="Nhu-VV-PWx" eventType="touchUpInside" id="YrS-kT-1Ps"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="BHa-8f-ptq">
-                                                        <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
-                                                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="16" maxY="0.0"/>
-                                                        <state key="normal" title="Back">
-                                                            <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <state key="highlighted">
-                                                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="touchUpInsideButton:" destination="Nhu-VV-PWx" eventType="touchUpInside" id="YhT-CD-6r1"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
-                                                <color key="backgroundColor" red="0.90980392160000001" green="0.90980392160000001" blue="0.90980392160000001" alpha="1" colorSpace="calibratedRGB"/>
-                                            </view>
-                                            <view contentMode="scaleToFill" id="bnp-BR-GyJ">
-                                                <rect key="frame" x="0.0" y="48" width="320" height="144"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <subviews>
-                                                    <view hidden="YES" contentMode="scaleToFill" id="POu-Jd-Vqr">
-                                                        <rect key="frame" x="0.0" y="0.0" width="320" height="392"/>
-                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                                        <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="m9U-Bb-58P">
-                                                                <rect key="frame" x="20" y="20" width="42" height="16"/>
-                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
-                                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8NL-J6-aVl">
-                                                                <rect key="frame" x="258" y="20" width="42" height="16"/>
-                                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
-                                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
-                                                            <view contentMode="scaleToFill" id="wfd-GG-zZH">
-                                                                <rect key="frame" x="32" y="52" width="256" height="64"/>
-                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                                                <subviews>
-                                                                    <view contentMode="scaleToFill" id="klu-BA-Rke">
-                                                                        <rect key="frame" x="0.0" y="80" width="256" height="0.0"/>
-                                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                        <color key="backgroundColor" red="0.1803921568627451" green="0.80000000000000004" blue="0.44313725490196076" alpha="0.5" colorSpace="calibratedRGB"/>
-                                                                    </view>
-                                                                    <view contentMode="scaleToFill" id="Yy6-UE-anD">
-                                                                        <rect key="frame" x="0.0" y="40" width="256" height="0.0"/>
-                                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                        <color key="backgroundColor" red="0.94509803921568625" green="0.76862745098039209" blue="0.058823529411764705" alpha="0.5" colorSpace="calibratedRGB"/>
-                                                                    </view>
-                                                                    <view contentMode="scaleToFill" id="VIQ-Nn-ait">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="256" height="0.0"/>
-                                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                        <color key="backgroundColor" red="0.90588235294117647" green="0.29803921568627451" blue="0.23529411764705882" alpha="0.5" colorSpace="calibratedRGB"/>
-                                                                    </view>
-                                                                    <view contentMode="scaleToFill" id="tV9-P2-1HW">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="256" height="64"/>
-                                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                                    </view>
-                                                                    <view contentMode="scaleToFill" id="DDs-G2-elz">
-                                                                        <rect key="frame" x="255" y="0.0" width="2" height="64"/>
-                                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                                                        <color key="backgroundColor" red="0.50196078431372548" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                                    </view>
-                                                                </subviews>
-                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                            </view>
-                                                            <view contentMode="scaleToFill" id="yoB-53-Dex" customClass="GradientSlider" customModule="air_health" customModuleProvider="target">
-                                                                <rect key="frame" x="18" y="18" width="284" height="60"/>
-                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                                <userDefinedRuntimeAttributes>
-                                                                    <userDefinedRuntimeAttribute type="number" keyPath="value">
-                                                                        <real key="value" value="1"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="hasRainbow" value="YES"/>
-                                                                    <userDefinedRuntimeAttribute type="number" keyPath="minimumValue">
-                                                                        <real key="value" value="0.0"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                    <userDefinedRuntimeAttribute type="number" keyPath="maximumValue">
-                                                                        <real key="value" value="1"/>
-                                                                    </userDefinedRuntimeAttribute>
-                                                                    <userDefinedRuntimeAttribute type="image" keyPath="thumbIcon" value="map_slider_thumb"/>
-                                                                </userDefinedRuntimeAttributes>
-                                                                <connections>
-                                                                    <action selector="valueChangedWithControl:" destination="Nhu-VV-PWx" eventType="valueChanged" id="ZWS-a8-Lor"/>
-                                                                </connections>
-                                                            </view>
-                                                        </subviews>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </view>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" id="ZgL-vd-B4S">
-                                        <rect key="frame" x="0.0" y="64" width="320" height="64"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="xji-3G-CSg">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                                <inset key="contentEdgeInsets" minX="32" minY="0.0" maxX="32" maxY="0.0"/>
-                                                <state key="normal">
-                                                    <attributedString key="attributedTitle">
-                                                        <fragment content="Nov">
-                                                            <attributes>
-                                                                <color key="NSColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <font key="NSFont" size="12" name="HelveticaNeue"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                        <fragment content=" ">
-                                                            <attributes>
-                                                                <font key="NSFont" size="18" name="HelveticaNeue"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                        <fragment content="21">
-                                                            <attributes>
-                                                                <color key="NSColor" red="0.25098039215686274" green="0.25098039215686274" blue="0.25098039215686274" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <font key="NSFont" size="24" name="HelveticaNeue"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                        <fragment content=" ">
-                                                            <attributes>
-                                                                <font key="NSFont" size="18" name="HelveticaNeue"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                        <fragment content="2015">
-                                                            <attributes>
-                                                                <color key="NSColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <font key="NSFont" size="16" name="HelveticaNeue"/>
-                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
-                                                            </attributes>
-                                                        </fragment>
-                                                    </attributedString>
-                                                </state>
-                                                <connections>
-                                                    <action selector="touchUpInsideButton:" destination="Nhu-VV-PWx" eventType="touchUpInside" id="rjZ-Gj-HKO"/>
-                                                </connections>
-                                            </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rSz-DM-AAa">
-                                                <rect key="frame" x="160" y="0.0" width="128" height="64"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="48"/>
-                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="lcE-C7-3Zm">
+                                        <rect key="frame" x="272" y="196" width="48" height="48"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="32"/>
+                                        <state key="normal" title="A"/>
+                                        <connections>
+                                            <action selector="touchUpInsideButton:" destination="0eM-6L-46W" eventType="touchUpInside" id="wiE-EL-cyf"/>
+                                        </connections>
+                                    </button>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="cHF-CL-d2S">
+                                        <rect key="frame" x="272" y="196" width="48" height="48"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="32"/>
+                                        <state key="normal" title="B"/>
+                                        <connections>
+                                            <action selector="touchUpInsideButton:" destination="0eM-6L-46W" eventType="touchUpInside" id="fRN-fv-O7O"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
-                                    <outlet property="closeButton" destination="BHa-8f-ptq" id="DLb-13-a37"/>
-                                    <outlet property="dateButton" destination="xji-3G-CSg" id="S6v-HJ-8pF"/>
-                                    <outlet property="dateView" destination="ZgL-vd-B4S" id="ZiW-cL-B93"/>
-                                    <outlet property="delegate" destination="0eM-6L-46W" id="4ik-S0-NB1"/>
-                                    <outlet property="endTimeLabel" destination="8NL-J6-aVl" id="4qM-cH-FrG"/>
-                                    <outlet property="greenView" destination="klu-BA-Rke" id="d0T-Ul-cTy"/>
-                                    <outlet property="openButton" destination="APg-Fh-kdD" id="9nh-a3-ALP"/>
-                                    <outlet property="redView" destination="VIQ-Nn-ait" id="Fbz-iR-2BU"/>
-                                    <outlet property="startTimeLabel" destination="m9U-Bb-58P" id="sfp-kD-0HC"/>
-                                    <outlet property="timeIndicatorView" destination="DDs-G2-elz" id="wXk-sZ-Mog"/>
-                                    <outlet property="timeLabel" destination="rSz-DM-AAa" id="6dh-8c-zLH"/>
-                                    <outlet property="timeSlider" destination="yoB-53-Dex" id="SBi-Jx-CLE"/>
-                                    <outlet property="timeSliderContentView" destination="POu-Jd-Vqr" id="xqZ-Fc-ABp"/>
-                                    <outlet property="timeSliderTitleView" destination="bHH-Wv-pDS" id="RLu-CA-gxk"/>
-                                    <outlet property="timeSliderView" destination="VeK-hw-wM3" id="W2C-BX-x8y"/>
-                                    <outlet property="timelineLineChartBackgroundView" destination="tV9-P2-1HW" id="JlE-8o-jMj"/>
-                                    <outlet property="yellowView" destination="Yy6-UE-anD" id="pA0-tY-hTW"/>
+                                    <outlet property="gaugeButton" destination="MM3-TE-Hst" id="jL2-ft-ZEb"/>
+                                    <outlet property="gaugeLabel" destination="Dpf-0N-4ru" id="oxf-Ft-hhS"/>
+                                    <outlet property="gaugeView" destination="mYd-ES-9mJ" id="RfR-S6-iHc"/>
+                                    <outlet property="sensorLabel" destination="Xcj-nn-ecx" id="kOu-1o-vqF"/>
                                 </connections>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" id="5HE-Gq-jUC" customClass="AIRLoadingView" customModule="air_health" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" id="ToY-mJ-LDO">
-                                        <rect key="frame" x="0.0" y="424" width="320" height="144"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <rect key="frame" x="0.0" y="320" width="320" height="248"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" id="qwt-be-Xqa" customClass="BLMultiColorLoader">
-                                                <rect key="frame" x="136" y="48" width="48" height="48"/>
+                                                <rect key="frame" x="136" y="100" width="48" height="48"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </view>
@@ -465,17 +231,179 @@
                         <outlet property="graphButton" destination="cHF-CL-d2S" id="un6-TN-qdi"/>
                         <outlet property="leftBarButton" destination="8Ui-qS-lhi" id="Rth-AV-U6t"/>
                         <outlet property="loadingView" destination="5HE-Gq-jUC" id="dHm-Yj-HEe"/>
-                        <outlet property="mapView" destination="a7Q-ns-4CJ" id="5SU-JS-xUN"/>
                         <outlet property="rightBarButton" destination="J7i-wm-Ytc" id="zZx-sX-teX"/>
                         <outlet property="sensorGraphView" destination="8GN-CN-bbi" id="1rH-n0-X5x"/>
                         <outlet property="summaryButton" destination="lcE-C7-3Zm" id="2pU-hr-pOD"/>
                         <outlet property="summaryView" destination="4Zo-W0-eCA" id="5Hi-zG-JrW"/>
-                        <outlet property="timelineView" destination="Nhu-VV-PWx" id="q09-DJ-MPR"/>
+                        <segue destination="cCH-5D-yex" kind="push" identifier="AIRChemicalViewController" id="f0E-WT-sqJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="npD-Ta-Trc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="342" y="2438"/>
+            <point key="canvasLocation" x="296" y="2481"/>
+        </scene>
+        <!--Delegate-->
+        <scene sceneID="ERe-bf-k9A">
+            <objects>
+                <viewController id="cCH-5D-yex" customClass="AIRChemicalViewController" customModule="air_health" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="vQa-PI-LYa">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="yq9-ho-UmP" customClass="AIRChemicalGraphView" customModule="air_health" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" id="BHn-ZP-n1G">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="208"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" id="oqk-8Z-toX">
+                                                <rect key="frame" x="24" y="32" width="128" height="128"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" id="NvY-6G-oFT" customClass="VBPieChart">
+                                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="hWA-vK-VY0">
+                                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                        <connections>
+                                                            <action selector="touchUpInsideButton:" destination="yq9-ho-UmP" eventType="touchUpInside" id="BND-qb-vbT"/>
+                                                        </connections>
+                                                    </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="O3" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2cZ-v2-ano">
+                                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                                                        <color key="textColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            </view>
+                                            <view contentMode="scaleToFill" id="cmm-tX-JSb">
+                                                <rect key="frame" x="168" y="32" width="128" height="128"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <subviews>
+                                                    <view contentMode="scaleToFill" id="9Ni-og-qui" customClass="VBPieChart">
+                                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="T1W-cP-ioR">
+                                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                        <connections>
+                                                            <action selector="touchUpInsideButton:" destination="yq9-ho-UmP" eventType="touchUpInside" id="xOI-Rf-UCg"/>
+                                                        </connections>
+                                                    </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SO2" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="MFq-Sz-sxw">
+                                                        <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
+                                                        <color key="textColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap and See the Details" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="IJe-v1-t6M">
+                                                <rect key="frame" x="0.0" y="166" width="320" height="21"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
+                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" id="Hyd-lo-UR2">
+                                        <rect key="frame" x="0.0" y="208" width="320" height="296"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" id="ViN-wo-ziF">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="232"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SUMMARY" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8hc-OL-sJe">
+                                                        <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
+                                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.90980392160000001" green="0.90980392160000001" blue="0.90980392160000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            </view>
+                                            <view contentMode="scaleToFill" id="kuJ-Wg-VdW">
+                                                <rect key="frame" x="0.0" y="48" width="320" height="248"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hcB-Cb-Zwf">
+                                                        <rect key="frame" x="32" y="13" width="256" height="72"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                        <string key="text">You had some negative exposure to O3 and SO2. Long exposure to these harmful gas can lead to asthma. Find an alternative route next time or leave after the rush hour to avoid these harmful gas.</string>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
+                                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.97254901959999995" green="0.97254901959999995" blue="0.97254901959999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <outlet property="O3Button" destination="hWA-vK-VY0" id="LXm-0b-1T6"/>
+                                    <outlet property="O3PieChartView" destination="NvY-6G-oFT" id="uL9-pf-GfC"/>
+                                    <outlet property="O3View" destination="oqk-8Z-toX" id="9WM-0t-eEm"/>
+                                    <outlet property="SO2Button" destination="T1W-cP-ioR" id="5ka-aY-KGd"/>
+                                    <outlet property="SO2PieChartView" destination="9Ni-og-qui" id="PzL-dx-gHz"/>
+                                    <outlet property="SO2View" destination="cmm-tX-JSb" id="zs3-Cl-F6B"/>
+                                    <outlet property="delegate" destination="cCH-5D-yex" id="0fM-Fz-FcC"/>
+                                    <outlet property="summaryIconView" destination="ViN-wo-ziF" id="Zdr-vW-aJx"/>
+                                    <outlet property="summaryLabel" destination="hcB-Cb-Zwf" id="xRE-vg-rJC"/>
+                                    <outlet property="summaryView" destination="Hyd-lo-UR2" id="eB6-f0-H1F"/>
+                                </connections>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="ANALYTICS" id="2b6-t7-6Nx">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="w0G-40-GSu">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="jpO-tw-Vf9">
+                                <rect key="frame" x="16" y="7" width="71" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="touchUpInsideButton:" destination="cCH-5D-yex" eventType="touchUpInside" id="P6Y-Xu-TDN"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="l8q-hC-gTX">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="KAK-dZ-Od3">
+                                <rect key="frame" x="233" y="7" width="71" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <segue destination="ddf-CN-Rwm" kind="modal" id="4de-Lk-Ur5"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="graphView" destination="yq9-ho-UmP" id="CSW-mb-Ppf"/>
+                        <outlet property="leftBarButton" destination="jpO-tw-Vf9" id="bnu-fr-Vs6"/>
+                        <outlet property="rightBarButton" destination="KAK-dZ-Od3" id="AC1-se-AhI"/>
+                        <segue destination="M7n-hn-zuS" kind="push" identifier="AIRMapViewController" id="Ffx-u4-ael"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3ea-c9-yih" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="296" y="3206"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="QRK-ob-KDK">
@@ -491,7 +419,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YBv-HN-CjP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="737" y="2438"/>
+            <point key="canvasLocation" x="767" y="2486"/>
         </scene>
         <!--SETTINGS-->
         <scene sceneID="G4e-lp-E4V">
@@ -558,7 +486,244 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mm9-r7-ZWt" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1154" y="2438"/>
+            <point key="canvasLocation" x="1204" y="2481"/>
+        </scene>
+        <!--Delegate-->
+        <scene sceneID="JMW-ia-4Hc">
+            <objects>
+                <viewController id="M7n-hn-zuS" customClass="AIRMapViewController" customModule="air_health" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="V8k-sn-GL7">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" id="r4T-jl-lRh" customClass="AIRTimelineView" customModule="air_health" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" id="cen-RP-AtV" customClass="AIRMapView" customModule="air_health" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="128" width="320" height="248"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="M7n-hn-zuS" id="K5Y-uG-9Qu"/>
+                                        </connections>
+                                    </view>
+                                    <view contentMode="scaleToFill" id="3zt-e9-78O">
+                                        <rect key="frame" x="0.0" y="376" width="320" height="192"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" id="kGi-2a-pfq">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="192"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SO2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fWl-Ot-zhy">
+                                                        <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
+                                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.90980392160000001" green="0.90980392160000001" blue="0.90980392160000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            </view>
+                                            <view contentMode="scaleToFill" id="6QT-uY-9Qf">
+                                                <rect key="frame" x="0.0" y="48" width="320" height="144"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <subviews>
+                                                    <view hidden="YES" contentMode="scaleToFill" id="Lwe-Aw-fkc">
+                                                        <rect key="frame" x="0.0" y="0.0" width="320" height="392"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zJN-gX-o6p">
+                                                                <rect key="frame" x="20" y="20" width="42" height="16"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
+                                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="5Ox-e4-8bZ">
+                                                                <rect key="frame" x="258" y="20" width="42" height="16"/>
+                                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="12"/>
+                                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <view contentMode="scaleToFill" id="Lva-9Y-vNQ">
+                                                                <rect key="frame" x="32" y="52" width="256" height="64"/>
+                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                                                <subviews>
+                                                                    <view contentMode="scaleToFill" id="08N-zX-NE0">
+                                                                        <rect key="frame" x="0.0" y="80" width="256" height="0.0"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                        <color key="backgroundColor" red="0.18039215689999999" green="0.80000000000000004" blue="0.4431372549" alpha="0.5" colorSpace="calibratedRGB"/>
+                                                                    </view>
+                                                                    <view contentMode="scaleToFill" id="OK4-Wl-Cwi">
+                                                                        <rect key="frame" x="0.0" y="40" width="256" height="0.0"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                        <color key="backgroundColor" red="0.94509803920000002" green="0.76862745099999996" blue="0.058823529409999999" alpha="0.5" colorSpace="calibratedRGB"/>
+                                                                    </view>
+                                                                    <view contentMode="scaleToFill" id="s4y-nO-gNc">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="256" height="0.0"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                        <color key="backgroundColor" red="0.90588235289999997" green="0.29803921570000003" blue="0.23529411759999999" alpha="0.5" colorSpace="calibratedRGB"/>
+                                                                    </view>
+                                                                    <view contentMode="scaleToFill" id="1r2-UE-c5W">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="256" height="64"/>
+                                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                    </view>
+                                                                    <view contentMode="scaleToFill" id="GWS-MT-PcL">
+                                                                        <rect key="frame" x="255" y="0.0" width="2" height="64"/>
+                                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                                        <color key="backgroundColor" red="0.50196078430000002" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    </view>
+                                                                </subviews>
+                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" id="ssB-Ge-z4M" customClass="GradientSlider" customModule="air_health" customModuleProvider="target">
+                                                                <rect key="frame" x="18" y="18" width="284" height="60"/>
+                                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                                <userDefinedRuntimeAttributes>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="value">
+                                                                        <real key="value" value="1"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="boolean" keyPath="hasRainbow" value="YES"/>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="minimumValue">
+                                                                        <real key="value" value="0.0"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="number" keyPath="maximumValue">
+                                                                        <real key="value" value="1"/>
+                                                                    </userDefinedRuntimeAttribute>
+                                                                    <userDefinedRuntimeAttribute type="image" keyPath="thumbIcon" value="map_slider_thumb"/>
+                                                                </userDefinedRuntimeAttributes>
+                                                                <connections>
+                                                                    <action selector="valueChangedWithControl:" destination="r4T-jl-lRh" eventType="valueChanged" id="Icj-sh-G3d"/>
+                                                                </connections>
+                                                            </view>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" id="iWZ-9C-Pco">
+                                        <rect key="frame" x="0.0" y="64" width="320" height="64"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="KDy-HN-mCh">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="64"/>
+                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                <inset key="contentEdgeInsets" minX="32" minY="0.0" maxX="32" maxY="0.0"/>
+                                                <state key="normal">
+                                                    <attributedString key="attributedTitle">
+                                                        <fragment content="Nov">
+                                                            <attributes>
+                                                                <color key="NSColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <font key="NSFont" size="12" name="HelveticaNeue"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                        <fragment content=" ">
+                                                            <attributes>
+                                                                <font key="NSFont" size="18" name="HelveticaNeue"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                        <fragment content="21">
+                                                            <attributes>
+                                                                <color key="NSColor" red="0.25098039215686274" green="0.25098039215686274" blue="0.25098039215686274" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <font key="NSFont" size="24" name="HelveticaNeue"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                        <fragment content=" ">
+                                                            <attributes>
+                                                                <font key="NSFont" size="18" name="HelveticaNeue"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                        <fragment content="2015">
+                                                            <attributes>
+                                                                <color key="NSColor" red="0.50196078431372548" green="0.50196078431372548" blue="0.50196078431372548" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <font key="NSFont" size="16" name="HelveticaNeue"/>
+                                                                <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural"/>
+                                                            </attributes>
+                                                        </fragment>
+                                                    </attributedString>
+                                                </state>
+                                                <connections>
+                                                    <action selector="touchUpInsideButton:" destination="r4T-jl-lRh" eventType="touchUpInside" id="jtL-pg-FT0"/>
+                                                </connections>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="r5z-GW-KIP">
+                                                <rect key="frame" x="160" y="0.0" width="128" height="64"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="48"/>
+                                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dateButton" destination="KDy-HN-mCh" id="XCD-Wz-psb"/>
+                                    <outlet property="dateView" destination="iWZ-9C-Pco" id="yOX-7j-3x3"/>
+                                    <outlet property="delegate" destination="M7n-hn-zuS" id="KqX-sd-w1Y"/>
+                                    <outlet property="endTimeLabel" destination="5Ox-e4-8bZ" id="fo4-ag-55f"/>
+                                    <outlet property="greenView" destination="08N-zX-NE0" id="YOM-bN-QsO"/>
+                                    <outlet property="redView" destination="s4y-nO-gNc" id="msR-WL-sUe"/>
+                                    <outlet property="startTimeLabel" destination="zJN-gX-o6p" id="E2U-vT-o2Y"/>
+                                    <outlet property="timeIndicatorView" destination="GWS-MT-PcL" id="Olz-Mp-SOP"/>
+                                    <outlet property="timeLabel" destination="r5z-GW-KIP" id="EiH-it-gm3"/>
+                                    <outlet property="timeSlider" destination="ssB-Ge-z4M" id="3yi-nB-Oja"/>
+                                    <outlet property="timeSliderContentView" destination="Lwe-Aw-fkc" id="7Ii-mW-rji"/>
+                                    <outlet property="timeSliderTitleLabel" destination="fWl-Ot-zhy" id="8Bb-3Q-872"/>
+                                    <outlet property="timeSliderTitleView" destination="kGi-2a-pfq" id="z6Z-wo-DYJ"/>
+                                    <outlet property="timeSliderView" destination="3zt-e9-78O" id="Dcx-ck-FNT"/>
+                                    <outlet property="timelineLineChartBackgroundView" destination="1r2-UE-c5W" id="KGR-ya-GYO"/>
+                                    <outlet property="yellowView" destination="OK4-Wl-Cwi" id="Yms-4t-nzD"/>
+                                </connections>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="MAP" id="qD3-u3-gJa">
+                        <barButtonItem key="leftBarButtonItem" style="plain" id="v6S-x8-RCe">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="tcD-3c-DXA">
+                                <rect key="frame" x="16" y="7" width="71" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="touchUpInsideButton:" destination="M7n-hn-zuS" eventType="touchUpInside" id="A9m-XC-6ua"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="plain" id="8xP-C6-kd1">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="zkm-9Q-sSH">
+                                <rect key="frame" x="233" y="7" width="71" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <connections>
+                                    <action selector="touchUpInsideButton:" destination="M7n-hn-zuS" eventType="touchUpInside" id="pFr-Nm-927"/>
+                                    <segue destination="ddf-CN-Rwm" kind="modal" id="IqY-TE-8QJ"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="leftBarButton" destination="tcD-3c-DXA" id="eK5-hl-vHz"/>
+                        <outlet property="mapView" destination="cen-RP-AtV" id="ORl-GF-Pbe"/>
+                        <outlet property="rightBarButton" destination="zkm-9Q-sSH" id="TVC-nf-1H1"/>
+                        <outlet property="timelineView" destination="r4T-jl-lRh" id="wHv-xA-dOP"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JdZ-fE-QNV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="767" y="3206"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="FNz-13-O5q">
@@ -576,88 +741,15 @@
             </objects>
             <point key="canvasLocation" x="296" y="1745"/>
         </scene>
-        <!--Summary View Controller-->
-        <scene sceneID="BAn-Uz-VQN">
-            <objects>
-                <viewController id="L5l-gF-01p" customClass="AIRSummaryViewController" customModule="air_health" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="RzM-rJ-6et">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="aQS-2G-hex">
-                                <rect key="frame" x="96" y="80" width="128" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" image="home_summary_good"/>
-                                <connections>
-                                    <action selector="touchedUpInsideButton:" destination="4Zo-W0-eCA" eventType="touchUpInside" id="FVu-d2-iva"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Good" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OmT-PG-2ev">
-                                <rect key="frame" x="96" y="183" width="128" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="16"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gxD-LO-YKc">
-                                <rect key="frame" x="20" y="226" width="280" height="117"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <string key="text">You had some negative exposure to O3 and SO2. Long exposure to these harmful gas can lead to asthma. Find an alternative route next time or leave after the rush hour to avoid these harmful gas.</string>
-                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="14"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TODAY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uTu-LZ-BAw">
-                                <rect key="frame" x="20" y="40" width="120" height="16"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="18"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" id="oXa-s5-OXN">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="569"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.42352941179999998" green="0.51764705879999995" blue="0.76470588240000004" alpha="1" colorSpace="calibratedRGB"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="YFv-VE-xc4" customClass="IOStickyHeaderFlowLayout" customModule="air_health" customModuleProvider="target">
-                                    <size key="itemSize" width="160" height="50"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="qWl-KV-dGq">
-                                        <rect key="frame" x="80" y="0.0" width="160" height="50"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="160" height="50"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                    </collectionViewCell>
-                                </cells>
-                                <connections>
-                                    <outlet property="dataSource" destination="L5l-gF-01p" id="dff-gG-wLf"/>
-                                    <outlet property="delegate" destination="L5l-gF-01p" id="hBR-8y-ady"/>
-                                </connections>
-                            </collectionView>
-                        </subviews>
-                    </view>
-                    <navigationItem key="navigationItem" id="XI4-rl-gJB"/>
-                    <connections>
-                        <outlet property="collectionView" destination="oXa-s5-OXN" id="RGA-49-TRY"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="aLW-nn-vUj" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="767" y="1745"/>
-        </scene>
     </scenes>
     <resources>
         <image name="home_icon_good" width="64" height="64"/>
         <image name="home_summary_bad" width="128" height="128"/>
-        <image name="home_summary_good" width="128" height="128"/>
         <image name="home_summary_mask_bad" width="64" height="64"/>
         <image name="home_summary_sports_bad" width="64" height="64"/>
         <image name="map_slider_thumb" width="64" height="64"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="IqY-TE-8QJ"/>
+    </inferredMetricsTieBreakers>
 </document>

@@ -1,54 +1,16 @@
-// MARK: - AIRMapViewDelegate
-@objc protocol AIRMapViewDelegate {
-
-    /**
-     * called when button is touched up inside
-     * @param mapView AIRMapView
-     * @param openButton UIButton
-     */
-    func touchedUpInside(mapView mapView: AIRMapView, button: UIButton)
-
-}
-
-
 /// MARK: - AIRMapView
 class AIRMapView: GMSMapView {
 
     /// MARK: - property
 
-    @IBOutlet weak var air_delegate: AnyObject?
-
-    @IBOutlet weak var circleButton: UIButton!
-    @IBOutlet weak var rectButton: UIButton!
-
-
     /// MARK: - life cycle
 
     override func awakeFromNib() {
         super.awakeFromNib()
-
-        self.bringSubviewToFront(self.circleButton)
-        self.bringSubviewToFront(self.rectButton)
     }
 
 
     /// MARK: - event listener
-
-    @IBAction func touchedUpInside(button button: UIButton) {
-        self.rectButton.hidden = true
-        self.circleButton.hidden = true
-
-        if button == self.circleButton {
-            self.rectButton.hidden = false
-        }
-        else if button == self.rectButton {
-            self.circleButton.hidden = false
-        }
-
-        if self.delegate != nil {
-            (self.air_delegate as! AIRMapViewDelegate).touchedUpInside(mapView: self, button: button)
-        }
-    }
 
 
     /// MARK: - public api
@@ -90,17 +52,14 @@ class AIRMapView: GMSMapView {
      * @param color UIColor
      * @param intervalFromStart Double
      * @param sensors [AIRSensor]
-     * @param users [AIRUser]
      **/
-    func draw(passes passes: [CLLocation], intervalFromStart: Double, color: UIColor, sensors: [AIRSensor], users: [AIRUser]) {
+    func draw(passes passes: [CLLocation], intervalFromStart: Double, color: UIColor, sensors: [AIRSensor]) {
         self.clear()
 
         // sensor
         self.drawSensors(sensors)
         // bad air locations
         self.drawBadAirLocations()
-        // users
-        self.drawUsers(users)
 
         if passes.count < 2 { return }
 
@@ -166,7 +125,7 @@ class AIRMapView: GMSMapView {
      * @param sensors [AIRSensor]
      **/
     private func drawSensors(sensors: [AIRSensor]) {
-
+/*
         if !self.circleButton.hidden {
 
             let maxDrawingCount = 100
@@ -200,6 +159,11 @@ class AIRMapView: GMSMapView {
             }
 
         }
+*/
+        for sensor in sensors {
+            let marker = AIRSensorPolygon.marker(sensor: sensor)
+            marker.map = self
+        }
 
 /*
         let overlay = GMSGroundOverlay(
@@ -223,14 +187,14 @@ class AIRMapView: GMSMapView {
         }
     }
 
-    /**
-     * draw users
-     **/
-    private func drawUsers(users: [AIRUser]) {
-        for user in users {
-            let marker = AIRUserMarker(user: user)
-            marker.map = self
-        }
-    }
+//    /**
+//     * draw users
+//     **/
+//    private func drawUsers(users: [AIRUser]) {
+//        for user in users {
+//            let marker = AIRUserMarker(user: user)
+//            marker.map = self
+//        }
+//    }
 
 }

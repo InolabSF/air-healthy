@@ -1,19 +1,19 @@
 // MARK: - AIRTimelineViewDelegate
 @objc protocol AIRTimelineViewDelegate {
 
-    /**
-     * called when button is touched up inside
-     * @param timelineView AIRTimelineView
-     * @param openButton UIButton
-     */
-    func touchedUpInside(timelineView timelineView: AIRTimelineView, openButton: UIButton)
-
-    /**
-     * called when button is touched up inside
-     * @param timelineView AIRTimelineView
-     * @param closeButton UIButton
-     */
-    func touchedUpInside(timelineView timelineView: AIRTimelineView, closeButton: UIButton)
+//    /**
+//     * called when button is touched up inside
+//     * @param timelineView AIRTimelineView
+//     * @param openButton UIButton
+//     */
+//    func touchedUpInside(timelineView timelineView: AIRTimelineView, openButton: UIButton)
+//
+//    /**
+//     * called when button is touched up inside
+//     * @param timelineView AIRTimelineView
+//     * @param closeButton UIButton
+//     */
+//    func touchedUpInside(timelineView timelineView: AIRTimelineView, closeButton: UIButton)
 
     /**
      * called when control value changed
@@ -39,8 +39,7 @@ class AIRTimelineView: UIView {
     @IBOutlet weak var timeSliderView: UIView!
 
     @IBOutlet weak var timeSliderTitleView: UIView!
-    @IBOutlet weak var openButton: UIButton!
-    @IBOutlet weak var closeButton: UIButton!
+    @IBOutlet weak var timeSliderTitleLabel: UILabel!
 
     @IBOutlet weak var timeSliderContentView: UIView!
     var timelineLineChartView: JTChartView?
@@ -70,6 +69,7 @@ class AIRTimelineView: UIView {
      * @param button UIButton
      **/
     @IBAction func touchUpInside(button button: UIButton) {
+/*
         if button == self.openButton {
             if self.delegate != nil {
                 (self.delegate as! AIRTimelineViewDelegate).touchedUpInside(timelineView: self, openButton: button)
@@ -85,7 +85,8 @@ class AIRTimelineView: UIView {
             self.openButton.hidden = false
             self.closeButton.hidden = true
         }
-        else if button == self.dateButton {
+*/
+        if button == self.dateButton {
         }
     }
 
@@ -207,7 +208,7 @@ class AIRTimelineView: UIView {
             roundedRect: CGRectMake(self.timeSliderView.bounds.origin.x, self.timeSliderView.bounds.origin.y, UIScreen.mainScreen().bounds.width, self.timeSliderView.bounds.height),
             cornerRadius: 18.0
         ).CGPath
-
+/*
         // open and close button
         let buttons = [self.openButton, self.closeButton]
         let iconNames = [ion_chevron_down, ion_chevron_up]
@@ -230,7 +231,7 @@ class AIRTimelineView: UIView {
             )
         }
         self.closeButton.hidden = true
-
+*/
         // date view
         self.dateView.layer.shadowOffset = CGSizeMake(0, 0)
         self.dateView.layer.shadowOpacity = 0.1

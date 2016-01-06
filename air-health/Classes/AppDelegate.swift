@@ -41,9 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 */
         AIRLocationManager.sharedInstance.startUpdatingLocation()
 
-        if #available(iOS 8.0, *) {
-            application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Badge, .Sound, .Alert,], categories: nil))
-        }
+        application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Badge, .Sound, .Alert,], categories: nil))
         if launchOptions != nil && launchOptions![UIApplicationLaunchOptionsLocalNotificationKey] != nil {
             dispatch_after(
                 dispatch_time(DISPATCH_TIME_NOW, Int64(NSEC_PER_SEC)),

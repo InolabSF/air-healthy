@@ -1,3 +1,16 @@
+/// MARK: - AIRSummaryViewDelegate
+@objc protocol AIRSummaryViewDelegate {
+
+    /**
+     * called when button is touched up inside
+     * @param summaryView AIRSummaryView
+     * @param button UIButton
+     */
+    func touchedUpInside(summaryView summaryView: AIRSummaryView, button: UIButton)
+
+}
+
+
 /// MARK: - AIRSummaryView
 class AIRSummaryView: UIView {
 
@@ -6,6 +19,9 @@ class AIRSummaryView: UIView {
 
     /// MARK: - property
 
+    @IBOutlet weak var delegate: AnyObject?
+
+    @IBOutlet weak var summaryButtonView: UIView!
     @IBOutlet weak var summaryButton: UIButton!
     @IBOutlet weak var summaryLabel: UILabel!
 
@@ -35,6 +51,9 @@ class AIRSummaryView: UIView {
      **/
     @IBAction func touchedUpInside(button button: UIButton) {
         if button == self.summaryButton {
+            if self.delegate != nil {
+                (self.delegate as! AIRSummaryViewDelegate).touchedUpInside(summaryView: self, button: button)
+            }
         }
         else if button == self.masksButton {
         }
@@ -93,6 +112,14 @@ class AIRSummaryView: UIView {
      * set up
      **/
     private func setUp() {
+        self.summaryButtonView.layer.cornerRadius = self.summaryButtonView.frame.size.width / 2.0
+        self.summaryButtonView.layer.masksToBounds = true
+        self.summaryButtonView.clipsToBounds = true
+
+        self.summaryButton.layer.shadowOffset = CGSizeMake(0, 0)
+        self.summaryButton.layer.shadowOpacity = 0.15
+        self.summaryButton.layer.shadowRadius = 2.0
+        self.summaryButton.layer.shadowPath = UIBezierPath(roundedRect: self.summaryButton.bounds, cornerRadius: self.summaryButton.bounds.width/2.0).CGPath
     }
 
 }

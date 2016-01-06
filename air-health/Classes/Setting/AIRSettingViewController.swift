@@ -14,6 +14,9 @@ class AIRSettingViewController: UIViewController {
     override func loadView() {
         super.loadView()
 
+        // status bar
+        UIApplication.sharedApplication().statusBarStyle = .Default
+
         self.navigationController!.navigationBar.titleTextAttributes = [
             NSFontAttributeName: UIFont(name: "HelveticaNeue-Bold", size: 22)!,
             NSForegroundColorAttributeName: UIColor.darkGrayColor()

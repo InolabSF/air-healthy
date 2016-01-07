@@ -18,7 +18,7 @@ pod 'ISHTTPOperation'
 # graph
 pod 'VBPieChart', :git => 'https://github.com/kenzan8000/VBPieChart.git'
 pod 'JTChartView'
-pod 'LMGaugeView'
+#pod 'LMGaugeView'
 
 # map
 pod 'GoogleMaps'
@@ -31,4 +31,4 @@ pod 'ionicons'
 #pod 'TTTAttributedLabel'
 
 # image
-pod 'IGIdenticon'
+#pod 'IGIdenticon'

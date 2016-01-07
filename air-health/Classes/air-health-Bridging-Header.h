@@ -15,7 +15,7 @@
 /// graph
 #import "VBPieChart.h"
 #import "JTChartView.h"
-#import "LMGaugeView.h"
+//#import "LMGaugeView.h"
 
 /// font
 #import "IonIcons.h"
@@ -25,4 +25,4 @@
 #import "BLMultiColorLoader.h"
 
 // image
-#import "IGIdenticon.h"
+//#import "IGIdenticon.h"

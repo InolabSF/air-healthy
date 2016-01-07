@@ -11,9 +11,7 @@ class AIRChemicalViewController: UIViewController {
     var SO2AverageSensorValues: [Double] = []
     var O3AverageSensorValues: [Double] = []
     var passes: [CLLocation] = []
-    //var values: [Double] = []
     var sensors: [AIRSensor] = []
-    //var users: [AIRUser] = []
 
 
     /// MARK: - destruction
@@ -58,9 +56,13 @@ class AIRChemicalViewController: UIViewController {
         self.graphView.setSensorValues(SO2AverageSensorValues: self.SO2AverageSensorValues, O3AverageSensorValues: self.O3AverageSensorValues)
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        UIApplication.sharedApplication().statusBarStyle = .LightContent
+    }
+
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        // status bar
         UIApplication.sharedApplication().statusBarStyle = .LightContent
     }
 
@@ -75,9 +77,7 @@ class AIRChemicalViewController: UIViewController {
             vc.SO2ValuePerMinutes = self.SO2AverageSensorValues
             vc.O3ValuePerMinutes = self.O3AverageSensorValues
             vc.passes = self.passes
-            //vc.values = self.values
             vc.sensors = self.sensors
-            //vc.users = self.users
             vc.chemical = chemical
         }
     }

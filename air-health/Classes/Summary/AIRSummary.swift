@@ -28,7 +28,7 @@ class AIRSummary: NSObject {
     var passes: [CLLocation] = []               // location you passed
     var values: [Double] = []                   // summary values per minute
     var sensors: [AIRSensor] = []               // sensor datas
-    var users: [AIRUser] = []                   // user datas
+    //var users: [AIRUser] = []                   // user datas
 
     var SO2ValuePerMinutes: [Double] = []       // SO2 value per minutes
     var O3ValuePerMinutes: [Double] = []        // O3 value per minutes
@@ -49,7 +49,7 @@ class AIRSummary: NSObject {
         // get new sensor values
         self.getSensorsFromServer()
         // get user datas from server
-        self.getUsersFromServer()
+        //self.getUsersFromServer()
     }
 
     /// MARK: - destruction
@@ -69,11 +69,11 @@ class AIRSummary: NSObject {
         // get new sensor values
         self.getSensorsFromServer()
         // get user datas from server
-        self.getUsersFromServer()
+        //self.getUsersFromServer()
     }
 
 
-    /// MARK: - private api
+    /// MARK: - public api
 
     /**
      * get sensor datas from server
@@ -90,29 +90,28 @@ class AIRSummary: NSObject {
 
     }
 
-    /**
-     * get user datas from server
-     **/
-    func getUsersFromServer() {
-        if passes.count <= 0 { return }
-
-        let location = passes.last
-        AIRUserClient.sharedInstance.getUser(location: location!, radius: 5.0, completionHandler: { [unowned self] (json) in
-                self.users = AIRUser.users(json: json)
-            }
-        )
-    }
+//    /**
+//     * get user datas from server
+//     **/
+//    func getUsersFromServer() {
+//        if passes.count <= 0 { return }
+//
+//        let location = passes.last
+//        AIRUserClient.sharedInstance.getUser(location: location!, radius: 5.0, completionHandler: { [unowned self] (json) in
+//                self.users = AIRUser.users(json: json)
+//            }
+//        )
+//    }
 
     /**
      * set sensor datas
      **/
-    private func setSensorValues() {
+    func setSensorValues() {
         dispatch_async(
             dispatch_get_main_queue(), { [unowned self] () in
 
             if self.delegate != nil {
                 (self.delegate as! AIRSummaryDelegate).summaryCalculationDidStart(summary: self)
-                AIRLOG("summary calculation started")
             }
 
         })
@@ -154,7 +153,6 @@ class AIRSummary: NSObject {
             }
 
 
-            AIRLOG("summary calculation ended")
             if self.delegate != nil {
                 (self.delegate as! AIRSummaryDelegate).summaryCalculationDidEnd(summary: self)
             }

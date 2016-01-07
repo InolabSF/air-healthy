@@ -1,20 +1,6 @@
 // MARK: - AIRTimelineViewDelegate
 @objc protocol AIRTimelineViewDelegate {
 
-//    /**
-//     * called when button is touched up inside
-//     * @param timelineView AIRTimelineView
-//     * @param openButton UIButton
-//     */
-//    func touchedUpInside(timelineView timelineView: AIRTimelineView, openButton: UIButton)
-//
-//    /**
-//     * called when button is touched up inside
-//     * @param timelineView AIRTimelineView
-//     * @param closeButton UIButton
-//     */
-//    func touchedUpInside(timelineView timelineView: AIRTimelineView, closeButton: UIButton)
-
     /**
      * called when control value changed
      * @param timelineView AIRTimelineView
@@ -69,23 +55,6 @@ class AIRTimelineView: UIView {
      * @param button UIButton
      **/
     @IBAction func touchUpInside(button button: UIButton) {
-/*
-        if button == self.openButton {
-            if self.delegate != nil {
-                (self.delegate as! AIRTimelineViewDelegate).touchedUpInside(timelineView: self, openButton: button)
-            }
-            self.openButton.hidden = true
-            self.closeButton.hidden = false
-        }
-        else if button == self.closeButton {
-            AIRBadAirLocation.deleteAll()
-            if self.delegate != nil {
-                (self.delegate as! AIRTimelineViewDelegate).touchedUpInside(timelineView: self, closeButton: button)
-            }
-            self.openButton.hidden = false
-            self.closeButton.hidden = true
-        }
-*/
         if button == self.dateButton {
         }
     }
@@ -208,30 +177,7 @@ class AIRTimelineView: UIView {
             roundedRect: CGRectMake(self.timeSliderView.bounds.origin.x, self.timeSliderView.bounds.origin.y, UIScreen.mainScreen().bounds.width, self.timeSliderView.bounds.height),
             cornerRadius: 18.0
         ).CGPath
-/*
-        // open and close button
-        let buttons = [self.openButton, self.closeButton]
-        let iconNames = [ion_chevron_down, ion_chevron_up]
-        for var i = 0; i < buttons.count; i++ {
-            buttons[i].setImage(
-                IonIcons.imageWithIcon(
-                    iconNames[i],
-                    iconColor: UIColor.darkGrayColor(),
-                    iconSize: 32, imageSize: CGSizeMake(32, 32)
-                ),
-                forState: .Normal
-            )
-            buttons[i].setImage(
-                IonIcons.imageWithIcon(
-                    iconNames[i],
-                    iconColor: UIColor(red: 170.0/255.0, green: 170.0/255.0, blue: 170.0/255.0, alpha: 1.0),
-                    iconSize: 32, imageSize: CGSizeMake(32, 32)
-                ),
-                forState: .Highlighted
-            )
-        }
-        self.closeButton.hidden = true
-*/
+
         // date view
         self.dateView.layer.shadowOffset = CGSizeMake(0, 0)
         self.dateView.layer.shadowOpacity = 0.1

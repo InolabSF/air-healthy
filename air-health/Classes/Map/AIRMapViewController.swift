@@ -10,9 +10,7 @@ class AIRMapViewController: UIViewController {
     @IBOutlet weak var mapView: AIRMapView!
 
     var passes: [CLLocation] = []
-    //var values: [Double] = []
     var sensors: [AIRSensor] = []
-    //var users: [AIRUser] = []
     var chemical = ""
 
     var SO2ValuePerMinutes: [Double] = []
@@ -61,9 +59,13 @@ class AIRMapViewController: UIViewController {
         self.drawMap()
     }
 
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        UIApplication.sharedApplication().statusBarStyle = .LightContent
+    }
+
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        // status bar
         UIApplication.sharedApplication().statusBarStyle = .LightContent
     }
 
@@ -154,7 +156,6 @@ class AIRMapViewController: UIViewController {
         // mapview
         self.mapView.myLocationEnabled = true
         self.mapView.settings.myLocationButton = false
-        //self.mapView.trafficEnabled = true
         self.mapView.frame = CGRectMake(
             self.mapView.frame.origin.x, self.timelineView.dateView.frame.origin.y + self.timelineView.dateView.frame.height,
             self.mapView.frame.width, self.view.frame.height - (self.timelineView.dateView.frame.origin.y + self.timelineView.dateView.frame.height + self.timelineView.timeSliderView.frame.height) + 36.0
@@ -164,7 +165,6 @@ class AIRMapViewController: UIViewController {
             longitude: -122.4167,
             zoom: 13.0
         )
-        //self.mapView.air_delegate = self
     }
 
     /**
@@ -178,7 +178,6 @@ class AIRMapViewController: UIViewController {
             intervalFromStart: Double(self.timelineView.timeSlider.value),
             color: color,
             sensors: self.sensors
-            //users: self.users
         )
     }
 
@@ -262,48 +261,8 @@ extension AIRMapViewController: GMSMapViewDelegate {
 }
 
 
-//// MARK: - AIRMapViewDelegate
-//extension AIRMapViewController: AIRMapViewDelegate {
-//
-//    func touchedUpInside(mapView mapView: AIRMapView, button: UIButton) {
-//        self.drawMap()
-//    }
-//
-//}
-
-
 /// MARK: - AIRTimelineViewDelegate
 extension AIRMapViewController: AIRTimelineViewDelegate {
-/*
-    func touchedUpInside(timelineView timelineView: AIRTimelineView, openButton: UIButton) {
-        self.drawMap()
-        self.mapView.moveCamera(passes: self.passes)
-        // get users
-        let location = self.mapView.myLocation
-        if location != nil {
-            AIRUserClient.sharedInstance.getUser(location: location!, radius: 5.0, completionHandler: { [unowned self] (json) in
-                    self.users = AIRUser.users(json: json)
-                    self.drawMap()
-                }
-            )
-        }
-        self.sensorGraphView.toggle(
-            hidden: true,
-            animationHandler: { () in },
-            completionHandler:{ () in }
-        )
-    }
-*/
-
-/*
-    func touchedUpInside(timelineView timelineView: AIRTimelineView, closeButton: UIButton) {
-        self.sensorGraphView.toggle(
-            hidden: false,
-            animationHandler: { () in },
-            completionHandler:{ () in }
-        )
-    }
-*/
 
     func valueChanged(timelineView timelineView: AIRTimelineView, control: GradientSlider) {
         self.drawMap() // draw map

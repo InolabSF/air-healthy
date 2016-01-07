@@ -125,55 +125,10 @@ class AIRMapView: GMSMapView {
      * @param sensors [AIRSensor]
      **/
     private func drawSensors(sensors: [AIRSensor]) {
-/*
-        if !self.circleButton.hidden {
-
-            let maxDrawingCount = 100
-            var locations: [CLLocation] = []
-            var drawingCount = 0
-
-            for sensor in sensors {
-                let location = CLLocation(latitude: sensor.lat.doubleValue, longitude: sensor.lng.doubleValue)
-                var willDraw = true
-                for l in locations {
-                    if location.distanceFromLocation(l) < AIRSensorCircle.MaxRadius { willDraw = false; break }
-                }
-                if !willDraw { continue }
-
-                let marker = AIRSensorCircle.marker(sensor: sensor)
-                if marker != nil {
-                    marker!.map = self
-                    drawingCount++
-                    locations.append(location)
-                }
-                if drawingCount >= maxDrawingCount { break }
-            }
-
-        }
-
-        if !self.rectButton.hidden {
-
-            for sensor in sensors {
-                let marker = AIRSensorPolygon.marker(sensor: sensor)
-                marker.map = self
-            }
-
-        }
-*/
         for sensor in sensors {
             let marker = AIRSensorPolygon.marker(sensor: sensor)
             marker.map = self
         }
-
-/*
-        let overlay = GMSGroundOverlay(
-            position: self.projection.coordinateForPoint(CGPointMake(self.frame.size.width / 2.0, self.frame.size.height / 2.0)),
-            icon: UIImage.heatmapImage(map: self, sensors: sensors),
-            zoomLevel: CGFloat(self.camera.zoom)
-        )
-        overlay.bearing = self.camera.bearing
-        overlay.map = self
-*/
     }
 
     /**

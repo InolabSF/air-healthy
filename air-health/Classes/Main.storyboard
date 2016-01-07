@@ -522,6 +522,8 @@
                                                                     <userDefinedRuntimeAttribute type="image" keyPath="thumbIcon" value="map_slider_thumb"/>
                                                                 </userDefinedRuntimeAttributes>
                                                                 <connections>
+                                                                    <action selector="touchDownWithControl:" destination="r4T-jl-lRh" eventType="touchDown" id="Jfu-O5-KOB"/>
+                                                                    <action selector="touchUpWithControl:" destination="r4T-jl-lRh" eventType="touchUpInside" id="z7X-0w-QyP"/>
                                                                     <action selector="valueChangedWithControl:" destination="r4T-jl-lRh" eventType="valueChanged" id="Icj-sh-G3d"/>
                                                                 </connections>
                                                             </view>
@@ -673,6 +675,6 @@
         <image name="map_slider_thumb" width="64" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Os3-Ru-Cuu"/>
+        <segue reference="IqY-TE-8QJ"/>
     </inferredMetricsTieBreakers>
 </document>

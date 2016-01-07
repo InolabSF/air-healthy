@@ -60,6 +60,26 @@ class AIRTimelineView: UIView {
     }
 
     /**
+     * called when control touched down
+     * @param control UIControl
+     **/
+    @IBAction func touchDown(control control: UIControl) {
+        if control == self.timeSlider {
+            self.timeIndicatorView.hidden = true
+        }
+    }
+
+    /**
+     * called when control touched up
+     * @param control UIControl
+     **/
+    @IBAction func touchUp(control control: UIControl) {
+        if control == self.timeSlider {
+            self.timeIndicatorView.hidden = false
+        }
+    }
+
+    /**
      * called when control value changed
      * @param control UIControl
      **/

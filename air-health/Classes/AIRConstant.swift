@@ -48,6 +48,8 @@ struct AIRUserDefaults {
 
     static let UserDate =           "AIRUserDefaults.UserDate"
     static let UserIsOn =           "AIRUserDefaults.UserIsOn"
+
+    static let Tutorial =           "AIRUserDefaults.Tutorial"
 }
 
 

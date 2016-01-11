@@ -20,6 +20,11 @@ class AIRSummaryViewController: UIViewController {
     override func loadView() {
         super.loadView()
 
+        if AIRTutorialManager.sharedInstance.willBeTutorial() {
+            let window = UIApplication.sharedApplication().keyWindow
+            AIRTutorialManager.sharedInstance.start(parentView: window!)
+        }
+
         self.setUp()
     }
 

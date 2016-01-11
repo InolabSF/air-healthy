@@ -86,27 +86,26 @@ class AIRChemicalGraphView: UIView {
      * @param O3AverageSensorValues
      **/
     func setSensorValues(SO2AverageSensorValues SO2AverageSensorValues: [Double], O3AverageSensorValues: [Double]) {
-        var airHealth = [0.0]
 
-        airHealth = [0.0, 0.0, 0.0]
-        if SO2AverageSensorValues.count == 0 { airHealth = [1.0, 0.0, 0.0] }
+        var airHealthSO2 = [0.0, 0.0, 0.0]
+        if SO2AverageSensorValues.count == 0 { airHealthSO2 = [1.0, 0.0, 0.0] }
         for var i = 0; i < SO2AverageSensorValues.count; i++ {
             let value = SO2AverageSensorValues[i]
-            if value < AIRSensorManager.WHOBasementSO2_1 { airHealth[0] += 1.0 }
-            else if value < AIRSensorManager.WHOBasementSO2_2 { airHealth[1] += 1.0 }
-            else { airHealth[2] += 1.0 }
+            if value < AIRSensorManager.WHOBasementSO2_1 { airHealthSO2[0] += 1.0 }
+            else if value < AIRSensorManager.WHOBasementSO2_2 { airHealthSO2[1] += 1.0 }
+            else { airHealthSO2[2] += 1.0 }
         }
-        self.setPieChart(self.SO2PieChartView, airHealth: airHealth, animated: true)
+        self.setPieChart(self.SO2PieChartView, airHealth: airHealthSO2, animated: true)
 
-        airHealth = [0.0, 0.0, 0.0]
-        if O3AverageSensorValues.count == 0 { airHealth = [1.0, 0.0, 0.0] }
+        var airHealthO3 = [0.0, 0.0, 0.0]
+        if O3AverageSensorValues.count == 0 { airHealthO3 = [1.0, 0.0, 0.0] }
         for var i = 0; i < O3AverageSensorValues.count; i++ {
             let value = O3AverageSensorValues[i]
-            if value < AIRSensorManager.WHOBasementOzone_S_1 { airHealth[0] += 1.0 }
-            else if value < AIRSensorManager.WHOBasementOzone_S_2 { airHealth[1] += 1.0 }
-            else { airHealth[2] += 1.0 }
+            if value < AIRSensorManager.WHOBasementOzone_S_1 { airHealthO3[0] += 1.0 }
+            else if value < AIRSensorManager.WHOBasementOzone_S_2 { airHealthO3[1] += 1.0 }
+            else { airHealthO3[2] += 1.0 }
         }
-        self.setPieChart(self.O3PieChartView, airHealth: airHealth, animated: true)
+        self.setPieChart(self.O3PieChartView, airHealth: airHealthO3, animated: true)
 
         // button
         let after = dispatch_time(DISPATCH_TIME_NOW, Int64(2.0 * Double(NSEC_PER_SEC)))
@@ -118,6 +117,32 @@ class AIRChemicalGraphView: UIView {
                 userInfo: [:]
             )
         })
+
+        var paragraph = ""
+        let SO2isHealthy = ((airHealthSO2[1] + airHealthSO2[2]) / (airHealthSO2[0] + airHealthSO2[1] + airHealthSO2[2])) < 0.15
+        let O3isHealthy = ((airHealthO3[1] + airHealthO3[2]) / (airHealthO3[0] + airHealthO3[1] + airHealthO3[2])) < 0.15
+        // healthy
+        if SO2isHealthy && O3isHealthy {
+            paragraph = "SO2 and O3 are polluted below WHO Air quality guidelines. It is good for outdoor activities!"
+        }
+        else {
+            // SO2 is unhealthy
+            if !SO2isHealthy {
+                paragraph += "You had some negative exposure to SO2. Long exposure to SO2 can affect the respiratory system and the functions of the lungs, and causes irritation of the eyes. Inflammation of the respiratory tract causes coughing, mucus secretion, aggravation of asthma and chronic bronchitis and makes people more prone to infections of the respiratory tract.\n\n"
+            }
+            // O3 is unhealthy
+            if !O3isHealthy {
+                paragraph += "You had some negative exposure to O3. Long exposure to O3 can cause breathing problems, trigger asthma, reduce lung function and cause lung diseases. Several European studies have reported that the daily mortality rises the rates for heart diseases.\n\n"
+            }
+            paragraph += " Find an alternative route next time or leave after the rush hour to avoid the harmful gas."
+        }
+        let top = self.summaryLabel.frame.origin.y
+        self.summaryLabel.attributedText = paragraph.air_justifiedString(font: self.summaryLabel.font)
+        self.summaryLabel.textAlignment = NSTextAlignment.Justified
+        self.summaryLabel.preferredMaxLayoutWidth = self.summaryLabel.frame.width
+        self.summaryLabel.sizeToFit()
+        let center = CGPointMake(self.center.x, top + self.summaryLabel.frame.height / 2.0)
+        self.summaryLabel.center = center
     }
 
 
@@ -127,11 +152,6 @@ class AIRChemicalGraphView: UIView {
      * set up
      **/
     private func setUp() {
-        let paragraph = "You had some negative exposure to O3 and SO2. Long exposure to these harmful gas can lead to asthma. Find an alternative route next time or leave after the rush hour to avoid these harmful gas."
-        self.summaryLabel.attributedText = paragraph.air_justifiedString(font: self.summaryLabel.font)
-        self.summaryLabel.textAlignment = NSTextAlignment.Justified
-        self.summaryLabel.preferredMaxLayoutWidth = self.summaryLabel.frame.width
-
         let chartViews = [self.O3PieChartView, self.SO2PieChartView]
         for chartView in chartViews {
             chartView.layer.cornerRadius = chartView.frame.size.width / 2.0

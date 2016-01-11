@@ -46,6 +46,7 @@
 		E6A6B7621C0FB4740085C291 /* AIRSensorMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A6B7611C0FB4740085C291 /* AIRSensorMarker.swift */; };
 		E6B10BAA1C039F3600B77A67 /* UIImage+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B10BA91C039F3600B77A67 /* UIImage+UIView.swift */; };
 		E6BC9CED1C03878B004769AD /* AIRTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BC9CEB1C03878B004769AD /* AIRTimelineView.swift */; };
+		E6CA343E1C44503C00691B4F /* AIRTutorialManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6CA343D1C44503C00691B4F /* AIRTutorialManager.swift */; };
 		E6D803FD1BFD444C00A55326 /* AIRSensorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D803FC1BFD444C00A55326 /* AIRSensorManager.swift */; };
 		E6DBB81D1C1223430008A821 /* AIRSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6DBB81C1C1223430008A821 /* AIRSettingViewController.swift */; };
 		E6E173251C20C80500F74F8F /* vasp_mgpqm_0.2mile.csv in Resources */ = {isa = PBXBuildFile; fileRef = E6E173241C20C80500F74F8F /* vasp_mgpqm_0.2mile.csv */; };
@@ -103,6 +104,7 @@
 		E6AEF7E81BEBFB89000102E2 /* air-health-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "air-health-Bridging-Header.h"; sourceTree = "<group>"; };
 		E6B10BA91C039F3600B77A67 /* UIImage+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+UIView.swift"; sourceTree = "<group>"; };
 		E6BC9CEB1C03878B004769AD /* AIRTimelineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRTimelineView.swift; sourceTree = "<group>"; };
+		E6CA343D1C44503C00691B4F /* AIRTutorialManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRTutorialManager.swift; sourceTree = "<group>"; };
 		E6D803FC1BFD444C00A55326 /* AIRSensorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRSensorManager.swift; sourceTree = "<group>"; };
 		E6DBB81C1C1223430008A821 /* AIRSettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRSettingViewController.swift; sourceTree = "<group>"; };
 		E6E173241C20C80500F74F8F /* vasp_mgpqm_0.2mile.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = vasp_mgpqm_0.2mile.csv; sourceTree = "<group>"; };
@@ -235,6 +237,7 @@
 		E669402B1BEAC6E200771F8B /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				E6CA343C1C44503C00691B4F /* Tutorial */,
 				E673768A1C2B69AE005E822C /* Main.storyboard */,
 				E6AEF7E81BEBFB89000102E2 /* air-health-Bridging-Header.h */,
 				E62A03C31BF157360046ABE0 /* AIRConstant-Private.swift */,
@@ -349,6 +352,14 @@
 				E695DA6A1BF2C32F0060BF66 /* AIRMapView.swift */,
 			);
 			path = Map;
+			sourceTree = "<group>";
+		};
+		E6CA343C1C44503C00691B4F /* Tutorial */ = {
+			isa = PBXGroup;
+			children = (
+				E6CA343D1C44503C00691B4F /* AIRTutorialManager.swift */,
+			);
+			path = Tutorial;
 			sourceTree = "<group>";
 		};
 		E6DBB81B1C1223430008A821 /* Setting */ = {
@@ -545,6 +556,7 @@
 				E62A03C01BF1514A0046ABE0 /* AIRLocationManager.swift in Sources */,
 				E6FDD4601C2386C2005C3340 /* AIRUser.swift in Sources */,
 				E62A03CB1BF15E9F0046ABE0 /* AIRGoogleMapOperationQueue.swift in Sources */,
+				E6CA343E1C44503C00691B4F /* AIRTutorialManager.swift in Sources */,
 				E6E8AF961C17C49D00605151 /* BLMultiColorLoader.m in Sources */,
 				E61CFA1B1C1F8D1F00119148 /* AIRBadAirLocationMarker.swift in Sources */,
 				E67376891C2B657A005E822C /* AIRSummaryViewController.swift in Sources */,

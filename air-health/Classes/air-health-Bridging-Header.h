@@ -23,6 +23,7 @@
 // UI
 //#import "TTTAttributedLabel.h"
 #import "BLMultiColorLoader.h"
+#import "MYBlurIntroductionView.h"
 
 // image
 //#import "IGIdenticon.h"

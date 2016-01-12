@@ -22,7 +22,11 @@ class AIRSummaryViewController: UIViewController {
 
         if AIRTutorialManager.sharedInstance.willBeTutorial() {
             let window = UIApplication.sharedApplication().keyWindow
+            AIRTutorialManager.sharedInstance.delegate = self
             AIRTutorialManager.sharedInstance.start(parentView: window!)
+        }
+        else {
+            AIRLocationManager.sharedInstance.startUpdatingLocation()
         }
 
         self.setUp()
@@ -127,6 +131,17 @@ extension AIRSummaryViewController: AIRSummaryDelegate {
     func summaryCalculationDidEnd(summary summary: AIRSummary) {
         self.loadingView.stopAnimation()
         self.summaryView.setValues(AIRSummary.sharedInstance.values)
+    }
+
+}
+
+
+/// MARK: - AIRTutorialManagerDelegate
+extension AIRSummaryViewController: AIRTutorialManagerDelegate {
+
+    func tutorialDidFinish(tutorialManager tutorialManager: AIRTutorialManager) {
+        AIRTutorialManager.sharedInstance.delegate = nil
+        AIRLocationManager.sharedInstance.startUpdatingLocation()
     }
 
 }

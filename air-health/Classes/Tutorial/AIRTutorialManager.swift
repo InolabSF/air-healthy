@@ -1,3 +1,15 @@
+/// MARK: - AIRTutorialManagerDelegate
+@objc protocol AIRTutorialManagerDelegate {
+
+    /**
+     * called when tutorial has done
+     * @param tutorialManager AIRTutorialManager
+     */
+    func tutorialDidFinish(tutorialManager tutorialManager: AIRTutorialManager)
+
+}
+
+
 /// MARK: - AIRTutorialManager
 class AIRTutorialManager: NSObject {
 
@@ -5,6 +17,9 @@ class AIRTutorialManager: NSObject {
 
 
     /// MARK: - property
+
+    weak var delegate: AnyObject?
+
     var introductionView: MYBlurIntroductionView!
     let backgroundColors = [
         UIColor(red: 155.0/255.0, green: 89.0/255.0, blue: 182.0/255.0, alpha: 0.65),
@@ -109,6 +124,9 @@ extension AIRTutorialManager: MYIntroductionDelegate {
 
     func introduction(introductionView: MYBlurIntroductionView, didFinishWithType finishType: MYFinishType) {
         self.done()
+        if self.delegate != nil {
+            (self.delegate as! AIRTutorialManagerDelegate).tutorialDidFinish(tutorialManager: self)
+        }
     }
 
 }

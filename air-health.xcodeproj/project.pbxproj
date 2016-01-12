@@ -237,7 +237,6 @@
 		E669402B1BEAC6E200771F8B /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				E6CA343C1C44503C00691B4F /* Tutorial */,
 				E673768A1C2B69AE005E822C /* Main.storyboard */,
 				E6AEF7E81BEBFB89000102E2 /* air-health-Bridging-Header.h */,
 				E62A03C31BF157360046ABE0 /* AIRConstant-Private.swift */,
@@ -247,6 +246,7 @@
 				E62F17051C3C45CE002B501F /* Chemical */,
 				E695DA681BF2C32F0060BF66 /* Map */,
 				E6DBB81B1C1223430008A821 /* Setting */,
+				E6CA343C1C44503C00691B4F /* Tutorial */,
 				E62A03BC1BF1514A0046ABE0 /* Location */,
 				E6FDD4581C237CA4005C3340 /* User */,
 				E647B4751BFBEABB00B2CA4F /* Sensor */,

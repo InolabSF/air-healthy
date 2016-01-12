@@ -123,7 +123,7 @@ class AIRChemicalGraphView: UIView {
         let O3isHealthy = ((airHealthO3[1] + airHealthO3[2]) / (airHealthO3[0] + airHealthO3[1] + airHealthO3[2])) < 0.15
         // healthy
         if SO2isHealthy && O3isHealthy {
-            paragraph = "SO2 and O3 are polluted below WHO Air quality guidelines. It is good for outdoor activities!"
+            paragraph = "SO2 and O3 are polluted below WHO Air quality recommendations. It is good for outdoor activities!"
         }
         else {
             // SO2 is unhealthy

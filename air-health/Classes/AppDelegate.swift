@@ -39,7 +39,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NSUserDefaults().synchronize()
         }
 */
-        AIRLocationManager.sharedInstance.startUpdatingLocation()
 
         application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Badge, .Sound, .Alert,], categories: nil))
         if launchOptions != nil && launchOptions![UIApplicationLaunchOptionsLocalNotificationKey] != nil {

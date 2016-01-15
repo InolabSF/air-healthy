@@ -22,8 +22,8 @@ class AIRTutorialManager: NSObject {
 
     var introductionView: MYBlurIntroductionView!
     let backgroundColors = [
-        UIColor(red: 155.0/255.0, green: 89.0/255.0, blue: 182.0/255.0, alpha: 0.65),
         UIColor(red: 231.0/255.0, green: 76.0/255.0, blue: 60.0/255.0, alpha: 0.65),
+        UIColor(red: 155.0/255.0, green: 89.0/255.0, blue: 182.0/255.0, alpha: 0.65),
         UIColor(red: 26.0/255.0, green: 188.0/255.0, blue: 156.0/255.0, alpha: 0.65),
     ]
 
@@ -61,13 +61,13 @@ class AIRTutorialManager: NSObject {
         self.introductionView.backgroundColor = self.backgroundColors[0]
 
         let titles = [
-            "HEALTH EFFECTS",
+            "HEALTH EFFECTS OF AIR POLLUTION",
             "LOOK BACK",
-            "LET'S GET STARTED",
+            "LET'S START",
         ]
         let descriptions = [
             "\nOutdoor air pollution is a major environmental health problem affecting everyone in developed and developing countries alike.\n\nWHO estimates that some 80% of outdoor air pollution-related premature deaths were due to ischaemic heart disease and strokes, while 14% of deaths were due to chronic obstructive pulmonary disease or acute lower respiratory infections; and 6% of deaths were due to lung cancer.",
-            "\nYou can look back air you breath from the route you passed today.\nThere are three colors representing air polluted level.\n\n- green:  ideal for outdoor activities\n- yellow: if possible, postpone your activities\n- red:      dangerous for your activities",
+            "\nYou can look back air you breath from the route you passed today.\n\nThere are three colors representing air polluted level.",
             "",
         ]
         let imageNames = [

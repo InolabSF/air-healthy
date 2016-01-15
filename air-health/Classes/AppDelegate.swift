@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             NSUserDefaults().synchronize()
         }
 */
-
+/*
         application.registerUserNotificationSettings(UIUserNotificationSettings(forTypes: [.Badge, .Sound, .Alert,], categories: nil))
         if launchOptions != nil && launchOptions![UIApplicationLaunchOptionsLocalNotificationKey] != nil {
             dispatch_after(
@@ -55,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             )
         }
-
+*/
         return true
     }
 

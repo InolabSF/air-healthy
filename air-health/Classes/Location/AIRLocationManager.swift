@@ -5,9 +5,9 @@ import CoreLocation
 class AIRLocationManager: NSObject {
 
     /// MARK: - constant
-    static let IntervalToStartUpdatingLocation = 20.0 // seconds to update location
+    static let IntervalToStartUpdatingLocation = 10.0 // seconds to update location
     static let DistanceToUpdateLocation: CLLocationDistance = 50.0 // distance to update location
-    //static let ComfirmingCountToUpdateLocation = 3 // comfirming count to update location
+    static let ComfirmingCountToUpdateLocation = 3 // comfirming count to update location
 
     static let ThresholdOfTimeIntervalToStop: NSTimeInterval = 300
     static let ThresholdOfDistanceToStop: CLLocationDistance = 200
@@ -21,7 +21,7 @@ class AIRLocationManager: NSObject {
 
     var locationManager = CLLocationManager()
     var timer : NSTimer?
-    //var comfirmingCountToUpdateLastLocation = 0
+    var comfirmingCountToUpdateLastLocation = 0
 
 
     /// MARK: - initialization
@@ -138,17 +138,21 @@ class AIRLocationManager: NSObject {
             // first location
             if lastLocation == nil {
                 AIRLocation.save(location: newLocation)
-                self.postPollutedNotification(location: newLocation)
+                //self.postPollutedNotification(location: newLocation)
                 AIRUserClient.sharedInstance.postUser(location: newLocation, completionHandler: { (json) in })
             }
             // updating location
             else if distance >= AIRLocationManager.DistanceToUpdateLocation && // did move?
                 newLocation.timestamp.compare(lastLocation!.timestamp) == NSComparisonResult.OrderedDescending { // is really new?
 
-                AIRLocation.save(location: newLocation)
-                self.postPollutedNotification(location: newLocation)
-                AIRUserClient.sharedInstance.postUser(location: newLocation, completionHandler: { (json) in })
+                if self.comfirmingCountToUpdateLastLocation >= AIRLocationManager.ComfirmingCountToUpdateLocation {
+                    AIRLocation.save(location: newLocation)
+                    //self.postPollutedNotification(location: newLocation)
+                    AIRUserClient.sharedInstance.postUser(location: newLocation, completionHandler: { (json) in })
+                }
+                else { self.comfirmingCountToUpdateLastLocation += 1 }
             }
+            else { self.comfirmingCountToUpdateLastLocation = 0 }
 
         })
 
@@ -186,6 +190,7 @@ class AIRLocationManager: NSObject {
      * post polluted location warning notification
      * @param location CLLocation
      **/
+/*
     private func postPollutedNotification(location location: CLLocation) {
         func postPollutedNotification(location location: CLLocation, name: String) {
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
@@ -223,7 +228,7 @@ class AIRLocationManager: NSObject {
             postPollutedNotification(location: location, name: name!.name)
         }
     }
-
+*/
     /**
      * save location name if you stay
      * @param newLocation CLLocation

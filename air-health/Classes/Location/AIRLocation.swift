@@ -204,7 +204,7 @@ class AIRLocation: NSManagedObject {
             // make predicates
         var startDate = date
         var endDate = startDate.air_daysAgo(days: -1)
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = NSDateFormatter.air_dateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let startDateString = dateFormatter.stringFromDate(startDate)
         let endDateString = dateFormatter.stringFromDate(endDate!)
@@ -255,7 +255,7 @@ class AIRLocation: NSManagedObject {
             // make predicates
         var startDate = date
         var endDate = startDate.air_daysAgo(days: -1)
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = NSDateFormatter.air_dateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let startDateString = dateFormatter.stringFromDate(startDate)
         let endDateString = dateFormatter.stringFromDate(endDate!)
@@ -295,7 +295,7 @@ class AIRLocation: NSManagedObject {
             // make predicates
         var startDate = date
         var endDate = startDate.air_daysAgo(days: -1)
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = NSDateFormatter.air_dateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let startDateString = dateFormatter.stringFromDate(startDate)
         let endDateString = dateFormatter.stringFromDate(endDate!)

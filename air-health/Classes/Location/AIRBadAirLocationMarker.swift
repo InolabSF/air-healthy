@@ -64,7 +64,7 @@ extension AIRBadAirLocationMarker: UIActionSheetDelegate {
 
         let name = AIRLocationName.fetch(location: location)
         if name == nil { return }
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = NSDateFormatter.air_dateFormatter()
         dateFormatter.dateFormat = "HH:mm"
         let time = dateFormatter.stringFromDate(self.location.timestamp)
 

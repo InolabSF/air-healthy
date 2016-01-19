@@ -130,7 +130,7 @@ class AIRTimelineView: UIView {
 
         self.timeSliderContentView.hidden = false
 
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = NSDateFormatter.air_dateFormatter()
         dateFormatter.dateFormat = "HH:mm"
         self.startTimeLabel.text = dateFormatter.stringFromDate(passes.first!.timestamp)
         self.endTimeLabel.text = dateFormatter.stringFromDate(passes.last!.timestamp)
@@ -209,7 +209,7 @@ class AIRTimelineView: UIView {
      * @param date NSDate
      **/
     private func setDate(date: NSDate) {
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = NSDateFormatter.air_dateFormatter()
         // year
         dateFormatter.dateFormat = "yyyy"
         let year = dateFormatter.stringFromDate(date)

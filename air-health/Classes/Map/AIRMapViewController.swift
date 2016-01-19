@@ -195,7 +195,7 @@ class AIRMapViewController: UIViewController {
             let allInterval = self.passes.last!.timestamp.timeIntervalSinceDate(self.passes.first!.timestamp)
             self.timelineView.timeSlider.maximumValue = CGFloat(allInterval)
             let date = self.passes.first!.timestamp.dateByAddingTimeInterval(intervalFromStart)
-            let dateFormatter = NSDateFormatter()
+            let dateFormatter = NSDateFormatter.air_dateFormatter()
             dateFormatter.dateFormat = "HH:mm"
             time = dateFormatter.stringFromDate(date)
 

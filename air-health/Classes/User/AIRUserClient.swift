@@ -63,7 +63,7 @@ class AIRUserClient: AnyObject {
                 dispatch_async(dispatch_get_main_queue(), {
                     completionHandler(json: responseJSON)
                     if userIsOn {
-                        let dateFormatter = NSDateFormatter()
+                        let dateFormatter = NSDateFormatter.air_dateFormatter()
                         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
                         let todayString = dateFormatter.stringFromDate(NSDate())
                         NSUserDefaults().setObject(todayString, forKey: AIRUserDefaults.UserDate)
@@ -90,7 +90,7 @@ class AIRUserClient: AnyObject {
 
         // time interval from last time
         let today = NSDate()
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = NSDateFormatter.air_dateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let userDateString = NSUserDefaults().stringForKey(AIRUserDefaults.UserDate)
         if userDateString != nil {

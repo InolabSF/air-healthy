@@ -22,7 +22,7 @@ class AIRUserMarker: GMSMarker {
         self.position = user.location.coordinate
         self.appearAnimation = kGMSMarkerAnimationPop
 
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = NSDateFormatter.air_dateFormatter()
         dateFormatter.dateFormat = "MM/dd HH:mm"
         let dateString = dateFormatter.stringFromDate(user.timestamp)
         self.title = "\(dateString)"

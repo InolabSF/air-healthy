@@ -24,6 +24,7 @@
 		E63DB73D1BF57AA8000E3E42 /* AIRTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63DB73C1BF57AA8000E3E42 /* AIRTableViewCell.swift */; };
 		E647B4771BFBEABB00B2CA4F /* AIRSensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E647B4761BFBEABB00B2CA4F /* AIRSensor.swift */; };
 		E647B4791BFC050F00B2CA4F /* AIRLocationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = E647B4781BFC050F00B2CA4F /* AIRLocationName.swift */; };
+		E663D21E1C4EF79300926E82 /* NSDateFormatter+USStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E663D21D1C4EF79300926E82 /* NSDateFormatter+USStyle.swift */; };
 		E6655D1A1BFBA70700D6A2AD /* CSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6655D191BFBA70700D6A2AD /* CSV.swift */; };
 		E66940351BEAC6E200771F8B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E669402D1BEAC6E200771F8B /* AppDelegate.swift */; };
 		E66E26F91BFABC60004E58CB /* vasp.csv in Resources */ = {isa = PBXBuildFile; fileRef = E66E26F71BFABC60004E58CB /* vasp.csv */; };
@@ -80,6 +81,7 @@
 		E63DB73C1BF57AA8000E3E42 /* AIRTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRTableViewCell.swift; sourceTree = "<group>"; };
 		E647B4761BFBEABB00B2CA4F /* AIRSensor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRSensor.swift; sourceTree = "<group>"; };
 		E647B4781BFC050F00B2CA4F /* AIRLocationName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRLocationName.swift; sourceTree = "<group>"; };
+		E663D21D1C4EF79300926E82 /* NSDateFormatter+USStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDateFormatter+USStyle.swift"; sourceTree = "<group>"; };
 		E6655D191BFBA70700D6A2AD /* CSV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CSV.swift; path = SwiftCSV/SwiftCSV/CSV.swift; sourceTree = "<group>"; };
 		E669402D1BEAC6E200771F8B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E66E26F71BFABC60004E58CB /* vasp.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = vasp.csv; sourceTree = "<group>"; };
@@ -171,6 +173,7 @@
 				E695DA661BF2BEAB0060BF66 /* NSDate+Ago.swift */,
 				E612614B1BF160C200BE8E91 /* NSMutableURLRequest+HTTPBody.swift */,
 				E612614C1BF160C200BE8E91 /* NSURL+Queries.swift */,
+				E663D21D1C4EF79300926E82 /* NSDateFormatter+USStyle.swift */,
 			);
 			path = "NSFoundation+Extension";
 			sourceTree = "<group>";
@@ -543,6 +546,7 @@
 				E61261491BF1602300BE8E91 /* SwiftyJSON.swift in Sources */,
 				E6FDD45E1C237CA4005C3340 /* AIRUserOperationQueue.swift in Sources */,
 				E6743ED41BFFF23000068DE7 /* AIRModel.xcdatamodeld in Sources */,
+				E663D21E1C4EF79300926E82 /* NSDateFormatter+USStyle.swift in Sources */,
 				E67376881C2B657A005E822C /* AIRSummary.swift in Sources */,
 				E6655D1A1BFBA70700D6A2AD /* CSV.swift in Sources */,
 				E612614D1BF160C200BE8E91 /* NSMutableURLRequest+HTTPBody.swift in Sources */,
@@ -683,6 +687,7 @@
 				OTHER_SWIFT_FLAGS = "-D DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.isidentsu.air-health";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "air-health/Classes/air-health-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -703,6 +708,7 @@
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.isidentsu.air-health";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "air-health/Classes/air-health-Bridging-Header.h";
 			};
 			name = Release;

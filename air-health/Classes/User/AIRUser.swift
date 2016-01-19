@@ -23,7 +23,7 @@ class AIRUser {
 
         let myUUID = NSUserDefaults().stringForKey(AIRUserDefaults.UUID)
 
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = NSDateFormatter.air_dateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
         dateFormatter.timeZone = NSTimeZone(name: "UTC")
 

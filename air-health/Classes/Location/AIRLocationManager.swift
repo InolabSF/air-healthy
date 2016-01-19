@@ -102,7 +102,7 @@ class AIRLocationManager: NSObject {
 
             let rows = csv.rows
             for var i = 0; i < rows.count; i++ {
-                let dateFormatter = NSDateFormatter()
+                let dateFormatter = NSDateFormatter.air_dateFormatter()
                 dateFormatter.dateFormat = "yyyy/MM/dd HH:mm:ss"
 
                 let location = CLLocation(
@@ -194,7 +194,7 @@ class AIRLocationManager: NSObject {
     private func postPollutedNotification(location location: CLLocation) {
         func postPollutedNotification(location location: CLLocation, name: String) {
             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                let dateFormatter = NSDateFormatter()
+                let dateFormatter = NSDateFormatter.air_dateFormatter()
                 dateFormatter.dateFormat = "HH:mm"
                 let time = dateFormatter.stringFromDate(NSDate())
 

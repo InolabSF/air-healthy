@@ -25,7 +25,7 @@ class AIRSensorClient: AnyObject {
         if AIRSensor.hasSensors() { return }
 /*
         // today
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = NSDateFormatter.air_dateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let dateString = dateFormatter.stringFromDate(NSDate())
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"

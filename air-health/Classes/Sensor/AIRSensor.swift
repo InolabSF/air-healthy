@@ -162,7 +162,7 @@ class AIRSensor: NSManagedObject {
         do { try context.save() }
         catch { return }
 
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = NSDateFormatter.air_dateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let todayString = dateFormatter.stringFromDate(NSDate())
         NSUserDefaults().setObject(todayString, forKey: AIRUserDefaults.SensorDate)
@@ -205,7 +205,7 @@ class AIRSensor: NSManagedObject {
         do { try context.save() }
         catch { return }
 
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = NSDateFormatter.air_dateFormatter()
         //dateFormatter.dateFormat = "yyyy-MM-dd"
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let todayString = dateFormatter.stringFromDate(NSDate())
@@ -222,7 +222,7 @@ class AIRSensor: NSManagedObject {
 //        return false
 /*
         // today
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = NSDateFormatter.air_dateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let todayString = dateFormatter.stringFromDate(NSDate())
         let sensorDate = NSUserDefaults().stringForKey(AIRUserDefaults.SensorDate)
@@ -231,7 +231,7 @@ class AIRSensor: NSManagedObject {
         // today
         let today = NSDate()
 
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = NSDateFormatter.air_dateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         let sensorDateString = NSUserDefaults().stringForKey(AIRUserDefaults.SensorDate)
         if sensorDateString == nil { return false }

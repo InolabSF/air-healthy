@@ -29,7 +29,6 @@ pod 'ionicons'
 
 # UI
 #pod 'TTTAttributedLabel'
-pod 'MYBlurIntroductionView'
 
 # image
 #pod 'IGIdenticon'

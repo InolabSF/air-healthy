@@ -8,6 +8,8 @@ class AIRSummaryViewController: UIViewController {
     @IBOutlet weak var loadingView: AIRLoadingView!
     @IBOutlet weak var summaryView: AIRSummaryView!
 
+    var tutorialViewController: AIRTutorialViewController?
+
 
     /// MARK: - destruction
 
@@ -20,10 +22,8 @@ class AIRSummaryViewController: UIViewController {
     override func loadView() {
         super.loadView()
 
-        if AIRTutorialManager.sharedInstance.willBeTutorial() {
-            let window = UIApplication.sharedApplication().keyWindow
-            AIRTutorialManager.sharedInstance.delegate = self
-            AIRTutorialManager.sharedInstance.start(parentView: window!)
+        if AIRTutorialViewController.willBeTutorial() {
+            self.tutorialViewController = AIRTutorialViewController.air_viewController(parentViewController: self, animated: false)
         }
         else {
             AIRLocationManager.sharedInstance.startUpdatingLocation()
@@ -136,11 +136,11 @@ extension AIRSummaryViewController: AIRSummaryDelegate {
 }
 
 
-/// MARK: - AIRTutorialManagerDelegate
-extension AIRSummaryViewController: AIRTutorialManagerDelegate {
+/// MARK: - AIRTutorialViewControllerDelegate
+extension AIRSummaryViewController: AIRTutorialViewControllerDelegate {
 
-    func tutorialDidFinish(tutorialManager tutorialManager: AIRTutorialManager) {
-        AIRTutorialManager.sharedInstance.delegate = nil
+    func didFisnish(tutorialViewController tutorialViewController: AIRTutorialViewController) {
+        self.tutorialViewController = nil
         AIRLocationManager.sharedInstance.startUpdatingLocation()
     }
 

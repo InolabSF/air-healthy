@@ -9,7 +9,18 @@ class AIRMapViewController: UIViewController {
     @IBOutlet weak var timelineView: AIRTimelineView!
     @IBOutlet weak var mapView: AIRMapView!
 
-    var passes: [CLLocation] = []
+    var startDate: NSDate!
+    var passesIndex = 0
+    var passesPer6hours: [[CLLocation]] = []
+    var passes: [CLLocation] {
+        get {
+            if passesPer6hours.count == 0 { return [] }
+            return self.passesPer6hours[self.passesIndex]
+        }
+    }
+    @IBOutlet weak var leftPassesSwitchButton: UIButton!
+    @IBOutlet weak var rightPassesSwitchButton: UIButton!
+
     var sensors: [AIRSensor] = []
     var chemical = ""
 
@@ -54,8 +65,11 @@ class AIRMapViewController: UIViewController {
             return sensor.name == name
         })
         self.setSensorValues()
+        self.designPassesSwitchButtons()
 
-        self.mapView.moveCamera(passes: self.passes)
+        if self.passes.count < 2 { self.mapView.moveCameraToMyLocation() }
+        else { self.mapView.moveCamera(passes: self.passes) }
+
         self.drawMap()
     }
 
@@ -67,6 +81,14 @@ class AIRMapViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         UIApplication.sharedApplication().statusBarStyle = .LightContent
+    }
+
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+    }
+
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidAppear(animated)
     }
 
     override func didReceiveMemoryWarning() {
@@ -87,10 +109,51 @@ class AIRMapViewController: UIViewController {
         if button == self.leftBarButton {
             self.navigationController!.popViewControllerAnimated(true)
         }
+        else if button == self.leftPassesSwitchButton {
+            self.passesIndex -= 1
+            if self.passesIndex < 0 { self.passesIndex = 0 }
+            self.updateMapAndTimeline()
+        }
+        else if button == self.rightPassesSwitchButton {
+            self.passesIndex += 1
+            if self.passesIndex >= self.passesPer6hours.count { self.passesIndex = self.passesPer6hours.count-1 }
+            self.updateMapAndTimeline()
+        }
+
     }
 
 
     /// MARK: - notification
+
+
+    /// MARK: - public api
+
+    /**
+     * set passes
+     * @param passes [CLLocation]
+     **/
+    func setPasses(p: [CLLocation]) {
+        self.startDate = NSDate()
+        if p.count > 0 { self.startDate = p.first!.timestamp }
+        if p.count < 2 { return }
+
+        let last = p.last!.timestamp
+        let hours = Int(last.timeIntervalSinceDate(p.first!.timestamp)) / 60 / 60
+        let intervalHour = 6
+        let intervalCount = 24 / intervalHour
+        let separation = (hours / intervalHour >= intervalCount) ? intervalCount-1 : hours / 6
+        for var i = separation; i >= 0; i-- {
+            let end = last.air_hoursAgo(hours: 6*i)!
+            let start = last.air_hoursAgo(hours: 6*(i+1))!
+            let passesFor6hours = p.filter({ (pass: CLLocation) -> Bool in
+                    return pass.timestamp.compare(start) == NSComparisonResult.OrderedDescending && end.compare(pass.timestamp) == NSComparisonResult.OrderedDescending
+            })
+            if passesFor6hours.count > 0 {
+                self.passesPer6hours.append(passesFor6hours)
+            }
+        }
+        self.passesIndex = self.passesPer6hours.count - 1
+    }
 
 
     /// MARK: - private api
@@ -99,23 +162,32 @@ class AIRMapViewController: UIViewController {
      * return current vlaue
      * @return Double
      **/
-    func currentValue() -> Double {
+    private func currentValue() -> Double {
+        let index = self.getCurrentValuesIndex(second: Double(self.timelineView.timeSlider.value))
+        if index == nil { return 0.0 }
+        return self.values[index!]
+    }
+
+    /**
+     * return current vlaues index
+     * @param second time from start
+     * @return Int?
+     **/
+    private func getCurrentValuesIndex(second second: Double) -> Int? {
         if self.passes.count >= 2 {
-            let control = self.timelineView.timeSlider
             var index = -1
-            let userDate = self.passes.first!.timestamp.dateByAddingTimeInterval(Double(control.value))
+            let offset = self.passes.first!.timestamp.timeIntervalSinceDate(self.startDate)
+            let userDate = self.passes.first!.timestamp.dateByAddingTimeInterval(second)
             for var i = 1; i < passes.count; i++ {
                 let start = passes[i-1]
                 let end = passes[i]
                 if userDate.compare(start.timestamp) != .OrderedAscending && userDate.compare(end.timestamp) != .OrderedDescending {
-                    index = Int(control.value / 60)
+                    index = Int(second+offset) / 60
                 }
             }
-            if index >= 0 && index < self.values.count {
-                return self.values[index]
-            }
+            if index >= 0 && index < self.values.count { return index }
         }
-        return 0.0
+        return nil
     }
 
     /**
@@ -150,6 +222,25 @@ class AIRMapViewController: UIViewController {
             forState: .Normal
         )
 
+        // left passes switch button
+        self.leftPassesSwitchButton.setImage(
+            IonIcons.imageWithIcon(
+                ion_ios_arrow_back,
+                iconColor: UIColor.grayColor(),
+                iconSize: 32,
+                imageSize: CGSizeMake(32, 32)),
+            forState: .Normal
+        )
+        // right passes switch button
+        self.rightPassesSwitchButton.setImage(
+            IonIcons.imageWithIcon(
+                ion_ios_arrow_forward,
+                iconColor: UIColor.grayColor(),
+                iconSize: 32,
+                imageSize: CGSizeMake(32, 32)),
+            forState: .Normal
+        )
+
         // timelineView
         self.timelineView.timeSliderTitleLabel.text = self.chemical
 
@@ -168,11 +259,21 @@ class AIRMapViewController: UIViewController {
     }
 
     /**
+     * update map and timeline
+     **/
+    private func updateMapAndTimeline() {
+        self.setSensorValues()
+        self.designPassesSwitchButtons()
+        self.mapView.moveCamera(passes: self.passes)
+        self.drawMap()
+    }
+
+    /**
      * draw map
      **/
     private func drawMap() {
         var color = UIColor.clearColor()
-        if self.passes.count > 0 { color = AIRSensorManager.sensorColor(value: self.currentValue(), sensorBasements: self.basements) }
+        if self.passes.count >= 2 { color = AIRSensorManager.sensorColor(value: self.currentValue(), sensorBasements: self.basements) }
         self.mapView.draw(
             passes: self.passes,
             intervalFromStart: Double(self.timelineView.timeSlider.value),
@@ -191,7 +292,7 @@ class AIRMapViewController: UIViewController {
         // time
         var time = ""
         var color = UIColor.clearColor()
-        if self.passes.count > 0 {
+        if self.passes.count >= 2 {
             let allInterval = self.passes.last!.timestamp.timeIntervalSinceDate(self.passes.first!.timestamp)
             self.timelineView.timeSlider.maximumValue = CGFloat(allInterval)
             let date = self.passes.first!.timestamp.dateByAddingTimeInterval(intervalFromStart)
@@ -200,6 +301,11 @@ class AIRMapViewController: UIViewController {
             time = dateFormatter.stringFromDate(date)
 
             color = AIRSensorManager.sensorColor(value: self.currentValue(), sensorBasements: self.basements)
+
+            self.timelineView.setDate(date)
+        }
+        else {
+            self.timelineView.setDate(NSDate())
         }
 
         self.timelineView.setTimeline(time: time, color: color)
@@ -209,21 +315,43 @@ class AIRMapViewController: UIViewController {
      * set sensor datas
      **/
     private func setSensorValues() {
+        var allInterval = 0.0
+
         // timeline
-        if self.passes.count > 0 {
-            let allInterval = self.passes.last!.timestamp.timeIntervalSinceDate(self.passes.first!.timestamp)
+        if self.passes.count >= 2 {
+            allInterval = self.passes.last!.timestamp.timeIntervalSinceDate(self.passes.first!.timestamp)
             self.timelineView.timeSlider.maximumValue = CGFloat(allInterval)
             if self.timelineView.timeSlider.maximumValue > 0.0 { self.timelineView.timeSlider.value = self.timelineView.timeSlider.maximumValue }
         }
 
+        let startIndex = self.getCurrentValuesIndex(second: 0.0)
+        let endIndex = self.getCurrentValuesIndex(second: allInterval)
+        if startIndex == nil || endIndex == nil { return }
+
         // timeline
         self.timelineView.setLineChart(
             passes: self.passes,
-            valuesPerMinute: self.values,
+            valuesPerMinute: self.values.slice((startIndex!), (endIndex!)),
             sensorBasements: self.basements
         )
         self.setTimeline()
     }
+
+    /**
+     * design passes switch button
+     **/
+    private func designPassesSwitchButtons() {
+        self.leftPassesSwitchButton.hidden = false
+        self.rightPassesSwitchButton.hidden = false
+
+        if self.passesIndex == 0 {
+            self.leftPassesSwitchButton.hidden = true
+        }
+        if self.passesIndex == self.passesPer6hours.count-1 {
+            self.rightPassesSwitchButton.hidden = true
+        }
+    }
+
 }
 
 
@@ -253,6 +381,7 @@ extension AIRMapViewController: GMSMapViewDelegate {
     }
 
     func mapView(mapView: GMSMapView, didChangeCameraPosition position: GMSCameraPosition) {
+        self.drawMap() // draw map
     }
 
     func mapView(mapView: GMSMapView,  didDragMarker marker:GMSMarker) {

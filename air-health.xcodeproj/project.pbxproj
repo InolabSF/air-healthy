@@ -29,6 +29,7 @@
 		E66940351BEAC6E200771F8B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E669402D1BEAC6E200771F8B /* AppDelegate.swift */; };
 		E66E26F91BFABC60004E58CB /* vasp.csv in Resources */ = {isa = PBXBuildFile; fileRef = E66E26F71BFABC60004E58CB /* vasp.csv */; };
 		E66E26FA1BFABC60004E58CB /* ZAIRLOCATION.csv in Resources */ = {isa = PBXBuildFile; fileRef = E66E26F81BFABC60004E58CB /* ZAIRLOCATION.csv */; };
+		E6702F521C582FEC002A0F91 /* Array+Slice.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6702F511C582FEC002A0F91 /* Array+Slice.swift */; };
 		E67376881C2B657A005E822C /* AIRSummary.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67376851C2B657A005E822C /* AIRSummary.swift */; };
 		E67376891C2B657A005E822C /* AIRSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E67376861C2B657A005E822C /* AIRSummaryViewController.swift */; };
 		E673768B1C2B69AE005E822C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E673768A1C2B69AE005E822C /* Main.storyboard */; };
@@ -86,6 +87,7 @@
 		E669402D1BEAC6E200771F8B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E66E26F71BFABC60004E58CB /* vasp.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = vasp.csv; sourceTree = "<group>"; };
 		E66E26F81BFABC60004E58CB /* ZAIRLOCATION.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ZAIRLOCATION.csv; sourceTree = "<group>"; };
+		E6702F511C582FEC002A0F91 /* Array+Slice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Slice.swift"; sourceTree = "<group>"; };
 		E67376851C2B657A005E822C /* AIRSummary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRSummary.swift; sourceTree = "<group>"; };
 		E67376861C2B657A005E822C /* AIRSummaryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRSummaryViewController.swift; sourceTree = "<group>"; };
 		E673768A1C2B69AE005E822C /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 		E612614A1BF160C200BE8E91 /* NSFoundation+Extension */ = {
 			isa = PBXGroup;
 			children = (
+				E6702F511C582FEC002A0F91 /* Array+Slice.swift */,
 				E6F4DCD91C0DB72A00F8DA0F /* String+Justified.swift */,
 				E695DA661BF2BEAB0060BF66 /* NSDate+Ago.swift */,
 				E612614B1BF160C200BE8E91 /* NSMutableURLRequest+HTTPBody.swift */,
@@ -551,6 +554,7 @@
 				E6655D1A1BFBA70700D6A2AD /* CSV.swift in Sources */,
 				E612614D1BF160C200BE8E91 /* NSMutableURLRequest+HTTPBody.swift in Sources */,
 				E66940351BEAC6E200771F8B /* AppDelegate.swift in Sources */,
+				E6702F521C582FEC002A0F91 /* Array+Slice.swift in Sources */,
 				E6A6B7621C0FB4740085C291 /* AIRSensorMarker.swift in Sources */,
 				E6839C791BF2B974007BD219 /* AIRLocation.swift in Sources */,
 				E61CFA1D1C1F8E1300119148 /* AIRBadAirLocation.swift in Sources */,

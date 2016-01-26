@@ -54,6 +54,30 @@ class AIRSensor: NSManagedObject {
         )
     }
 */
+    /**
+     * fetch
+     * @return [AIRSensor]
+     */
+    class func fetch() -> [AIRSensor] {
+        let context = AIRCoreDataManager.sharedInstance.managedObjectContext
+
+        // make fetch request
+        let fetchRequest = NSFetchRequest()
+        let entity = NSEntityDescription.entityForName("AIRSensor", inManagedObjectContext:context)
+        fetchRequest.entity = entity
+        fetchRequest.fetchBatchSize = 20
+        fetchRequest.returnsObjectsAsFaults = false
+        fetchRequest.sortDescriptors = [
+            NSSortDescriptor(key: "lat", ascending: true),
+            NSSortDescriptor(key: "lng", ascending: true),
+        ]
+
+        // return locations
+        var sensors: [AIRSensor]? = []
+        do { sensors = try context.executeFetchRequest(fetchRequest) as? [AIRSensor] }
+        catch { return [] }
+        return sensors!
+    }
 
     /**
      * fetch

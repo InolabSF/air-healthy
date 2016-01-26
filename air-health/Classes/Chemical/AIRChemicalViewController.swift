@@ -76,7 +76,8 @@ class AIRChemicalViewController: UIViewController {
             let vc = segue.destinationViewController as! AIRMapViewController
             vc.SO2ValuePerMinutes = self.SO2AverageSensorValues
             vc.O3ValuePerMinutes = self.O3AverageSensorValues
-            vc.passes = self.passes
+            //vc.passes = self.passes
+            vc.setPasses(self.passes)
             vc.sensors = self.sensors
             vc.chemical = chemical
         }

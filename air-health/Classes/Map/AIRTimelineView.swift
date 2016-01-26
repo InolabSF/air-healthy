@@ -179,36 +179,11 @@ class AIRTimelineView: UIView {
         self.timelineLineChartBackgroundView.addSubview(self.timelineLineChartView!)
     }
 
-
-    /// MARK: - private api
-
-    /**
-     * set up
-     **/
-    private func setUp() {
-        // slider
-        self.timeSliderTitleView.layer.cornerRadius = 18.0
-        self.timeSliderTitleView.layer.masksToBounds = true
-        self.timeSliderTitleView.clipsToBounds = true
-        self.timeSliderView.layer.shadowOffset = CGSizeMake(0, 0)
-        self.timeSliderView.layer.shadowOpacity = 0.3
-        self.timeSliderView.layer.shadowRadius = 2.0
-        self.timeSliderView.layer.shadowPath = UIBezierPath(
-            roundedRect: CGRectMake(self.timeSliderView.bounds.origin.x, self.timeSliderView.bounds.origin.y, UIScreen.mainScreen().bounds.width, self.timeSliderView.bounds.height),
-            cornerRadius: 18.0
-        ).CGPath
-
-        // date view
-        self.dateView.layer.shadowOffset = CGSizeMake(0, 0)
-        self.dateView.layer.shadowOpacity = 0.1
-        self.setDate(NSDate())
-    }
-
     /**
      * set date
      * @param date NSDate
      **/
-    private func setDate(date: NSDate) {
+    func setDate(date: NSDate) {
         let dateFormatter = NSDateFormatter.air_dateFormatter()
         // year
         dateFormatter.dateFormat = "yyyy"
@@ -246,6 +221,30 @@ class AIRTimelineView: UIView {
         attributedText.appendAttributedString(dayString)
         attributedText.appendAttributedString(yearString)
         self.dateButton.setAttributedTitle(attributedText, forState: .Normal)
+    }
+
+
+    /// MARK: - private api
+
+    /**
+     * set up
+     **/
+    private func setUp() {
+        // slider
+        self.timeSliderTitleView.layer.cornerRadius = 18.0
+        self.timeSliderTitleView.layer.masksToBounds = true
+        self.timeSliderTitleView.clipsToBounds = true
+        self.timeSliderView.layer.shadowOffset = CGSizeMake(0, 0)
+        self.timeSliderView.layer.shadowOpacity = 0.3
+        self.timeSliderView.layer.shadowRadius = 2.0
+        self.timeSliderView.layer.shadowPath = UIBezierPath(
+            roundedRect: CGRectMake(self.timeSliderView.bounds.origin.x, self.timeSliderView.bounds.origin.y, UIScreen.mainScreen().bounds.width, self.timeSliderView.bounds.height),
+            cornerRadius: 18.0
+        ).CGPath
+
+        // date view
+        self.dateView.layer.shadowOffset = CGSizeMake(0, 0)
+        self.dateView.layer.shadowOpacity = 0.1
     }
 
 }

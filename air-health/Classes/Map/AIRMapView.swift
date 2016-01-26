@@ -7,6 +7,8 @@ class AIRMapView: GMSMapView {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+
+        self.setMinZoom(4.0, maxZoom:16.0)
     }
 
 
@@ -43,7 +45,6 @@ class AIRMapView: GMSMapView {
             longitude: location!.coordinate.longitude,
             zoom: 14.0
         )
-
     }
 
     /**
@@ -59,7 +60,7 @@ class AIRMapView: GMSMapView {
         // sensor
         self.drawSensors(sensors)
         // bad air locations
-        self.drawBadAirLocations()
+        //self.drawBadAirLocations()
 
         if passes.count < 2 { return }
 
@@ -125,23 +126,42 @@ class AIRMapView: GMSMapView {
      * @param sensors [AIRSensor]
      **/
     private func drawSensors(sensors: [AIRSensor]) {
+        // bounds to draw
+        //let points = [CGPointMake(0, 0), CGPointMake(self.frame.width, 0), CGPointMake(0, self.frame.height), CGPointMake(self.frame.width, self.frame.height),]
+        let offsetX = self.frame.width * 0.25
+        let offsetY = self.frame.height * 0.25
+        let points = [CGPointMake(-offsetX, -offsetY), CGPointMake(self.frame.width+offsetX, -offsetY), CGPointMake(-offsetX, self.frame.height+offsetY), CGPointMake(self.frame.width+offsetX, self.frame.height+offsetY),]
+        let min = self.minimumCoordinate(mapViewPoints: points)
+        let max = self.maximumCoordinate(mapViewPoints: points)
+
+        for sensor in sensors {
+            let lat = sensor.lat.doubleValue
+            let lng = sensor.lng.doubleValue
+            if lat < min.latitude || lat > max.latitude || lng < min.longitude || lng > max.longitude { continue }
+
+            let marker = AIRSensorPolygon.marker(sensor: sensor)
+            marker.map = self
+        }
+
+/*
         for sensor in sensors {
             let marker = AIRSensorPolygon.marker(sensor: sensor)
             marker.map = self
         }
+*/
     }
 
-    /**
-     * draw bad air location
-     **/
-    private func drawBadAirLocations() {
-        let locations = AIRBadAirLocation.fetch()
-        for location in locations {
-            let marker = AIRBadAirLocationMarker(location: location)
-            marker.map = self
-        }
-    }
-
+//    /**
+//     * draw bad air location
+//     **/
+//    private func drawBadAirLocations() {
+//        let locations = AIRBadAirLocation.fetch()
+//        for location in locations {
+//            let marker = AIRBadAirLocationMarker(location: location)
+//            marker.map = self
+//        }
+//    }
+//
 //    /**
 //     * draw users
 //     **/
@@ -151,5 +171,41 @@ class AIRMapView: GMSMapView {
 //            marker.map = self
 //        }
 //    }
+
+}
+
+
+/// MARK: -
+extension AIRMapView {
+
+    /**
+     * get minimumCoordinate
+     * @param mapViewPoints coordinates on GMSMapView
+     * @return CLLocationCoordinate2D
+     **/
+    func minimumCoordinate(mapViewPoints mapViewPoints: [CGPoint]) -> CLLocationCoordinate2D {
+        var min = self.projection.coordinateForPoint(mapViewPoints[0])
+        for point in mapViewPoints {
+            let coordinate = self.projection.coordinateForPoint(point)
+            if min.latitude > coordinate.latitude { min.latitude = coordinate.latitude }
+            if min.longitude > coordinate.longitude { min.longitude = coordinate.longitude }
+        }
+        return min
+    }
+
+    /**
+     * get maximumCoordinate
+     * @param mapViewPoints coordinates on GMSMapView
+     * @return CLLocationCoordinate2D
+     **/
+    func maximumCoordinate(mapViewPoints mapViewPoints: [CGPoint]) -> CLLocationCoordinate2D {
+        var max = self.projection.coordinateForPoint(mapViewPoints[0])
+        for point in mapViewPoints {
+            let coordinate = self.projection.coordinateForPoint(point)
+            if max.latitude < coordinate.latitude { max.latitude = coordinate.latitude }
+            if max.longitude < coordinate.longitude { max.longitude = coordinate.longitude }
+        }
+        return max
+    }
 
 }

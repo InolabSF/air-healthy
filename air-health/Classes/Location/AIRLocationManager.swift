@@ -5,9 +5,11 @@ import CoreLocation
 class AIRLocationManager: NSObject {
 
     /// MARK: - constant
-    static let IntervalToStartUpdatingLocation = 10.0 // seconds to update location
+    //static let IntervalToStartUpdatingLocation = 10.0 // seconds to update location
+    static let IntervalToStartUpdatingLocation = 6.0 // seconds to update location
     static let DistanceToUpdateLocation: CLLocationDistance = 50.0 // distance to update location
-    static let ComfirmingCountToUpdateLocation = 3 // comfirming count to update location
+    //static let ComfirmingCountToUpdateLocation = 3 // comfirming count to update location
+    static let ComfirmingCountToUpdateLocation = 5 // comfirming count to update location
 
     static let ThresholdOfTimeIntervalToStop: NSTimeInterval = 300
     static let ThresholdOfDistanceToStop: CLLocationDistance = 200

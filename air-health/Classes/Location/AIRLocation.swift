@@ -253,6 +253,11 @@ class AIRLocation: NSManagedObject {
         fetchRequest.returnsObjectsAsFaults = false
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: true),]
             // make predicates
+        let startDate = date.air_daysAgo(days: 1)
+        let endDate = date
+        let predicaets = [ NSPredicate(format: "(timestamp >= %@) AND (timestamp <= %@)", startDate!, endDate), ]
+        fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicaets)
+/*
         var startDate = date
         var endDate = startDate.air_daysAgo(days: -1)
         let dateFormatter = NSDateFormatter.air_dateFormatter()
@@ -264,7 +269,7 @@ class AIRLocation: NSManagedObject {
         endDate = dateFormatter.dateFromString(endDateString+" 00:00:00")!
         let predicaets = [ NSPredicate(format: "(timestamp >= %@) AND (timestamp < %@)", startDate, endDate!), ]
         fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicaets)
-
+*/
         // return locations
         var locations: [AIRLocation]? = []
         do { locations = try context.executeFetchRequest(fetchRequest) as? [AIRLocation] }

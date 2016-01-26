@@ -18,8 +18,8 @@ class AIRSensorPolygon: GMSPolygon {
      **/
     class func marker(sensor sensor: AIRSensor) -> AIRSensorPolygon {
         let center = CLLocation(latitude: sensor.lat.doubleValue, longitude: sensor.lng.doubleValue)
-        let latOffset = AIRLocation.degree(meter: AIRSensorPolygon.Radius, latlng: "lat", location: center)
-        let lngOffset = AIRLocation.degree(meter: AIRSensorPolygon.Radius, latlng: "lng", location: center)
+        let latOffset = 0.00125//AIRLocation.degree(meter: AIRSensorPolygon.Radius, latlng: "lat", location: center)
+        let lngOffset = 0.00125//AIRLocation.degree(meter: AIRSensorPolygon.Radius, latlng: "lng", location: center)
         let lat = center.coordinate.latitude
         let lng = center.coordinate.longitude
 

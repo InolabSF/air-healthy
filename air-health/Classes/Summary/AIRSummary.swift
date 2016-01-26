@@ -87,7 +87,6 @@ class AIRSummary: NSObject {
                 self.setSensorValues()
             }
         )
-
     }
 
 //    /**
@@ -107,55 +106,55 @@ class AIRSummary: NSObject {
      * set sensor datas
      **/
     func setSensorValues() {
-        dispatch_async(
-            dispatch_get_main_queue(), { [unowned self] () in
-
+        dispatch_async(dispatch_get_main_queue(), { [unowned self] () in
             if self.delegate != nil {
                 (self.delegate as! AIRSummaryDelegate).summaryCalculationDidStart(summary: self)
             }
-
         })
 
         // calculate summary
         dispatch_after(
             dispatch_time(DISPATCH_TIME_NOW, Int64(Double(NSEC_PER_SEC) / 10.0)),
-            dispatch_get_main_queue(), { [unowned self] () in
+            dispatch_get_main_queue(),
+            { [unowned self] () in
 
 
-            let today = NSDate()
+                let today = NSDate()
 
-            // passes and sensor datas
-            self.passes  = AIRLocation.fetch(date: today)
+                // passes and sensor datas
+                self.passes = AIRLocation.fetch(date: today)
+
+                // sensors
+                self.sensors = AIRSensor.fetch()
+/*
+                let southWest = AIRLocation.southWest(locations: self.passes, offsetMeters: AIRLocationManager.ThresholdOfSensorNeighbor)
+                let northEast = AIRLocation.northEast(locations: self.passes, offsetMeters: AIRLocationManager.ThresholdOfSensorNeighbor)
+                self.sensors = AIRSensor.fetch(date: today, southWest: southWest, northEast: northEast)
+*/
+
+                // values
+                self.SO2ValuePerMinutes = AIRSensorManager.valuesPerMinute(
+                    passes: self.passes,
+                    averageSensorValues: AIRSensorManager.averageSensorValues(name: "SO2", date: today, locations: self.passes),
+                    sensorBasements: AIRSensorManager.sensorBasements(name: "SO2")
+                )
+                self.O3ValuePerMinutes = AIRSensorManager.valuesPerMinute(
+                    passes: self.passes,
+                    averageSensorValues: AIRSensorManager.averageSensorValues(name: "Ozone_S", date: today, locations: self.passes),
+                    sensorBasements: AIRSensorManager.sensorBasements(name: "Ozone_S")
+                )
+                self.values = []
+                for var i = 0; i < self.SO2ValuePerMinutes.count; i++ {
+                    let so2 = abs(self.SO2ValuePerMinutes[i] / AIRSensorManager.WHOBasementSO2_2)
+                    let o3 = abs(self.O3ValuePerMinutes[i] / AIRSensorManager.WHOBasementOzone_S_2)
+                    let value = so2 + o3
+                    self.values.append(value)
+                }
 
 
-            // sensors
-            let southWest = AIRLocation.southWest(locations: self.passes, offsetMeters: AIRLocationManager.ThresholdOfSensorNeighbor)
-            let northEast = AIRLocation.northEast(locations: self.passes, offsetMeters: AIRLocationManager.ThresholdOfSensorNeighbor)
-            self.sensors = AIRSensor.fetch(date: today, southWest: southWest, northEast: northEast)
-
-            // values
-            self.SO2ValuePerMinutes = AIRSensorManager.valuesPerMinute(
-                passes: self.passes,
-                averageSensorValues: AIRSensorManager.averageSensorValues(name: "SO2", date: today, locations: self.passes),
-                sensorBasements: AIRSensorManager.sensorBasements(name: "SO2")
-            )
-            self.O3ValuePerMinutes = AIRSensorManager.valuesPerMinute(
-                passes: self.passes,
-                averageSensorValues: AIRSensorManager.averageSensorValues(name: "Ozone_S", date: today, locations: self.passes),
-                sensorBasements: AIRSensorManager.sensorBasements(name: "Ozone_S")
-            )
-            self.values = []
-            for var i = 0; i < self.SO2ValuePerMinutes.count; i++ {
-                let so2 = abs(self.SO2ValuePerMinutes[i] / AIRSensorManager.WHOBasementSO2_2)
-                let o3 = abs(self.O3ValuePerMinutes[i] / AIRSensorManager.WHOBasementOzone_S_2)
-                let value = so2 + o3
-                self.values.append(value)
-            }
-
-
-            if self.delegate != nil {
-                (self.delegate as! AIRSummaryDelegate).summaryCalculationDidEnd(summary: self)
-            }
+                if self.delegate != nil {
+                    (self.delegate as! AIRSummaryDelegate).summaryCalculationDidEnd(summary: self)
+                }
 
             }
         )

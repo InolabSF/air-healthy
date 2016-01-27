@@ -48,6 +48,7 @@ class AIRMapViewController: UIViewController {
     /// MARK: - destruction
 
     deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
 
@@ -58,19 +59,18 @@ class AIRMapViewController: UIViewController {
 
         self.setUp()
 
-        var name = ""
-        if self.chemical == "SO2" { name = "SO2" }
-        else if self.chemical == "O3" { name = "Ozone_S" }
-        self.sensors = self.sensors.filter( { (sensor: AIRSensor) -> Bool in
-            return sensor.name == name
-        })
-        self.setSensorValues()
-        self.designPassesSwitchButtons()
-
-        if self.passes.count < 2 { self.mapView.moveCameraToMyLocation() }
-        else { self.mapView.moveCamera(passes: self.passes) }
+        self.updateSensorValues()
+        self.updateMapAndTimeline()
 
         self.drawMap()
+
+        // notification
+        NSNotificationCenter.defaultCenter().addObserver(
+            self,
+            selector: Selector("didUpdateSensorValues:"),
+            name: AIRNotificationCenter.DidUpdateSensorValues,
+            object: nil
+        )
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -125,6 +125,15 @@ class AIRMapViewController: UIViewController {
 
     /// MARK: - notification
 
+    /**
+     * get sensor datas
+     * @param notification NSNotification
+     **/
+    func didUpdateSensorValues(notificatoin: NSNotification) {
+        self.updateSensorValues()
+        self.updateMapAndTimeline()
+    }
+
 
     /// MARK: - public api
 
@@ -137,6 +146,7 @@ class AIRMapViewController: UIViewController {
         if p.count > 0 { self.startDate = p.first!.timestamp }
         if p.count < 2 { return }
 
+        self.passesPer6hours = []
         let last = p.last!.timestamp
         let hours = Int(last.timeIntervalSinceDate(p.first!.timestamp)) / 60 / 60
         let intervalHour = 6
@@ -259,12 +269,28 @@ class AIRMapViewController: UIViewController {
     }
 
     /**
+     * update sensor values
+     **/
+    private func updateSensorValues() {
+        self.SO2ValuePerMinutes = AIRSummary.sharedInstance.SO2ValuePerMinutes
+        self.O3ValuePerMinutes = AIRSummary.sharedInstance.O3ValuePerMinutes
+        var name = ""
+        if self.chemical == "SO2" { name = "SO2" }
+        else if self.chemical == "O3" { name = "Ozone_S" }
+        self.setPasses(AIRSummary.sharedInstance.passes)
+        self.sensors = AIRSummary.sharedInstance.sensors.filter({ (sensor: AIRSensor) -> Bool in
+            return sensor.name == name
+        })
+    }
+
+    /**
      * update map and timeline
      **/
     private func updateMapAndTimeline() {
         self.setSensorValues()
         self.designPassesSwitchButtons()
-        self.mapView.moveCamera(passes: self.passes)
+        if self.passes.count < 2 { self.mapView.moveCameraToMyLocation() }
+        else { self.mapView.moveCamera(passes: self.passes) }
         self.drawMap()
     }
 

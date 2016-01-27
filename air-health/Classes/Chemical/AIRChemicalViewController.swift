@@ -8,15 +8,16 @@ class AIRChemicalViewController: UIViewController {
 
     @IBOutlet weak var graphView: AIRChemicalGraphView!
 
-    var SO2AverageSensorValues: [Double] = []
-    var O3AverageSensorValues: [Double] = []
-    var passes: [CLLocation] = []
-    var sensors: [AIRSensor] = []
+    //var SO2AverageSensorValues: [Double] = []
+    //var O3AverageSensorValues: [Double] = []
+    //var passes: [CLLocation] = []
+    //var sensors: [AIRSensor] = []
 
 
     /// MARK: - destruction
 
     deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
 
@@ -53,7 +54,19 @@ class AIRChemicalViewController: UIViewController {
             forState: .Normal
         )
 
-        self.graphView.setSensorValues(SO2AverageSensorValues: self.SO2AverageSensorValues, O3AverageSensorValues: self.O3AverageSensorValues)
+        //self.graphView.setSensorValues(SO2AverageSensorValues: self.SO2AverageSensorValues, O3AverageSensorValues: self.O3AverageSensorValues)
+        self.graphView.setSensorValues(
+            SO2AverageSensorValues: AIRSummary.sharedInstance.SO2ValuePerMinutes,
+            O3AverageSensorValues: AIRSummary.sharedInstance.O3ValuePerMinutes
+        )
+
+        // notification
+        NSNotificationCenter.defaultCenter().addObserver(
+            self,
+            selector: Selector("didUpdateSensorValues:"),
+            name: AIRNotificationCenter.DidUpdateSensorValues,
+            object: nil
+        )
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -74,11 +87,11 @@ class AIRChemicalViewController: UIViewController {
         if (segue.identifier == AIRNSStringFromClass(AIRMapViewController)) {
             let chemical = sender as! String
             let vc = segue.destinationViewController as! AIRMapViewController
-            vc.SO2ValuePerMinutes = self.SO2AverageSensorValues
-            vc.O3ValuePerMinutes = self.O3AverageSensorValues
-            //vc.passes = self.passes
-            vc.setPasses(self.passes)
-            vc.sensors = self.sensors
+            //vc.SO2ValuePerMinutes = self.SO2AverageSensorValues
+            //vc.O3ValuePerMinutes = self.O3AverageSensorValues
+            ////vc.passes = self.passes
+            //vc.setPasses(self.passes)
+            //vc.sensors = self.sensors
             vc.chemical = chemical
         }
     }
@@ -98,6 +111,17 @@ class AIRChemicalViewController: UIViewController {
 
 
     /// MARK: - notification
+
+    /**
+     * get sensor datas
+     * @param notification NSNotification
+     **/
+    func didUpdateSensorValues(notificatoin: NSNotification) {
+        self.graphView.setSensorValues(
+            SO2AverageSensorValues: AIRSummary.sharedInstance.SO2ValuePerMinutes,
+            O3AverageSensorValues: AIRSummary.sharedInstance.O3ValuePerMinutes
+        )
+    }
 
 
     /// MARK: - public api

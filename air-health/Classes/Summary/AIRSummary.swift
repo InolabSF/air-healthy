@@ -46,6 +46,7 @@ class AIRSummary: NSObject {
             object: nil
         )
 
+        self.passes = AIRLocation.fetch(date: NSDate())
         // get new sensor values
         self.getSensorsFromServer()
         // get user datas from server

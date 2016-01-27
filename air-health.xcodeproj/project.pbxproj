@@ -22,6 +22,7 @@
 		E62F17071C3C45CE002B501F /* AIRChemicalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62F17061C3C45CE002B501F /* AIRChemicalViewController.swift */; };
 		E62F17091C3C485D002B501F /* AIRChemicalGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62F17081C3C485D002B501F /* AIRChemicalGraphView.swift */; };
 		E63DB73D1BF57AA8000E3E42 /* AIRTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63DB73C1BF57AA8000E3E42 /* AIRTableViewCell.swift */; };
+		E646B6FE1C5848FF0005899F /* AIRNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E646B6FD1C5848FF0005899F /* AIRNavigationController.swift */; };
 		E647B4771BFBEABB00B2CA4F /* AIRSensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E647B4761BFBEABB00B2CA4F /* AIRSensor.swift */; };
 		E647B4791BFC050F00B2CA4F /* AIRLocationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = E647B4781BFC050F00B2CA4F /* AIRLocationName.swift */; };
 		E663D21E1C4EF79300926E82 /* NSDateFormatter+USStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E663D21D1C4EF79300926E82 /* NSDateFormatter+USStyle.swift */; };
@@ -80,6 +81,7 @@
 		E62F17061C3C45CE002B501F /* AIRChemicalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRChemicalViewController.swift; sourceTree = "<group>"; };
 		E62F17081C3C485D002B501F /* AIRChemicalGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRChemicalGraphView.swift; sourceTree = "<group>"; };
 		E63DB73C1BF57AA8000E3E42 /* AIRTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRTableViewCell.swift; sourceTree = "<group>"; };
+		E646B6FD1C5848FF0005899F /* AIRNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRNavigationController.swift; sourceTree = "<group>"; };
 		E647B4761BFBEABB00B2CA4F /* AIRSensor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRSensor.swift; sourceTree = "<group>"; };
 		E647B4781BFC050F00B2CA4F /* AIRLocationName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRLocationName.swift; sourceTree = "<group>"; };
 		E663D21D1C4EF79300926E82 /* NSDateFormatter+USStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDateFormatter+USStyle.swift"; sourceTree = "<group>"; };
@@ -247,6 +249,7 @@
 				E6AEF7E81BEBFB89000102E2 /* air-health-Bridging-Header.h */,
 				E62A03C31BF157360046ABE0 /* AIRConstant-Private.swift */,
 				E6E4B73C1BEADEC6002DEAB1 /* AIRConstant.swift */,
+				E646B6FD1C5848FF0005899F /* AIRNavigationController.swift */,
 				E669402D1BEAC6E200771F8B /* AppDelegate.swift */,
 				E67376831C2B657A005E822C /* Summary */,
 				E62F17051C3C45CE002B501F /* Chemical */,
@@ -572,6 +575,7 @@
 				E62A03C41BF157360046ABE0 /* AIRConstant-Private.swift in Sources */,
 				E6D803FD1BFD444C00A55326 /* AIRSensorManager.swift in Sources */,
 				E67D11171C01E8430065266D /* GradientSlider.swift in Sources */,
+				E646B6FE1C5848FF0005899F /* AIRNavigationController.swift in Sources */,
 				E62F17091C3C485D002B501F /* AIRChemicalGraphView.swift in Sources */,
 				E695DA671BF2BEAB0060BF66 /* NSDate+Ago.swift in Sources */,
 				E6839C741BF2B939007BD219 /* AIRCoreDataManager.swift in Sources */,

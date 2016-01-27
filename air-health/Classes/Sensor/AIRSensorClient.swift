@@ -21,9 +21,20 @@ class AIRSensorClient: AnyObject {
      */
     //func getSensorValues(locations locations: [CLLocation], completionHandler: (objects: [PFObject]?, error: NSError?) -> Void)
     func getSensorValues(locations locations: [CLLocation], completionHandler: (json: JSON) -> Void) {
-        if AIRSensor.hasSensors() { return }
+        //if AIRSensor.hasSensors() { return }
 
-        let request = NSMutableURLRequest(URL: NSURL(string: "https://vasp.herokuapp.com/air")!)
+        let southWest = AIRLocation.southWest(locations: locations, offsetMeters: AIRLocationManager.ThresholdOfSensorNeighbor)
+        let northEast = AIRLocation.northEast(locations: locations, offsetMeters: AIRLocationManager.ThresholdOfSensorNeighbor)
+        let URL = NSURL(
+            URLString: "https://vasp.herokuapp.com/air",
+            queries: [
+                "south":"\(southWest.coordinate.latitude)",
+                "north":"\(northEast.coordinate.latitude)",
+                "west":"\(southWest.coordinate.longitude)",
+                "east":"\(northEast.coordinate.longitude)",
+            ]
+        )
+        let request = NSMutableURLRequest(URL: URL!)
 
         // request
         let operation = ISHTTPOperation(request: request, handler:{ (response: NSHTTPURLResponse!, object: AnyObject!, error: NSError!) -> Void in

@@ -411,20 +411,6 @@
                                     <action selector="valueChangedWithControl:" destination="h1L-3s-mVL" eventType="valueChanged" id="cSO-Zh-0C9"/>
                                 </connections>
                             </switch>
-                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Share your location" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="NKD-2R-hUf">
-                                <rect key="frame" x="20" y="143" width="229" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
-                                <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <switch hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="1hi-kD-wNk">
-                                <rect key="frame" x="251" y="143" width="51" height="31"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                <connections>
-                                    <action selector="valueChangedWithControl:" destination="h1L-3s-mVL" eventType="valueChanged" id="lkD-8g-E57"/>
-                                </connections>
-                            </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Log the locations you passed." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nMQ-cX-jhz">
                                 <rect key="frame" x="20" y="134" width="280" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -432,6 +418,15 @@
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="SQM-Ac-c5q">
+                                <rect key="frame" x="20" y="482" width="280" height="80"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
+                                <state key="normal" title="What is AIR HEALTH?"/>
+                                <connections>
+                                    <action selector="touchedUpInsideButton:" destination="h1L-3s-mVL" eventType="touchUpInside" id="rDK-pw-G08"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -456,7 +451,7 @@
                         <outlet property="GPSSwitch" destination="dhQ-jj-eBd" id="xxz-yp-Q9c"/>
                         <outlet property="leftBarButton" destination="jhB-tb-xgF" id="5iw-Hd-QRf"/>
                         <outlet property="rightBarButton" destination="XQj-mP-7FU" id="AVd-bB-pGx"/>
-                        <outlet property="userSwitch" destination="1hi-kD-wNk" id="Qwe-3K-sYV"/>
+                        <outlet property="tutorialButton" destination="SQM-Ac-c5q" id="NX4-Xz-wcE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mm9-r7-ZWt" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -723,7 +718,7 @@
         <!--Navigation Controller-->
         <scene sceneID="FNz-13-O5q">
             <objects>
-                <navigationController id="qet-ZG-UWb" sceneMemberID="viewController">
+                <navigationController id="qet-ZG-UWb" customClass="AIRNavigationController" customModule="air_health" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Sxq-GV-aUh">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -894,6 +889,6 @@ and the route you passed.</string>
         <image name="tutorial_2" width="64" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="IqY-TE-8QJ"/>
+        <segue reference="Os3-Ru-Cuu"/>
     </inferredMetricsTieBreakers>
 </document>

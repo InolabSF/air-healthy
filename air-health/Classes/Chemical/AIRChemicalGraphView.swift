@@ -86,7 +86,6 @@ class AIRChemicalGraphView: UIView {
      * @param O3AverageSensorValues
      **/
     func setSensorValues(SO2AverageSensorValues SO2AverageSensorValues: [Double], O3AverageSensorValues: [Double]) {
-
         var airHealthSO2 = [0.0, 0.0, 0.0]
         if SO2AverageSensorValues.count == 0 { airHealthSO2 = [1.0, 0.0, 0.0] }
         for var i = 0; i < SO2AverageSensorValues.count; i++ {

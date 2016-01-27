@@ -48,11 +48,11 @@ class AIRSummaryViewController: UIViewController {
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if (segue.identifier == AIRNSStringFromClass(AIRChemicalViewController)) {
-            let vc = segue.destinationViewController as! AIRChemicalViewController
-            vc.SO2AverageSensorValues = AIRSummary.sharedInstance.SO2ValuePerMinutes
-            vc.O3AverageSensorValues = AIRSummary.sharedInstance.O3ValuePerMinutes
-            vc.passes = AIRSummary.sharedInstance.passes
-            vc.sensors = AIRSummary.sharedInstance.sensors
+            //let vc = segue.destinationViewController as! AIRChemicalViewController
+            //vc.SO2AverageSensorValues = AIRSummary.sharedInstance.SO2ValuePerMinutes
+            //vc.O3AverageSensorValues = AIRSummary.sharedInstance.O3ValuePerMinutes
+            //vc.passes = AIRSummary.sharedInstance.passes
+            //vc.sensors = AIRSummary.sharedInstance.sensors
         }
     }
 
@@ -131,6 +131,12 @@ extension AIRSummaryViewController: AIRSummaryDelegate {
     func summaryCalculationDidEnd(summary summary: AIRSummary) {
         self.loadingView.stopAnimation()
         self.summaryView.setValues(AIRSummary.sharedInstance.values)
+
+        NSNotificationCenter.defaultCenter().postNotificationName(
+            AIRNotificationCenter.DidUpdateSensorValues,
+            object: nil,
+            userInfo: [:]
+        )
     }
 
 }

@@ -3,22 +3,28 @@ class AIRLoadingView: UIView {
 
     /// MARK: - property
 
-    @IBOutlet weak var indicatorView: BLMultiColorLoader!
+    var indicatorView: BLMultiColorLoader!
 
 
-    /// MARK: - life cycle
+    /// MARK: - initialization
 
     override func awakeFromNib() {
         super.awakeFromNib()
-
-        self.indicatorView.colorArray = [
-            UIColor.redColor(),
-            UIColor.purpleColor(),
-            UIColor.greenColor(),
-            UIColor.blueColor(),
-        ]
+        self.initIndicatorView()
+        self.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
     }
 
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.initIndicatorView()
+        self.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.initIndicatorView()
+        self.backgroundColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 0.5)
+    }
 
     /// MARK: - event listener
 
@@ -26,6 +32,11 @@ class AIRLoadingView: UIView {
     /// MARK: - public api
 
     func startAnimation() {
+        if self.superview == nil {
+            UIApplication.sharedApplication().keyWindow!.addSubview(self)
+        }
+        UIApplication.sharedApplication().keyWindow!.bringSubviewToFront(self)
+
         self.hidden = false
         self.indicatorView.startAnimation()
     }
@@ -37,4 +48,17 @@ class AIRLoadingView: UIView {
 
 
     /// MARK: - private api
+
+    func initIndicatorView() {
+        self.indicatorView = BLMultiColorLoader(frame: CGRectMake(0, 0, 48, 48))
+        self.indicatorView.center = self.center
+        self.indicatorView.colorArray = [
+            UIColor.redColor(),
+            UIColor.purpleColor(),
+            UIColor.greenColor(),
+            UIColor.blueColor(),
+        ]
+        self.addSubview(self.indicatorView)
+    }
+
 }

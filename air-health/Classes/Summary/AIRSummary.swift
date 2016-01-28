@@ -32,6 +32,10 @@ class AIRSummary: NSObject {
 
     var SO2ValuePerMinutes: [Double] = []       // SO2 value per minutes
     var O3ValuePerMinutes: [Double] = []        // O3 value per minutes
+    var COValuePerMinutes: [Double] = []        // CO value per minutes
+    var UVValuePerMinutes: [Double] = []        // UV value per minutes
+    var NO2ValuePerMinutes: [Double] = []       // NO2 value per minutes
+    var PM25ValuePerMinutes: [Double] = []      // PM25 value per minutes
 
 
     /// MARK: - initialization
@@ -136,19 +140,44 @@ class AIRSummary: NSObject {
                 // values
                 self.SO2ValuePerMinutes = AIRSensorManager.valuesPerMinute(
                     passes: self.passes,
-                    averageSensorValues: AIRSensorManager.averageSensorValues(name: "SO2", date: today, locations: self.passes),
-                    sensorBasements: AIRSensorManager.sensorBasements(name: "SO2")
+                    averageSensorValues: AIRSensorManager.averageSensorValues(chemical: "SO2", date: today, locations: self.passes),
+                    sensorBasements: AIRSensorManager.sensorBasements(chemical: "SO2")
                 )
                 self.O3ValuePerMinutes = AIRSensorManager.valuesPerMinute(
                     passes: self.passes,
-                    averageSensorValues: AIRSensorManager.averageSensorValues(name: "Ozone_S", date: today, locations: self.passes),
-                    sensorBasements: AIRSensorManager.sensorBasements(name: "Ozone_S")
+                    averageSensorValues: AIRSensorManager.averageSensorValues(chemical: "Ozone_S", date: today, locations: self.passes),
+                    sensorBasements: AIRSensorManager.sensorBasements(chemical: "Ozone_S")
                 )
+                self.NO2ValuePerMinutes = AIRSensorManager.valuesPerMinute(
+                    passes: self.passes,
+                    averageSensorValues: AIRSensorManager.averageSensorValues(chemical: "NO2", date: today, locations: self.passes),
+                    sensorBasements: AIRSensorManager.sensorBasements(chemical: "NO2")
+                )
+                self.PM25ValuePerMinutes = AIRSensorManager.valuesPerMinute(
+                    passes: self.passes,
+                    averageSensorValues: AIRSensorManager.averageSensorValues(chemical: "PM25", date: today, locations: self.passes),
+                    sensorBasements: AIRSensorManager.sensorBasements(chemical: "PM25")
+                )
+                self.COValuePerMinutes = AIRSensorManager.valuesPerMinute(
+                    passes: self.passes,
+                    averageSensorValues: AIRSensorManager.averageSensorValues(chemical: "CO", date: today, locations: self.passes),
+                    sensorBasements: AIRSensorManager.sensorBasements(chemical: "CO")
+                )
+                self.UVValuePerMinutes = AIRSensorManager.valuesPerMinute(
+                    passes: self.passes,
+                    averageSensorValues: AIRSensorManager.averageSensorValues(chemical: "UV", date: today, locations: self.passes),
+                    sensorBasements: AIRSensorManager.sensorBasements(chemical: "UV")
+                )
+
                 self.values = []
                 for var i = 0; i < self.SO2ValuePerMinutes.count; i++ {
                     let so2 = abs(self.SO2ValuePerMinutes[i] / AIRSensorManager.WHOBasementSO2_2)
                     let o3 = abs(self.O3ValuePerMinutes[i] / AIRSensorManager.WHOBasementOzone_S_2)
-                    let value = so2 + o3
+                    let co = abs(self.COValuePerMinutes[i] / AIRSensorManager.WHOBasementCO_2)
+                    let no2 = abs(self.NO2ValuePerMinutes[i] / AIRSensorManager.WHOBasementNO2_2)
+                    let pm25 = abs(self.PM25ValuePerMinutes[i] / AIRSensorManager.WHOBasementPM25_2)
+                    let uv = abs(self.UVValuePerMinutes[i] / AIRSensorManager.WHOBasementUV_2)
+                    let value = so2 + o3 + co + uv + no2 + pm25
                     self.values.append(value)
                 }
 
@@ -156,7 +185,6 @@ class AIRSummary: NSObject {
                 if self.delegate != nil {
                     (self.delegate as! AIRSummaryDelegate).summaryCalculationDidEnd(summary: self)
                 }
-
             }
         )
     }

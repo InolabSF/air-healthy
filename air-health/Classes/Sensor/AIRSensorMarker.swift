@@ -58,7 +58,7 @@ class AIRSensorCircle: GMSCircle {
     class func marker(sensor sensor: AIRSensor) -> AIRSensorCircle? {
         let color = AIRSensorManager.sensorCircleColor(sensor: sensor)
         if color == nil { return nil }
-        let basements = AIRSensorManager.sensorBasements(name: sensor.name)
+        let basements = AIRSensorManager.sensorBasements(chemical: sensor.name)
         var radius = MinRadius + (AIRSensorCircle.MaxRadius - AIRSensorCircle.MinRadius) * (basements[1] - sensor.value.doubleValue) / (basements[1] - basements[0])
         if radius > AIRSensorCircle.MaxRadius { radius = AIRSensorCircle.MaxRadius }
         if radius < AIRSensorCircle.MinRadius { radius = AIRSensorCircle.MaxRadius }

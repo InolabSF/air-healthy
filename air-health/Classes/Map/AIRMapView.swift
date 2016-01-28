@@ -8,7 +8,7 @@ class AIRMapView: GMSMapView {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        self.setMinZoom(4.0, maxZoom:16.0)
+        self.setMinZoom(AIRGoogleMap.Zoom.Min, maxZoom: AIRGoogleMap.Zoom.Max)
     }
 
 
@@ -31,6 +31,13 @@ class AIRMapView: GMSMapView {
         }
         let bounds = GMSCoordinateBounds(path: path)
         self.moveCamera(GMSCameraUpdate.fitBounds(bounds, withEdgeInsets: UIEdgeInsetsMake(20.0, 20.0, 20.0, 20.0)))
+
+        if self.camera.zoom > AIRGoogleMap.Zoom.Max {
+            self.moveCamera(GMSCameraUpdate.zoomBy(AIRGoogleMap.Zoom.Max, atPoint: self.center))
+        }
+        else if self.camera.zoom < AIRGoogleMap.Zoom.Min {
+            self.moveCamera(GMSCameraUpdate.zoomBy(AIRGoogleMap.Zoom.Min, atPoint: self.center))
+        }
     }
 
     /**
@@ -43,7 +50,7 @@ class AIRMapView: GMSMapView {
         self.camera = GMSCameraPosition.cameraWithLatitude(
             location!.coordinate.latitude,
             longitude: location!.coordinate.longitude,
-            zoom: 14.0
+            zoom: AIRGoogleMap.Zoom.Default
         )
     }
 
@@ -131,8 +138,10 @@ class AIRMapView: GMSMapView {
         let offsetX = self.frame.width * 0.25
         let offsetY = self.frame.height * 0.25
         let points = [CGPointMake(-offsetX, -offsetY), CGPointMake(self.frame.width+offsetX, -offsetY), CGPointMake(-offsetX, self.frame.height+offsetY), CGPointMake(self.frame.width+offsetX, self.frame.height+offsetY),]
-        let min = self.minimumCoordinate(mapViewPoints: points)
-        let max = self.maximumCoordinate(mapViewPoints: points)
+        var min = self.minimumCoordinate(mapViewPoints: points)
+        var max = self.maximumCoordinate(mapViewPoints: points)
+        min = CLLocationCoordinate2DMake(min.latitude-0.01, min.longitude-0.01)
+        max = CLLocationCoordinate2DMake(max.latitude+0.01, max.longitude+0.01)
 
         for sensor in sensors {
             let lat = sensor.lat.doubleValue

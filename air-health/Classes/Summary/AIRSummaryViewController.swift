@@ -5,7 +5,7 @@ class AIRSummaryViewController: UIViewController {
 
     @IBOutlet weak var leftBarButton: UIButton!
     @IBOutlet weak var rightBarButton: UIButton!
-    @IBOutlet weak var loadingView: AIRLoadingView!
+    var loadingView: AIRLoadingView!
     @IBOutlet weak var summaryView: AIRSummaryView!
 
     var tutorialViewController: AIRTutorialViewController?
@@ -21,6 +21,8 @@ class AIRSummaryViewController: UIViewController {
 
     override func loadView() {
         super.loadView()
+
+        self.loadingView = AIRLoadingView(frame: UIApplication.sharedApplication().keyWindow!.frame)
 
         if AIRTutorialViewController.willBeTutorial() {
             self.tutorialViewController = AIRTutorialViewController.air_viewController(parentViewController: self, animated: false)
@@ -48,11 +50,6 @@ class AIRSummaryViewController: UIViewController {
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if (segue.identifier == AIRNSStringFromClass(AIRChemicalViewController)) {
-            //let vc = segue.destinationViewController as! AIRChemicalViewController
-            //vc.SO2AverageSensorValues = AIRSummary.sharedInstance.SO2ValuePerMinutes
-            //vc.O3AverageSensorValues = AIRSummary.sharedInstance.O3ValuePerMinutes
-            //vc.passes = AIRSummary.sharedInstance.passes
-            //vc.sensors = AIRSummary.sharedInstance.sensors
         }
     }
 

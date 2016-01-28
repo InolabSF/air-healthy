@@ -6,7 +6,7 @@ class AIRLocationManager: NSObject {
 
     /// MARK: - constant
     //static let IntervalToStartUpdatingLocation = 10.0 // seconds to update location
-    static let IntervalToStartUpdatingLocation = 6.0 // seconds to update location
+    static let IntervalToStartUpdatingLocation = 3.0 // seconds to update location
     static let DistanceToUpdateLocation: CLLocationDistance = 50.0 // distance to update location
     //static let ComfirmingCountToUpdateLocation = 3 // comfirming count to update location
     static let ComfirmingCountToUpdateLocation = 5 // comfirming count to update location
@@ -24,6 +24,12 @@ class AIRLocationManager: NSObject {
     var locationManager = CLLocationManager()
     var timer : NSTimer?
     var comfirmingCountToUpdateLastLocation = 0
+
+    var lastLocation: CLLocation? {
+        get {
+            return self.locationManager.location
+        }
+    }
 
 
     /// MARK: - initialization
@@ -157,95 +163,7 @@ class AIRLocationManager: NSObject {
             else { self.comfirmingCountToUpdateLastLocation = 0 }
 
         })
-
-/*
-        let lastLocation = AIRLocation.fetchLast(date: NSDate())
-        let distance = (lastLocation != nil) ? newLocation.distanceFromLocation(lastLocation!) : newLocation.distanceFromLocation(oldLocation)
-
-        // first location
-        if lastLocation == nil {
-            AIRLocation.save(location: newLocation)
-            self.postPollutedNotification(location: newLocation)
-            AIRUserClient.sharedInstance.postUser(location: newLocation, completionHandler: { (json) in })
-        }
-        // updating location
-        else if distance >= AIRLocationManager.DistanceToUpdateLocation && // did move?
-            newLocation.timestamp.compare(lastLocation!.timestamp) == NSComparisonResult.OrderedDescending { // is really new?
-
-            if self.comfirmingCountToUpdateLastLocation >= AIRLocationManager.ComfirmingCountToUpdateLocation {
-                AIRLocation.save(location: newLocation)
-                self.postPollutedNotification(location: newLocation)
-                AIRUserClient.sharedInstance.postUser(location: newLocation, completionHandler: { (json) in })
-                self.comfirmingCountToUpdateLastLocation = 0
-            }
-            else { self.comfirmingCountToUpdateLastLocation += 1 }
-
-        }
-        else { self.comfirmingCountToUpdateLastLocation = 0 }
-        let GPSIsOff = NSUserDefaults().boolForKey(AIRUserDefaults.GPSIsOff)
-        if GPSIsOff { return }
-        self.locationManager.startUpdatingLocation()
-*/
     }
-
-    /**
-     * post polluted location warning notification
-     * @param location CLLocation
-     **/
-/*
-    private func postPollutedNotification(location location: CLLocation) {
-        func postPollutedNotification(location location: CLLocation, name: String) {
-            dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                let dateFormatter = NSDateFormatter.air_dateFormatter()
-                dateFormatter.dateFormat = "HH:mm"
-                let time = dateFormatter.stringFromDate(NSDate())
-
-                let localNotification = UILocalNotification()
-                localNotification.alertBody = "BAD AIR WARNING!\n\(name) \(time)\nRecommended you to stay indoor."
-                localNotification.soundName = UILocalNotificationDefaultSoundName
-                localNotification.timeZone = NSTimeZone.defaultTimeZone()
-                UIApplication.sharedApplication().presentLocalNotificationNow(localNotification)
-            })
-        }
-
-        let today = NSDate()
-        let o3 = AIRSensorManager.averageSensorValue(name: "Ozone_S", date: today, location: location) / AIRSensorManager.WHOBasementOzone_S_2
-        let so2 = AIRSensorManager.averageSensorValue(name: "SO2", date: today, location: location) / AIRSensorManager.WHOBasementSO2_2
-        let value = (o3 + so2)
-        if value < AIRSensorManager.Basement_2 { return }
-
-        AIRBadAirLocation.save(location: location)
-
-        let name = AIRLocationName.fetch(location: location)
-        if name == nil {
-            AIRLocationManager.sharedInstance.saveLocationName(
-                location: location,
-                completionHandler: { () -> Void in
-                    let n = AIRLocationName.fetch(location: location)
-                    if n != nil { postPollutedNotification(location: location, name: n!.name) }
-                }
-            )
-        }
-        else {
-            postPollutedNotification(location: location, name: name!.name)
-        }
-    }
-*/
-    /**
-     * save location name if you stay
-     * @param newLocation CLLocation
-     * @param oldLocation CLLocation
-     **/
-/*
-    private func saveLocationNameIfYouStay(newLocation newLocation: CLLocation, oldLocation: CLLocation) {
-        // stay more than AIRLocationManager.ThresholdOfTimeIntervalToStop seconds
-        if newLocation.timestamp.timeIntervalSinceDate(oldLocation.timestamp) < AIRLocationManager.ThresholdOfTimeIntervalToStop { return }
-        // distance between 2 places are less than AIRLocationManager.ThresholdOfDistanceToStop meters
-        if newLocation.distanceFromLocation(oldLocation) > AIRLocationManager.ThresholdOfDistanceToStop { return }
-
-        self.saveLocationName(location: oldLocation)
-    }
-*/
 }
 
 

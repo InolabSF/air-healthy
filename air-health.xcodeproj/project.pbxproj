@@ -25,6 +25,8 @@
 		E646B6FE1C5848FF0005899F /* AIRNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E646B6FD1C5848FF0005899F /* AIRNavigationController.swift */; };
 		E647B4771BFBEABB00B2CA4F /* AIRSensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E647B4761BFBEABB00B2CA4F /* AIRSensor.swift */; };
 		E647B4791BFC050F00B2CA4F /* AIRLocationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = E647B4781BFC050F00B2CA4F /* AIRLocationName.swift */; };
+		E64ED00D1C5978BC0055B241 /* AIRChemicalGraphTableViewcell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64ED00B1C5978BC0055B241 /* AIRChemicalGraphTableViewcell.swift */; };
+		E64ED00E1C5978BC0055B241 /* AIRChemicalGraphTableViewcell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E64ED00C1C5978BC0055B241 /* AIRChemicalGraphTableViewcell.xib */; };
 		E663D21E1C4EF79300926E82 /* NSDateFormatter+USStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E663D21D1C4EF79300926E82 /* NSDateFormatter+USStyle.swift */; };
 		E6655D1A1BFBA70700D6A2AD /* CSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6655D191BFBA70700D6A2AD /* CSV.swift */; };
 		E66940351BEAC6E200771F8B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E669402D1BEAC6E200771F8B /* AppDelegate.swift */; };
@@ -84,6 +86,8 @@
 		E646B6FD1C5848FF0005899F /* AIRNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRNavigationController.swift; sourceTree = "<group>"; };
 		E647B4761BFBEABB00B2CA4F /* AIRSensor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRSensor.swift; sourceTree = "<group>"; };
 		E647B4781BFC050F00B2CA4F /* AIRLocationName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRLocationName.swift; sourceTree = "<group>"; };
+		E64ED00B1C5978BC0055B241 /* AIRChemicalGraphTableViewcell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRChemicalGraphTableViewcell.swift; sourceTree = "<group>"; };
+		E64ED00C1C5978BC0055B241 /* AIRChemicalGraphTableViewcell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AIRChemicalGraphTableViewcell.xib; sourceTree = "<group>"; };
 		E663D21D1C4EF79300926E82 /* NSDateFormatter+USStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDateFormatter+USStyle.swift"; sourceTree = "<group>"; };
 		E6655D191BFBA70700D6A2AD /* CSV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CSV.swift; path = SwiftCSV/SwiftCSV/CSV.swift; sourceTree = "<group>"; };
 		E669402D1BEAC6E200771F8B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -209,6 +213,8 @@
 			children = (
 				E62F17081C3C485D002B501F /* AIRChemicalGraphView.swift */,
 				E62F17061C3C45CE002B501F /* AIRChemicalViewController.swift */,
+				E64ED00B1C5978BC0055B241 /* AIRChemicalGraphTableViewcell.swift */,
+				E64ED00C1C5978BC0055B241 /* AIRChemicalGraphTableViewcell.xib */,
 			);
 			path = Chemical;
 			sourceTree = "<group>";
@@ -470,6 +476,7 @@
 				E66E26F91BFABC60004E58CB /* vasp.csv in Resources */,
 				E673768B1C2B69AE005E822C /* Main.storyboard in Resources */,
 				E6E173251C20C80500F74F8F /* vasp_mgpqm_0.2mile.csv in Resources */,
+				E64ED00E1C5978BC0055B241 /* AIRChemicalGraphTableViewcell.xib in Resources */,
 				E66E26FA1BFABC60004E58CB /* ZAIRLOCATION.csv in Resources */,
 				E699E9251C2B7A8500633449 /* Assets.xcassets in Resources */,
 			);
@@ -580,6 +587,7 @@
 				E695DA671BF2BEAB0060BF66 /* NSDate+Ago.swift in Sources */,
 				E6839C741BF2B939007BD219 /* AIRCoreDataManager.swift in Sources */,
 				E6E26A301C20F91800BE26E5 /* AIRSensorOperationQueue.swift in Sources */,
+				E64ED00D1C5978BC0055B241 /* AIRChemicalGraphTableViewcell.swift in Sources */,
 				E647B4771BFBEABB00B2CA4F /* AIRSensor.swift in Sources */,
 				E647B4791BFC050F00B2CA4F /* AIRLocationName.swift in Sources */,
 				E68654BF1C05281300E10E10 /* AIRSensorClient.swift in Sources */,

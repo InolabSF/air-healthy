@@ -253,7 +253,7 @@ class AIRLocation: NSManagedObject {
         fetchRequest.returnsObjectsAsFaults = false
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: true),]
             // make predicates
-        let startDate = date.air_daysAgo(days: 1)
+        let startDate = date.air_hoursAgo(hours: 24)
         let endDate = date
         let predicaets = [ NSPredicate(format: "(timestamp >= %@) AND (timestamp <= %@)", startDate!, endDate), ]
         fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicaets)
@@ -447,6 +447,24 @@ class AIRLocation: NSManagedObject {
         let latOffset = AIRLocation.degree(meter: offsetMeters, latlng: "lat", location: location)
         let lngOffset = AIRLocation.degree(meter: offsetMeters, latlng: "lng", location: location)
         return CLLocation(latitude: location.coordinate.latitude+latOffset, longitude: location.coordinate.longitude+lngOffset)
+    }
+
+    /**
+     * create location
+     * @param location CLLocation
+     * @param timestamp NSDate
+     * @return CLLocation
+     **/
+    class func location(location: CLLocation, timestamp: NSDate) -> CLLocation {
+        return CLLocation(
+            coordinate: location.coordinate,
+            altitude: location.altitude,
+            horizontalAccuracy: location.horizontalAccuracy,
+            verticalAccuracy: location.verticalAccuracy,
+            course: location.course,
+            speed: location.speed,
+            timestamp: timestamp
+        )
     }
 
 

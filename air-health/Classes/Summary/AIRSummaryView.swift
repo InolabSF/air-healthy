@@ -97,7 +97,7 @@ class AIRSummaryView: UIView {
             self.summaryStatusLabel.text = "Normal"
             self.sportsButton.setImage(UIImage(named: "home_summary_sports_normal"),  forState: .Normal)
             self.sportsLabel.text = "Take it easy"
-            paragraph = "The air is polluted above WHO recommendations. Long term exposure can affect the cardiovascular and respiratory health."
+            paragraph = "The air is polluted above WHO recommendation. Long term exposure can affect the cardiovascular and respiratory health."
         }
         else {
             self.summaryButton.setImage(UIImage(named: "home_summary_bad"), forState: .Normal)

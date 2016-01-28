@@ -8,11 +8,6 @@ class AIRChemicalViewController: UIViewController {
 
     @IBOutlet weak var graphView: AIRChemicalGraphView!
 
-    //var SO2AverageSensorValues: [Double] = []
-    //var O3AverageSensorValues: [Double] = []
-    //var passes: [CLLocation] = []
-    //var sensors: [AIRSensor] = []
-
 
     /// MARK: - destruction
 
@@ -54,8 +49,11 @@ class AIRChemicalViewController: UIViewController {
             forState: .Normal
         )
 
-        //self.graphView.setSensorValues(SO2AverageSensorValues: self.SO2AverageSensorValues, O3AverageSensorValues: self.O3AverageSensorValues)
         self.graphView.setSensorValues(
+            NO2AverageSensorValues: AIRSummary.sharedInstance.NO2ValuePerMinutes,
+            PM25AverageSensorValues: AIRSummary.sharedInstance.PM25ValuePerMinutes,
+            UVAverageSensorValues: AIRSummary.sharedInstance.UVValuePerMinutes,
+            COAverageSensorValues: AIRSummary.sharedInstance.COValuePerMinutes,
             SO2AverageSensorValues: AIRSummary.sharedInstance.SO2ValuePerMinutes,
             O3AverageSensorValues: AIRSummary.sharedInstance.O3ValuePerMinutes
         )
@@ -87,11 +85,6 @@ class AIRChemicalViewController: UIViewController {
         if (segue.identifier == AIRNSStringFromClass(AIRMapViewController)) {
             let chemical = sender as! String
             let vc = segue.destinationViewController as! AIRMapViewController
-            //vc.SO2ValuePerMinutes = self.SO2AverageSensorValues
-            //vc.O3ValuePerMinutes = self.O3AverageSensorValues
-            ////vc.passes = self.passes
-            //vc.setPasses(self.passes)
-            //vc.sensors = self.sensors
             vc.chemical = chemical
         }
     }
@@ -118,6 +111,10 @@ class AIRChemicalViewController: UIViewController {
      **/
     func didUpdateSensorValues(notificatoin: NSNotification) {
         self.graphView.setSensorValues(
+            NO2AverageSensorValues: AIRSummary.sharedInstance.NO2ValuePerMinutes,
+            PM25AverageSensorValues: AIRSummary.sharedInstance.PM25ValuePerMinutes,
+            UVAverageSensorValues: AIRSummary.sharedInstance.UVValuePerMinutes,
+            COAverageSensorValues: AIRSummary.sharedInstance.COValuePerMinutes,
             SO2AverageSensorValues: AIRSummary.sharedInstance.SO2ValuePerMinutes,
             O3AverageSensorValues: AIRSummary.sharedInstance.O3ValuePerMinutes
         )
@@ -135,15 +132,7 @@ class AIRChemicalViewController: UIViewController {
 /// MARK: - AIRChemicalGraphViewDelegate
 extension AIRChemicalViewController: AIRChemicalGraphViewDelegate {
 
-    func touchedUpInside(chemicalGraphView chemicalGraphView: AIRChemicalGraphView, button: UIButton) {
-        var chemical = ""
-        if button == chemicalGraphView.O3Button {
-            chemical = "O3"
-        }
-        else if button == chemicalGraphView.SO2Button {
-            chemical = "SO2"
-        }
-
+    func touchedUpInside(chemicalGraphView chemicalGraphView: AIRChemicalGraphView, chemical: String) {
         self.performSegueWithIdentifier(AIRNSStringFromClass(AIRMapViewController), sender: chemical)
     }
 

@@ -11,11 +11,11 @@ class AIRMapViewController: UIViewController {
 
     var startDate: NSDate!
     var passesIndex = 0
-    var passesPer6hours: [[CLLocation]] = []
+    var passesPer4hours: [[CLLocation]] = []
     var passes: [CLLocation] {
         get {
-            if passesPer6hours.count == 0 { return [] }
-            return self.passesPer6hours[self.passesIndex]
+            if passesPer4hours.count == 0 { return [] }
+            return self.passesPer4hours[self.passesIndex]
         }
     }
     @IBOutlet weak var leftPassesSwitchButton: UIButton!
@@ -24,23 +24,29 @@ class AIRMapViewController: UIViewController {
     var sensors: [AIRSensor] = []
     var chemical = ""
 
+    var NO2ValuePerMinutes: [Double] = []
+    var PM25ValuePerMinutes: [Double] = []
+    var UVValuePerMinutes: [Double] = []
+    var COValuePerMinutes: [Double] = []
     var SO2ValuePerMinutes: [Double] = []
     var O3ValuePerMinutes: [Double] = []
 
     var values: [Double] {
         get {
-            if self.chemical == "SO2" { return self.SO2ValuePerMinutes }
-            if self.chemical == "O3" { return self.O3ValuePerMinutes }
+            let name = AIRSensorManager.sensorName(chemical: self.chemical)
+            if name == "NO2" { return self.NO2ValuePerMinutes }
+            if name == "PM25" { return self.PM25ValuePerMinutes }
+            if name == "UV" { return self.UVValuePerMinutes }
+            if name == "CO" { return self.COValuePerMinutes }
+            if name == "SO2" { return self.SO2ValuePerMinutes }
+            if name == "O3" { return self.O3ValuePerMinutes }
             return []
         }
     }
 
     var basements: [Double] {
         get {
-            var name = ""
-            if self.chemical == "SO2" { name = "SO2" }
-            if self.chemical == "O3" { name = "Ozone_S" }
-            return AIRSensorManager.sensorBasements(name: name)
+            return AIRSensorManager.sensorBasements(chemical: self.chemical)
         }
     }
 
@@ -116,7 +122,7 @@ class AIRMapViewController: UIViewController {
         }
         else if button == self.rightPassesSwitchButton {
             self.passesIndex += 1
-            if self.passesIndex >= self.passesPer6hours.count { self.passesIndex = self.passesPer6hours.count-1 }
+            if self.passesIndex >= self.passesPer4hours.count { self.passesIndex = self.passesPer4hours.count-1 }
             self.updateMapAndTimeline()
         }
 
@@ -141,28 +147,58 @@ class AIRMapViewController: UIViewController {
      * set passes
      * @param passes [CLLocation]
      **/
-    func setPasses(p: [CLLocation]) {
+    func setPasses(locations: [CLLocation]) {
         self.startDate = NSDate()
-        if p.count > 0 { self.startDate = p.first!.timestamp }
-        if p.count < 2 { return }
+        if locations.count > 0 { self.startDate = locations.first!.timestamp }
+        else { return }
 
-        self.passesPer6hours = []
-        let last = p.last!.timestamp
-        let hours = Int(last.timeIntervalSinceDate(p.first!.timestamp)) / 60 / 60
-        let intervalHour = 6
+        self.passesPer4hours = []
+
+        let last = locations.last!.timestamp
+        let hours = Int(last.timeIntervalSinceDate(locations.first!.timestamp)) / 60 / 60
+        let intervalHour = 4
         let intervalCount = 24 / intervalHour
-        let separation = (hours / intervalHour >= intervalCount) ? intervalCount-1 : hours / 6
-        for var i = separation; i >= 0; i-- {
-            let end = last.air_hoursAgo(hours: 6*i)!
-            let start = last.air_hoursAgo(hours: 6*(i+1))!
-            let passesFor6hours = p.filter({ (pass: CLLocation) -> Bool in
-                    return pass.timestamp.compare(start) == NSComparisonResult.OrderedDescending && end.compare(pass.timestamp) == NSComparisonResult.OrderedDescending
+        var separation = (hours / intervalHour > intervalCount) ? intervalCount : (hours / intervalHour)
+        if separation == 0 { separation = 1 }
+        for var i = 0; i < separation; i++ {
+            let end = last.air_hoursAgo(hours: intervalHour*i)!
+            let start = last.air_hoursAgo(hours: intervalHour*(i+1))!
+            var passesFor4hours = locations.filter({ (pass: CLLocation) -> Bool in
+                return (pass.timestamp.compare(start) == NSComparisonResult.OrderedDescending && end.compare(pass.timestamp) == NSComparisonResult.OrderedDescending)
             })
-            if passesFor6hours.count > 0 {
-                self.passesPer6hours.append(passesFor6hours)
+
+            if passesFor4hours.count > 0 {
+                let first = AIRLocation.location(passesFor4hours.first!, timestamp: start)
+                let last = AIRLocation.location(passesFor4hours.last!, timestamp: end)
+                if passesFor4hours.count == 1 { passesFor4hours = [first, last] }
+                else { passesFor4hours[0] = first; passesFor4hours[passesFor4hours.count-1] = last }
+            }
+            self.passesPer4hours.append(passesFor4hours)
+        }
+        for var i = 0; i < self.passesPer4hours.count; i++ {
+            if self.passesPer4hours[i].count > 0 { continue }
+
+            let end = last.air_hoursAgo(hours: intervalHour*i)!
+            let start = last.air_hoursAgo(hours: intervalHour*(i+1))!
+
+            var j = 1
+            while self.passesPer4hours[i].count == 0 {
+                var index = i+j
+                if index < self.passesPer4hours.count && self.passesPer4hours[index].count > 0 {
+                    self.passesPer4hours[i] = [AIRLocation.location(self.passesPer4hours[index].last!, timestamp: start), AIRLocation.location(self.passesPer4hours[index].last!, timestamp: end)]
+                    break
+                }
+                index = i-j
+                if index >= 0 && self.passesPer4hours[index].count > 0 {
+                    self.passesPer4hours[i] = [AIRLocation.location(self.passesPer4hours[index].first!, timestamp: start), AIRLocation.location(self.passesPer4hours[index].first!, timestamp: end)]
+                    break
+                }
+
+                j++
             }
         }
-        self.passesIndex = self.passesPer6hours.count - 1
+        self.passesPer4hours = self.passesPer4hours.reverse()
+        self.passesIndex = self.passesPer4hours.count - 1
     }
 
 
@@ -252,7 +288,7 @@ class AIRMapViewController: UIViewController {
         )
 
         // timelineView
-        self.timelineView.timeSliderTitleLabel.text = self.chemical
+        self.timelineView.timeSliderTitleLabel.text = AIRSensorManager.sensorName(chemical: self.chemical)
 
         // mapview
         self.mapView.myLocationEnabled = true
@@ -264,7 +300,7 @@ class AIRMapViewController: UIViewController {
         self.mapView.camera = GMSCameraPosition.cameraWithLatitude(
             37.7833,
             longitude: -122.4167,
-            zoom: 13.0
+            zoom: AIRGoogleMap.Zoom.Default
         )
     }
 
@@ -272,14 +308,16 @@ class AIRMapViewController: UIViewController {
      * update sensor values
      **/
     private func updateSensorValues() {
+        self.NO2ValuePerMinutes = AIRSummary.sharedInstance.NO2ValuePerMinutes
+        self.PM25ValuePerMinutes = AIRSummary.sharedInstance.PM25ValuePerMinutes
+        self.UVValuePerMinutes = AIRSummary.sharedInstance.UVValuePerMinutes
+        self.COValuePerMinutes = AIRSummary.sharedInstance.COValuePerMinutes
         self.SO2ValuePerMinutes = AIRSummary.sharedInstance.SO2ValuePerMinutes
         self.O3ValuePerMinutes = AIRSummary.sharedInstance.O3ValuePerMinutes
-        var name = ""
-        if self.chemical == "SO2" { name = "SO2" }
-        else if self.chemical == "O3" { name = "Ozone_S" }
+
         self.setPasses(AIRSummary.sharedInstance.passes)
         self.sensors = AIRSummary.sharedInstance.sensors.filter({ (sensor: AIRSensor) -> Bool in
-            return sensor.name == name
+            return sensor.name == self.chemical
         })
     }
 
@@ -373,7 +411,7 @@ class AIRMapViewController: UIViewController {
         if self.passesIndex == 0 {
             self.leftPassesSwitchButton.hidden = true
         }
-        if self.passesIndex == self.passesPer6hours.count-1 {
+        if self.passesIndex == self.passesPer4hours.count-1 {
             self.rightPassesSwitchButton.hidden = true
         }
     }

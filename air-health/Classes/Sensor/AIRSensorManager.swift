@@ -5,16 +5,20 @@ import CoreLocation
 class AIRSensorManager: NSObject {
 
     /// MARK: - constant
-    static let Basement_1 =                     1.5
-    static let Basement_2 =                     2.0
+    static let Basement_1 =                     4.5
+    static let Basement_2 =                     6.0
     static let WHOBasementOzone_S_1 =           75.0
     static let WHOBasementOzone_S_2 =           100.0
     static let WHOBasementSO2_1 =               350.0
     static let WHOBasementSO2_2 =               500.0
-    //static let WHOBasementOzone_S_1 =           50.0
-    //static let WHOBasementOzone_S_2 =           55.0
-    //static let WHOBasementSO2_1 =               310.0
-    //static let WHOBasementSO2_2 =               335.0
+    static let WHOBasementCO_1 =                10.0
+    static let WHOBasementCO_2 =                30.0
+    static let WHOBasementUV_1 =                3.0
+    static let WHOBasementUV_2 =                8.0
+    static let WHOBasementNO2_1 =               150.0
+    static let WHOBasementNO2_2 =               200.0
+    static let WHOBasementPM25_1 =              18750.0
+    static let WHOBasementPM25_2 =              25000.0
 
     static let DaysAgo =                        3
 
@@ -26,6 +30,22 @@ class AIRSensorManager: NSObject {
     /// MARK: - class method
 
     /**
+     * return sensorName
+     * @param chemical String
+     * @return sensorName String
+     **/
+    class func sensorName(chemical chemical: String) -> String {
+        var name = ""
+        if chemical == "NO2" { name = "NO2" }
+        if chemical == "PM25" { name = "PM2.5" }
+        if chemical == "UV" { name = "UV" }
+        if chemical == "CO" { name = "CO" }
+        if chemical == "SO2" { name = "SO2" }
+        if chemical == "Ozone_S" { name = "O3" }
+        return name
+    }
+
+    /**
      * return sensorBasements
      * @return sensorBasements [Double]
      **/
@@ -35,12 +55,16 @@ class AIRSensorManager: NSObject {
 
     /**
      * return sensorBasements
-     * @param name sensor's name
+     * @param chemical sensor's name
      * @return sensorBasements [Double]
      **/
-    class func sensorBasements(name name: String) -> [Double] {
-        if name == "SO2" { return [AIRSensorManager.WHOBasementSO2_1, AIRSensorManager.WHOBasementSO2_2] }
-        if name == "Ozone_S" { return [AIRSensorManager.WHOBasementOzone_S_1, AIRSensorManager.WHOBasementOzone_S_2] }
+    class func sensorBasements(chemical chemical: String) -> [Double] {
+        if chemical == "NO2" { return [AIRSensorManager.WHOBasementNO2_1, AIRSensorManager.WHOBasementNO2_2] }
+        if chemical == "PM25" { return [AIRSensorManager.WHOBasementPM25_1, AIRSensorManager.WHOBasementPM25_2] }
+        if chemical == "UV" { return [AIRSensorManager.WHOBasementUV_1, AIRSensorManager.WHOBasementUV_2] }
+        if chemical == "CO" { return [AIRSensorManager.WHOBasementCO_1, AIRSensorManager.WHOBasementCO_2] }
+        if chemical == "SO2" { return [AIRSensorManager.WHOBasementSO2_1, AIRSensorManager.WHOBasementSO2_2] }
+        if chemical == "Ozone_S" { return [AIRSensorManager.WHOBasementOzone_S_1, AIRSensorManager.WHOBasementOzone_S_2] }
         return [0.001]
     }
 
@@ -81,13 +105,13 @@ class AIRSensorManager: NSObject {
      * @param locations CLLocation
      * @return [Double]
      **/
-    class func averageSensorValues(name name: String, date: NSDate, locations: [CLLocation]) -> [Double] {
+    class func averageSensorValues(chemical chemical: String, date: NSDate, locations: [CLLocation]) -> [Double] {
         let southWest = AIRLocation.southWest(locations: locations, offsetMeters: AIRLocationManager.ThresholdOfAverageSensorNeighbor)
         let northEast = AIRLocation.northEast(locations: locations, offsetMeters: AIRLocationManager.ThresholdOfAverageSensorNeighbor)
 
         // average values
         var values: [Double] = []
-        let allSensors = AIRSensor.fetch(name: name, date: date, southWest: southWest, northEast: northEast)
+        let allSensors = AIRSensor.fetch(name: chemical, date: date, southWest: southWest, northEast: northEast)
         for var i = 0; i < locations.count; i++ {
             let location = locations[i]
             let latOffset = AIRLocation.degree(meter: AIRLocationManager.ThresholdOfAverageSensorNeighbor, latlng: "lat", location: location)
@@ -118,7 +142,7 @@ class AIRSensorManager: NSObject {
      **/
     class func sensorColor(sensor sensor: AIRSensor) -> UIColor {
         let value = sensor.value.doubleValue
-        return AIRSensorManager.sensorColor(value: value, sensorBasements: AIRSensorManager.sensorBasements(name: sensor.name))
+        return AIRSensorManager.sensorColor(value: value, sensorBasements: AIRSensorManager.sensorBasements(chemical: sensor.name))
     }
 
     /**
@@ -128,7 +152,7 @@ class AIRSensorManager: NSObject {
      **/
     class func sensorCircleColor(sensor sensor: AIRSensor) -> UIColor? {
         let value = sensor.value.doubleValue
-        let sensorBasements = AIRSensorManager.sensorBasements(name: sensor.name)
+        let sensorBasements = AIRSensorManager.sensorBasements(chemical: sensor.name)
         if value < sensorBasements[0] {
             return nil
         }
@@ -248,6 +272,10 @@ class AIRSensorManager: NSObject {
                     //"time" : rows[i]["time"]!,
                     "Ozone_S" : rows[i]["Ozone_S"]!,
                     "SO2" : rows[i]["SO2"]!,
+                    "NO2" : rows[i]["NO2"]!,
+                    "PM25" : rows[i]["PM25"]!,
+                    "CO" : rows[i]["CO"]!,
+                    "UV" : rows[i]["UV"]!,
                     //"latitude" : rows[i]["latitude"]!,
                     //"longitude" : rows[i]["longitude"]!,
                     "south" : rows[i]["south"]!,

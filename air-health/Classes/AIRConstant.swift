@@ -59,7 +59,6 @@ struct AIRNotificationCenter {
     static let DidUpdateSensorValues =    "AIRNotificationCenter.DidUpdateSensorValues"
     static let UpdateLocation =           "AIRNotificationCenter.UpdateLocation"
     static let LaunchFromBadAirWarning =  "AIRNotificationCenter.LaunchFromBadAirWarning"
-    static let SetChemicalButtonImages =  "AIRNotificationCenter.SetChemicalButtonImages"
     static let TutorialMoveSlide =        "AIRNotificationCenter.TutorialMoveSlide"
     static let TutorialChangeSlide =      "AIRNotificationCenter.TutorialChangeSlide"
 }
@@ -96,7 +95,11 @@ struct AIRGoogleMap {
     }
 
     /// zoom
-    static let Zoom: Float =            13.0
+    struct Zoom {
+        static let Default: Float =        13.0
+        static let Min: Float =            4.0
+        static let Max: Float =            15.0
+    }
 
 }
 

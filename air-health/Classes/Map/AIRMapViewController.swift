@@ -64,6 +64,7 @@ class AIRMapViewController: UIViewController {
         super.loadView()
 
         self.setUp()
+        self.timelineView.setDate(NSDate())
 
         self.updateSensorValues()
         self.updateMapAndTimeline()
@@ -160,6 +161,7 @@ class AIRMapViewController: UIViewController {
         let intervalCount = 24 / intervalHour
         var separation = (hours / intervalHour > intervalCount) ? intervalCount : (hours / intervalHour)
         if separation == 0 { separation = 1 }
+        //let separation = intervalCount
         for var i = 0; i < separation; i++ {
             let end = last.air_hoursAgo(hours: intervalHour*i)!
             let start = last.air_hoursAgo(hours: intervalHour*(i+1))!
@@ -175,6 +177,13 @@ class AIRMapViewController: UIViewController {
             }
             self.passesPer4hours.append(passesFor4hours)
         }
+        
+        var passesCount = 0
+        for p in self.passesPer4hours {
+            passesCount += p.count
+        }
+        if passesCount == 0 { self.passesPer4hours = []; return }
+        
         for var i = 0; i < self.passesPer4hours.count; i++ {
             if self.passesPer4hours[i].count > 0 { continue }
 
@@ -232,6 +241,7 @@ class AIRMapViewController: UIViewController {
                 }
             }
             if index >= 0 && index < self.values.count { return index }
+            else if index == -1 && second <= 0.01 { index = Int(second+offset) / 60; return index }
         }
         return nil
     }
@@ -387,6 +397,8 @@ class AIRMapViewController: UIViewController {
             self.timelineView.timeSlider.maximumValue = CGFloat(allInterval)
             if self.timelineView.timeSlider.maximumValue > 0.0 { self.timelineView.timeSlider.value = self.timelineView.timeSlider.maximumValue }
         }
+        
+        self.timelineView.initTimelabels(passes: passes)
 
         let startIndex = self.getCurrentValuesIndex(second: 0.0)
         let endIndex = self.getCurrentValuesIndex(second: allInterval)

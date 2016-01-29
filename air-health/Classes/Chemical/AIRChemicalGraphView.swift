@@ -1,4 +1,3 @@
-/// MARK: - AIRChemicalGraphViewDelegate
 @objc protocol AIRChemicalGraphViewDelegate {
 
     /**
@@ -18,18 +17,27 @@ class AIRChemicalGraphView: UIView {
 
     @IBOutlet weak var delegate: AnyObject?
 
-    @IBOutlet weak var tableView: UITableView!
     var chemicals = [
         "SO2", "Ozone_S", "NO2", "PM25", "CO", "UV",
     ]
     var airHealths = [
-        [0.0, 0.0, 0.0],
-        [0.0, 0.0, 0.0],
-        [0.0, 0.0, 0.0],
-        [0.0, 0.0, 0.0],
-        [0.0, 0.0, 0.0],
-        [0.0, 0.0, 0.0],
+        [1.0, 0.0, 0.0],
+        [1.0, 0.0, 0.0],
+        [1.0, 0.0, 0.0],
+        [1.0, 0.0, 0.0],
+        [1.0, 0.0, 0.0],
+        [1.0, 0.0, 0.0],
     ]
+
+    // A
+    @IBOutlet weak var tableView: UITableView!
+    //
+    // B
+    @IBOutlet var graphListView: UIView!
+    @IBOutlet var graphViews: [UIView]!
+    @IBOutlet var pieChartViews: [VBPieChart]!
+    @IBOutlet var graphButtons: [UIButton]!
+    //
 
     @IBOutlet weak var summaryView: UIView!
     @IBOutlet weak var summaryIconView: UIView!
@@ -58,6 +66,21 @@ class AIRChemicalGraphView: UIView {
 
     /// MARK: - event listener
 
+    @IBAction func touchUpInside(button button: UIButton) {
+        // graph button
+        var index: Int? = nil
+        for var i = 0; i < self.graphButtons.count; i++ {
+            let gButton = self.graphButtons[i]
+            if button == gButton {
+                index = i
+                break
+            }
+        }
+        if index == nil { return }
+        if self.delegate != nil {
+            (self.delegate as! AIRChemicalGraphViewDelegate).touchedUpInside(chemicalGraphView: self, chemical: self.chemicals[index!])
+        }
+    }
 
     /// MARK: - public api
 
@@ -104,9 +127,20 @@ class AIRChemicalGraphView: UIView {
                 else { self.airHealths[i][2] += 1.0 }
             }
         }
+
+        // A
         self.tableView.reloadData()
-        self.setSummary()
         self.setFocusedCell()
+        //
+        // B
+        for var i = 0; i < self.pieChartViews.count; i++ {
+            let chartView = self.pieChartViews[i]
+            chartView.setPieChart(airHealth: self.airHealths[i], animated: false)
+            self.graphButtons[i].setImage(UIImage.imageFromView(chartView), forState: .Normal)
+        }
+        //
+
+        self.setSummary()
     }
 
 
@@ -116,8 +150,33 @@ class AIRChemicalGraphView: UIView {
      * set up
      **/
     private func setUp() {
+        // A
+        // tableView
         (self.tableView as UIScrollView).delegate = self
+            // inset
+        //let centerY = (self.frame.height - self.summaryView.frame.height) / 2.0 + self.tableView.center.y - ((self.frame.height - self.summaryView.frame.height) / 2.0)
+        //let top = centerY - AIRChemicalGraphTableViewcell.air_height() / 2.0
+        //let bottom = centerY - AIRChemicalGraphTableViewcell.air_height() / 2.0
+        let top = self.tableView.center.y - AIRChemicalGraphTableViewcell.air_height() / 2.0
+        let bottom = self.tableView.center.y - AIRChemicalGraphTableViewcell.air_height() / 2.0
+        self.tableView.contentInset = UIEdgeInsetsMake(top, 0.0, bottom, 0.0)
+        //
 
+        // B
+        for chartView in self.pieChartViews {
+            chartView.layer.cornerRadius = chartView.frame.size.width / 2.0
+            chartView.layer.masksToBounds = true
+            chartView.clipsToBounds = true
+        }
+        for containerView in self.graphViews {
+            containerView.layer.shadowOffset = CGSizeMake(0, 0)
+            containerView.layer.shadowOpacity = 0.15
+            containerView.layer.shadowRadius = 2.0
+            containerView.layer.shadowPath = UIBezierPath(roundedRect: containerView.bounds, cornerRadius: containerView.bounds.width/2.0).CGPath
+        }
+        //
+
+        // summary
         self.summaryIconView.layer.cornerRadius = 18.0
         self.summaryIconView.layer.masksToBounds = true
         self.summaryIconView.clipsToBounds = true
@@ -168,7 +227,8 @@ class AIRChemicalGraphView: UIView {
      * @return NSIndexPath?
      **/
     private func getFocusedIndexPath() -> NSIndexPath? {
-        return self.tableView.indexPathForRowAtPoint(CGPointMake(self.tableView.center.x, self.tableView.contentOffset.y+AIRChemicalGraphTableViewcell.air_height()/2+64))
+        let centerY = self.tableView.contentInset.top + AIRChemicalGraphTableViewcell.air_height() / 2.0
+        return self.tableView.indexPathForRowAtPoint(CGPointMake(self.tableView.center.x, self.tableView.contentOffset.y+centerY))
     }
 
     /**
@@ -225,4 +285,14 @@ extension AIRChemicalGraphView: UIScrollViewDelegate {
         self.setFocusedCell()
     }
 
+    func scrollViewWillEndDragging(scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        let targetY = scrollView.contentOffset.y + velocity.y * 60.0
+        let cellHeight = AIRChemicalGraphTableViewcell.air_height()
+        let top = self.tableView.contentInset.top
+
+        var targetIndex = round((targetY + top) / cellHeight)
+        if targetIndex > CGFloat(self.chemicals.count) { targetIndex = CGFloat(self.chemicals.count) }
+        else if targetIndex < 0.0 { targetIndex = 0.0 }
+        targetContentOffset.memory.y = -top + targetIndex * cellHeight
+    }
 }

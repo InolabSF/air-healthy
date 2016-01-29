@@ -49,6 +49,7 @@
 		E6A5CD4C1C3EE553003FCEEC /* AIRLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A5CD4B1C3EE553003FCEEC /* AIRLoadingView.swift */; };
 		E6A5CD4E1C3EE7A9003FCEEC /* AIRSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A5CD4D1C3EE7A9003FCEEC /* AIRSummaryView.swift */; };
 		E6A6B7621C0FB4740085C291 /* AIRSensorMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A6B7611C0FB4740085C291 /* AIRSensorMarker.swift */; };
+		E6AB22681C5AEE6F0038A65D /* VBPieChart+Chemical.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AB22671C5AEE6F0038A65D /* VBPieChart+Chemical.swift */; };
 		E6B10BAA1C039F3600B77A67 /* UIImage+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B10BA91C039F3600B77A67 /* UIImage+UIView.swift */; };
 		E6BC9CED1C03878B004769AD /* AIRTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BC9CEB1C03878B004769AD /* AIRTimelineView.swift */; };
 		E6C67D7F1C51604C0004E584 /* AIRTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C67D7E1C51604C0004E584 /* AIRTutorialViewController.swift */; };
@@ -111,6 +112,7 @@
 		E6A5CD4B1C3EE553003FCEEC /* AIRLoadingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRLoadingView.swift; sourceTree = "<group>"; };
 		E6A5CD4D1C3EE7A9003FCEEC /* AIRSummaryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRSummaryView.swift; sourceTree = "<group>"; };
 		E6A6B7611C0FB4740085C291 /* AIRSensorMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRSensorMarker.swift; sourceTree = "<group>"; };
+		E6AB22671C5AEE6F0038A65D /* VBPieChart+Chemical.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "VBPieChart+Chemical.swift"; sourceTree = "<group>"; };
 		E6AEF7E81BEBFB89000102E2 /* air-health-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "air-health-Bridging-Header.h"; sourceTree = "<group>"; };
 		E6B10BA91C039F3600B77A67 /* UIImage+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+UIView.swift"; sourceTree = "<group>"; };
 		E6BC9CEB1C03878B004769AD /* AIRTimelineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRTimelineView.swift; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 		E63DB73B1BF57AA8000E3E42 /* UIKit+Extension */ = {
 			isa = PBXGroup;
 			children = (
+				E6AB22671C5AEE6F0038A65D /* VBPieChart+Chemical.swift */,
 				E6B10BA91C039F3600B77A67 /* UIImage+UIView.swift */,
 				E63DB73C1BF57AA8000E3E42 /* AIRTableViewCell.swift */,
 			);
@@ -585,6 +588,7 @@
 				E646B6FE1C5848FF0005899F /* AIRNavigationController.swift in Sources */,
 				E62F17091C3C485D002B501F /* AIRChemicalGraphView.swift in Sources */,
 				E695DA671BF2BEAB0060BF66 /* NSDate+Ago.swift in Sources */,
+				E6AB22681C5AEE6F0038A65D /* VBPieChart+Chemical.swift in Sources */,
 				E6839C741BF2B939007BD219 /* AIRCoreDataManager.swift in Sources */,
 				E6E26A301C20F91800BE26E5 /* AIRSensorOperationQueue.swift in Sources */,
 				E64ED00D1C5978BC0055B241 /* AIRChemicalGraphTableViewcell.swift in Sources */,

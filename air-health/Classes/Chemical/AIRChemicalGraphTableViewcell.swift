@@ -63,7 +63,8 @@ class AIRChemicalGraphTableViewcell: AIRTableViewCell {
      **/
     func setPieChart(chemical chemical: String, airHealth: [Double], animated: Bool) {
         self.chemicalLabel.text = chemical
-
+        self.piechartView.setPieChart(airHealth: airHealth, animated: animated)
+/*
         // pie chart
         self.piechartView.enableStrokeColor = true
         self.piechartView.holeRadiusPrecent = 0.5
@@ -93,6 +94,7 @@ class AIRChemicalGraphTableViewcell: AIRTableViewCell {
             duration: 0.8,
             options: [.FanAll, .TimingEaseIn]
         )
+*/
     }
 
 }

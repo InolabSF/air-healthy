@@ -117,9 +117,6 @@ class AIRTimelineView: UIView {
      * @param sensorBasements [Double]
      **/
     func setLineChart(passes passes: [CLLocation], valuesPerMinute: [Double], sensorBasements: [Double]) {
-        self.startTimeLabel.text = ""
-        self.endTimeLabel.text = ""
-        self.timeLabel.text = ""
         self.timeSliderContentView.hidden = true
 
         if self.timelineLineChartView != nil {
@@ -130,11 +127,7 @@ class AIRTimelineView: UIView {
 
         self.timeSliderContentView.hidden = false
 
-        let dateFormatter = NSDateFormatter.air_dateFormatter()
-        dateFormatter.dateFormat = "HH:mm"
-        self.startTimeLabel.text = dateFormatter.stringFromDate(passes.first!.timestamp)
-        self.endTimeLabel.text = dateFormatter.stringFromDate(passes.last!.timestamp)
-        self.timeLabel.text = self.startTimeLabel.text
+        self.initTimelabels(passes: passes)
 
         // max value
         var maxValue = 0.001
@@ -178,7 +171,24 @@ class AIRTimelineView: UIView {
         )
         self.timelineLineChartBackgroundView.addSubview(self.timelineLineChartView!)
     }
-
+    
+    /**
+     * init start, end, current time
+     * @param passes [CLLocatoin]
+     **/
+    func initTimelabels(passes passes: [CLLocation]) {
+        self.startTimeLabel.text = ""
+        self.endTimeLabel.text = ""
+        self.timeLabel.text = ""
+        if passes.count < 2 { return }
+        
+        let dateFormatter = NSDateFormatter.air_dateFormatter()
+        dateFormatter.dateFormat = "HH:mm"
+        self.startTimeLabel.text = dateFormatter.stringFromDate(passes.first!.timestamp)
+        self.endTimeLabel.text = dateFormatter.stringFromDate(passes.last!.timestamp)
+        self.timeLabel.text = self.startTimeLabel.text
+    }
+    
     /**
      * set date
      * @param date NSDate

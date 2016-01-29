@@ -29,6 +29,9 @@ class AIRSummaryViewController: UIViewController {
         }
         else {
             AIRLocationManager.sharedInstance.startUpdatingLocation()
+
+            AIRSummary.sharedInstance.delegate = self
+            AIRSummary.sharedInstance.getSensorsFromServer()
         }
 
         self.setUp()
@@ -99,10 +102,6 @@ class AIRSummaryViewController: UIViewController {
                 imageSize: CGSizeMake(22, 22)),
             forState: .Normal
         )
-
-        AIRSummary.sharedInstance.delegate = self
-        AIRSummary.sharedInstance.setSensorValues()
-        AIRSummary.sharedInstance.getSensorsFromServer()
     }
 
 }
@@ -144,7 +143,11 @@ extension AIRSummaryViewController: AIRTutorialViewControllerDelegate {
 
     func didFisnish(tutorialViewController tutorialViewController: AIRTutorialViewController) {
         self.tutorialViewController = nil
+
         AIRLocationManager.sharedInstance.startUpdatingLocation()
+
+        AIRSummary.sharedInstance.delegate = self
+        AIRSummary.sharedInstance.getSensorsFromServer()
     }
 
 }

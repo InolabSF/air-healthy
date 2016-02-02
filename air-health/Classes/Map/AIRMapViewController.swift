@@ -177,13 +177,13 @@ class AIRMapViewController: UIViewController {
             }
             self.passesPer4hours.append(passesFor4hours)
         }
-        
+
         var passesCount = 0
         for p in self.passesPer4hours {
             passesCount += p.count
         }
         if passesCount == 0 { self.passesPer4hours = []; return }
-        
+
         for var i = 0; i < self.passesPer4hours.count; i++ {
             if self.passesPer4hours[i].count > 0 { continue }
 
@@ -307,11 +307,13 @@ class AIRMapViewController: UIViewController {
             self.mapView.frame.origin.x, self.timelineView.dateView.frame.origin.y + self.timelineView.dateView.frame.height,
             self.mapView.frame.width, self.view.frame.height - (self.timelineView.dateView.frame.origin.y + self.timelineView.dateView.frame.height + self.timelineView.timeSliderView.frame.height) + 36.0
         )
+        self.mapView.padding = UIEdgeInsetsMake(0.0, 0.0, 36.0, 0.0)
         self.mapView.camera = GMSCameraPosition.cameraWithLatitude(
             37.7833,
             longitude: -122.4167,
             zoom: AIRGoogleMap.Zoom.Default
         )
+        self.mapView.settings.myLocationButton = true
     }
 
     /**
@@ -397,7 +399,7 @@ class AIRMapViewController: UIViewController {
             self.timelineView.timeSlider.maximumValue = CGFloat(allInterval)
             if self.timelineView.timeSlider.maximumValue > 0.0 { self.timelineView.timeSlider.value = self.timelineView.timeSlider.maximumValue }
         }
-        
+
         self.timelineView.initTimelabels(passes: passes)
 
         let startIndex = self.getCurrentValuesIndex(second: 0.0)

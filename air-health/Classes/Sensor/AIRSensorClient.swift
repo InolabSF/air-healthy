@@ -26,7 +26,8 @@ class AIRSensorClient: AnyObject {
         let southWest = AIRLocation.southWest(locations: locations, offsetMeters: AIRLocationManager.ThresholdOfSensorNeighbor)
         let northEast = AIRLocation.northEast(locations: locations, offsetMeters: AIRLocationManager.ThresholdOfSensorNeighbor)
         let URL = NSURL(
-            URLString: "https://vasp.herokuapp.com/air",
+            //URLString: "https://vasp.herokuapp.com/air",
+            URLString: "https://vasp.herokuapp.com/square",
             queries: [
                 "south":"\(southWest.coordinate.latitude)",
                 "north":"\(northEast.coordinate.latitude)",
@@ -41,7 +42,8 @@ class AIRSensorClient: AnyObject {
                 var responseJSON = JSON([:])
                 if object != nil { responseJSON = JSON(data: object as! NSData) }
                 dispatch_async(dispatch_get_main_queue(), {
-                    completionHandler(json: responseJSON["airs"])
+                    //completionHandler(json: responseJSON["airs"])
+                    completionHandler(json: responseJSON["squares"])
                 })
             }
         )

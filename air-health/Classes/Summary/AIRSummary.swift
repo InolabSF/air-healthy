@@ -28,7 +28,6 @@ class AIRSummary: NSObject {
     var passes: [CLLocation] = []               // location you passed
     var values: [Double] = []                   // summary values per minute
     var sensors: [AIRSensor] = []               // sensor datas
-    //var users: [AIRUser] = []                   // user datas
 
     var SO2ValuePerMinutes: [Double] = []       // SO2 value per minutes
     var O3ValuePerMinutes: [Double] = []        // O3 value per minutes
@@ -50,11 +49,8 @@ class AIRSummary: NSObject {
             object: nil
         )
 
-        self.passes = []//AIRLocation.fetch(date: NSDate())
-        // get new sensor values
-        self.getSensorsFromServer()
-        // get user datas from server
-        //self.getUsersFromServer()
+        self.passes = []
+        //self.passes = AIRLocation.fetch(date: NSDate())
     }
 
     /// MARK: - destruction
@@ -84,6 +80,8 @@ class AIRSummary: NSObject {
      * get sensor datas from server
      **/
     func getSensorsFromServer() {
+        if self.values.count >= 2 && AIRSensor.hasSensors() { return }
+
         AIRSensorClient.sharedInstance.getSensorValues(
             locations: self.passes,
             completionHandler: { [unowned self] (json: JSON) -> Void in
@@ -122,8 +120,6 @@ class AIRSummary: NSObject {
             dispatch_time(DISPATCH_TIME_NOW, Int64(Double(NSEC_PER_SEC) / 10.0)),
             dispatch_get_main_queue(),
             { [unowned self] () in
-
-
                 let today = NSDate()
 
                 // passes and sensor datas
@@ -131,11 +127,9 @@ class AIRSummary: NSObject {
 
                 // sensors
                 self.sensors = AIRSensor.fetch()
-/*
-                let southWest = AIRLocation.southWest(locations: self.passes, offsetMeters: AIRLocationManager.ThresholdOfSensorNeighbor)
-                let northEast = AIRLocation.northEast(locations: self.passes, offsetMeters: AIRLocationManager.ThresholdOfSensorNeighbor)
-                self.sensors = AIRSensor.fetch(date: today, southWest: southWest, northEast: northEast)
-*/
+//                let southWest = AIRLocation.southWest(locations: self.passes, offsetMeters: AIRLocationManager.ThresholdOfSensorNeighbor)
+//                let northEast = AIRLocation.northEast(locations: self.passes, offsetMeters: AIRLocationManager.ThresholdOfSensorNeighbor)
+//                self.sensors = AIRSensor.fetch(date: today, southWest: southWest, northEast: northEast)
 
                 // values
                 self.SO2ValuePerMinutes = AIRSensorManager.valuesPerMinute(
@@ -143,26 +137,31 @@ class AIRSummary: NSObject {
                     averageSensorValues: AIRSensorManager.averageSensorValues(chemical: "SO2", date: today, locations: self.passes),
                     sensorBasements: AIRSensorManager.sensorBasements(chemical: "SO2")
                 )
+
                 self.O3ValuePerMinutes = AIRSensorManager.valuesPerMinute(
                     passes: self.passes,
                     averageSensorValues: AIRSensorManager.averageSensorValues(chemical: "Ozone_S", date: today, locations: self.passes),
                     sensorBasements: AIRSensorManager.sensorBasements(chemical: "Ozone_S")
                 )
+
                 self.NO2ValuePerMinutes = AIRSensorManager.valuesPerMinute(
                     passes: self.passes,
                     averageSensorValues: AIRSensorManager.averageSensorValues(chemical: "NO2", date: today, locations: self.passes),
                     sensorBasements: AIRSensorManager.sensorBasements(chemical: "NO2")
                 )
+
                 self.PM25ValuePerMinutes = AIRSensorManager.valuesPerMinute(
                     passes: self.passes,
                     averageSensorValues: AIRSensorManager.averageSensorValues(chemical: "PM25", date: today, locations: self.passes),
                     sensorBasements: AIRSensorManager.sensorBasements(chemical: "PM25")
                 )
+
                 self.COValuePerMinutes = AIRSensorManager.valuesPerMinute(
                     passes: self.passes,
                     averageSensorValues: AIRSensorManager.averageSensorValues(chemical: "CO", date: today, locations: self.passes),
                     sensorBasements: AIRSensorManager.sensorBasements(chemical: "CO")
                 )
+
                 self.UVValuePerMinutes = AIRSensorManager.valuesPerMinute(
                     passes: self.passes,
                     averageSensorValues: AIRSensorManager.averageSensorValues(chemical: "UV", date: today, locations: self.passes),
@@ -181,11 +180,12 @@ class AIRSummary: NSObject {
                     self.values.append(value)
                 }
 
-
                 if self.delegate != nil {
                     (self.delegate as! AIRSummaryDelegate).summaryCalculationDidEnd(summary: self)
                 }
+
             }
         )
+
     }
 }

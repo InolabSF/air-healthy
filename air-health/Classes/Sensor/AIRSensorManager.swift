@@ -132,6 +132,7 @@ class AIRSensorManager: NSObject {
 
             values.append(average)
         }
+
         return values
     }
 
@@ -221,6 +222,7 @@ class AIRSensorManager: NSObject {
      **/
     class func valuesPerMinute(passes passes: [CLLocation], averageSensorValues: [Double], sensorBasements: [Double]) -> [Double] {
         if passes.count == 0 { return [0.0] }
+
         let allMinutes = Int(passes.last!.timestamp.timeIntervalSinceDate(passes.first!.timestamp) / 60)
 
         var values: [Double] = []
@@ -242,6 +244,7 @@ class AIRSensorManager: NSObject {
             values[start] += (Double(start+1) - startMinute) * value
             values[end] += (endMinute - Double(end)) * value
         }
+
         return values
     }
 

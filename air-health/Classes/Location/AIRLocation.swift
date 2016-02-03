@@ -253,7 +253,7 @@ class AIRLocation: NSManagedObject {
         fetchRequest.returnsObjectsAsFaults = false
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: true),]
             // make predicates
-        let startDate = date.air_hoursAgo(hours: 28)
+        let startDate = date.air_hoursAgo(hours: 24)
         let endDate = date
         let predicaets = [ NSPredicate(format: "(timestamp >= %@) AND (timestamp <= %@)", startDate!, endDate), ]
         fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicaets)

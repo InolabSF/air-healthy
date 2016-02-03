@@ -184,8 +184,10 @@ class AIRSensor: NSManagedObject {
         let sensorDate = dateFormatter.dateFromString(sensorDateString!)
         if sensorDate == nil { return false }
 
-        let hour = Int(today.timeIntervalSinceDate(sensorDate!)) / 60 / 60
-        return (hour <= 0)
+        //let hour = Int(today.timeIntervalSinceDate(sensorDate!)) / 60 / 60
+        //return (hour <= 0)
+        let tenMinutes = Int(today.timeIntervalSinceDate(sensorDate!)) / 60 / 10
+        return (tenMinutes <= 0)
     }
 
     /**

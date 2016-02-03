@@ -65,7 +65,8 @@ class AIRTimelineView: UIView {
      **/
     @IBAction func touchDown(control control: UIControl) {
         if control == self.timeSlider {
-            self.timeIndicatorView.hidden = true
+            //self.timeIndicatorView.hidden = true
+            //self.timeIndicatorView.alpha = 0.35
         }
     }
 
@@ -75,7 +76,8 @@ class AIRTimelineView: UIView {
      **/
     @IBAction func touchUp(control control: UIControl) {
         if control == self.timeSlider {
-            self.timeIndicatorView.hidden = false
+            //self.timeIndicatorView.hidden = false
+            //self.timeIndicatorView.alpha = 1.0
         }
     }
 
@@ -93,6 +95,17 @@ class AIRTimelineView: UIView {
     /// MARK: - public api
 
     /**
+     * move timeline indicator
+     **/
+    func moveTimelineIndicator() {
+        if self.timeSlider.maximumValue == 0.0 { self.timeSlider.maximumValue = 1.0 }
+        self.timeIndicatorView.frame = CGRectMake(
+            1.0 + (self.timelineLineChartBackgroundView.frame.width - 3.0) * self.timeSlider.value / self.timeSlider.maximumValue, self.timeIndicatorView.frame.origin.y,
+            self.timeIndicatorView.frame.width, self.timeIndicatorView.frame.height
+        )
+    }
+
+    /**
      * set timeline value
      * @param time String
      * @param color UIColor
@@ -103,11 +116,7 @@ class AIRTimelineView: UIView {
         // color
         self.timeLabel.textColor = color
 
-        if self.timeSlider.maximumValue == 0.0 { self.timeSlider.maximumValue = 1.0 }
-        self.timeIndicatorView.frame = CGRectMake(
-            1.0 + (self.timelineLineChartBackgroundView.frame.width - 3.0) * self.timeSlider.value / self.timeSlider.maximumValue, self.timeIndicatorView.frame.origin.y,
-            self.timeIndicatorView.frame.width, self.timeIndicatorView.frame.height
-        )
+        self.moveTimelineIndicator()
     }
 
     /**
@@ -171,7 +180,7 @@ class AIRTimelineView: UIView {
         )
         self.timelineLineChartBackgroundView.addSubview(self.timelineLineChartView!)
     }
-    
+
     /**
      * init start, end, current time
      * @param passes [CLLocatoin]
@@ -181,14 +190,14 @@ class AIRTimelineView: UIView {
         self.endTimeLabel.text = ""
         self.timeLabel.text = ""
         if passes.count < 2 { return }
-        
+
         let dateFormatter = NSDateFormatter.air_dateFormatter()
         dateFormatter.dateFormat = "HH:mm"
         self.startTimeLabel.text = dateFormatter.stringFromDate(passes.first!.timestamp)
         self.endTimeLabel.text = dateFormatter.stringFromDate(passes.last!.timestamp)
         self.timeLabel.text = self.startTimeLabel.text
     }
-    
+
     /**
      * set date
      * @param date NSDate

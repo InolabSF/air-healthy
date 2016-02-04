@@ -182,6 +182,28 @@ class AIRLocation: NSManagedObject {
             locations.append(location)
         }
 
+        if locations.count > 0 {
+            let intervalHour = 4
+
+            let calendar = NSCalendar.currentCalendar()
+            let comp = calendar.components([.Hour], fromDate: date)
+            let hour = (comp.hour / intervalHour + 1) * intervalHour
+
+            let dateFormatter = NSDateFormatter.air_dateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            let nowString = dateFormatter.stringFromDate(date)
+            dateFormatter.dateFormat = "yyyy-MM-dd HH"
+            let endDate = dateFormatter.dateFromString(String(format: "%@ %02d", nowString, hour))!
+            let startDate = endDate.air_daysAgo(days: 1)!
+
+            if startDate.compare(locations.first!.timestamp) == .OrderedAscending {
+                locations = [AIRLocation.location(locations.first!, timestamp: startDate)] + locations
+            }
+            if endDate.compare(locations.last!.timestamp) == .OrderedDescending {
+                locations = locations + [AIRLocation.location(locations.last!, timestamp: endDate)]
+            }
+        }
+
         return locations
     }
 
@@ -208,7 +230,7 @@ class AIRLocation: NSManagedObject {
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let startDateString = dateFormatter.stringFromDate(startDate)
         let endDateString = dateFormatter.stringFromDate(endDate!)
-        dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         startDate = dateFormatter.dateFromString(startDateString+" 00:00:00")!
         endDate = dateFormatter.dateFromString(endDateString+" 00:00:00")!
         let predicaets = [ NSPredicate(format: "(timestamp >= %@) AND (timestamp < %@)", startDate, endDate!), ]
@@ -264,7 +286,7 @@ class AIRLocation: NSManagedObject {
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let startDateString = dateFormatter.stringFromDate(startDate)
         let endDateString = dateFormatter.stringFromDate(endDate!)
-        dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         startDate = dateFormatter.dateFromString(startDateString+" 00:00:00")!
         endDate = dateFormatter.dateFromString(endDateString+" 00:00:00")!
         let predicaets = [ NSPredicate(format: "(timestamp >= %@) AND (timestamp < %@)", startDate, endDate!), ]
@@ -304,7 +326,7 @@ class AIRLocation: NSManagedObject {
         dateFormatter.dateFormat = "yyyy-MM-dd"
         let startDateString = dateFormatter.stringFromDate(startDate)
         let endDateString = dateFormatter.stringFromDate(endDate!)
-        dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         startDate = dateFormatter.dateFromString(startDateString+" 00:00:00")!
         endDate = dateFormatter.dateFromString(endDateString+" 00:00:00")!
         let predicaets = [ NSPredicate(format: "(timestamp >= %@) AND (timestamp < %@)", startDate, endDate!), ]

@@ -9,7 +9,10 @@ class AIRMapViewController: UIViewController {
     @IBOutlet weak var timelineView: AIRTimelineView!
     @IBOutlet weak var mapView: AIRMapView!
 
-    var startDate: NSDate!
+//    var startDate: NSDate!
+//    var endDate: NSDate!
+    var moveStartDate: NSDate!
+    var moveEndDate: NSDate!
     var passesIndex = 0
     var passesPer4hours: [[CLLocation]] = []
     var passes: [CLLocation] {
@@ -64,10 +67,11 @@ class AIRMapViewController: UIViewController {
         super.loadView()
 
         self.setUp()
-        self.timelineView.setDate(NSDate())
 
         self.updateSensorValues()
         self.updateMapAndTimeline()
+
+        self.timelineView.setDate(self.moveEndDate)
 
         self.drawMap()
 
@@ -149,19 +153,18 @@ class AIRMapViewController: UIViewController {
      * @param passes [CLLocation]
      **/
     func setPasses(locations: [CLLocation]) {
-        self.startDate = NSDate()
-        if locations.count > 0 { self.startDate = locations.first!.timestamp }
-        else { return }
-
         self.passesPer4hours = []
+        let now = NSDate()
+        self.moveStartDate = now
+        self.moveEndDate = now
 
+        if locations.count == 0 { return }
+
+        self.moveStartDate = locations.first!.timestamp
         let last = locations.last!.timestamp
-        let hours = Int(last.timeIntervalSinceDate(locations.first!.timestamp)) / 60 / 60
+        self.moveEndDate = last
         let intervalHour = 4
-        let intervalCount = 24 / intervalHour
-        var separation = (hours / intervalHour > intervalCount) ? intervalCount : (hours / intervalHour)
-        if separation == 0 { separation = 1 }
-        //let separation = intervalCount
+        let separation = 6
         for var i = 0; i < separation; i++ {
             let end = last.air_hoursAgo(hours: intervalHour*i)!
             let start = last.air_hoursAgo(hours: intervalHour*(i+1))!
@@ -177,13 +180,6 @@ class AIRMapViewController: UIViewController {
             }
             self.passesPer4hours.append(passesFor4hours)
         }
-
-        var passesCount = 0
-        for p in self.passesPer4hours {
-            passesCount += p.count
-        }
-        if passesCount == 0 { self.passesPer4hours = []; return }
-
         for var i = 0; i < self.passesPer4hours.count; i++ {
             if self.passesPer4hours[i].count > 0 { continue }
 
@@ -208,10 +204,135 @@ class AIRMapViewController: UIViewController {
         }
         self.passesPer4hours = self.passesPer4hours.reverse()
         self.passesIndex = self.passesPer4hours.count - 1
+
+
+
+        var passesCount = 0
+        for p in self.passesPer4hours {
+            passesCount += p.count
+        }
+        if passesCount == 0 { self.passesPer4hours = [] }
+
+
+
+//        let intervalHour = 4
+//        let intervalCount = 24 / intervalHour
+//
+//        let now = NSDate()
+//
+//        self.moveStartDate = (locations.count > 0) ? locations.first!.timestamp : now
+//        //self.moveEndDate = (locations.count > 0) ? locations.last!.timestamp : now
+//
+//        let calendar = NSCalendar.currentCalendar()
+//        let comp = calendar.components([.Hour], fromDate: now)
+//        let hour = comp.hour / intervalHour * intervalCount
+//        let dateFormatter = NSDateFormatter.air_dateFormatter()
+//        dateFormatter.dateFormat = "yyyy-MM-dd"
+//        let nowString = dateFormatter.stringFromDate(now)
+//        dateFormatter.dateFormat = "yyyy-MM-dd HH"
+//        //self.startDate = dateFormatter.dateFromString(String(format: "%@ %02d", nowString, hour))
+//        self.endDate = dateFormatter.dateFromString(String(format: "%@ %02d", nowString, hour))
+//        self.startDate = self.endDate.air_daysAgo(days: 1)
+//
+//        if locations.count == 0 { return }
+//
+//        self.passesPer4hours = []
+//
+//        let last = self.endDate//locations.last!.timestamp
+//        //let hours = Int(last.timeIntervalSinceDate(locations.first!.timestamp)) / 60 / 60
+//        //var separation = (hours / intervalHour > intervalCount) ? intervalCount : (hours / intervalHour)
+//        //if separation == 0 { separation = 1 }
+//        let separation = intervalCount
+//        for var i = 0; i < separation; i++ {
+//            let end = last.air_hoursAgo(hours: intervalHour*i)!
+//            let start = last.air_hoursAgo(hours: intervalHour*(i+1))!
+//            var passesFor4hours = locations.filter({ (pass: CLLocation) -> Bool in
+//                return (pass.timestamp.compare(start) == NSComparisonResult.OrderedDescending && end.compare(pass.timestamp) == NSComparisonResult.OrderedDescending)
+//            })
+//
+//            if passesFor4hours.count > 0 {
+//                let first = AIRLocation.location(passesFor4hours.first!, timestamp: start)
+//                let last = AIRLocation.location(passesFor4hours.last!, timestamp: end)
+//                if passesFor4hours.count == 1 { passesFor4hours = [first, last] }
+//                else { passesFor4hours[0] = first; passesFor4hours[passesFor4hours.count-1] = last }
+//            }
+//            self.passesPer4hours.append(passesFor4hours)
+//        }
+//
+//        var passesCount = 0
+//        for p in self.passesPer4hours {
+//            passesCount += p.count
+//        }
+//        if passesCount == 0 { self.passesPer4hours = []; return }
+//
+//        for var i = 0; i < self.passesPer4hours.count; i++ {
+//            if self.passesPer4hours[i].count > 0 { continue }
+//
+//            let end = last.air_hoursAgo(hours: intervalHour*i)!
+//            let start = last.air_hoursAgo(hours: intervalHour*(i+1))!
+//
+//            var j = 1
+//            while self.passesPer4hours[i].count == 0 {
+//                var index = i+j
+//                if index < self.passesPer4hours.count && self.passesPer4hours[index].count > 0 {
+//                    self.passesPer4hours[i] = [AIRLocation.location(self.passesPer4hours[index].last!, timestamp: start), AIRLocation.location(self.passesPer4hours[index].last!, timestamp: end)]
+//                    break
+//                }
+//                index = i-j
+//                if index >= 0 && self.passesPer4hours[index].count > 0 {
+//                    self.passesPer4hours[i] = [AIRLocation.location(self.passesPer4hours[index].first!, timestamp: start), AIRLocation.location(self.passesPer4hours[index].first!, timestamp: end)]
+//                    break
+//                }
+//
+//                j++
+//            }
+//        }
+//        self.passesPer4hours = self.passesPer4hours.reverse()
+//        self.passesIndex = self.passesPer4hours.count - 1
     }
 
-
     /// MARK: - private api
+
+//    /**
+//     * insert valuesPerMinutes lacked
+//     * @param minutes Int
+//     * @param positionIsHead head->true, foot->false
+//     **/
+//    private func insertValuesPerMinutes(minutes minutes: Int, positionIsHead: Bool) {
+//        var value = 0.0
+//        var values: [Double] = []
+//        let valuesPerMinutes = [
+//            self.NO2ValuePerMinutes,
+//            self.PM25ValuePerMinutes,
+//            self.UVValuePerMinutes,
+//            self.COValuePerMinutes,
+//            self.SO2ValuePerMinutes,
+//            self.O3ValuePerMinutes,
+//        ]
+//        for var i = 0; i < valuesPerMinutes.count; i++ {
+//            let valuePerMinutes = valuesPerMinutes[i]
+//            value = (positionIsHead) ? valuePerMinutes.first! : valuePerMinutes.last!
+//
+//            for var j = 0; j < minutes; j++ { values.append(value) }
+//            //valuePerMinutes = (positionIsHead) ? values + valuePerMinutes : valuePerMinutes + values
+//            switch i {
+//                case 0:
+//                    self.NO2ValuePerMinutes = (positionIsHead) ? values + valuePerMinutes : valuePerMinutes + values
+//                case 1:
+//                    self.PM25ValuePerMinutes = (positionIsHead) ? values + valuePerMinutes : valuePerMinutes + values
+//                case 2:
+//                    self.UVValuePerMinutes = (positionIsHead) ? values + valuePerMinutes : valuePerMinutes + values
+//                case 3:
+//                    self.COValuePerMinutes = (positionIsHead) ? values + valuePerMinutes : valuePerMinutes + values
+//                case 4:
+//                    self.SO2ValuePerMinutes = (positionIsHead) ? values + valuePerMinutes : valuePerMinutes + values
+//                case 5:
+//                    self.O3ValuePerMinutes = (positionIsHead) ? values + valuePerMinutes : valuePerMinutes + values
+//                default:
+//                    AIRLOG("never happens")
+//            }
+//        }
+//    }
 
     /**
      * return current vlaue
@@ -220,6 +341,12 @@ class AIRMapViewController: UIViewController {
     private func currentValue() -> Double {
         let index = self.getCurrentValuesIndex(second: Double(self.timelineView.timeSlider.value))
         if index == nil { return 0.0 }
+
+
+//        if index < 0 { return self.values.first! }
+//        if index >= self.values.count { return self.values.last! }
+
+
         return self.values[index!]
     }
 
@@ -229,21 +356,37 @@ class AIRMapViewController: UIViewController {
      * @return Int?
      **/
     private func getCurrentValuesIndex(second second: Double) -> Int? {
-        if self.passes.count >= 2 {
-            var index = -1
-            let offset = self.passes.first!.timestamp.timeIntervalSinceDate(self.startDate)
-            let userDate = self.passes.first!.timestamp.dateByAddingTimeInterval(second)
-            for var i = 1; i < passes.count; i++ {
-                let start = passes[i-1]
-                let end = passes[i]
-                if userDate.compare(start.timestamp) != .OrderedAscending && userDate.compare(end.timestamp) != .OrderedDescending {
-                    index = Int(second+offset) / 60
-                }
+        if self.passes.count < 2 { return nil }
+
+        let offset = self.passes.first!.timestamp.timeIntervalSinceDate(self.moveStartDate)
+        let userDate = self.passes.first!.timestamp.dateByAddingTimeInterval(second)
+
+        //if userDate.compare(self.passes.first!.timestamp) == .OrderedAscending { return 0 }
+        //else if userDate.compare(self.passes.last!.timestamp) == .OrderedDescending { return self.values.count-1 }
+
+        //if userDate.compare(self.moveStartDate) == .OrderedAscending { return -1 }
+        //else if userDate.compare(self.moveEndDate) == .OrderedDescending { return self.values.count }
+
+        //if userDate.compare(self.moveStartDate) == .OrderedAscending { return -Int(self.moveStartDate.timeIntervalSinceDate(userDate)) / 60 }
+        //else if userDate.compare(self.moveEndDate) == .OrderedDescending { return Int(userDate.timeIntervalSinceDate(self.moveEndDate)) / 60 }
+
+        var index: Int? = nil
+        for var i = 1; i < self.passes.count; i++ {
+            let start = self.passes[i-1]
+            let end = self.passes[i]
+            if userDate.compare(start.timestamp) != .OrderedAscending && userDate.compare(end.timestamp) != .OrderedDescending {
+                index = Int(second+offset) / 60
+                break
             }
-            if index >= 0 && index < self.values.count { return index }
-            else if index == -1 && second <= 0.01 { index = Int(second+offset) / 60; return index }
         }
-        return nil
+
+        if index! < 0 { return 0 }
+        if index! >= self.values.count { return self.values.count-1 }
+
+        return index
+
+        //if index >= 0 && index < self.values.count { return index }
+        //else if index == -1 && second <= 0.01 { index = Int(second+offset) / 60; return index }
     }
 
     /**
@@ -380,9 +523,6 @@ class AIRMapViewController: UIViewController {
 
             self.timelineView.setDate(date)
         }
-        else {
-            self.timelineView.setDate(NSDate())
-        }
 
         self.timelineView.setTimeline(time: time, color: color)
     }
@@ -406,10 +546,37 @@ class AIRMapViewController: UIViewController {
         let endIndex = self.getCurrentValuesIndex(second: allInterval)
         if startIndex == nil || endIndex == nil { return }
 
+
+/*
+        var valuesPerMinute: [Double] = []
+        if startIndex! >= 0 && endIndex! < self.values.count {
+            valuesPerMinute = self.values.slice((startIndex!), (endIndex!))
+        }
+        else {
+            if endIndex! < 0 {
+                for var i = 0; i < (endIndex!-startIndex!); i++ { valuesPerMinute.append(self.values.first!) }
+            }
+            else if startIndex! >= self.values.count {
+                for var i = 0; i < (endIndex!-startIndex!); i++ { valuesPerMinute.append(self.values.last!) }
+            }
+            else if startIndex! < 0 {
+                for var i = 0; i < (-startIndex!); i++ { valuesPerMinute.append(self.values.first!) }
+                valuesPerMinute = valuesPerMinute + self.values.slice(0, endIndex!)
+            }
+            else if endIndex! >= self.values.count {
+                self.values.last!
+                for var i = 0; i < (endIndex!-self.values.count); i++ { valuesPerMinute.append(self.values.last!) }
+                valuesPerMinute = self.values.slice(startIndex!, self.values.count-1) + valuesPerMinute
+            }
+        }
+*/
+
+
         // timeline
+        let valuesPerMinute = self.values.slice((startIndex!), (endIndex!))
         self.timelineView.setLineChart(
             passes: self.passes,
-            valuesPerMinute: self.values.slice((startIndex!), (endIndex!)),
+            valuesPerMinute: valuesPerMinute,
             sensorBasements: self.basements
         )
         self.setTimeline()

@@ -241,8 +241,8 @@ class AIRSensorManager: NSObject {
             for var j = start; j < end; j++ {
                 values[j] = value
             }
-            values[start] += (Double(start+1) - startMinute) * value
-            values[end] += (endMinute - Double(end)) * value
+            //values[start] += (Double(start+1) - startMinute) * value
+            //values[end] += (endMinute - Double(end)) * value
         }
 
         return values

@@ -26,11 +26,15 @@
                                     <accessibilityTraits key="traits" notEnabled="YES"/>
                                 </accessibility>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="GFB-rA-8EX">
+                                <rect key="frame" x="32" y="32" width="64" height="64"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PM2.5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" id="YLi-Me-aHg">
-                                <rect key="frame" x="40" y="0.0" width="48" height="128"/>
+                                <rect key="frame" x="40" y="80" width="48" height="48"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="20"/>
-                                <color key="textColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -47,6 +51,7 @@
                 </subviews>
             </tableViewCellContentView>
             <connections>
+                <outlet property="chemicalImageView" destination="GFB-rA-8EX" id="CfM-vy-BXc"/>
                 <outlet property="chemicalLabel" destination="YLi-Me-aHg" id="3SQ-Wr-dFv"/>
                 <outlet property="chemicalView" destination="UDr-gM-ncb" id="fMO-w2-8qr"/>
                 <outlet property="piechartView" destination="emH-45-c5O" id="TWb-5L-cP9"/>

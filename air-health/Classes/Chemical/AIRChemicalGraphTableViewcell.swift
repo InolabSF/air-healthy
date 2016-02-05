@@ -8,6 +8,7 @@ class AIRChemicalGraphTableViewcell: AIRTableViewCell {
 
     @IBOutlet weak var chemicalLabel: UILabel!
     @IBOutlet weak var chemicalView: UIView!
+    @IBOutlet weak var chemicalImageView: UIImageView!
     @IBOutlet weak var piechartView: VBPieChart!
 
 
@@ -62,8 +63,9 @@ class AIRChemicalGraphTableViewcell: AIRTableViewCell {
      * @param animated Bool
      **/
     func setPieChart(chemical chemical: String, airHealth: [Double], animated: Bool) {
-        self.chemicalLabel.text = chemical
+        self.chemicalLabel.text = AIRSensorManager.sensorName(chemical: chemical)
         self.piechartView.setPieChart(airHealth: airHealth, animated: animated)
+        self.chemicalImageView.image = UIImage(named: "analytics_icon_\(chemical.lowercaseString)")
 /*
         // pie chart
         self.piechartView.enableStrokeColor = true

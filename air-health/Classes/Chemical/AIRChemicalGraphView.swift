@@ -258,7 +258,7 @@ extension AIRChemicalGraphView: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = AIRChemicalGraphTableViewcell.air_cell()
-        cell.setPieChart(chemical: AIRSensorManager.sensorName(chemical: self.chemicals[indexPath.row]), airHealth: self.airHealths[indexPath.row], animated: false)
+        cell.setPieChart(chemical: self.chemicals[indexPath.row], airHealth: self.airHealths[indexPath.row], animated: false)
         return cell
     }
 

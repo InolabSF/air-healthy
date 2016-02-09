@@ -405,6 +405,7 @@ class AIRMapViewController: UIViewController {
         }
 
         self.timelineView.initTimelabels(passes: passes)
+        self.timelineView.timeSliderContentView.hidden = true
 
         if self.values.count == 0 { return }
         let startIndex = self.getCurrentValuesIndex(second: 0.0)

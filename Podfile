@@ -29,6 +29,7 @@ pod 'ionicons'
 
 # UI
 #pod 'TTTAttributedLabel'
+pod 'BFPaperButton'
 
 # image
 #pod 'IGIdenticon'

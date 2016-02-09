@@ -164,6 +164,26 @@ class AIRSensorManager: NSObject {
 
     }
 
+//    /**
+//     * return summary
+//     * @param chemical String
+//     * @param value Double
+//     * @return String
+//     **/
+//    class func sensorSummary(chemical chemical: String, value: Double) -> String {
+//        let name = sensorName(chemical: chemical)
+//        let sensorBasements = AIRSensorManager.sensorBasements(chemical: chemical)
+//
+//        if value < sensorBasements[0] {
+//            return "\(name) is below WHO recommendation. It is good for outdoor activities!"
+//        }
+//        else if value < sensorBasements[1] {
+//            return "You had some negative exposure to \(name). Long exposure to \(name) can affect your health."
+//        }
+//        return "You had serious exposure to \(name). Avoid being outside."
+//    }
+
+
     /**
      * return sensor color
      * @param value Double

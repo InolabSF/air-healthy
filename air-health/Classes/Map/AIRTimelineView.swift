@@ -22,6 +22,11 @@ class AIRTimelineView: UIView {
     @IBOutlet weak var dateButton: UIButton!
     @IBOutlet weak var timeLabel: UILabel!
 
+    @IBOutlet weak var datePickerButton: BFPaperButton!
+    @IBOutlet weak var datePickerView: UIView!
+    @IBOutlet weak var datePicker: UIDatePicker!
+    @IBOutlet weak var datePickButton: UIButton!
+
     @IBOutlet weak var timeSliderView: UIView!
 
     @IBOutlet weak var timeSliderTitleView: UIView!
@@ -57,6 +62,20 @@ class AIRTimelineView: UIView {
     @IBAction func touchUpInside(button button: UIButton) {
         if button == self.dateButton {
         }
+        if button == self.datePickerButton {
+            if self.datePickerView.hidden {
+                self.appearDatePicker()
+            }
+            else {
+                self.disappearDatePicker()
+            }
+        }
+        if button == self.datePickButton {
+            self.disappearDatePicker()
+            self.setDate(self.datePicker.date)
+            AIRSummary.sharedInstance.startLoading()
+            AIRSummary.sharedInstance.getSensorsFromServer(date: self.datePicker.date)
+        }
     }
 
     /**
@@ -88,6 +107,14 @@ class AIRTimelineView: UIView {
     @IBAction func valueChanged(control control: UIControl) {
         if control == self.timeSlider {
             (self.delegate as! AIRTimelineViewDelegate).valueChanged(timelineView: self, control: self.timeSlider)
+        }
+        if control == self.datePicker {
+            if self.datePicker.date.compare(self.datePicker.minimumDate!) == .OrderedAscending {
+                self.datePicker.date = self.datePicker.minimumDate!
+            }
+            if self.datePicker.date.compare(self.datePicker.maximumDate!) == .OrderedDescending {
+                self.datePicker.date = self.datePicker.maximumDate!
+            }
         }
     }
 
@@ -264,6 +291,50 @@ class AIRTimelineView: UIView {
         // date view
         self.dateView.layer.shadowOffset = CGSizeMake(0, 0)
         self.dateView.layer.shadowOpacity = 0.1
+
+        //
+        self.datePickerButton.isRaised = false
+    }
+
+    /**
+     * appear date picker
+     **/
+    private func appearDatePicker() {
+        self.datePickerView.hidden = false
+        self.datePicker.datePickerMode = .Date
+        self.datePicker.minimumDate = NSDate().air_daysAgo(days: 365)
+        self.datePicker.maximumDate = NSDate()
+
+        UIView.animateWithDuration(
+            0.35,
+            delay: 0.0,
+            options: .CurveEaseOut,
+            animations: { [unowned self] in
+                self.datePickerView.frame = CGRectMake(0, 0, self.datePickerView.frame.width, self.datePickerView.frame.height)
+            },
+            completion: { finished in
+            }
+        )
+    }
+
+    /**
+     * disappear date picker
+     **/
+    private func disappearDatePicker() {
+        let top = -(self.datePicker.frame.height+self.datePickButton.frame.height)
+        UIView.animateWithDuration(
+            0.25,
+            delay: 0.0,
+            options: .CurveEaseOut,
+            animations: { [unowned self] in
+                self.datePickerView.frame = CGRectMake(
+                    0, top, self.datePickerView.frame.width, self.datePickerView.frame.height
+                )
+            },
+            completion: { [unowned self] (finished) -> Void in
+                self.datePickerView.hidden = true
+            }
+        )
     }
 
 }

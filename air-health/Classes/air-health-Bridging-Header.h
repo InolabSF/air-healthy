@@ -24,6 +24,7 @@
 //#import "TTTAttributedLabel.h"
 #import "BLMultiColorLoader.h"
 //#import "RSSliderView.h"
+#import "BFPaperButton.h"
 
 // image
 //#import "IGIdenticon.h"

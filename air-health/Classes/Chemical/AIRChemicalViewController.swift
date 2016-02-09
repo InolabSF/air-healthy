@@ -23,6 +23,9 @@ class AIRChemicalViewController: UIViewController {
     override func loadView() {
         super.loadView()
 
+        self.ABTestButton.hidden = true
+        self.graphView.graphListView.hidden = false
+
         // status bar
         UIApplication.sharedApplication().statusBarStyle = .LightContent
         // navigation bar
@@ -103,7 +106,7 @@ class AIRChemicalViewController: UIViewController {
             self.navigationController!.popViewControllerAnimated(true)
         }
         else if button == self.ABTestButton {
-            self.graphView.graphListView.hidden = !(self.graphView.graphListView.hidden)
+            //self.graphView.graphListView.hidden = !(self.graphView.graphListView.hidden)
         }
     }
 

@@ -80,6 +80,7 @@ class AIRSummary: NSObject {
      * get sensor datas from server
      **/
     func getSensorsFromServer() {
+/*
         if self.values.count >= 2 && AIRSensor.hasSensors() { return }
 
         AIRSensorClient.sharedInstance.getSensorValues(
@@ -90,37 +91,52 @@ class AIRSummary: NSObject {
                 self.setSensorValues()
             }
         )
+*/
+        self.getSensorsFromServer(date: NSDate())
     }
 
-//    /**
-//     * get user datas from server
-//     **/
-//    func getUsersFromServer() {
-//        if passes.count <= 0 { return }
-//
-//        let location = passes.last
-//        AIRUserClient.sharedInstance.getUser(location: location!, radius: 5.0, completionHandler: { [unowned self] (json) in
-//                self.users = AIRUser.users(json: json)
-//            }
-//        )
-//    }
+    /**
+     * get sensor datas from server
+     * @param date date getting sensor data
+     **/
+    func getSensorsFromServer(date date: NSDate) {
+//        if self.values.count >= 2 && AIRSensor.hasSensors() { return }
+
+        AIRSensorClient.sharedInstance.getSensorValues(
+            locations: self.passes,
+            date: date,
+            completionHandler: { [unowned self] (json: JSON) -> Void in
+                AIRSensor.deleteAll()
+                AIRSensor.save(json: json)
+                self.setSensorValues(date: date)
+            }
+        )
+    }
 
     /**
-     * set sensor datas
+     * start loading
      **/
-    func setSensorValues() {
+    func startLoading() {
         dispatch_async(dispatch_get_main_queue(), { [unowned self] () in
             if self.delegate != nil {
                 (self.delegate as! AIRSummaryDelegate).summaryCalculationDidStart(summary: self)
             }
         })
+    }
+
+    /**
+     * set sensor datas
+     * @param date date getting sensor data
+     **/
+    func setSensorValues(date date: NSDate) {
+        self.startLoading()
 
         // calculate summary
         dispatch_after(
             dispatch_time(DISPATCH_TIME_NOW, Int64(Double(NSEC_PER_SEC) / 10.0)),
             dispatch_get_main_queue(),
             { [unowned self] () in
-                let today = NSDate()
+                let today = date
 
                 // passes and sensor datas
                 self.passes = AIRLocation.fetch(date: today)

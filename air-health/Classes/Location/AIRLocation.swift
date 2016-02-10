@@ -183,7 +183,7 @@ class AIRLocation: NSManagedObject {
         }
 
         if locations.count > 0 {
-            let intervalHour = 4
+            let intervalHour = Int(AIRTimelineView.Hour)
 
             let calendar = NSCalendar.currentCalendar()
             let comp = calendar.components([.Hour], fromDate: date)
@@ -194,7 +194,9 @@ class AIRLocation: NSManagedObject {
             let nowString = dateFormatter.stringFromDate(date)
             dateFormatter.dateFormat = "yyyy-MM-dd HH"
             let endDate = dateFormatter.dateFromString(String(format: "%@ %02d", nowString, hour))!
-            let startDate = endDate.air_daysAgo(days: 1)!
+            //let startDate = endDate.air_daysAgo(days: 1)!
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            let startDate = dateFormatter.dateFromString(dateFormatter.stringFromDate(endDate))!
 
             if startDate.compare(locations.first!.timestamp) == .OrderedAscending {
                 locations = [AIRLocation.location(locations.first!, timestamp: startDate)] + locations
@@ -275,9 +277,15 @@ class AIRLocation: NSManagedObject {
         fetchRequest.returnsObjectsAsFaults = false
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "timestamp", ascending: true),]
             // make predicates
-        let startDate = date.air_hoursAgo(hours: 24)
+        //let startDate = date.air_hoursAgo(hours: 24)
+        //let endDate = date
+        let dateFormatter = NSDateFormatter.air_dateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        let startDate = dateFormatter.dateFromString(dateFormatter.stringFromDate(date))!
         let endDate = date
-        let predicaets = [ NSPredicate(format: "(timestamp >= %@) AND (timestamp <= %@)", startDate!, endDate), ]
+
+        //let predicaets = [ NSPredicate(format: "(timestamp >= %@) AND (timestamp <= %@)", startDate!, endDate), ]
+        let predicaets = [ NSPredicate(format: "(timestamp >= %@) AND (timestamp <= %@)", startDate, endDate), ]
         fetchRequest.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicaets)
 /*
         var startDate = date

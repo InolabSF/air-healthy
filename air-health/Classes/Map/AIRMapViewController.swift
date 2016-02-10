@@ -12,11 +12,11 @@ class AIRMapViewController: UIViewController {
     var moveStartDate: NSDate!
     var moveEndDate: NSDate!
     var passesIndex = 0
-    var passesPer4hours: [[CLLocation]] = []
+    var passesPer6hours: [[CLLocation]] = []
     var passes: [CLLocation] {
         get {
-            if passesPer4hours.count == 0 { return [] }
-            return self.passesPer4hours[self.passesIndex]
+            if self.passesPer6hours.count == 0 { return [] }
+            return self.passesPer6hours[self.passesIndex]
         }
     }
     @IBOutlet weak var leftPassesSwitchButton: UIButton!
@@ -125,10 +125,9 @@ class AIRMapViewController: UIViewController {
         }
         else if button == self.rightPassesSwitchButton {
             self.passesIndex += 1
-            if self.passesIndex >= self.passesPer4hours.count { self.passesIndex = self.passesPer4hours.count-1 }
+            if self.passesIndex >= self.passesPer6hours.count { self.passesIndex = self.passesPer6hours.count-1 }
             self.updateMapAndTimeline()
         }
-
     }
 
 
@@ -151,7 +150,7 @@ class AIRMapViewController: UIViewController {
      * @param passes [CLLocation]
      **/
     func setPasses(locations: [CLLocation]) {
-        self.passesPer4hours = []
+        self.passesPer6hours = []
         let now = NSDate()
         self.moveStartDate = now
         self.moveEndDate = now
@@ -159,57 +158,63 @@ class AIRMapViewController: UIViewController {
         if locations.count == 0 { return }
 
         self.moveStartDate = locations.first!.timestamp
-        let last = locations.last!.timestamp
+        let last = locations.last!.timestamp.air_minutesAgo(minutes: 1)!
         self.moveEndDate = last
-        let intervalHour = 4
-        let separation = 6
+        let intervalHour = Int(AIRTimelineView.Hour)
+
+        //let separation = Int(24.0 / AIRTimelineView.Hour)
+        let calendar = NSCalendar.currentCalendar()
+        let comp = calendar.components([.Hour], fromDate: last)
+        let separation = (comp.hour / intervalHour) + 1
+
         for var i = 0; i < separation; i++ {
-            let end = last.air_hoursAgo(hours: intervalHour*i)!
+            var end = last.air_hoursAgo(hours: intervalHour*i)!
+            if end.compare(now) == NSComparisonResult.OrderedDescending { end = now }
             let start = last.air_hoursAgo(hours: intervalHour*(i+1))!
-            var passesFor4hours = locations.filter({ (pass: CLLocation) -> Bool in
+            var passesFor6hours = locations.filter({ (pass: CLLocation) -> Bool in
                 return (pass.timestamp.compare(start) == NSComparisonResult.OrderedDescending && end.compare(pass.timestamp) == NSComparisonResult.OrderedDescending)
             })
 
-            if passesFor4hours.count > 0 {
-                let first = AIRLocation.location(passesFor4hours.first!, timestamp: start)
-                let last = AIRLocation.location(passesFor4hours.last!, timestamp: end)
-                if passesFor4hours.count == 1 { passesFor4hours = [first, last] }
-                else { passesFor4hours[0] = first; passesFor4hours[passesFor4hours.count-1] = last }
+            if passesFor6hours.count > 0 {
+                let first = AIRLocation.location(passesFor6hours.first!, timestamp: start)
+                let last = AIRLocation.location(passesFor6hours.last!, timestamp: end)
+                if passesFor6hours.count == 1 { passesFor6hours = [first, last] }
+                else { passesFor6hours[0] = first; passesFor6hours[passesFor6hours.count-1] = last }
             }
-            self.passesPer4hours.append(passesFor4hours)
+            self.passesPer6hours.append(passesFor6hours)
         }
-        for var i = 0; i < self.passesPer4hours.count; i++ {
-            if self.passesPer4hours[i].count > 0 { continue }
+        for var i = 0; i < self.passesPer6hours.count; i++ {
+            if self.passesPer6hours[i].count > 0 { continue }
 
             let end = last.air_hoursAgo(hours: intervalHour*i)!
             let start = last.air_hoursAgo(hours: intervalHour*(i+1))!
 
             var j = 1
-            while self.passesPer4hours[i].count == 0 {
+            while self.passesPer6hours[i].count == 0 {
                 var index = i+j
-                if index < self.passesPer4hours.count && self.passesPer4hours[index].count > 0 {
-                    self.passesPer4hours[i] = [AIRLocation.location(self.passesPer4hours[index].last!, timestamp: start), AIRLocation.location(self.passesPer4hours[index].last!, timestamp: end)]
+                if index < self.passesPer6hours.count && self.passesPer6hours[index].count > 0 {
+                    self.passesPer6hours[i] = [AIRLocation.location(self.passesPer6hours[index].last!, timestamp: start), AIRLocation.location(self.passesPer6hours[index].last!, timestamp: end)]
                     break
                 }
                 index = i-j
-                if index >= 0 && self.passesPer4hours[index].count > 0 {
-                    self.passesPer4hours[i] = [AIRLocation.location(self.passesPer4hours[index].first!, timestamp: start), AIRLocation.location(self.passesPer4hours[index].first!, timestamp: end)]
+                if index >= 0 && self.passesPer6hours[index].count > 0 {
+                    self.passesPer6hours[i] = [AIRLocation.location(self.passesPer6hours[index].first!, timestamp: start), AIRLocation.location(self.passesPer6hours[index].first!, timestamp: end)]
                     break
                 }
 
                 j++
             }
         }
-        self.passesPer4hours = self.passesPer4hours.reverse()
-        self.passesIndex = self.passesPer4hours.count - 1
+        self.passesPer6hours = self.passesPer6hours.reverse()
+        self.passesIndex = self.passesPer6hours.count - 1
 
 
 
         var passesCount = 0
-        for p in self.passesPer4hours {
+        for p in self.passesPer6hours {
             passesCount += p.count
         }
-        if passesCount == 0 { self.passesPer4hours = [] }
+        if passesCount == 0 { self.passesPer6hours = [] }
     }
 
     /// MARK: - private api
@@ -378,7 +383,8 @@ class AIRMapViewController: UIViewController {
         if self.passes.count >= 2 {
             let allInterval = self.passes.last!.timestamp.timeIntervalSinceDate(self.passes.first!.timestamp)
             self.timelineView.timeSlider.maximumValue = CGFloat(allInterval)
-            let date = self.passes.first!.timestamp.dateByAddingTimeInterval(intervalFromStart)
+            let date = self.passes.first!.timestamp.dateByAddingTimeInterval(intervalFromStart).air_minutesAgo(minutes: -1)!
+            //let date = self.passes.first!.timestamp.dateByAddingTimeInterval(intervalFromStart)
             let dateFormatter = NSDateFormatter.air_dateFormatter()
             dateFormatter.dateFormat = "HH:mm"
             time = dateFormatter.stringFromDate(date)
@@ -431,7 +437,7 @@ class AIRMapViewController: UIViewController {
         if self.passesIndex == 0 {
             self.leftPassesSwitchButton.hidden = true
         }
-        if self.passesIndex == self.passesPer4hours.count-1 {
+        if self.passesIndex == self.passesPer6hours.count-1 {
             self.rightPassesSwitchButton.hidden = true
         }
     }

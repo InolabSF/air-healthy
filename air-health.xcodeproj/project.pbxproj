@@ -51,6 +51,7 @@
 		E6A6B7621C0FB4740085C291 /* AIRSensorMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6A6B7611C0FB4740085C291 /* AIRSensorMarker.swift */; };
 		E6AB22681C5AEE6F0038A65D /* VBPieChart+Chemical.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6AB22671C5AEE6F0038A65D /* VBPieChart+Chemical.swift */; };
 		E6B10BAA1C039F3600B77A67 /* UIImage+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B10BA91C039F3600B77A67 /* UIImage+UIView.swift */; };
+		E6B2D82A1C6BD13600266772 /* NSDate+Today.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6B2D8291C6BD13600266772 /* NSDate+Today.swift */; };
 		E6BC9CED1C03878B004769AD /* AIRTimelineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6BC9CEB1C03878B004769AD /* AIRTimelineView.swift */; };
 		E6C67D7F1C51604C0004E584 /* AIRTutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6C67D7E1C51604C0004E584 /* AIRTutorialViewController.swift */; };
 		E6D803FD1BFD444C00A55326 /* AIRSensorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6D803FC1BFD444C00A55326 /* AIRSensorManager.swift */; };
@@ -115,6 +116,7 @@
 		E6AB22671C5AEE6F0038A65D /* VBPieChart+Chemical.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "VBPieChart+Chemical.swift"; sourceTree = "<group>"; };
 		E6AEF7E81BEBFB89000102E2 /* air-health-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "air-health-Bridging-Header.h"; sourceTree = "<group>"; };
 		E6B10BA91C039F3600B77A67 /* UIImage+UIView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+UIView.swift"; sourceTree = "<group>"; };
+		E6B2D8291C6BD13600266772 /* NSDate+Today.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+Today.swift"; sourceTree = "<group>"; };
 		E6BC9CEB1C03878B004769AD /* AIRTimelineView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AIRTimelineView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		E6C67D7E1C51604C0004E584 /* AIRTutorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRTutorialViewController.swift; sourceTree = "<group>"; };
 		E6D803FC1BFD444C00A55326 /* AIRSensorManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRSensorManager.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 				E6702F511C582FEC002A0F91 /* Array+Slice.swift */,
 				E6F4DCD91C0DB72A00F8DA0F /* String+Justified.swift */,
 				E695DA661BF2BEAB0060BF66 /* NSDate+Ago.swift */,
+				E6B2D8291C6BD13600266772 /* NSDate+Today.swift */,
 				E612614B1BF160C200BE8E91 /* NSMutableURLRequest+HTTPBody.swift */,
 				E612614C1BF160C200BE8E91 /* NSURL+Queries.swift */,
 				E663D21D1C4EF79300926E82 /* NSDateFormatter+USStyle.swift */,
@@ -366,8 +369,8 @@
 			isa = PBXGroup;
 			children = (
 				E695DA6B1BF2C32F0060BF66 /* AIRMapViewController.swift */,
-				E6BC9CEB1C03878B004769AD /* AIRTimelineView.swift */,
 				E695DA6A1BF2C32F0060BF66 /* AIRMapView.swift */,
+				E6BC9CEB1C03878B004769AD /* AIRTimelineView.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -561,6 +564,7 @@
 				E695DA6D1BF2C32F0060BF66 /* AIRMapView.swift in Sources */,
 				E61261491BF1602300BE8E91 /* SwiftyJSON.swift in Sources */,
 				E6FDD45E1C237CA4005C3340 /* AIRUserOperationQueue.swift in Sources */,
+				E6B2D82A1C6BD13600266772 /* NSDate+Today.swift in Sources */,
 				E6743ED41BFFF23000068DE7 /* AIRModel.xcdatamodeld in Sources */,
 				E663D21E1C4EF79300926E82 /* NSDateFormatter+USStyle.swift in Sources */,
 				E67376881C2B657A005E822C /* AIRSummary.swift in Sources */,

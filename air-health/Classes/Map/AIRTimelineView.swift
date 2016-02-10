@@ -14,6 +14,11 @@
 /// MARK: - AIRTimelineView
 class AIRTimelineView: UIView {
 
+    /// MARK: - constant
+
+    static let Hour = 6.0
+
+
     /// MARK: - property
 
     @IBOutlet weak var delegate: AnyObject?
@@ -72,9 +77,20 @@ class AIRTimelineView: UIView {
         }
         if button == self.datePickButton {
             self.disappearDatePicker()
-            self.setDate(self.datePicker.date)
             AIRSummary.sharedInstance.startLoading()
-            AIRSummary.sharedInstance.getSensorsFromServer(date: self.datePicker.date)
+
+            let dateFormatter = NSDateFormatter.air_dateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd"
+            //let dateString = dateFormatter.stringFromDate(self.datePicker.date.air_daysAgo(days: -1)!)
+            let dateString = dateFormatter.stringFromDate(self.datePicker.date)
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            let date = self.datePicker.date.air_isToday() ? NSDate() : dateFormatter.dateFromString("\(dateString) 23:59:59")!
+            //let date = dateFormatter.dateFromString("\(dateString) 00:00:00")!
+
+            //let date = self.datePicker.date
+
+            self.setDate(date)
+            AIRSummary.sharedInstance.getSensorsFromServer(date: date)
         }
     }
 
@@ -126,8 +142,10 @@ class AIRTimelineView: UIView {
      **/
     func moveTimelineIndicator() {
         if self.timeSlider.maximumValue == 0.0 { self.timeSlider.maximumValue = 1.0 }
+        //let x = 1.0 + (self.timelineLineChartBackgroundView.frame.width - 3.0) * self.timeSlider.value / self.timeSlider.maximumValue
+        let x = (self.timelineLineChartView != nil) ? 1.0 + (self.timelineLineChartView!.frame.width - 3.0) * self.timeSlider.value / self.timeSlider.maximumValue : 1.0 + (self.timelineLineChartBackgroundView.frame.width - 3.0) * self.timeSlider.value / self.timeSlider.maximumValue
         self.timeIndicatorView.frame = CGRectMake(
-            1.0 + (self.timelineLineChartBackgroundView.frame.width - 3.0) * self.timeSlider.value / self.timeSlider.maximumValue, self.timeIndicatorView.frame.origin.y,
+            x, self.timeIndicatorView.frame.origin.y,
             self.timeIndicatorView.frame.width, self.timeIndicatorView.frame.height
         )
     }
@@ -194,8 +212,10 @@ class AIRTimelineView: UIView {
         }
 
         // line chart
+        var width = self.timelineLineChartBackgroundView.frame.width * CGFloat(passes.last!.timestamp.timeIntervalSinceDate(passes.first!.timestamp) / (60.0 * 60.0 * AIRTimelineView.Hour))
         self.timelineLineChartView = JTChartView(
-            frame: CGRectMake(0, 0, self.timelineLineChartBackgroundView.frame.width, self.timelineLineChartBackgroundView.frame.height),
+            //frame: CGRectMake(0, 0, self.timelineLineChartBackgroundView.frame.width, self.timelineLineChartBackgroundView.frame.height),
+            frame: CGRectMake(0, 0, width, self.timelineLineChartBackgroundView.frame.height),
             values: values,
             curveColor: UIColor.darkGrayColor(),
             curveWidth: 2.0,
@@ -206,6 +226,11 @@ class AIRTimelineView: UIView {
             topPadding: 0
         )
         self.timelineLineChartBackgroundView.addSubview(self.timelineLineChartView!)
+
+        // slider
+        width = self.timelineLineChartBackgroundView.frame.width * CGFloat(passes.last!.timestamp.timeIntervalSinceDate(passes.first!.timestamp) / (60.0 * 60.0 * AIRTimelineView.Hour)) + 64.0
+        let x = (self.frame.width - (self.timelineLineChartBackgroundView.frame.width + 64.0)) / 2.0
+        self.timeSlider.frame = CGRectMake(x, self.timeSlider.frame.origin.y, width, self.timeSlider.frame.height)
     }
 
     /**
@@ -220,8 +245,10 @@ class AIRTimelineView: UIView {
 
         let dateFormatter = NSDateFormatter.air_dateFormatter()
         dateFormatter.dateFormat = "HH:mm"
-        self.startTimeLabel.text = dateFormatter.stringFromDate(passes.first!.timestamp)
-        self.endTimeLabel.text = dateFormatter.stringFromDate(passes.last!.timestamp)
+        self.startTimeLabel.text = dateFormatter.stringFromDate(passes.first!.timestamp.air_minutesAgo(minutes: -1)!)
+        //self.endTimeLabel.text = dateFormatter.stringFromDate(passes.last!.timestamp)
+        let last = passes.first!.timestamp.dateByAddingTimeInterval(AIRTimelineView.Hour * 60.0 * 60.0)
+        self.endTimeLabel.text = dateFormatter.stringFromDate(last.air_minutesAgo(minutes: -1)!)
         self.timeLabel.text = self.startTimeLabel.text
     }
 

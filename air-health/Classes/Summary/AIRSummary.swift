@@ -67,6 +67,7 @@ class AIRSummary: NSObject {
      * @param notification NSNotification
      **/
     func getSensorsNotificatoin(notificatoin: NSNotification) {
+        if AIRSensor.hasSensors() { return }
         // get new sensor values
         self.getSensorsFromServer()
         // get user datas from server

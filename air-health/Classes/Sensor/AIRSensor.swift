@@ -135,12 +135,6 @@ class AIRSensor: NSManagedObject {
             for name in names {
                 let sensor = NSEntityDescription.insertNewObjectForEntityForName("AIRSensor", inManagedObjectContext: context) as! AIRSensor
 
-                //sensor.value = s[name].numberValue
-                //sensor.lat = s["latitude"].numberValue
-                //sensor.lng = s["longitude"].numberValue
-                //sensor.lat = NSNumber(double: (s["north"].numberValue.doubleValue + s["south"].numberValue.doubleValue) / 2.0)
-                //sensor.lng = NSNumber(double: (s["west"].numberValue.doubleValue + s["east"].numberValue.doubleValue) / 2.0)
-
                 sensor.value = s[name.lowercaseString].numberValue
                 sensor.lat = s["lat"].numberValue
                 sensor.lng = s["lng"].numberValue
@@ -165,15 +159,6 @@ class AIRSensor: NSManagedObject {
      * @return Bool
      **/
     class func hasSensors() -> Bool {
-//        return false
-/*
-        // today
-        let dateFormatter = NSDateFormatter.air_dateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        let todayString = dateFormatter.stringFromDate(NSDate())
-        let sensorDate = NSUserDefaults().stringForKey(AIRUserDefaults.SensorDate)
-        return (todayString == sensorDate)
-*/
         // today
         let today = NSDate()
 
@@ -184,8 +169,6 @@ class AIRSensor: NSManagedObject {
         let sensorDate = dateFormatter.dateFromString(sensorDateString!)
         if sensorDate == nil { return false }
 
-        //let hour = Int(today.timeIntervalSinceDate(sensorDate!)) / 60 / 60
-        //return (hour <= 0)
         let tenMinutes = Int(today.timeIntervalSinceDate(sensorDate!)) / 60 / 10
         return (tenMinutes <= 0)
     }

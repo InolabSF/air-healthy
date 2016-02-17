@@ -86,21 +86,6 @@ class AIRSettingViewController: UIViewController {
             if GPSIsOff { AIRLocationManager.sharedInstance.stopUpdatingLocation() }
             else { AIRLocationManager.sharedInstance.startUpdatingLocation() }
         }
-/*
-        else if control == self.userSwitch {
-            let userIsOn = self.userSwitch.on
-            NSUserDefaults().setObject(userIsOn, forKey: AIRUserDefaults.UserIsOn)
-            NSUserDefaults().synchronize()
-            if !userIsOn {
-                AIRUserClient.sharedInstance.postUser(
-                    userIsOn: userIsOn,
-                    location: CLLocation(latitude: 0.0, longitude: 0.0),
-                    completionHandler: { (json) in
-                    }
-                )
-            }
-        }
-*/
     }
 
 

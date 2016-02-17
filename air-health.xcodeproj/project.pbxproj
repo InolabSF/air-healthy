@@ -21,12 +21,11 @@
 		E62A03CB1BF15E9F0046ABE0 /* AIRGoogleMapOperationQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62A03C81BF15E9F0046ABE0 /* AIRGoogleMapOperationQueue.swift */; };
 		E62F17071C3C45CE002B501F /* AIRChemicalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62F17061C3C45CE002B501F /* AIRChemicalViewController.swift */; };
 		E62F17091C3C485D002B501F /* AIRChemicalGraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E62F17081C3C485D002B501F /* AIRChemicalGraphView.swift */; };
+		E6348DA31C7505B500A29271 /* AIRMapCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6348DA21C7505B500A29271 /* AIRMapCamera.swift */; };
 		E63DB73D1BF57AA8000E3E42 /* AIRTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E63DB73C1BF57AA8000E3E42 /* AIRTableViewCell.swift */; };
 		E646B6FE1C5848FF0005899F /* AIRNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E646B6FD1C5848FF0005899F /* AIRNavigationController.swift */; };
 		E647B4771BFBEABB00B2CA4F /* AIRSensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E647B4761BFBEABB00B2CA4F /* AIRSensor.swift */; };
 		E647B4791BFC050F00B2CA4F /* AIRLocationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = E647B4781BFC050F00B2CA4F /* AIRLocationName.swift */; };
-		E64ED00D1C5978BC0055B241 /* AIRChemicalGraphTableViewcell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E64ED00B1C5978BC0055B241 /* AIRChemicalGraphTableViewcell.swift */; };
-		E64ED00E1C5978BC0055B241 /* AIRChemicalGraphTableViewcell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E64ED00C1C5978BC0055B241 /* AIRChemicalGraphTableViewcell.xib */; };
 		E663D21E1C4EF79300926E82 /* NSDateFormatter+USStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E663D21D1C4EF79300926E82 /* NSDateFormatter+USStyle.swift */; };
 		E6655D1A1BFBA70700D6A2AD /* CSV.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6655D191BFBA70700D6A2AD /* CSV.swift */; };
 		E66940351BEAC6E200771F8B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E669402D1BEAC6E200771F8B /* AppDelegate.swift */; };
@@ -84,12 +83,11 @@
 		E62A03C81BF15E9F0046ABE0 /* AIRGoogleMapOperationQueue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRGoogleMapOperationQueue.swift; sourceTree = "<group>"; };
 		E62F17061C3C45CE002B501F /* AIRChemicalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRChemicalViewController.swift; sourceTree = "<group>"; };
 		E62F17081C3C485D002B501F /* AIRChemicalGraphView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRChemicalGraphView.swift; sourceTree = "<group>"; };
+		E6348DA21C7505B500A29271 /* AIRMapCamera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRMapCamera.swift; sourceTree = "<group>"; };
 		E63DB73C1BF57AA8000E3E42 /* AIRTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRTableViewCell.swift; sourceTree = "<group>"; };
 		E646B6FD1C5848FF0005899F /* AIRNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRNavigationController.swift; sourceTree = "<group>"; };
 		E647B4761BFBEABB00B2CA4F /* AIRSensor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = AIRSensor.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		E647B4781BFC050F00B2CA4F /* AIRLocationName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRLocationName.swift; sourceTree = "<group>"; };
-		E64ED00B1C5978BC0055B241 /* AIRChemicalGraphTableViewcell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AIRChemicalGraphTableViewcell.swift; sourceTree = "<group>"; };
-		E64ED00C1C5978BC0055B241 /* AIRChemicalGraphTableViewcell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AIRChemicalGraphTableViewcell.xib; sourceTree = "<group>"; };
 		E663D21D1C4EF79300926E82 /* NSDateFormatter+USStyle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDateFormatter+USStyle.swift"; sourceTree = "<group>"; };
 		E6655D191BFBA70700D6A2AD /* CSV.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CSV.swift; path = SwiftCSV/SwiftCSV/CSV.swift; sourceTree = "<group>"; };
 		E669402D1BEAC6E200771F8B /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -218,8 +216,6 @@
 			children = (
 				E62F17081C3C485D002B501F /* AIRChemicalGraphView.swift */,
 				E62F17061C3C45CE002B501F /* AIRChemicalViewController.swift */,
-				E64ED00B1C5978BC0055B241 /* AIRChemicalGraphTableViewcell.swift */,
-				E64ED00C1C5978BC0055B241 /* AIRChemicalGraphTableViewcell.xib */,
 			);
 			path = Chemical;
 			sourceTree = "<group>";
@@ -371,6 +367,7 @@
 				E695DA6B1BF2C32F0060BF66 /* AIRMapViewController.swift */,
 				E695DA6A1BF2C32F0060BF66 /* AIRMapView.swift */,
 				E6BC9CEB1C03878B004769AD /* AIRTimelineView.swift */,
+				E6348DA21C7505B500A29271 /* AIRMapCamera.swift */,
 			);
 			path = Map;
 			sourceTree = "<group>";
@@ -482,7 +479,6 @@
 				E66E26F91BFABC60004E58CB /* vasp.csv in Resources */,
 				E673768B1C2B69AE005E822C /* Main.storyboard in Resources */,
 				E6E173251C20C80500F74F8F /* vasp_mgpqm_0.2mile.csv in Resources */,
-				E64ED00E1C5978BC0055B241 /* AIRChemicalGraphTableViewcell.xib in Resources */,
 				E66E26FA1BFABC60004E58CB /* ZAIRLOCATION.csv in Resources */,
 				E699E9251C2B7A8500633449 /* Assets.xcassets in Resources */,
 			);
@@ -572,6 +568,7 @@
 				E612614D1BF160C200BE8E91 /* NSMutableURLRequest+HTTPBody.swift in Sources */,
 				E66940351BEAC6E200771F8B /* AppDelegate.swift in Sources */,
 				E6702F521C582FEC002A0F91 /* Array+Slice.swift in Sources */,
+				E6348DA31C7505B500A29271 /* AIRMapCamera.swift in Sources */,
 				E6A6B7621C0FB4740085C291 /* AIRSensorMarker.swift in Sources */,
 				E6839C791BF2B974007BD219 /* AIRLocation.swift in Sources */,
 				E61CFA1D1C1F8E1300119148 /* AIRBadAirLocation.swift in Sources */,
@@ -595,7 +592,6 @@
 				E6AB22681C5AEE6F0038A65D /* VBPieChart+Chemical.swift in Sources */,
 				E6839C741BF2B939007BD219 /* AIRCoreDataManager.swift in Sources */,
 				E6E26A301C20F91800BE26E5 /* AIRSensorOperationQueue.swift in Sources */,
-				E64ED00D1C5978BC0055B241 /* AIRChemicalGraphTableViewcell.swift in Sources */,
 				E647B4771BFBEABB00B2CA4F /* AIRSensor.swift in Sources */,
 				E647B4791BFC050F00B2CA4F /* AIRLocationName.swift in Sources */,
 				E68654BF1C05281300E10E10 /* AIRSensorClient.swift in Sources */,
@@ -627,6 +623,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_BITCODE = NO;
@@ -650,6 +647,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -689,7 +687,7 @@
 				INFOPLIST_FILE = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "f4330004-78aa-4662-8de1-42cdfd074558";
+				PROVISIONING_PROFILE = "afee36d9-0f1e-4de1-ba9d-f3ab529aa813";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -732,7 +730,7 @@
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.isidentsu.air-health";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "f4330004-78aa-4662-8de1-42cdfd074558";
+				PROVISIONING_PROFILE = "afee36d9-0f1e-4de1-ba9d-f3ab529aa813";
 				SWIFT_OBJC_BRIDGING_HEADER = "air-health/Classes/air-health-Bridging-Header.h";
 			};
 			name = Release;

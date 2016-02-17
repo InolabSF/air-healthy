@@ -66,8 +66,6 @@ class AIRMapView: GMSMapView {
 
         // sensor
         self.drawSensors(sensors)
-        // bad air locations
-        //self.drawBadAirLocations()
 
         if passes.count < 2 { return }
 
@@ -133,8 +131,6 @@ class AIRMapView: GMSMapView {
      * @param sensors [AIRSensor]
      **/
     private func drawSensors(sensors: [AIRSensor]) {
-        // bounds to draw
-        //let points = [CGPointMake(0, 0), CGPointMake(self.frame.width, 0), CGPointMake(0, self.frame.height), CGPointMake(self.frame.width, self.frame.height),]
         let offsetX = self.frame.width * 0.25
         let offsetY = self.frame.height * 0.25
         let points = [CGPointMake(-offsetX, -offsetY), CGPointMake(self.frame.width+offsetX, -offsetY), CGPointMake(-offsetX, self.frame.height+offsetY), CGPointMake(self.frame.width+offsetX, self.frame.height+offsetY),]
@@ -151,35 +147,7 @@ class AIRMapView: GMSMapView {
             let marker = AIRSensorPolygon.marker(sensor: sensor)
             marker.map = self
         }
-
-/*
-        for sensor in sensors {
-            let marker = AIRSensorPolygon.marker(sensor: sensor)
-            marker.map = self
-        }
-*/
     }
-
-//    /**
-//     * draw bad air location
-//     **/
-//    private func drawBadAirLocations() {
-//        let locations = AIRBadAirLocation.fetch()
-//        for location in locations {
-//            let marker = AIRBadAirLocationMarker(location: location)
-//            marker.map = self
-//        }
-//    }
-//
-//    /**
-//     * draw users
-//     **/
-//    private func drawUsers(users: [AIRUser]) {
-//        for user in users {
-//            let marker = AIRUserMarker(user: user)
-//            marker.map = self
-//        }
-//    }
 
 }
 

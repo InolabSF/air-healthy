@@ -16,7 +16,6 @@ class AIRNavigationController: UINavigationController {
     /// MARK: - destruction
 
     deinit {
-//        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
 
@@ -24,22 +23,5 @@ class AIRNavigationController: UINavigationController {
 
     override func loadView() {
         super.loadView()
-//        // notification
-//        NSNotificationCenter.defaultCenter().addObserver(
-//            self,
-//            selector: Selector("didUpdateSensorValues:"),
-//            name: AIRNotificationCenter.DidUpdateSensorValues,
-//            object: nil
-//        )
     }
-
-
-//    /**
-//     * get sensor datas
-//     * @param notification NSNotification
-//     **/
-//    func didUpdateSensorValues(notificatoin: NSNotification) {
-//        self.popToRootViewControllerAnimated(true)
-//    }
-
 }

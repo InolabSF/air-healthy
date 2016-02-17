@@ -219,58 +219,6 @@
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" id="BHn-ZP-n1G">
-                                        <rect key="frame" x="0.0" y="-64" width="320" height="400"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                        <subviews>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="128" sectionHeaderHeight="1" sectionFooterHeight="1" id="UK2-MD-g8i">
-                                                <rect key="frame" x="0.0" y="0.0" width="320" height="400"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                <connections>
-                                                    <outlet property="dataSource" destination="yq9-ho-UmP" id="VYd-S4-4kY"/>
-                                                    <outlet property="delegate" destination="yq9-ho-UmP" id="S96-rr-oZR"/>
-                                                </connections>
-                                            </tableView>
-                                        </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" id="Hyd-lo-UR2">
-                                        <rect key="frame" x="0.0" y="312" width="320" height="192"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <subviews>
-                                            <view contentMode="scaleToFill" id="ViN-wo-ziF">
-                                                <rect key="frame" x="0.0" y="-6" width="320" height="294"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SUMMARY" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8hc-OL-sJe">
-                                                        <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
-                                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="18"/>
-                                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
-                                                <color key="backgroundColor" red="0.90980392160000001" green="0.90980392160000001" blue="0.90980392160000001" alpha="1" colorSpace="calibratedRGB"/>
-                                            </view>
-                                            <view contentMode="scaleToFill" id="kuJ-Wg-VdW">
-                                                <rect key="frame" x="0.0" y="48" width="320" height="160"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hcB-Cb-Zwf">
-                                                        <rect key="frame" x="32" y="13" width="256" height="133"/>
-                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="15"/>
-                                                        <color key="textColor" red="0.50196078430000002" green="0.50196078430000002" blue="0.50196078430000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            </view>
-                                        </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </view>
                                     <view hidden="YES" contentMode="scaleToFill" id="6Y5-vp-wnj">
                                         <rect key="frame" x="0.0" y="0.0" width="320" height="504"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
@@ -477,10 +425,6 @@
                                 <connections>
                                     <outlet property="delegate" destination="cCH-5D-yex" id="0fM-Fz-FcC"/>
                                     <outlet property="graphListView" destination="6Y5-vp-wnj" id="GMd-TD-0ei"/>
-                                    <outlet property="summaryIconView" destination="ViN-wo-ziF" id="ThF-Tp-NAL"/>
-                                    <outlet property="summaryLabel" destination="hcB-Cb-Zwf" id="GpE-o5-kwU"/>
-                                    <outlet property="summaryView" destination="Hyd-lo-UR2" id="ffL-aT-MJS"/>
-                                    <outlet property="tableView" destination="UK2-MD-g8i" id="eoh-Sb-TIi"/>
                                     <outletCollection property="graphButtons" destination="sZH-sH-NgN" collectionClass="NSMutableArray" id="V6M-4a-kIy"/>
                                     <outletCollection property="graphButtons" destination="Uba-bl-Cf9" collectionClass="NSMutableArray" id="dbj-Yj-KNn"/>
                                     <outletCollection property="pieChartViews" destination="4fo-35-vWj" collectionClass="NSMutableArray" id="Ow0-yE-O2J"/>
@@ -501,14 +445,6 @@
                                     <outletCollection property="graphViews" destination="ocx-Bv-Izo" collectionClass="NSMutableArray" id="joE-s7-A0C"/>
                                 </connections>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="T7A-sL-feH">
-                                <rect key="frame" x="256" y="536" width="64" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                <state key="normal" title="AB Test"/>
-                                <connections>
-                                    <action selector="touchUpInsideButton:" destination="cCH-5D-yex" eventType="touchUpInside" id="Vi8-2M-qRQ"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -533,7 +469,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="ABTestButton" destination="T7A-sL-feH" id="lkX-In-Mnn"/>
                         <outlet property="graphView" destination="yq9-ho-UmP" id="CSW-mb-Ppf"/>
                         <outlet property="leftBarButton" destination="jpO-tw-Vf9" id="bnu-fr-Vs6"/>
                         <outlet property="rightBarButton" destination="KAK-dZ-Od3" id="AC1-se-AhI"/>
@@ -1123,6 +1058,6 @@ and the air map you passed.</string>
         <image name="tutorial_2" width="64" height="64"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="IqY-TE-8QJ"/>
+        <segue reference="4de-Lk-Ur5"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -8,8 +8,6 @@ class AIRChemicalViewController: UIViewController {
 
     @IBOutlet weak var graphView: AIRChemicalGraphView!
 
-    @IBOutlet weak var ABTestButton: UIButton!
-
 
     /// MARK: - destruction
 
@@ -23,7 +21,6 @@ class AIRChemicalViewController: UIViewController {
     override func loadView() {
         super.loadView()
 
-        self.ABTestButton.hidden = true
         self.graphView.graphListView.hidden = false
 
         // status bar
@@ -104,9 +101,6 @@ class AIRChemicalViewController: UIViewController {
     @IBAction func touchUpInside(button button: UIButton) {
         if button == self.leftBarButton {
             self.navigationController!.popViewControllerAnimated(true)
-        }
-        else if button == self.ABTestButton {
-            //self.graphView.graphListView.hidden = !(self.graphView.graphListView.hidden)
         }
     }
 

@@ -94,6 +94,9 @@ class AIRMapViewController: UIViewController {
 
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
+
+        AIRMapCamera.sharedInstance.set(center: CLLocation(latitude: self.mapView.camera.target.latitude, longitude: self.mapView.camera.target.longitude), zoom: self.mapView.camera.zoom)
+
     }
 
     override func viewDidDisappear(animated: Bool) {
@@ -119,11 +122,15 @@ class AIRMapViewController: UIViewController {
             self.navigationController!.popViewControllerAnimated(true)
         }
         else if button == self.leftPassesSwitchButton {
+            AIRMapCamera.sharedInstance.reset()
+
             self.passesIndex -= 1
             if self.passesIndex < 0 { self.passesIndex = 0 }
             self.updateMapAndTimeline()
         }
         else if button == self.rightPassesSwitchButton {
+            AIRMapCamera.sharedInstance.reset()
+
             self.passesIndex += 1
             if self.passesIndex >= self.passesPer6hours.count { self.passesIndex = self.passesPer6hours.count-1 }
             self.updateMapAndTimeline()
@@ -351,8 +358,11 @@ class AIRMapViewController: UIViewController {
     private func updateMapAndTimeline() {
         self.setSensorValues()
         self.designPassesSwitchButtons()
-        if self.passes.count < 2 { self.mapView.moveCameraToMyLocation() }
+
+        if AIRMapCamera.sharedInstance.hasCurrentCamera() { self.mapView.camera = AIRMapCamera.sharedInstance.currentCamera()}
+        else if self.passes.count < 2 { self.mapView.moveCameraToMyLocation() }
         else { self.mapView.moveCamera(passes: self.passes) }
+
         self.drawMap()
     }
 

@@ -50,7 +50,6 @@ class AIRSummary: NSObject {
         )
 
         self.passes = []
-        //self.passes = AIRLocation.fetch(date: NSDate())
     }
 
     /// MARK: - destruction
@@ -68,10 +67,9 @@ class AIRSummary: NSObject {
      **/
     func getSensorsNotificatoin(notificatoin: NSNotification) {
         if AIRSensor.hasSensors() { return }
+
         // get new sensor values
         self.getSensorsFromServer()
-        // get user datas from server
-        //self.getUsersFromServer()
     }
 
 
@@ -81,18 +79,6 @@ class AIRSummary: NSObject {
      * get sensor datas from server
      **/
     func getSensorsFromServer() {
-/*
-        if self.values.count >= 2 && AIRSensor.hasSensors() { return }
-
-        AIRSensorClient.sharedInstance.getSensorValues(
-            locations: self.passes,
-            completionHandler: { [unowned self] (json: JSON) -> Void in
-                AIRSensor.deleteAll()
-                AIRSensor.save(json: json)
-                self.setSensorValues()
-            }
-        )
-*/
         self.getSensorsFromServer(date: NSDate())
     }
 
@@ -196,6 +182,8 @@ class AIRSummary: NSObject {
                     let value = so2 + o3 + co + uv + no2 + pm25
                     self.values.append(value)
                 }
+
+                AIRMapCamera.sharedInstance.reset()
 
                 if self.delegate != nil {
                     (self.delegate as! AIRSummaryDelegate).summaryCalculationDidEnd(summary: self)

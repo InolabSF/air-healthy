@@ -144,37 +144,4 @@ class AIRChemicalGraphView: UIView {
         }
     }
 
-//    /**
-//     * set summary text
-//     **/
-//    private func setSummary() {
-//        var paragraph = ""
-//        let indexPath = self.getFocusedIndexPath()
-//
-//        if indexPath != nil {
-//            let name = AIRSensorManager.sensorName(chemical: self.chemicals[indexPath!.row])
-//            let airHealth = self.airHealths[indexPath!.row]
-//            let isHealthy = ((airHealth[1] + airHealth[2]) / (airHealth[0] + airHealth[1] + airHealth[2])) < 0.30
-//            let isNotDangerous = ((airHealth[1] + airHealth[2]) / (airHealth[0] + airHealth[1] + airHealth[2])) < 0.60
-//            if isHealthy {
-//                paragraph = "\(name) is below WHO recommendation. It is good for outdoor activities!"
-//            }
-//            else if isNotDangerous {
-//                paragraph = "You had some negative exposure to \(name). Long exposure to \(name) can affect your health."
-//            }
-//            else {
-//                paragraph = "You had serious exposure to \(name). Avoid being outside."
-//            }
-//        }
-//        else { return }
-//
-//        let top = self.summaryLabel.frame.origin.y
-//        self.summaryLabel.attributedText = paragraph.air_justifiedString(font: self.summaryLabel.font)
-//        self.summaryLabel.textAlignment = NSTextAlignment.Justified
-//        self.summaryLabel.preferredMaxLayoutWidth = self.summaryLabel.frame.width
-//        self.summaryLabel.sizeToFit()
-//        let center = CGPointMake(self.center.x, top + self.summaryLabel.frame.height / 2.0)
-//        self.summaryLabel.center = center
-//    }
-
 }

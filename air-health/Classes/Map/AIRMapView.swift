@@ -144,7 +144,7 @@ class AIRMapView: GMSMapView {
             let lng = sensor.lng.doubleValue
             if lat < min.latitude || lat > max.latitude || lng < min.longitude || lng > max.longitude { continue }
 
-            let marker = AIRSensorPolygon.marker(sensor: sensor)
+            let marker = AIRSensorPolygon.marker(sensor: sensor, radius: 0.0010)
             marker.map = self
         }
     }

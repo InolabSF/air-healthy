@@ -57,6 +57,7 @@ struct AIRUserDefaults {
 struct AIRNotificationCenter {
     static let UpdateSensorValues =       "AIRNotificationCenter.UpdateSensorValues"
     static let DidUpdateSensorValues =    "AIRNotificationCenter.DidUpdateSensorValues"
+    static let DidUpdateMapSensors =      "AIRNotificationCenter.DidUpdateMapSensors"
     static let UpdateLocation =           "AIRNotificationCenter.UpdateLocation"
     static let LaunchFromBadAirWarning =  "AIRNotificationCenter.LaunchFromBadAirWarning"
     static let TutorialMoveSlide =        "AIRNotificationCenter.TutorialMoveSlide"

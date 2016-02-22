@@ -3,6 +3,9 @@ class AIRMapView: GMSMapView {
 
     /// MARK: - property
 
+    var sensorRadius = 0.0010
+
+
     /// MARK: - life cycle
 
     override func awakeFromNib() {
@@ -16,6 +19,14 @@ class AIRMapView: GMSMapView {
 
 
     /// MARK: - public api
+
+    /**
+     * camera bounds
+     * @return camera bounds
+     **/
+    func cameraBounds() -> GMSCoordinateBounds {
+        return GMSCoordinateBounds(region: self.projection.visibleRegion())
+    }
 
     /**
      * move camera position
@@ -93,6 +104,30 @@ class AIRMapView: GMSMapView {
 
     }
 
+    /**
+     * draw sensors
+     * @param sensors [AIRSensor]
+     **/
+    func drawSensors(sensors: [AIRSensor]) {
+        let offsetX = self.frame.width * 0.25
+        let offsetY = self.frame.height * 0.25
+        let points = [CGPointMake(-offsetX, -offsetY), CGPointMake(self.frame.width+offsetX, -offsetY), CGPointMake(-offsetX, self.frame.height+offsetY), CGPointMake(self.frame.width+offsetX, self.frame.height+offsetY),]
+        var min = self.minimumCoordinate(mapViewPoints: points)
+        var max = self.maximumCoordinate(mapViewPoints: points)
+        min = CLLocationCoordinate2DMake(min.latitude-0.01, min.longitude-0.01)
+        max = CLLocationCoordinate2DMake(max.latitude+0.01, max.longitude+0.01)
+
+        for sensor in sensors {
+            let lat = sensor.lat.doubleValue
+            let lng = sensor.lng.doubleValue
+            if lat < min.latitude || lat > max.latitude || lng < min.longitude || lng > max.longitude { continue }
+
+            let marker = AIRSensorPolygon.marker(sensor: sensor, radius: self.sensorRadius)
+            marker.map = self
+        }
+    }
+
+
 
     /// MARK: - private api
 
@@ -124,29 +159,6 @@ class AIRMapView: GMSMapView {
         marker.position = location.coordinate
         marker.draggable = false
         marker.map = self
-    }
-
-    /**
-     * draw sensors
-     * @param sensors [AIRSensor]
-     **/
-    private func drawSensors(sensors: [AIRSensor]) {
-        let offsetX = self.frame.width * 0.25
-        let offsetY = self.frame.height * 0.25
-        let points = [CGPointMake(-offsetX, -offsetY), CGPointMake(self.frame.width+offsetX, -offsetY), CGPointMake(-offsetX, self.frame.height+offsetY), CGPointMake(self.frame.width+offsetX, self.frame.height+offsetY),]
-        var min = self.minimumCoordinate(mapViewPoints: points)
-        var max = self.maximumCoordinate(mapViewPoints: points)
-        min = CLLocationCoordinate2DMake(min.latitude-0.01, min.longitude-0.01)
-        max = CLLocationCoordinate2DMake(max.latitude+0.01, max.longitude+0.01)
-
-        for sensor in sensors {
-            let lat = sensor.lat.doubleValue
-            let lng = sensor.lng.doubleValue
-            if lat < min.latitude || lat > max.latitude || lng < min.longitude || lng > max.longitude { continue }
-
-            let marker = AIRSensorPolygon.marker(sensor: sensor, radius: 0.0010)
-            marker.map = self
-        }
     }
 
 }

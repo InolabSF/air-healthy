@@ -9,6 +9,8 @@ class AIRMapViewController: UIViewController {
     @IBOutlet weak var timelineView: AIRTimelineView!
     @IBOutlet weak var mapView: AIRMapView!
 
+    //var cameraBounds: GMSCoordinateBounds? = nil
+
     var moveStartDate: NSDate!
     var moveEndDate: NSDate!
     var passesIndex = 0
@@ -80,6 +82,12 @@ class AIRMapViewController: UIViewController {
             name: AIRNotificationCenter.DidUpdateSensorValues,
             object: nil
         )
+        //NSNotificationCenter.defaultCenter().addObserver(
+        //    self,
+        //    selector: Selector("didUpdateMapSensors:"),
+        //    name: AIRNotificationCenter.DidUpdateMapSensors,
+        //    object: nil
+        //)
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -148,6 +156,17 @@ class AIRMapViewController: UIViewController {
         self.updateSensorValues()
         self.updateMapAndTimeline()
     }
+
+    ///**
+    // * called when updated sensors on map
+    // * @param notification NSNotification
+    // **/
+    //func didUpdateMapSensors(notificatoin: NSNotification) {
+    //    dispatch_async(dispatch_get_main_queue(), { [unowned self] () -> Void in
+    //        self.sensors = notificatoin.object as! [AIRSensor]
+    //        self.updateMapAndTimeline()
+    //    })
+    //}
 
 
     /// MARK: - public api
@@ -482,6 +501,40 @@ extension AIRMapViewController: GMSMapViewDelegate {
 
     func mapView(mapView: GMSMapView, didChangeCameraPosition position: GMSCameraPosition) {
         self.drawMap() // draw map
+    }
+
+    func mapView(mapView: GMSMapView, idleAtCameraPosition position: GMSCameraPosition) {
+        //// get request params
+        //let previousCameraBounds = self.cameraBounds
+        //self.cameraBounds = self.mapView.cameraBounds()
+        //if previousCameraBounds == self.cameraBounds { return }
+
+        //let lat = self.cameraBounds!.northEast.latitude - self.cameraBounds!.southWest.latitude
+        //let lng = self.cameraBounds!.northEast.longitude - self.cameraBounds!.southWest.longitude
+        //var radius = AIRSensorPolygon.Radiuses[0]
+        //for var i = 0; i < AIRSensorPolygon.Radiuses.count; i++ {
+        //    let r = AIRSensorPolygon.Radiuses[i]
+        //    let squareCount = (lat / r) * (lng / r)
+        //    if squareCount <= AIRSensorPolygon.ThresholdOfPolygons { break }
+        //    radius = r
+        //}
+        //AIRLOG("\(position.target), \(position.zoom), \(position.bearing), \(position.viewingAngle)")
+        //// request
+        //AIRSensorClient.sharedInstance.getSensorValues(
+        //    name: self.chemical,
+        //    minimumLocation: self.cameraBounds!.southWest,
+        //    maximumLocation: self.cameraBounds!.northEast,
+        //    radius: ,
+        //    date: NSDate(),
+        //    completionHandler: { (json: JSON) -> Void
+
+        //        NSNotificationCenter.defaultCenter().postNotificationName(
+        //            AIRNotificationCenter.DidUpdateMapSensors,
+        //            object: ,
+        //            userInfo: [:]
+        //        )
+        //    }
+        //)
     }
 
     func mapView(mapView: GMSMapView,  didDragMarker marker:GMSMarker) {

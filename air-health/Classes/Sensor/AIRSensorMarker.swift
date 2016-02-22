@@ -3,7 +3,15 @@ class AIRSensorPolygon: GMSPolygon {
 
     /// MARK: - property
 
-    static let Radius = 100.0
+    //static let Radius = 100.0
+    static let Radiuses = [
+        0.0010,
+        0.0050,
+        0.0250,
+        0.1250,
+        0.6250,
+    ]
+    static let ThresholdOfPolygons = 400.0
 
 
     /// MARK: - initialization

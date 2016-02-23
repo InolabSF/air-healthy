@@ -9,7 +9,7 @@ class AIRMapViewController: UIViewController {
     @IBOutlet weak var timelineView: AIRTimelineView!
     @IBOutlet weak var mapView: AIRMapView!
 
-    //var cameraBounds: GMSCoordinateBounds? = nil
+    var cameraBounds: GMSCoordinateBounds? = nil
 
     var moveStartDate: NSDate!
     var moveEndDate: NSDate!
@@ -25,6 +25,7 @@ class AIRMapViewController: UIViewController {
     @IBOutlet weak var rightPassesSwitchButton: UIButton!
 
     var sensors: [AIRSensor] = []
+    var sensorObjects: [AIRSensorObject] = []
     var chemical = ""
 
     var NO2ValuePerMinutes: [Double] = []
@@ -82,12 +83,12 @@ class AIRMapViewController: UIViewController {
             name: AIRNotificationCenter.DidUpdateSensorValues,
             object: nil
         )
-        //NSNotificationCenter.defaultCenter().addObserver(
-        //    self,
-        //    selector: Selector("didUpdateMapSensors:"),
-        //    name: AIRNotificationCenter.DidUpdateMapSensors,
-        //    object: nil
-        //)
+        NSNotificationCenter.defaultCenter().addObserver(
+            self,
+            selector: Selector("didUpdateMapSensors:"),
+            name: AIRNotificationCenter.DidUpdateMapSensors,
+            object: nil
+        )
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -157,16 +158,18 @@ class AIRMapViewController: UIViewController {
         self.updateMapAndTimeline()
     }
 
-    ///**
-    // * called when updated sensors on map
-    // * @param notification NSNotification
-    // **/
-    //func didUpdateMapSensors(notificatoin: NSNotification) {
-    //    dispatch_async(dispatch_get_main_queue(), { [unowned self] () -> Void in
-    //        self.sensors = notificatoin.object as! [AIRSensor]
-    //        self.updateMapAndTimeline()
-    //    })
-    //}
+    /**
+     * called when updated sensors on map
+     * @param notification NSNotification
+     **/
+    func didUpdateMapSensors(notificatoin: NSNotification) {
+        dispatch_async(dispatch_get_main_queue(), { [unowned self] () -> Void in
+            self.mapView.sensorRadius = notificatoin.userInfo!["sensorRadius"] as! Double
+            self.sensors = []
+            self.sensorObjects = notificatoin.userInfo!["sensors"] as! [AIRSensorObject]
+            self.drawMap()
+        })
+    }
 
 
     /// MARK: - public api
@@ -397,6 +400,7 @@ class AIRMapViewController: UIViewController {
             color: color,
             sensors: self.sensors
         )
+        self.mapView.drawSensors(sensorObjects: self.sensorObjects)
     }
 
     /**
@@ -504,37 +508,57 @@ extension AIRMapViewController: GMSMapViewDelegate {
     }
 
     func mapView(mapView: GMSMapView, idleAtCameraPosition position: GMSCameraPosition) {
-        //// get request params
-        //let previousCameraBounds = self.cameraBounds
-        //self.cameraBounds = self.mapView.cameraBounds()
-        //if previousCameraBounds == self.cameraBounds { return }
+/*
+        let previousCameraBounds = self.cameraBounds
+        self.cameraBounds = self.mapView.cameraBounds()
+        if previousCameraBounds == nil { return }
 
-        //let lat = self.cameraBounds!.northEast.latitude - self.cameraBounds!.southWest.latitude
-        //let lng = self.cameraBounds!.northEast.longitude - self.cameraBounds!.southWest.longitude
-        //var radius = AIRSensorPolygon.Radiuses[0]
-        //for var i = 0; i < AIRSensorPolygon.Radiuses.count; i++ {
-        //    let r = AIRSensorPolygon.Radiuses[i]
-        //    let squareCount = (lat / r) * (lng / r)
-        //    if squareCount <= AIRSensorPolygon.ThresholdOfPolygons { break }
-        //    radius = r
-        //}
-        //AIRLOG("\(position.target), \(position.zoom), \(position.bearing), \(position.viewingAngle)")
-        //// request
-        //AIRSensorClient.sharedInstance.getSensorValues(
-        //    name: self.chemical,
-        //    minimumLocation: self.cameraBounds!.southWest,
-        //    maximumLocation: self.cameraBounds!.northEast,
-        //    radius: ,
-        //    date: NSDate(),
-        //    completionHandler: { (json: JSON) -> Void
+        // request params
+        let lat = self.cameraBounds!.northEast.latitude - self.cameraBounds!.southWest.latitude
+        let lng = self.cameraBounds!.northEast.longitude - self.cameraBounds!.southWest.longitude
+        var radius = AIRSensorPolygon.Radiuses[0]
+        for var i = 0; i < AIRSensorPolygon.Radiuses.count; i++ {
+            let r = AIRSensorPolygon.Radiuses[i]
+            let squareCount = (lat / r) * (lng / r)
+            if squareCount <= AIRSensorPolygon.ThresholdOfPolygons { break }
+            radius = r
+        }
 
-        //        NSNotificationCenter.defaultCenter().postNotificationName(
-        //            AIRNotificationCenter.DidUpdateMapSensors,
-        //            object: ,
-        //            userInfo: [:]
-        //        )
-        //    }
-        //)
+        // detect if the rect changes
+        let previousRect = CGRectMake(
+            CGFloat(previousCameraBounds!.southWest.latitude),
+            CGFloat(previousCameraBounds!.southWest.longitude),
+            CGFloat(previousCameraBounds!.northEast.latitude),
+            CGFloat(previousCameraBounds!.northEast.longitude)
+        )
+        let newRect = CGRectMake(
+            CGFloat(self.cameraBounds!.southWest.latitude),
+            CGFloat(self.cameraBounds!.southWest.longitude),
+            CGFloat(self.cameraBounds!.northEast.latitude),
+            CGFloat(self.cameraBounds!.northEast.longitude)
+        )
+        if radius == self.mapView.sensorRadius && CGRectContainsRect(previousRect, newRect) {
+            return
+        }
+
+        // request
+        AIRSensorClient.sharedInstance.getSensorValues(
+            name: self.chemical,
+            minimumLocation: CLLocation(latitude: self.cameraBounds!.southWest.latitude, longitude: self.cameraBounds!.southWest.longitude),
+            maximumLocation: CLLocation(latitude: self.cameraBounds!.northEast.latitude, longitude: self.cameraBounds!.northEast.longitude),
+            radius: radius,
+            date: NSDate(),
+            completionHandler: { (json: JSON) -> Void in
+                let s = AIRSensorObject.sensorObjects(json: json)
+
+                NSNotificationCenter.defaultCenter().postNotificationName(
+                    AIRNotificationCenter.DidUpdateMapSensors,
+                    object: nil,
+                    userInfo: ["sensors":s, "sensorRadius":radius,]
+                )
+            }
+        )
+*/
     }
 
     func mapView(mapView: GMSMapView,  didDragMarker marker:GMSMarker) {

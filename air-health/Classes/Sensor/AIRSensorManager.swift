@@ -148,6 +148,16 @@ class AIRSensorManager: NSObject {
 
     /**
      * return sensor color
+     * @param sensorObject AIRSensorObject
+     * @return UIColor or nil
+     **/
+    class func sensorColor(sensorObject sensorObject: AIRSensorObject) -> UIColor {
+        let value = sensorObject.value.doubleValue
+        return AIRSensorManager.sensorColor(value: value, sensorBasements: AIRSensorManager.sensorBasements(chemical: sensorObject.name))
+    }
+
+    /**
+     * return sensor color
      * @param sensor AIRSensor
      * @return UIColor or nil
      **/

@@ -31,7 +31,7 @@ class AIRSensorClient: AnyObject {
         let northEast = AIRLocation.northEast(locations: locations, offsetMeters: AIRLocationManager.ThresholdOfSensorNeighbor)
 
         let URL = NSURL(
-            URLString: "https://vasp.herokuapp.com/square",
+            URLString: AIRVasp.API.Square,
             queries: [
                 "south":"\(southWest.coordinate.latitude)",
                 "north":"\(northEast.coordinate.latitude)",
@@ -76,7 +76,7 @@ class AIRSensorClient: AnyObject {
         let time = dateFormatter.stringFromDate(date)
 
         let URL = NSURL(
-            URLString: "https://vasp.herokuapp.com/square",
+            URLString: AIRVasp.API.Square,
             queries: [
                 "name":"\(name)",
                 "south":"\(minimumLocation.coordinate.latitude)",

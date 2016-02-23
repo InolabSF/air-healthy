@@ -13,6 +13,7 @@ func AIRLOG(body: Any) {
 #endif
 }
 
+
 /// MARK: - function
 
 /**
@@ -112,5 +113,22 @@ struct AIRParse {
     /// API key
     static let ApplicationID =                 kAIRParseApplicationID
     static let ClientKey =                     kAIRParseClientKey
+}
 
+
+/// MARK: - Vasp
+
+/// Base URI
+#if LOCAL
+let kURIVaspAPI =                  "http://localhost:3000"
+#else
+let kURIVaspAPI =                  "https://vasp.herokuapp.com"
+#endif
+
+struct AIRVasp {
+
+    /// MARK: - API
+    struct API {
+        static let Square =           kURIVaspAPI + "/square" /// square API
+    }
 }

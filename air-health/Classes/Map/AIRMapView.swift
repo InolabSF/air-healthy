@@ -109,20 +109,19 @@ class AIRMapView: GMSMapView {
      * @param sensors [AIRSensor]
      **/
     func drawSensors(sensors: [AIRSensor]) {
-        let offsetX = self.frame.width * 0.25
-        let offsetY = self.frame.height * 0.25
-        let points = [CGPointMake(-offsetX, -offsetY), CGPointMake(self.frame.width+offsetX, -offsetY), CGPointMake(-offsetX, self.frame.height+offsetY), CGPointMake(self.frame.width+offsetX, self.frame.height+offsetY),]
-        var min = self.minimumCoordinate(mapViewPoints: points)
-        var max = self.maximumCoordinate(mapViewPoints: points)
-        min = CLLocationCoordinate2DMake(min.latitude-0.01, min.longitude-0.01)
-        max = CLLocationCoordinate2DMake(max.latitude+0.01, max.longitude+0.01)
-
         for sensor in sensors {
-            let lat = sensor.lat.doubleValue
-            let lng = sensor.lng.doubleValue
-            if lat < min.latitude || lat > max.latitude || lng < min.longitude || lng > max.longitude { continue }
-
             let marker = AIRSensorPolygon.marker(sensor: sensor, radius: self.sensorRadius)
+            marker.map = self
+        }
+    }
+
+    /**
+     * draw sensors
+     * @param sensorObjects [AIRSensorObject]
+     **/
+    func drawSensors(sensorObjects sensorObjects: [AIRSensorObject]) {
+        for sensor in sensorObjects {
+            let marker = AIRSensorPolygon.marker(sensorObject: sensor, radius: self.sensorRadius)
             marker.map = self
         }
     }

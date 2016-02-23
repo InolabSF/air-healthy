@@ -46,6 +46,31 @@ class AIRSensorPolygon: GMSPolygon {
         return marker
     }
 
+    /**
+     * return AIRSensorPolygon
+     * @param sensorObject AIRSensorObject
+     * @param radius polygon radius
+     * @return AIRSensorPolygon
+     **/
+    class func marker(sensorObject sensorObject: AIRSensorObject, radius: Double) -> AIRSensorPolygon {
+        let center = CLLocation(latitude: sensorObject.lat.doubleValue, longitude: sensorObject.lng.doubleValue)
+        let latOffset = radius / 2.0
+        let lngOffset = radius / 2.0
+        let lat = center.coordinate.latitude
+        let lng = center.coordinate.longitude
+
+        let rect = GMSMutablePath()
+        rect.addCoordinate(CLLocationCoordinate2DMake(lat-latOffset, lng-lngOffset))
+        rect.addCoordinate(CLLocationCoordinate2DMake(lat+latOffset, lng-lngOffset))
+        rect.addCoordinate(CLLocationCoordinate2DMake(lat+latOffset, lng+lngOffset))
+        rect.addCoordinate(CLLocationCoordinate2DMake(lat-latOffset, lng+lngOffset))
+
+        let marker = AIRSensorPolygon(path: rect)
+        marker.fillColor = AIRSensorManager.sensorColor(sensorObject: sensorObject).colorWithAlphaComponent(CGFloat(0.35))
+        marker.strokeWidth = 0.0
+        return marker
+    }
+
 }
 
 

@@ -71,12 +71,14 @@ class AIRMapView: GMSMapView {
      * @param color UIColor
      * @param intervalFromStart Double
      * @param sensors [AIRSensor]
+     * @param sensorObjects [AIRSensorObject]
      **/
-    func draw(passes passes: [CLLocation], intervalFromStart: Double, color: UIColor, sensors: [AIRSensor]) {
+    func draw(passes passes: [CLLocation], intervalFromStart: Double, color: UIColor, sensors: [AIRSensor], sensorObjects: [AIRSensorObject]) {
         self.clear()
 
         // sensor
         self.drawSensors(sensors)
+        self.drawSensors(sensorObjects: sensorObjects)
 
         if passes.count < 2 { return }
 
@@ -103,29 +105,6 @@ class AIRMapView: GMSMapView {
         }
 
     }
-
-    /**
-     * draw sensors
-     * @param sensors [AIRSensor]
-     **/
-    func drawSensors(sensors: [AIRSensor]) {
-        for sensor in sensors {
-            let marker = AIRSensorPolygon.marker(sensor: sensor, radius: self.sensorRadius)
-            marker.map = self
-        }
-    }
-
-    /**
-     * draw sensors
-     * @param sensorObjects [AIRSensorObject]
-     **/
-    func drawSensors(sensorObjects sensorObjects: [AIRSensorObject]) {
-        for sensor in sensorObjects {
-            let marker = AIRSensorPolygon.marker(sensorObject: sensor, radius: self.sensorRadius)
-            marker.map = self
-        }
-    }
-
 
 
     /// MARK: - private api
@@ -159,6 +138,31 @@ class AIRMapView: GMSMapView {
         marker.draggable = false
         marker.map = self
     }
+
+    /**
+     * draw sensors
+     * @param sensors [AIRSensor]
+     **/
+    private func drawSensors(sensors: [AIRSensor]) {
+        for sensor in sensors {
+            let marker = AIRSensorPolygon.marker(sensor: sensor, radius: self.sensorRadius)
+            marker.map = self
+        }
+    }
+
+    /**
+     * draw sensors
+     * @param sensorObjects [AIRSensorObject]
+     **/
+    private func drawSensors(sensorObjects sensorObjects: [AIRSensorObject]) {
+        for sensor in sensorObjects {
+            let marker = AIRSensorPolygon.marker(sensorObject: sensor, radius: self.sensorRadius)
+            marker.map = self
+        }
+    }
+
+
+
 
 }
 

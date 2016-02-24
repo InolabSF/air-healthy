@@ -14,9 +14,10 @@ class AIRSensorObject {
     /**
      * return [AIRSensorObject]
      * @param json JSON
+     * @param name String
      * @return [AIRSensorObject]
      **/
-    class func sensorObjects(json json: JSON) -> [AIRSensorObject] {
+    class func sensorObjects(json json: JSON, name: String) -> [AIRSensorObject] {
         var sensorObjects: [AIRSensorObject] = []
 
         let sensors = json.arrayValue
@@ -24,14 +25,16 @@ class AIRSensorObject {
 
         let names = ["UV", "NO2","PM25", "CO", "SO2", "Ozone_S",]
         for s in sensors {
-            for name in names {
+            for n in names {
+                if n != name { continue }
+
                 let sensor = AIRSensorObject()
 
-                sensor.value = s[name.lowercaseString].numberValue
+                sensor.value = s[n.lowercaseString].numberValue
                 sensor.lat = s["lat"].numberValue
                 sensor.lng = s["lng"].numberValue
 
-                sensor.name = name
+                sensor.name = n
                 sensor.timestamp = NSDate().air_daysAgo(days: 1)!
                 sensorObjects.append(sensor)
             }

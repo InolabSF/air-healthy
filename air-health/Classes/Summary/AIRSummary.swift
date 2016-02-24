@@ -41,6 +41,8 @@ class AIRSummary: NSObject {
     override init() {
         super.init()
 
+        self.passes = AIRLocation.fetch(date: NSDate())
+
         // notification
         NSNotificationCenter.defaultCenter().addObserver(
             self,
@@ -48,8 +50,6 @@ class AIRSummary: NSObject {
             name: AIRNotificationCenter.UpdateSensorValues,
             object: nil
         )
-
-        self.passes = []
     }
 
     /// MARK: - destruction

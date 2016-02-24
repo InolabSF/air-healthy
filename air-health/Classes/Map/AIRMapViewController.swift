@@ -398,9 +398,9 @@ class AIRMapViewController: UIViewController {
             passes: self.passes,
             intervalFromStart: Double(self.timelineView.timeSlider.value),
             color: color,
-            sensors: self.sensors
+            sensors: self.sensors,
+            sensorObjects: self.sensorObjects
         )
-        self.mapView.drawSensors(sensorObjects: self.sensorObjects)
     }
 
     /**
@@ -508,7 +508,6 @@ extension AIRMapViewController: GMSMapViewDelegate {
     }
 
     func mapView(mapView: GMSMapView, idleAtCameraPosition position: GMSCameraPosition) {
-/*
         let previousCameraBounds = self.cameraBounds
         self.cameraBounds = self.mapView.cameraBounds()
         if previousCameraBounds == nil { return }
@@ -542,14 +541,15 @@ extension AIRMapViewController: GMSMapViewDelegate {
         }
 
         // request
+        let name = "\(self.chemical)"
         AIRSensorClient.sharedInstance.getSensorValues(
-            name: self.chemical,
+            name: name,
             minimumLocation: CLLocation(latitude: self.cameraBounds!.southWest.latitude, longitude: self.cameraBounds!.southWest.longitude),
             maximumLocation: CLLocation(latitude: self.cameraBounds!.northEast.latitude, longitude: self.cameraBounds!.northEast.longitude),
             radius: radius,
             date: NSDate(),
             completionHandler: { (json: JSON) -> Void in
-                let s = AIRSensorObject.sensorObjects(json: json)
+                let s = AIRSensorObject.sensorObjects(json: json, name: name)
 
                 NSNotificationCenter.defaultCenter().postNotificationName(
                     AIRNotificationCenter.DidUpdateMapSensors,
@@ -558,7 +558,6 @@ extension AIRMapViewController: GMSMapViewDelegate {
                 )
             }
         )
-*/
     }
 
     func mapView(mapView: GMSMapView,  didDragMarker marker:GMSMarker) {

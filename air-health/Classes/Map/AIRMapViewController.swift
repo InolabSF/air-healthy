@@ -488,10 +488,11 @@ extension AIRMapViewController: GMSMapViewDelegate {
     }
 
     func mapView(mapView: GMSMapView, didTapMarker marker: GMSMarker) -> Bool {
+/*
         if marker.isKindOfClass(AIRBadAirLocationMarker) {
             (marker as! AIRBadAirLocationMarker).shareSocial(parentViewController: self)
         }
-
+*/
         self.mapView.selectedMarker = marker
 
         return true

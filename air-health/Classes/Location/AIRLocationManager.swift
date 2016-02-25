@@ -83,21 +83,21 @@ class AIRLocationManager: NSObject {
 //        self.follower.endRouteTracking()
     }
 
-    /**
-     * save location name
-     * @param location CLLocation
-     * @param completionHandler called when location name is saved
-     **/
-    func saveLocationName(location location: CLLocation, completionHandler: () -> Void) {
-        AIRGoogleMapClient.sharedInstance.getLocatoinNearBySearch(
-            location: location,
-            completionHandler: { (json) in
-                if json["status"].string != AIRGoogleMap.Statuses.OK { return }
-                AIRLocationName.save(json: json)
-                completionHandler()
-            }
-        )
-    }
+//    /**
+//     * save location name
+//     * @param location CLLocation
+//     * @param completionHandler called when location name is saved
+//     **/
+//    func saveLocationName(location location: CLLocation, completionHandler: () -> Void) {
+//        AIRGoogleMapClient.sharedInstance.getLocatoinNearBySearch(
+//            location: location,
+//            completionHandler: { (json) in
+//                if json["status"].string != AIRGoogleMap.Statuses.OK { return }
+//                AIRLocationName.save(json: json)
+//                completionHandler()
+//            }
+//        )
+//    }
 
     /**
      * save demo data
@@ -147,7 +147,7 @@ class AIRLocationManager: NSObject {
             if lastLocation == nil {
                 AIRLocation.save(location: newLocation)
                 //self.postPollutedNotification(location: newLocation)
-                AIRUserClient.sharedInstance.postUser(location: newLocation, completionHandler: { (json) in })
+                //AIRUserClient.sharedInstance.postUser(location: newLocation, completionHandler: { (json) in })
             }
             // updating location
             else if distance >= AIRLocationManager.DistanceToUpdateLocation && // did move?
@@ -156,7 +156,7 @@ class AIRLocationManager: NSObject {
                 if self.comfirmingCountToUpdateLastLocation >= AIRLocationManager.ComfirmingCountToUpdateLocation {
                     AIRLocation.save(location: newLocation)
                     //self.postPollutedNotification(location: newLocation)
-                    AIRUserClient.sharedInstance.postUser(location: newLocation, completionHandler: { (json) in })
+                    //AIRUserClient.sharedInstance.postUser(location: newLocation, completionHandler: { (json) in })
                 }
                 else { self.comfirmingCountToUpdateLastLocation += 1 }
             }

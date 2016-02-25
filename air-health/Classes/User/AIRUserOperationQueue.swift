@@ -1,4 +1,4 @@
-/// MARK: - AIRUserOperationQueue
-class AIRUserOperationQueue: ISHTTPOperationQueue {
-}
+///// MARK: - AIRUserOperationQueue
+//class AIRUserOperationQueue: ISHTTPOperationQueue {
+//}
 

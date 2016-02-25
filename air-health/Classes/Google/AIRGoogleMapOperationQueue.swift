@@ -1,3 +1,3 @@
-/// MARK: - AIRGoogleMapOperationQueue
-class AIRGoogleMapOperationQueue: ISHTTPOperationQueue {
-}
+///// MARK: - AIRGoogleMapOperationQueue
+//class AIRGoogleMapOperationQueue: ISHTTPOperationQueue {
+//}
